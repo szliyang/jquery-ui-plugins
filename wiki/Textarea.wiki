@@ -5,8 +5,8 @@
 
 <div style="float: left; width: 33%;">
 	<h3>Options</h3>
-	<div>[charLimitMessage]</div>
-	<div>[limitMessageClass]</div>
+	<div>[WikiSyntax#charLimitMessage]</div>
+	<div>[#limitMessageClass]</div>
 	<div>[limitMessageStyle]</div>
 	<div>[maxChars]</div>
 	<div>[pasteFlickerFix]</div>
