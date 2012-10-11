@@ -5,30 +5,30 @@
 
 <div style="float: left; width: 33%;">
 	<h3>Options</h3>
-	<div><a href="charLimitMessage">charLimitMessage</a></div>
+	<div>[#charLimitMessage]</div>
 	<div>[#limitMessageClass]</div>
-	<div>[limitMessageStyle]</div>
-	<div>[maxChars]</div>
-	<div>[pasteFlickerFix]</div>
+	<div>[#limitMessageStyle]</div>
+	<div>[#maxChars]</div>
+	<div>[#pasteFlickerFix]</div>
 </div>
 
 <div style="float: left; width: 33%;">
 	<h3>Methods</h3>
-	<div>[afterCursor]</div>
-	<div>[beforeCursor]</div>
-	<div>[destroy]</div>
-	<div>[refresh]</div>
-	<div>[remaining]</div>
-	<div>[replaceSelection]</div>
-	<div>[selectedText]</div>
-	<div>[selectionEnd]</div>
-	<div>[selectionStart]</div>
+	<div>[#afterCursor]</div>
+	<div>[#beforeCursor]</div>
+	<div>[#destroy]</div>
+	<div>[#refresh]</div>
+	<div>[#remaining]</div>
+	<div>[#replaceSelection]</div>
+	<div>[#selectedText]</div>
+	<div>[#selectionEnd]</div>
+	<div>[#selectionStart]</div>
 </div>
 
 <div style="float: left; width: 33%;">
 	<h3>Events</h3>
-	<div>[afterChange]</div>
-	<div>[beforeChange]</div>
+	<div>[#afterChange]</div>
+	<div>[#beforeChange]</div>
 </div>
 
 ==Options==
