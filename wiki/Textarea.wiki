@@ -1,0 +1,135 @@
+#summary JQuery UI based textarea widget that provides maximum character length and text selection functionality.
+#labels Featured
+
+=API=
+
+<div style="float: left; width: 33%;">
+	<h3>Options</h3>
+	<div>[charLimitMessage]</div>
+	<div>[limitMessageClass]</div>
+	<div>[limitMessageStyle]</div>
+	<div>[maxChars]</div>
+	<div>[pasteFlickerFix]</div>
+</div>
+
+<div style="float: left; width: 33%;">
+	<h3>Methods</h3>
+	<div>[afterCursor]</div>
+	<div>[beforeCursor]</div>
+	<div>[destroy]</div>
+	<div>[refresh]</div>
+	<div>[remaining]</div>
+	<div>[replaceSelection]</div>
+	<div>[selectedText]</div>
+	<div>[selectionEnd]</div>
+	<div>[selectionStart]</div>
+</div>
+
+<div style="float: left; width: 33%;">
+	<h3>Events</h3>
+	<div>[afterChange]</div>
+	<div>[beforeChange]</div>
+</div>
+
+==Options==
+====charLimitMessage====
+The message displayed to the user to communicate the character limit info. The place holders {MAX}, {ENTERED} and {REMAINING} can be use to substitute the current value for max characters, characters entered and characters remaining.
+ 
+*Type:* String
+
+*Default:* ""
+---------------------------------------
+  
+====limitMessageClass====
+List of CSS classes to be applied to the limit message.
+
+*Type:* String
+
+*Default:* ""
+---------------------------------------
+
+====limitMessageStyle====
+CSS style applied to limit message.
+
+*Type:* String or Object
+
+*Default:* {"height": "16px", "font-size": ".8em", "position": "relative", "margin": "-3px 0 0 3px"}
+---------------------------------------
+ 
+====maxChars====
+Number or function returning the number of chars allowed. Using a function is valuable for dynamic limits, for example, when the limit depends on the contents of another textarea.
+
+*Type:* Number or function returning the number of chars allowed. Using a function is valuable for dynamic limits, for example, when the limit depends on the contents of another textarea.
+
+*Default:* -1
+---------------------------------------
+ 
+====pasteFlickerFix====
+Turning this off will help performance but you'll see a flicker in some browsers when text that's too long is pasted into the textarea.
+
+*Type:* Boolean
+
+*Default:* true
+---------------------------------------
+
+==Methods==
+====afterCursor()====
+Get the text after the current cursor location.
+
+*Returns:* String
+---------------------------------------
+
+===beforeCursor()===
+Get the text before the current cursor location.
+
+*Returns:* String
+---------------------------------------
+
+====destroy()====
+Destroy the text area, removing all functionality added by the plugin.
+
+---------------------------------------
+
+====refresh()====
+Refresh the text area. This is useful for updating the char limit message on a textarea with a dynamic character limit, e.g. when the limit is based on the content of multiple textareas
+
+---------------------------------------
+====remaining()====
+Get the remaining number of characters that can be entered
+
+*Returns:* Number
+
+---------------------------------------
+====replaceSelection(replacement)====
+Replace the current selection with the text specified by the replacement parameter.
+ 
+---------------------------------------
+====selectedText()====
+Get the current text selection.
+
+*Returns:* String
+ 
+---------------------------------------
+====selectedText([start], [end])====
+Set the current text selection using the provided start and end values.
+ 
+---------------------------------------	
+====selectionEnd====
+Get the index of the character at the end of the current selection.
+ 
+*Returns:* Number
+ 
+--------------------------------------- 
+====selectionStart====
+Get the index of the character at the start of the current selection.
+
+*Returns:* Number
+ ---------------------------------------
+ 
+==Events==
+====afterChange====
+Fired when the text is changed after the limit message has been updated.
+ 
+---------------------------------------
+====beforeChange====
+Fired when a key is pressed or when content is pasted into the textarea. If a limit message exists, this event is fired before the limit message is updated.
