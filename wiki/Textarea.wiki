@@ -5,7 +5,7 @@
 
 <div style="float: left; width: 33%;">
 	<h3>Options</h3>
-	<div>[WikiSyntax#charLimitMessage]</div>
+	<div><a href="charLimitMessage">charLimitMessage</a></div>
 	<div>[#limitMessageClass]</div>
 	<div>[limitMessageStyle]</div>
 	<div>[maxChars]</div>
