@@ -110,22 +110,22 @@ Get the current text selection.
 *Returns:* String
  
 ---------------------------------------
-====selectedText([start], [end])====
+====selectedText([[start]], [[end]])====
 Set the current text selection using the provided start and end values.
- 
----------------------------------------	
+ 	
+---------------------------------------
 ====selectionEnd====
 Get the index of the character at the end of the current selection.
  
 *Returns:* Number
- 
---------------------------------------- 
+  
+---------------------------------------
 ====selectionStart====
 Get the index of the character at the start of the current selection.
 
 *Returns:* Number
- ---------------------------------------
- 
+
+---------------------------------------
 ==Events==
 ====afterChange====
 Fired when the text is changed after the limit message has been updated.
