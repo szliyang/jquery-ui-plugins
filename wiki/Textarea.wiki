@@ -1,35 +1,60 @@
-#summary JQuery UI based textarea widget that provides maximum character length and text selection functionality.
+#summary JQuery UI based textarea widget that provides a maximum character length and text selection functionality.
 #labels Featured
 
-=API=
+=Textarea API=
 
-<div style="float: left; width: 33%;">
-	<h3>Options</h3>
-	<div>[#charLimitMessage charLimitMessage]</div>
-	<div>[#limitMessageClass limitMessageClass]</div>
-	<div>[#limitMessageStyle limitMessageStyle]</div>
-	<div>[#maxChars maxChars]</div>
-	<div>[#pasteFlickerFix pasteFlickerFix]</div>
-</div>
-
-<div style="float: left; width: 33%;">
-	<h3>Methods</h3>
-	<div>[#afterCursor afterCursor]</div>
-	<div>[#beforeCursor beforeCursor]</div>
-	<div>[#destroy destroy]</div>
-	<div>[#refresh refresh]</div>
-	<div>[#remaining remaining]</div>
-	<div>[#replaceSelection replaceSelection]</div>
-	<div>[#selectedText selectedText]</div>
-	<div>[#selectionEnd selectionEnd]</div>
-	<div>[#selectionStart selectionStart]</div>
-</div>
-
-<div style="float: left; width: 33%;">
-	<h3>Events</h3>
-	<div>[#afterChange afterChange]</div>
-	<div>[#beforeChange beforeChange]</div>
-</div>
+<table cellspacing="10px" style="text-align:left;">
+	<tr>
+		<td><b>[Options]</b></td>
+		<td><b>[Methods]</b></td>
+		<td><b>[Events]</b></td>
+	</tr>
+	<tr>
+		<td>[#charLimitMessage charLimitMessage]</td>
+		<td>[#afterCursor afterCursor]</td>
+		<td>[#afterChange afterChange]</td>
+	</tr>
+	<tr>
+		<td>[#limitMessageClass limitMessageClass]</td>
+		<td>[#beforeCursor beforeCursor]</td>
+		<td>[#beforeChange beforeChange]</td>
+	</tr>
+	<tr>
+		<td>[#limitMessageStyle limitMessageStyle]</td>
+		<td>[#destroy destroy]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#maxChars maxChars]</td>
+		<td>[#refresh refresh]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#pasteFlickerFix pasteFlickerFix]</td>
+		<td>[#remaining remaining]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>[#replaceSelection replaceSelection]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>[#selectedText selectedText]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>[#selectionEnd selectionEnd]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>[#selectionStart selectionStart]</td>
+		<td></td>
+	</tr>
+</table>
 
 ==Options==
 ====charLimitMessage====
@@ -114,22 +139,36 @@ Get the current text selection.
 Set the current text selection using the provided start and end values.
  	
 ---------------------------------------
-====selectionEnd====
+====selectionEnd()====
 Get the index of the character at the end of the current selection.
+
  
 *Returns:* Number
   
 ---------------------------------------
-====selectionStart====
+====selectionStart()====
 Get the index of the character at the start of the current selection.
 
 *Returns:* Number
 
 ---------------------------------------
+
 ==Events==
-====afterChange====
-Fired when the text is changed after the limit message has been updated.
+====afterChange(event, ui)====
+Triggered when the text is changed after the limit message has been updated.
+
+ * *event*
+ Type: [http://api.jquery.com/Types/#Event Event]
+
+ * *ui*
+ Type: [http://api.jquery.com/Types/#Object Object]
  
 ---------------------------------------
-====beforeChange====
-Fired when a key is pressed or when content is pasted into the textarea. If a limit message exists, this event is fired before the limit message is updated.
+====beforeChange(event, ui)====
+Triggered when a key is pressed or when content is pasted into the textarea. If a limit message exists, this event is fired before the limit message is updated.
+
+ * *event*
+ Type: [http://api.jquery.com/Types/#Event Event]
+
+ * *ui*
+ Type: [http://api.jquery.com/Types/#Object Object]
