@@ -312,6 +312,7 @@ Triggered when an item is removed from a list.
 <ul>
 <li>*event*</li>
 Type: [http://api.jquery.com/Types/#Event Event]
+
   
 <li>*data*</li>
 Type: [http://api.jquery.com/Types/#Object Object]
