@@ -65,6 +65,8 @@
 	</tr>
 </table>
 
+---------------------------------------
+
 ==Options==
 ====cssClassList1====
 List of CSS classes to be applied to list #1.
