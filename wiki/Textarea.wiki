@@ -12,7 +12,7 @@
 	<tr>
 		<td>[#charLimitMessage charLimitMessage]</td>
 		<td>[#afterCursor() afterCursor]</td>
-		<td>[#afterChange(event, ui) afterChange]</td>
+		<td>[#afterChange afterChange]</td>
 	</tr>
 	<tr>
 		<td>[#limitMessageClass limitMessageClass]</td>
@@ -41,7 +41,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#selectedText([[start]], [[end]]) selectedText]</td>
+		<td>[#selectedText() selectedText]</td>
 		<td></td>
 	</tr>
 	<tr>
@@ -104,7 +104,7 @@ Get the text after the current cursor location.
 *Returns:* String
 ---------------------------------------
 
-===beforeCursor()===
+====beforeCursor()====
 Get the text before the current cursor location.
 
 *Returns:* String
@@ -135,7 +135,7 @@ Get the current text selection.
 *Returns:* String
  
 ---------------------------------------
-====selectedText([[start]], [[end]])====
+====selectedText(start, end)==== 
 Set the current text selection using the provided start and end values.
  	
 ---------------------------------------
@@ -154,7 +154,7 @@ Get the index of the character at the start of the current selection.
 ---------------------------------------
 
 ==Events==
-====afterChange(event, ui)====
+<h4><a href="afterChange">afterChange(event, ui)</a></h4>
 Triggered when the text is changed after the limit message has been updated.
 
  * *event*
