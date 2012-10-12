@@ -1,0 +1,336 @@
+#summary JQuery UI based groupbox widget for adding and removing items to and from groups.
+
+=Groupbox API=
+
+<table cellspacing="10px" style="text-align:left;">
+	<tr>
+		<td><h3>[#Options Options]</h3></td>
+		<td><h3>[#Methods Methods]</h3></td>
+		<td><h3>[#Events Events]</h3></td>
+	</tr>		
+	<tr>
+		<td>[#cssClassList1 cssClassList1]</td>
+		<td>[#addItem(item,_listNumber) addItem]</td>
+		<td>[#itemAdded(event,_data) itemAdded]</td>
+	</tr>
+	<tr>
+		<td>[#cssClassList2 cssClassList2]</td>
+		<td>[#destroy() destroy]</td>
+		<td>[#itemMoved(event,_data) itemMoved]</td>
+	</tr>
+	<tr>
+		<td>[#height height]</td>
+		<td>[#getItems() getItems]</td>
+		<td>[#itemRemoved(event,_data) itemRemoved]</td>
+	</tr>			
+	<tr>
+		<td>[#idAttr idAttr]</td>
+		<td>[#getSelected() getSelected]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#itemsList1 itemsList1]</td>
+		<td>[#removeItem(item) removeItem]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#itemsList2 itemsList2]</td>
+		<td>[#setItems(items,_listNumber) setItems]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#labelAttr labelAttr]</td>
+		<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#labelList1 labelList1]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>		
+		<td>[#labelList2 labelList2]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>		
+		<td>[#selectable selectable]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>		
+		<td>[#width width]</td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+
+==Options==
+====cssClassList1====
+List of CSS classes to be applied to list #1.
+ 
+*Type:* String
+
+*Default:* ""
+---------------------------------------
+  
+====cssClassList2====
+List of CSS classes to be applied to list #2.
+
+*Type:* String
+
+*Default:* ""
+---------------------------------------
+
+====height====
+The height of each list in the groupbox control.
+
+*Type:* String
+
+*Default:* "500"
+---------------------------------------
+ 
+====idAttr====
+Name of the attribute on the list item objects that will be used as a unique id for each item. This attribute must be unique across both lists.
+
+*Type:* String
+
+*Default:* "id"
+---------------------------------------
+ 
+====itemsList1====
+List of items to populate list #1 with.
+
+*Type:* Array
+
+*Default:* []
+---------------------------------------
+
+====itemsList2====
+List of items to populate list #2 with.
+
+*Type:* Array
+
+*Default:* []
+---------------------------------------
+
+====labelAttr====
+Name of the attribute on the list item objects containing the value that will be displayed for each item.
+
+*Type:* String
+
+*Default:* "name"
+---------------------------------------
+
+---------------------------------------
+
+====labelList1====
+Label displayed as the heading for list #1.
+
+*Type:* String
+
+*Default:* "From"
+---------------------------------------
+
+====labelList1====
+Label displayed as the heading for list #2.
+
+*Type:* String
+
+*Default:* "To"
+---------------------------------------
+
+====selectable====
+Boolean value indicating if the list items should be made selectable, meaning the user can drag with their mouse to select multiple items.
+
+*Type:* Boolean
+
+*Default:* true
+---------------------------------------
+
+====width====
+The width of each list in the groupbox control.	
+
+*Type:* String
+
+*Default:* "300"
+---------------------------------------
+	
+==Methods==
+====addItem(listNumber, item)====
+Add an item to the specified list. One thing to note is that it is assumed that all items have unique ids. If an item is added to a list and an item with that id already exists, the new item will be added and both items will reference the data of the new item.
+
+ * *listNumber*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ Number indicating which list to add the item to (1 or 2).
+
+ * *item*
+ Type: [http://api.jquery.com/Types/#Object Object]
+ The item to be added.
+---------------------------------------
+
+====destroy()====
+Removes the groupbox functionality completely. This will return the element back to its pre-init state.
+
+---------------------------------------
+
+====getItems(listNumber)====
+Get all of the items currently contained in the list specified by {{{listNumber}}}.
+
+ * *listNumber*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ Number indicating from which list the items should be retrieved (1 or 2).
+
+---------------------------------------
+====getSelected()====
+Get the remaining number of characters that can be entered
+
+ * *listNumber*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ Number indicating from which list the items should be retrieved (1 or 2).
+
+---------------------------------------
+====removeItem(listNumber, item)====
+Remove an item from the specified list. 
+
+ * *listNumber*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ Number indicating from which list the item should be removed (1 or 2).
+ 
+ * *item*
+ Type: [http://api.jquery.com/Types/#String String] OR [http://api.jquery.com/Types/#Object Object]
+ The item to remove, this parameter can be either an item ID or an item object.
+ 
+---------------------------------------
+====setItems(listNumber, items)====
+Replace the current contents of the list specified by {{{listNumber}}} with the list of objects in the {{{items}}} array.
+
+ * *listNumber*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ Number indicating for which list the items are being set(1 or 2).
+ 
+ * *items*
+ Type: [http://api.jquery.com/Types/#Array Array]
+ The list of item objects.
+ 
+---------------------------------------
+====setSelected(listNumber, items, clearSelections)==== 
+Set the selected {{{items}}} in {{{listNumber}}}. This method can take either an array of item ids or an array of items. The clearSelections parameter controls whether or not previously selected items are un-selected.
+
+ * *listNumber*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ Number indicating which list contains the items to select(1 or 2).
+ 
+ * *items*
+ Type: [http://api.jquery.com/Types/#Array Array]
+ The list items to be selected. This list can be either a list of IDs or a list of objects.
+ 
+ * *clearSelections*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+ Boolean parameter indicating whether or not previously selected items are un-selected.		
+
+ events:
+	*
+	*itemMoved
+	*itemRemoved
+
+==Events==
+====itemAdded(event, data)====
+Triggered when an item is added to a list.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that was just added.
+
+<li>*list*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item was added to.
+
+<li>*listElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was added to.
+
+</ul> 
+</ul>
+   
+---------------------------------------
+====itemMoved(event, data)====
+Triggered when an item is moved from one list to the other.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that was just moved.
+
+<li>*fromList*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item moved from.
+
+<li>*toList*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item was moved to.
+
+<li>*fromListElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was moved from.
+
+<li>*toListElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was moved to.
+</ul> 
+</ul>
+
+---------------------------------------
+====itemRemoved(event, data)====
+Triggered when an item is removed from a list.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that was just removed.
+
+<li>*list*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item was removed from.
+
+<li>*listElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was removed from.
+
+</ul> 
+</ul>  
