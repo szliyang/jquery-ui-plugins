@@ -132,7 +132,7 @@ Label displayed as the heading for list #1.
 *Default:* "From"
 ---------------------------------------
 
-====labelList1====
+====labelList2====
 Label displayed as the heading for list #2.
 
 *Type:* String
