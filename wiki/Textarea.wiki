@@ -3,7 +3,7 @@
 
 =Textarea API=
 
-<table cellspacing="10px" style="text-align:left;">
+<table>
 	<tr>
 		<td><h3>[#Options Options]</h3></td>
 		<td><h3>[#Methods Methods]</h3></td>
