@@ -1,7 +1,7 @@
-* [Documentation]
+* Documentation
 	* [Groupbox]
 	* [Textarea]
-* [Downloads]
-* [Links]
+* Downloads
+* Links
 	* [http://jquery.com JQuery]
 	* [http://jqueryui.com JQuery UI]
