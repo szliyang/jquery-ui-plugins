@@ -10,7 +10,7 @@
 	</tr>		
 	<tr>
 		<td>[#cssClassList1 cssClassList1]</td>
-		<td>[#addItem(item,_listNumber) addItem]</td>
+		<td>[#addItem(listNumber,_item,) addItem]</td>
 		<td>[#itemAdded(event,_data) itemAdded]</td>
 	</tr>
 	<tr>
@@ -30,12 +30,12 @@
 	</tr>
 	<tr>
 		<td>[#itemsList1 itemsList1]</td>
-		<td>[#removeItem(item) removeItem]</td>
+		<td>[#removeItem(listNumber,_item) removeItem]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>[#itemsList2 itemsList2]</td>
-		<td>[#setItems(items,_listNumber) setItems]</td>
+		<td>[#setItems(listNumber,_items) setItems]</td>
 		<td></td>
 	</tr>
 	<tr>
