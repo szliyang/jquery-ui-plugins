@@ -56,6 +56,8 @@
 	</tr>
 </table>
 
+---------------------------------------
+
 ==Options==
 ====charLimitMessage====
 The message displayed to the user to communicate the character limit info. The place holders {MAX}, {ENTERED} and {REMAINING} can be use to substitute the current value for max characters, characters entered and characters remaining.
