@@ -10,7 +10,7 @@
 	</tr>		
 	<tr>
 		<td>[#cssClassList1 cssClassList1]</td>
-		<td>[#addItem(listNumber,_item,) addItem]</td>
+		<td>[#addItem(listNumber,_item) addItem]</td>
 		<td>[#itemAdded(event,_data) itemAdded]</td>
 	</tr>
 	<tr>
@@ -25,7 +25,7 @@
 	</tr>			
 	<tr>
 		<td>[#idAttr idAttr]</td>
-		<td>[#getSelected() getSelected]</td>
+		<td>[#getSelected(listNumber) getSelected]</td>
 		<td></td>
 	</tr>
 	<tr>
