@@ -11,47 +11,47 @@
 	</tr>
 	<tr>
 		<td>[#charLimitMessage charLimitMessage]</td>
-		<td>[#afterCursor afterCursor]</td>
-		<td>[#afterChange afterChange]</td>
+		<td>[#afterCursor() afterCursor]</td>
+		<td>[#afterChange(event, ui) afterChange]</td>
 	</tr>
 	<tr>
 		<td>[#limitMessageClass limitMessageClass]</td>
-		<td>[#beforeCursor beforeCursor]</td>
-		<td>[#beforeChange beforeChange]</td>
+		<td>[#beforeCursor() beforeCursor]</td>
+		<td>[#beforeChange(event, ui) beforeChange]</td>
 	</tr>
 	<tr>
 		<td>[#limitMessageStyle limitMessageStyle]</td>
-		<td>[#destroy destroy]</td>
+		<td>[#destroy() destroy]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>[#maxChars maxChars]</td>
-		<td>[#refresh refresh]</td>
+		<td>[#refresh() refresh]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>[#pasteFlickerFix pasteFlickerFix]</td>
-		<td>[#remaining remaining]</td>
+		<td>[#remaining() remaining]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#replaceSelection replaceSelection]</td>
+		<td>[#replaceSelection(replacement) replaceSelection]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#selectedText selectedText]</td>
+		<td>[#selectedText([[start]], [[end]]) selectedText]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#selectionEnd selectionEnd]</td>
+		<td>[#selectionEnd() selectionEnd]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#selectionStart selectionStart]</td>
+		<td>[#selectionStart() selectionStart]</td>
 		<td></td>
 	</tr>
 </table>
