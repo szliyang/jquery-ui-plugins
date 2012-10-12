@@ -12,12 +12,12 @@
 	<tr>
 		<td>[#charLimitMessage charLimitMessage]</td>
 		<td>[#afterCursor() afterCursor]</td>
-		<td>[#afterChange(event,_ui) afterChange]</td>
+		<td>[#afterChange(event,_data) afterChange]</td>
 	</tr>
 	<tr>
 		<td>[#limitMessageClass limitMessageClass]</td>
 		<td>[#beforeCursor() beforeCursor]</td>
-		<td>[#beforeChange(event,_ui) beforeChange]</td>
+		<td>[#beforeChange(event,_data) beforeChange]</td>
 	</tr>
 	<tr>
 		<td>[#limitMessageStyle limitMessageStyle]</td>
@@ -129,6 +129,10 @@ Get the remaining number of characters that can be entered
 ---------------------------------------
 ====replaceSelection(replacement)====
 Replace the current selection with the text specified by the replacement parameter.
+
+ * *replacement*
+ Type: [http://api.jquery.com/Types/#String String]
+ The text that will replace the current selection.
  
 ---------------------------------------
 ====selectedText()====
@@ -139,6 +143,14 @@ Get the current text selection.
 ---------------------------------------
 ====selectedText(start, end)==== 
 Set the current text selection using the provided start and end values.
+
+ * *start*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ A zero based index indicating where to start the selection. The character at this index will be included in the selection.
+
+ * *end*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+ A zero based index indicating where to stop the selection. the character at this index will not be included in the selection.
  	
 ---------------------------------------
 ====selectionEnd()====
@@ -156,21 +168,21 @@ Get the index of the character at the start of the current selection.
 ---------------------------------------
 
 ==Events==
-====afterChange(event, ui)====
+====afterChange(event, data)====
 Triggered when the text is changed after the limit message has been updated.
 
  * *event*
  Type: [http://api.jquery.com/Types/#Event Event]
 
- * *ui*
+ * *data*
  Type: [http://api.jquery.com/Types/#Object Object]
  
 ---------------------------------------
-====beforeChange(event, ui)====
+====beforeChange(event, data)====
 Triggered when a key is pressed or when content is pasted into the textarea. If a limit message exists, this event is fired before the limit message is updated.
 
  * *event*
  Type: [http://api.jquery.com/Types/#Event Event]
 
- * *ui*
+ * *data*
  Type: [http://api.jquery.com/Types/#Object Object]
