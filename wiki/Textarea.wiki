@@ -103,13 +103,13 @@ Turning this off will help performance but you'll see a flicker in some browsers
 ====afterCursor()====
 Get the text after the current cursor location.
 
-*Returns:* String
+*Returns:* *Returns:* [http://api.jquery.com/Types/#String String]
 ---------------------------------------
 
 ====beforeCursor()====
 Get the text before the current cursor location.
 
-*Returns:* String
+*Returns:* *Returns:* [http://api.jquery.com/Types/#String String]
 ---------------------------------------
 
 ====destroy()====
@@ -124,7 +124,7 @@ Refresh the text area. This is useful for updating the char limit message on a t
 ====remaining()====
 Get the remaining number of characters that can be entered
 
-*Returns:* Number
+*Returns:* [http://api.jquery.com/Types/#Number Number]
 
 ---------------------------------------
 ====replaceSelection(replacement)====
@@ -132,13 +132,14 @@ Replace the current selection with the text specified by the replacement paramet
 
  * *replacement*
  Type: [http://api.jquery.com/Types/#String String]
+
  The text that will replace the current selection.
  
 ---------------------------------------
 ====selectedText()====
 Get the current text selection.
 
-*Returns:* String
+*Returns:* *Returns:* [http://api.jquery.com/Types/#String String]
  
 ---------------------------------------
 ====selectedText(start, end)==== 
@@ -146,10 +147,12 @@ Set the current text selection using the provided start and end values.
 
  * *start*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
  A zero based index indicating where to start the selection. The character at this index will be included in the selection.
 
  * *end*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
  A zero based index indicating where to stop the selection. the character at this index will not be included in the selection.
  	
 ---------------------------------------
@@ -157,13 +160,13 @@ Set the current text selection using the provided start and end values.
 Get the index of the character at the end of the current selection.
 
  
-*Returns:* Number
+*Returns:* *Returns:* [http://api.jquery.com/Types/#Number Number]
   
 ---------------------------------------
 ====selectionStart()====
 Get the index of the character at the start of the current selection.
 
-*Returns:* Number
+*Returns:* *Returns:* [http://api.jquery.com/Types/#Number Number]
 
 ---------------------------------------
 
