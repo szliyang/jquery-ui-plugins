@@ -124,8 +124,6 @@ Name of the attribute on the list item objects containing the value that will be
 *Default:* "name"
 ---------------------------------------
 
----------------------------------------
-
 ====labelList1====
 Label displayed as the heading for list #1.
 
