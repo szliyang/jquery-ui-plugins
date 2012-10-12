@@ -20,7 +20,7 @@
 	</tr>
 	<tr>
 		<td>[#height height]</td>
-		<td>[#getItems() getItems]</td>
+		<td>[#getItems(listNumber) getItems]</td>
 		<td>[#itemRemoved(event,_data) itemRemoved]</td>
 	</tr>			
 	<tr>
@@ -182,7 +182,7 @@ Get all of the items currently contained in the list specified by {{{listNumber}
  Number indicating from which list the items should be retrieved (1 or 2).
 
 ---------------------------------------
-====getSelected()====
+====getSelected(listNumber)====
 Get the remaining number of characters that can be entered
 
  * *listNumber*
