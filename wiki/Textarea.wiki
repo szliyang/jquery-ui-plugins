@@ -5,9 +5,9 @@
 
 <table cellspacing="10px" style="text-align:left;">
 	<tr>
-		<td><b>[Options]</b></td>
-		<td><b>[Methods]</b></td>
-		<td><b>[Events]</b></td>
+		<td><b>[#Options Options]</b></td>
+		<td><b>[#Methods Methods]</b></td>
+		<td><b>[#Events Events]</b></td>
 	</tr>
 	<tr>
 		<td>[#charLimitMessage charLimitMessage]</td>
