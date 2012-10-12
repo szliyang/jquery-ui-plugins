@@ -12,12 +12,12 @@
 	<tr>
 		<td>[#charLimitMessage charLimitMessage]</td>
 		<td>[#afterCursor() afterCursor]</td>
-		<td>[#afterChange afterChange]</td>
+		<td>[#afterChange(event,_ui) afterChange]</td>
 	</tr>
 	<tr>
 		<td>[#limitMessageClass limitMessageClass]</td>
 		<td>[#beforeCursor() beforeCursor]</td>
-		<td>[#beforeChange(event, ui) beforeChange]</td>
+		<td>[#beforeChange(event,_ui) beforeChange]</td>
 	</tr>
 	<tr>
 		<td>[#limitMessageStyle limitMessageStyle]</td>
@@ -154,7 +154,7 @@ Get the index of the character at the start of the current selection.
 ---------------------------------------
 
 ==Events==
-<h4><a href="afterChange">afterChange(event, ui)</a></h4>
+====afterChange(event, ui)====
 Triggered when the text is changed after the limit message has been updated.
 
  * *event*
