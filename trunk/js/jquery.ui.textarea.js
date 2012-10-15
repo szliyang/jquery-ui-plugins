@@ -9,16 +9,9 @@
  * Depends:
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
+ *  jquery.ui.plugins.core.js
  */
 ;(function($, undefined) {
-	$.extend($.ui.keyCode, {
-		A: 65,
-		NUM_LOCK: 144,					
-		NUMPAD_ZERO: 96,		
-		PAUSE_BREAK: 19,		
-		SCROLL_LOCK: 145,
-		WINDOWS_RIGHT: 92
-	});
 	
 	$.widget('ui.textarea', {  
 		options: {			
