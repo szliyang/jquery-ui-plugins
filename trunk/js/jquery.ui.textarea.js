@@ -1,5 +1,5 @@
 /*
- * jQuery UI Textarea 0.0.1
+ * jQuery UI Textarea 0.0.7
  *
  * Copyright 2012, Chad LaVigne
  * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php) 
