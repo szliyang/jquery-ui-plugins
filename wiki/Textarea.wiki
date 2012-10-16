@@ -61,10 +61,25 @@
 ==Options==
 ====charLimitMessage====
 The message displayed to the user to communicate the character limit info. The place holders {MAX}, {ENTERED} and {REMAINING} can be use to substitute the current value for max characters, characters entered and characters remaining.
- 
+
 *Type:* String
 
 *Default:* ""
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myTextarea').textarea({
+  'maxChars': 100, 
+  'charLimitMessage': '{ENTERED} of {MAX} characters, {REMAINING}
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myTextarea').textarea('option', 'charLimitMessage', '{ENTERED} of {MAX}');
+}}}
 ---------------------------------------
   
 ====limitMessageClass====
@@ -73,6 +88,22 @@ List of CSS classes to be applied to the limit message.
 *Type:* String
 
 *Default:* ""
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myTextarea').textarea({
+  'maxChars': 100, 
+  'charLimitMessage': '{ENTERED} of {MAX} characters', 					
+  'limitMessageClass': 'red'
+});	
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myTextarea').textarea('option', 'limitMessageClass', 'blue');
+}}}
 ---------------------------------------
 
 ====limitMessageStyle====
@@ -81,14 +112,44 @@ CSS style applied to limit message.
 *Type:* String or Object
 
 *Default:* {"height": "16px", "font-size": ".8em", "position": "relative", "margin": "-3px 0 0 3px"}
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myTextarea').textarea({
+  'maxChars': 100, 
+  'charLimitMessage': '{ENTERED} of {MAX} characters',
+  'limitMessageStyle': {'font-weight': 'bold'},
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myTextarea').textarea('option', 'limitMessageStyle', {'font-weight': 'bold'});
+}}}
 ---------------------------------------
  
 ====maxChars====
 Number or function returning the number of chars allowed. Using a function is valuable for dynamic limits, for example, when the limit depends on the contents of another textarea.
 
-*Type:* Number or function returning the number of chars allowed. Using a function is valuable for dynamic limits, for example, when the limit depends on the contents of another textarea.
+*Type:* Number or function
 
 *Default:* -1
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myTextarea').textarea({
+  'maxChars': 100
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myTextarea').textarea('option', 'maxChars', 50);
+}}}
 ---------------------------------------
  
 ====pasteFlickerFix====
@@ -97,6 +158,21 @@ Turning this off will help performance but you'll see a flicker in some browsers
 *Type:* Boolean
 
 *Default:* true
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myTextarea').textarea({
+  'maxChars': 100,
+  'pasteFlickerFix': false
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myTextarea').textarea('option', 'pasteFlickerFix', false);
+}}}
 ---------------------------------------
 
 ==Methods==
