@@ -199,7 +199,7 @@
 			var toList = removeFromList1 ? this.options.itemsList2 : this.options.itemsList1;
 			var removedItem = fromList.splice($item.index(), 1)[0];
 			toList.push(removedItem);
-			var $newItem = $('<li id="' + $item.attr('id') + '" class="ui-state-default ui-groupbox-item">' + $item.text() + '</li>');			
+			var $newItem = $('<li id="' + $item.attr('id') + '" class="ui-state-default ui-groupbox-item">' + $item.html() + '</li>');			
 			this._bindListItemEvents($newItem, $fromList);
 			$toList.append($newItem);			
 			$item.remove();
