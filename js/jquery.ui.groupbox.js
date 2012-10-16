@@ -101,7 +101,8 @@
 			if(items.length) {
 				for(var i = 0; i < items.length; i++) {
 					var item = items[i];
-					itemsHtml += '<li id="ui-groupbox-item-' + item[opts.idAttr] + '" class="ui-state-default ui-groupbox-item">' + item[opts.labelAttr] + '</li>';
+					var classList = item.selected ? 'ui-selected ui-state-active ui-groupbox-item' : 'ui-state-default ui-groupbox-item';
+					itemsHtml += '<li id="ui-groupbox-item-' + item[opts.idAttr] + '" class="' + classList + '">' + item[opts.labelAttr] + '</li>';
 				}
 			}
 						
