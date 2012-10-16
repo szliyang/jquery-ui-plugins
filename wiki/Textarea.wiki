@@ -62,7 +62,7 @@
 ====charLimitMessage====
 The message displayed to the user to communicate the character limit info. The place holders {MAX}, {ENTERED} and {REMAINING} can be use to substitute the current value for max characters, characters entered and characters remaining.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* ""
 
@@ -85,7 +85,7 @@ $('#myTextarea').textarea('option', 'charLimitMessage', '{ENTERED} of {MAX}');
 ====limitMessageClass====
 List of CSS classes to be applied to the limit message.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* ""
 
@@ -109,7 +109,7 @@ $('#myTextarea').textarea('option', 'limitMessageClass', 'blue');
 ====limitMessageStyle====
 CSS style applied to limit message.
 
-*Type:* String or Object
+*Type:*  [http://api.jquery.com/Types/#String String] or  [http://api.jquery.com/Types/#Object Object]
 
 *Default:* {"height": "16px", "font-size": ".8em", "position": "relative", "margin": "-3px 0 0 3px"}
 
@@ -133,7 +133,7 @@ $('#myTextarea').textarea('option', 'limitMessageStyle', {'font-weight': 'bold'}
 ====maxChars====
 Number or function returning the number of chars allowed. Using a function is valuable for dynamic limits, for example, when the limit depends on the contents of another textarea.
 
-*Type:* Number or function
+*Type:* [http://api.jquery.com/Types/#Number Number] or  [http://api.jquery.com/Types/#Function Function]
 
 *Default:* -1
 
@@ -155,7 +155,7 @@ $('#myTextarea').textarea('option', 'maxChars', 50);
 ====pasteFlickerFix====
 Turning this off will help performance but you'll see a flicker in some browsers when text that's too long is pasted into the textarea.
 
-*Type:* Boolean
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
 
 *Default:* true
 
@@ -179,13 +179,13 @@ $('#myTextarea').textarea('option', 'pasteFlickerFix', false);
 ====afterCursor()====
 Get the text after the current cursor location.
 
-*Returns:* *Returns:* [http://api.jquery.com/Types/#String String]
+*Returns:* [http://api.jquery.com/Types/#String String]
 ---------------------------------------
 
 ====beforeCursor()====
 Get the text before the current cursor location.
 
-*Returns:* *Returns:* [http://api.jquery.com/Types/#String String]
+*Returns:* [http://api.jquery.com/Types/#String String]
 ---------------------------------------
 
 ====destroy()====
@@ -215,7 +215,7 @@ Replace the current selection with the text specified by the replacement paramet
 ====selectedText()====
 Get the current text selection.
 
-*Returns:* *Returns:* [http://api.jquery.com/Types/#String String]
+*Returns:* [http://api.jquery.com/Types/#String String]
  
 ---------------------------------------
 ====selectedText(start, end)==== 
@@ -235,14 +235,13 @@ Set the current text selection using the provided start and end values.
 ====selectionEnd()====
 Get the index of the character at the end of the current selection.
 
- 
-*Returns:* *Returns:* [http://api.jquery.com/Types/#Number Number]
+*Returns:* [http://api.jquery.com/Types/#Number Number]
   
 ---------------------------------------
 ====selectionStart()====
 Get the index of the character at the start of the current selection.
 
-*Returns:* *Returns:* [http://api.jquery.com/Types/#Number Number]
+*Returns:* [http://api.jquery.com/Types/#Number Number]
 
 ---------------------------------------
 
