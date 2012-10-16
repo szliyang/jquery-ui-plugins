@@ -1,4 +1,4 @@
-#summary JQuery UI based groupbox widget for adding and removing items to and from groups.
+#summary JQuery UI based groupbox widget for moving items between two lists.
 
 =Groupbox API=
 
