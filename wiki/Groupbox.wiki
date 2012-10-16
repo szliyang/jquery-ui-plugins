@@ -70,8 +70,8 @@
 ==Options==
 ====cssClassList1====
 List of CSS classes to be applied to list #1.
- 
-*Type:* String
+
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* ""
 ---------------------------------------
@@ -79,7 +79,7 @@ List of CSS classes to be applied to list #1.
 ====cssClassList2====
 List of CSS classes to be applied to list #2.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* ""
 ---------------------------------------
@@ -87,7 +87,7 @@ List of CSS classes to be applied to list #2.
 ====height====
 The height of each list in the groupbox control.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "500"
 ---------------------------------------
@@ -95,7 +95,7 @@ The height of each list in the groupbox control.
 ====idAttr====
 Name of the attribute on the list item objects that will be used as a unique id for each item. This attribute must be unique across both lists.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "id"
 ---------------------------------------
@@ -103,7 +103,7 @@ Name of the attribute on the list item objects that will be used as a unique id 
 ====itemsList1====
 List of items to populate list #1 with.
 
-*Type:* Array
+*Type:* [http://api.jquery.com/Types/#Array Array]
 
 *Default:* []
 ---------------------------------------
@@ -111,7 +111,7 @@ List of items to populate list #1 with.
 ====itemsList2====
 List of items to populate list #2 with.
 
-*Type:* Array
+*Type:* [http://api.jquery.com/Types/#Array Array]
 
 *Default:* []
 ---------------------------------------
@@ -119,7 +119,7 @@ List of items to populate list #2 with.
 ====labelAttr====
 Name of the attribute on the list item objects containing the value that will be displayed for each item.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "name"
 ---------------------------------------
@@ -127,7 +127,7 @@ Name of the attribute on the list item objects containing the value that will be
 ====labelList1====
 Label displayed as the heading for list #1.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "From"
 ---------------------------------------
@@ -135,7 +135,7 @@ Label displayed as the heading for list #1.
 ====labelList2====
 Label displayed as the heading for list #2.
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "To"
 ---------------------------------------
@@ -143,7 +143,7 @@ Label displayed as the heading for list #2.
 ====selectable====
 Boolean value indicating if the list items should be made selectable, meaning the user can drag with their mouse to select multiple items.
 
-*Type:* Boolean
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
 
 *Default:* true
 ---------------------------------------
@@ -151,7 +151,7 @@ Boolean value indicating if the list items should be made selectable, meaning th
 ====width====
 The width of each list in the groupbox control.	
 
-*Type:* String
+*Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "300"
 ---------------------------------------
@@ -162,6 +162,7 @@ Add an item to the specified list. One thing to note is that it is assumed that 
 
  * *listNumber*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
  Number indicating which list to add the item to (1 or 2).
 
  * *item*
@@ -179,6 +180,7 @@ Get all of the items currently contained in the list specified by {{{listNumber}
 
  * *listNumber*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
  Number indicating from which list the items should be retrieved (1 or 2).
 
 ---------------------------------------
@@ -187,18 +189,20 @@ Get the remaining number of characters that can be entered
 
  * *listNumber*
  Type: [http://api.jquery.com/Types/#Integer Integer]
- Number indicating from which list the items should be retrieved (1 or 2).
 
+ Number indicating from which list the items should be retrieved (1 or 2).
 ---------------------------------------
 ====removeItem(listNumber, item)====
 Remove an item from the specified list. 
 
  * *listNumber*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
  Number indicating from which list the item should be removed (1 or 2).
  
  * *item*
  Type: [http://api.jquery.com/Types/#String String] OR [http://api.jquery.com/Types/#Object Object]
+
  The item to remove, this parameter can be either an item ID or an item object.
  
 ---------------------------------------
@@ -207,26 +211,30 @@ Replace the current contents of the list specified by {{{listNumber}}} with the 
 
  * *listNumber*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
  Number indicating for which list the items are being set(1 or 2).
  
  * *items*
  Type: [http://api.jquery.com/Types/#Array Array]
+
  The list of item objects.
- 
 ---------------------------------------
 ====setSelected(listNumber, items, clearSelections)==== 
 Set the selected {{{items}}} in {{{listNumber}}}. This method can take either an array of item ids or an array of items. The clearSelections parameter controls whether or not previously selected items are un-selected.
 
  * *listNumber*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
  Number indicating which list contains the items to select(1 or 2).
  
  * *items*
  Type: [http://api.jquery.com/Types/#Array Array]
+
  The list items to be selected. This list can be either a list of IDs or a list of objects.
  
  * *clearSelections*
  Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
  Boolean parameter indicating whether or not previously selected items are un-selected.		
 
  events:
