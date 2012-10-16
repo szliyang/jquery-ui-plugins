@@ -180,28 +180,50 @@ $('#myTextarea').textarea('option', 'pasteFlickerFix', false);
 Get the text after the current cursor location.
 
 *Returns:* [http://api.jquery.com/Types/#String String]
+
+*Example:*
+{{{
+var textAfterCursor = $('#myTextarea').textarea('afterCursor');
+}}}
 ---------------------------------------
 
 ====beforeCursor()====
 Get the text before the current cursor location.
 
 *Returns:* [http://api.jquery.com/Types/#String String]
+
+*Example:*
+{{{
+var textBeforeCursor = $('#myTextarea').textarea('beforeCursor');
+}}}
 ---------------------------------------
 
 ====destroy()====
 Destroy the text area, removing all functionality added by the plugin.
 
+*Example:*
+{{{
+$('#myTextarea').textarea('destroy');
+}}}
 ---------------------------------------
 
 ====refresh()====
 Refresh the text area. This is useful for updating the char limit message on a textarea with a dynamic character limit, e.g. when the limit is based on the content of multiple textareas
 
+*Example:*
+{{{
+$('#myTextarea').textarea('refresh');
+}}}
 ---------------------------------------
 ====remaining()====
 Get the remaining number of characters that can be entered
 
 *Returns:* [http://api.jquery.com/Types/#Number Number]
 
+*Example:*
+{{{
+var charsRemaining = $('#myTextarea').textarea('remaining');
+}}}
 ---------------------------------------
 ====replaceSelection(replacement)====
 Replace the current selection with the text specified by the replacement parameter.
@@ -211,12 +233,20 @@ Replace the current selection with the text specified by the replacement paramet
 
  The text that will replace the current selection.
  
+*Example:*
+{{{
+$textarea.textarea('replaceSelection', 'My new text');
+}}}
 ---------------------------------------
 ====selectedText()====
 Get the current text selection.
 
 *Returns:* [http://api.jquery.com/Types/#String String]
  
+*Example:*
+{{{
+var selectedText = $('#myTextarea').textarea('selectedText');
+}}}
 ---------------------------------------
 ====selectedText(start, end)==== 
 Set the current text selection using the provided start and end values.
@@ -231,18 +261,31 @@ Set the current text selection using the provided start and end values.
 
  A zero based index indicating where to stop the selection. the character at this index will not be included in the selection.
  	
+*Example:*
+{{{
+// if the textarea contains the text "Hamburger", the follwoing call to selectedText will set the selection to "urge".
+$('#myTextarea').textarea('selectedText', 4, 8);
+}}}
 ---------------------------------------
 ====selectionEnd()====
-Get the index of the character at the end of the current selection.
+Get the zero-based index of the character at the end of the current selection. This is the first character that is NOT part of the current selection.
 
 *Returns:* [http://api.jquery.com/Types/#Number Number]
-  
+
+*Example:*
+{{{
+var end = $('#myTextarea').textarea('selectionEnd');
+}}}
 ---------------------------------------
 ====selectionStart()====
-Get the index of the character at the start of the current selection.
+Get the zero-based index of the character at the start of the current selection.
 
 *Returns:* [http://api.jquery.com/Types/#Number Number]
 
+*Example:*
+{{{
+var start = $('#myTextarea').textarea('selectionStart');
+}}}
 ---------------------------------------
 
 ==Events==
@@ -255,6 +298,15 @@ Triggered when the text is changed after the limit message has been updated.
  * *data*
  Type: [http://api.jquery.com/Types/#Object Object]
  
+*Example:*
+{{{
+$('#myTextarea').textarea({
+  'maxChars': 100,
+  'afterChange': function(event, data) {
+    // code to execute when afterChange is triggered
+  }
+});
+}}}
 ---------------------------------------
 ====beforeChange(event, data)====
 Triggered when a key is pressed or when content is pasted into the textarea. If a limit message exists, this event is fired before the limit message is updated.
@@ -264,3 +316,13 @@ Triggered when a key is pressed or when content is pasted into the textarea. If 
 
  * *data*
  Type: [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+$('#myTextarea').textarea({
+  'maxChars': 100,
+  'beforeChange': function(event, data) {
+    // code to execute when beforeChange is triggered
+  }
+});
+}}}
