@@ -24,7 +24,8 @@
 			"height": "500",
 			"idAttr": "id",
 			"labelAttr": "name",
-			"selectable": true
+			"selectable": true,
+			"buttonSize": "medium"
 		},
 		_create: function() {
 			var $groupbox = this.element;
@@ -61,7 +62,7 @@
 			$removeButton = $('<button class="ui-groupbox-remove"><span class="ui-icon ui-icon-arrowthick-1-w" title="Remove Selected">Remove</span></button>').button();			
 			$buttons.append($addButton).append('<br/>').append($removeButton);			
 			$groupbox.append($buttons).after('<div class="ui-groupbox-clear"/>');
-			$buttons.css('top', (opts.height/2) - ($buttons.height()/2));
+			
 			var $itemsList2 = this._renderList(opts.labelList2, opts.itemsList2, opts.cssClassList2);
 			$itemsList2.addClass('group2');
 			$addButton.click(function() {
@@ -71,7 +72,10 @@
 			$removeButton.click(function() {
 				self._moveSelected($itemsList2, $itemsList1);
 			});
-			
+						
+			$('div.ui-groupbox-buttons button span.ui-button-text').addClass('ui-button-' + opts.buttonSize);
+			var buttonTop = $('div.ui-groupbox-list-wrapper').height()/2 - $('div.ui-groupbox-buttons').height()/2 + $('label.ui-groupbox-label').height()/2;
+			$buttons.css('top', buttonTop);
 			this._bindListEvents($itemsList1, $itemsList2);
 			this._bindListEvents($itemsList2, $itemsList1);			
 		},
