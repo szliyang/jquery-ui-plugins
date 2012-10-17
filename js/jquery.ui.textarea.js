@@ -18,7 +18,7 @@
 			"maxChars": -1, // number or function returning the number of chars allowed, using a function is valuable for dynamic limits, for example, when the limit depends on the contents of another textarea
 			"charLimitMessage": "", // message displaying character limit info
 			"pasteFlickerFix": true, // turning this off will help performance but you'll see a flicker in some browsers when text that's too long is pasted into the textarea
-			"limitMessageStyle": {"height": "16px", "font-size": ".8em", "position": "relative", "margin": "-3px 0 0 3px"}, // css style applied to limit message
+			"limitMessageStyle": {}, // css style applied to limit message
 			"limitMessageClass": "" // css class applied to limit message,
 		},
 		_create: function() {
@@ -56,7 +56,7 @@
 					this.$limitMessage.css(opts.limitMessageStyle);					
 					break;
 				case 'limitMessageClass':
-					opts.limitMessageClass += ' char-limit-message';
+					opts.limitMessageClass += ' ui-char-limit-message';
 					this.$limitMessage.attr('class', opts.limitMessageClass);
 					break;
 			}
@@ -64,7 +64,7 @@
 		_renderLimitMessage: function() {	
 			var $textarea = this.$textarea;
 			var opts = this.options;
-			var $limitMessage = $('<div class="char-limit-message"></div>').insertAfter($textarea);			
+			var $limitMessage = $('<div class="ui-char-limit-message"></div>').insertAfter($textarea);			
 			$limitMessage.css(opts.limitMessageStyle);
 			$limitMessage.addClass(opts.limitMessageClass);
 			$textarea.parent('div').css('margin-bottom', $limitMessage.height() + 'px');
@@ -163,7 +163,7 @@
 			var max = typeof opts.maxChars === 'function' ? opts.maxChars.apply() : opts.maxChars;				
 			var entered = $textarea.val().length;
 			var messageText = opts.charLimitMessage.replace('{MAX}', max).replace('{ENTERED}', entered).replace('{REMAINING}', max - entered); 		
-			$textarea.next('div.char-limit-message').text(messageText);			
+			$textarea.next('div.ui-char-limit-message').text(messageText);			
 		},		
 		_setMaxChars: function(max) {
 			var $textarea = this.$textarea;
@@ -270,7 +270,7 @@
 			$textarea.removeClass('ui-textarea');				
 			
 			if(this.options.charLimitMessage) {
-				$textarea.next('.char-limit-message').remove();
+				$textarea.next('.ui-char-limit-message').remove();
 			}
 			
 			$.Widget.prototype.destroy.call(this);		
