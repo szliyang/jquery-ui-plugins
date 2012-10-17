@@ -86,6 +86,14 @@ The size of the buttons used to move items from one list to the other on the gro
 *Default:* "medium"
 ---------------------------------------
 
+====buttonStyle====
+CSS style to be applied to the buttons used to move items from one list to the other on the groupbox control.
+
+*Type:* [http://api.jquery.com/Types/#Object Object]
+
+*Default:* {}
+---------------------------------------
+
 ====cssClassList1====
 List of CSS classes to be applied to list #1.
 
@@ -140,6 +148,14 @@ The size of the list items in the groupbox control. Valid values are xsmall, sma
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "medium"
+---------------------------------------
+
+====itemStyle====
+CSS style to be applied to the list item elements.
+
+*Type:* [http://api.jquery.com/Types/#Object Object]
+
+*Default:* {}
 ---------------------------------------
 
 ====labelAttr====
