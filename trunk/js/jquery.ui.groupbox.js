@@ -131,32 +131,34 @@
 			var self = this;
 			
 			$listItem.click(function(event) {
-				var $item = $(this);
-				var $list = $item.parent('ul');
-				var selected = $item.toggleClass('ui-selected ui-state-active').hasClass('ui-selected');				
-				
-				if(selected) {														
-					if(event.shiftKey && self.$lastSelection) {
-						var itemIndex = $item.index();
-						var lastItemIndex = self.$lastSelection.index();
-						var start = itemIndex > lastItemIndex ? lastItemIndex + 1 : itemIndex + 1;
-						var end = itemIndex > lastItemIndex ? itemIndex : lastItemIndex;										
-						$list.children('li').slice(start, end).addClass('ui-selected ui-state-active');										
-					}
+				if(!self.options['disabled']) {
+					var $item = $(this);
+					var $list = $item.parent('ul');
+					var selected = $item.toggleClass('ui-selected ui-state-active').hasClass('ui-selected');				
 					
-					self.$lastSelection = $item;
-				}				
+					if(selected) {														
+						if(event.shiftKey && self.$lastSelection) {
+							var itemIndex = $item.index();
+							var lastItemIndex = self.$lastSelection.index();
+							var start = itemIndex > lastItemIndex ? lastItemIndex + 1 : itemIndex + 1;
+							var end = itemIndex > lastItemIndex ? itemIndex : lastItemIndex;										
+							$list.children('li').slice(start, end).addClass('ui-selected ui-state-active');										
+						}
+						
+						self.$lastSelection = $item;
+				}
+				}							
 			});
 			
 			$listItem.dblclick(function() {
 				self._moveItem($(this), $otherList);				
 			});
 		},
-		_makeListSelectable: function($list) {
+		_makeListSelectable: function($list) {			
 			$list.selectable({
 				distance: 10,
 				start: function(event, ui) {
-					$(event.target).children('li.ui-selected').removeClass('ui-state-active');
+					$(event.target).children('li.ui-selected').removeClass('ui-state-active');					
 				},
 				stop: function(event, ui) {
 					$(event.target).children('li.ui-selected').addClass('ui-state-active');
@@ -310,6 +312,20 @@
 				$item.remove();
 				this._trigger('itemRemoved', null, {"item": theItem, "list": list, "listElement": $list});
 			}			
+		},
+		enable: function() {			
+			this.$groupbox.find('ul.ui-groupbox-list').selectable('enable');
+			this.$groupbox.find('div.ui-groupbox-buttons button').button('enable');
+			this.$groupbox.find('div.ui-groupbox-scroll').css('overflow-y', 'scroll');
+			$.Widget.prototype.enable.call(this);
+			this._trigger("enable", null, this.element);
+		},
+		disable: function() {
+			this.$groupbox.find('ul.ui-groupbox-list').selectable('disable');
+			this.$groupbox.find('div.ui-groupbox-buttons button').button('disable');
+			this.$groupbox.find('div.ui-groupbox-scroll').css('overflow-y', 'hidden');
+			$.Widget.prototype.disable.call(this);
+			this._trigger("disable", null, this.element);
 		},
 		destroy: function() {
 			var $groupbox = this.$groupbox;			
