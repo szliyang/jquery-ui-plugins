@@ -166,10 +166,8 @@
 		_getButtonTop: function() {
 			return this.$groupbox.find('div.ui-groupbox-list-wrapper').height()/2 - this.$groupbox.find('div.ui-groupbox-buttons').height()/2 + this.$groupbox.find('label.ui-groupbox-label').height()/2;
 		},
-		_setOption: function(option, value) {
-			$.Widget.prototype._setOption.apply(this, arguments);
-			var self = this;						
-			var opts = this.options;
+		_setOption: function(option, value) {			
+			var self = this;									
 
 			switch(option) {				
 				case 'width':
@@ -198,24 +196,34 @@
 					break;				
 				case 'itemsList1':
 				case 'itemsList2':
-					if(typeof opts[option] === 'string') {
-						opts[option] = $.parseJSON(opts[option]);
+					var listNumber = option == 'itemsList1' ? 1 : 2;
+					if(typeof value === 'string') {
+						value = $.parseJSON(value);
 					}					
-					this.setItems(1, opts[option]);
+					this.setItems(listNumber, value);
+					break;
+				case 'buttonSize':					
+					this.$groupbox.find('div.ui-groupbox-buttons button span.ui-button-text').removeClass('ui-button-' + this.options.buttonSize).addClass('ui-button-' + value);
+					this.$groupbox.find('div.ui-groupbox-buttons').css('top', this._getButtonTop());
 					break;
 				case 'buttonStyle':
-					if(typeof opts.buttonStyle === 'string') {
-						opts.buttonStyle = $.parseJSON(opts.buttonStyle);
+					if(typeof value === 'string') {
+						value = $.parseJSON(value);
 					}					
-					this.$groupbox.find('div.ui-groupbox-buttons button').css(opts.buttonStyle);					
+					this.$groupbox.find('div.ui-groupbox-buttons button').css(value);					
+					break;
+				case 'itemSize':
+					this.$groupbox.find('li.ui-groupbox-item').removeClass('ui-item-' + this.options.itemSize).addClass('ui-item-' + value);			
 					break;
 				case 'itemStyle':
-					if(typeof opts.itemStyle === 'string') {
-						opts.itemStyle = $.parseJSON(opts.itemStyle);
+					if(typeof value === 'string') {
+						value = $.parseJSON(value);
 					}					
-					this.$groupbox.find('li.ui-groupbox-item').css(opts.itemStyle);					
+					this.$groupbox.find('li.ui-groupbox-item').css(value);					
 					break;
 			}
+			
+			$.Widget.prototype._setOption.apply(this, arguments);
 		},
 		_moveItem: function($item, $toList) {	
 			if(!this.options['disabled']) {
