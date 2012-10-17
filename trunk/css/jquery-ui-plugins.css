@@ -32,3 +32,23 @@ div.ui-groupbox-buttons {
 div.ui-groupbox-buttons button {
 	margin-bottom: 7px;
 }
+
+.ui-button-xsmall {
+	padding: 0 !important;
+}
+
+.ui-button-small {
+	padding: .1em .5em !important;
+}
+
+.ui-button-medium {
+	padding: .4em 1em !important;
+}
+
+.ui-button-large {
+	padding: .8em 1.5em !important;	
+}
+
+.ui-button-xlarge {
+	padding: 1.2em 2em !important;
+}
