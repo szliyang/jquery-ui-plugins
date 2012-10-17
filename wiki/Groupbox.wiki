@@ -19,42 +19,42 @@ As you can see from this screenshot, the widget is styled using jQuery UI themes
 <tr>
 	<td>[#buttonSize buttonSize]</td>		
 	<td>[#addItem(listNumber,_item) addItem]</td>
-	<td>[#disable(event,_data) disable]</td>
+	<td>[#afterAdd(event,_data) afterAdd]</td>
 </tr>
 <tr>
 	<td>[#buttonStyle buttonStyle]</td>		
 	<td>[#destroy() destroy]</td>
-	<td>[#enable(event,_data) enable]</td>	
+	<td>[#afterMove(event,_data) afterMove]</td>
 </tr>
 <tr>
 	<td>[#cssClassList1 cssClassList1]</td>
 	<td>[#disable() disable]</td>	
-	<td>[#itemAdded(event,_data) itemAdded]</td>	
+	<td>[#afterRemove(event,_data) afterRemove]</td>
 </tr>			
 <tr>
 	<td>[#cssClassList2 cssClassList2]</td>			
 	<td>[#enable() enable]</td>		
-	<td>[#itemMoved(event,_data) itemMoved]</td>	
+	<td>[#beforeAdd(event,_data) beforeAdd]</td>
 </tr>
 <tr>
 	<td>[#height height]</td>		
 	<td>[#getItems(listNumber) getItems]</td>	
-	<td>[#itemRemoved(event,_data) itemRemoved]</td>
+	<td>[#beforeMove(event,_data) beforeMove]</td>
 </tr>
 <tr>
 	<td>[#idAttr idAttr]</td>
 	<td>[#getSelected(listNumber) getSelected]</td>	
-	<td></td>
+	<td>[#beforeRemove(event,_data) beforeRemove]</td>
 </tr>
 <tr>
 	<td>[#itemsList1 itemsList1]</td>			
 	<td>[#removeItem(listNumber,_item) removeItem]</td>	
-	<td></td>
+	<td>[#disable(event,_data) disable]</td>
 </tr>
 <tr>
 	<td>[#itemsList2 itemsList2]</td>
 	<td>[#setItems(listNumber,_items) setItems]</td>	
-	<td></td>
+	<td>[#enable(event,_data) enable]</td>
 </tr>
 <tr>		
 	<td>[#itemSize itemSize]</td>				
@@ -307,12 +307,208 @@ Set the selected {{{items}}} in {{{listNumber}}}. This method can take either an
 
  Boolean parameter indicating whether or not previously selected items are un-selected.		
 
- events:
-	*
-	*itemMoved
-	*itemRemoved
-
 ==Events==
+====afterAdd(event, data)====
+Triggered fater an item has been added to a list.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that was added.
+
+<li>*list*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item was added to.
+
+<li>*listElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was added to.
+
+</ul> 
+</ul>
+   
+---------------------------------------
+====afterMove(event, data)====
+Triggered after an item has been moved from one list to the other.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that was moved.
+
+<li>*fromList*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item was moved from.
+
+<li>*toList*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item was moved to.
+
+<li>*fromListElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was moved from.
+
+<li>*toListElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was moved to.
+</ul> 
+</ul>
+
+---------------------------------------
+====afterRemove(event, data)====
+Triggered after an item has been removed from a list.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that was removed.
+
+<li>*list*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item was removed from.
+
+<li>*listElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item was removed from.
+
+</ul> 
+</ul> 
+---------------------------------------
+====beforeAdd(event, data)====
+Triggered before an item is added to a list.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that is being added.
+
+<li>*list*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item is being added to.
+
+<li>*listElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item is being added to.
+
+</ul> 
+</ul>
+   
+---------------------------------------
+====beforeMove(event, data)====
+Triggered before an item is moved from one list to the other.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that is being moved.
+
+<li>*fromList*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item is being moved from.
+
+<li>*toList*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item is being moved to.
+
+<li>*fromListElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item is being moved from.
+
+<li>*toListElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item is being moved to.
+</ul> 
+</ul>
+
+---------------------------------------
+====beforeRemove(event, data)====
+Triggered before an item is removed from a list.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The item that is being removed.
+
+<li>*list*</li>
+Type: [http://api.jquery.com/Types/#Array Array]
+
+The list of objects the item is being removed from.
+
+<li>*listElement*</li>
+Type: [http://api.jquery.com/Types/#jQuery jQuery]
+
+The jQuery wrapped UL element that the item is being removed from.
+</ul> 
+</ul>  
+---------------------------------------
 ====disable(event, data)====
 Triggered when the groupbox is disabled.
 
@@ -338,104 +534,3 @@ Type: [http://api.jquery.com/Types/#Object Object]
 </ul>
    
 ---------------------------------------
-
-====itemAdded(event, data)====
-Triggered when an item is added to a list.
-
-<ul>
-<li>*event*</li>
-Type: [http://api.jquery.com/Types/#Event Event]
-
-  
-<li>*data*</li>
-Type: [http://api.jquery.com/Types/#Object Object]
-<ul>
-
-<li>*item*</li>
-Type: [http://api.jquery.com/Types/#Object Object]
-
-The item that was just added.
-
-<li>*list*</li>
-Type: [http://api.jquery.com/Types/#Array Array]
-
-The list of objects the item was added to.
-
-<li>*listElement*</li>
-Type: [http://api.jquery.com/Types/#jQuery jQuery]
-
-The jQuery wrapped UL element that the item was added to.
-
-</ul> 
-</ul>
-   
----------------------------------------
-====itemMoved(event, data)====
-Triggered when an item is moved from one list to the other.
-
-<ul>
-<li>*event*</li>
-Type: [http://api.jquery.com/Types/#Event Event]
-
-  
-<li>*data*</li>
-Type: [http://api.jquery.com/Types/#Object Object]
-<ul>
-
-<li>*item*</li>
-Type: [http://api.jquery.com/Types/#Object Object]
-
-The item that was just moved.
-
-<li>*fromList*</li>
-Type: [http://api.jquery.com/Types/#Array Array]
-
-The list of objects the item moved from.
-
-<li>*toList*</li>
-Type: [http://api.jquery.com/Types/#Array Array]
-
-The list of objects the item was moved to.
-
-<li>*fromListElement*</li>
-Type: [http://api.jquery.com/Types/#jQuery jQuery]
-
-The jQuery wrapped UL element that the item was moved from.
-
-<li>*toListElement*</li>
-Type: [http://api.jquery.com/Types/#jQuery jQuery]
-
-The jQuery wrapped UL element that the item was moved to.
-</ul> 
-</ul>
-
----------------------------------------
-====itemRemoved(event, data)====
-Triggered when an item is removed from a list.
-
-<ul>
-<li>*event*</li>
-Type: [http://api.jquery.com/Types/#Event Event]
-
-  
-<li>*data*</li>
-Type: [http://api.jquery.com/Types/#Object Object]
-<ul>
-
-<li>*item*</li>
-Type: [http://api.jquery.com/Types/#Object Object]
-
-The item that was just removed.
-
-<li>*list*</li>
-Type: [http://api.jquery.com/Types/#Array Array]
-
-The list of objects the item was removed from.
-
-<li>*listElement*</li>
-Type: [http://api.jquery.com/Types/#jQuery jQuery]
-
-The jQuery wrapped UL element that the item was removed from.
-
-</ul> 
-</ul>  
