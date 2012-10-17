@@ -233,14 +233,16 @@
 				var removeFromList1 = $fromList.hasClass('group1');
 				var fromList = removeFromList1 ? this.options.itemsList1 : this.options.itemsList2;
 				var toList = removeFromList1 ? this.options.itemsList2 : this.options.itemsList1;
-				var removedItem = fromList.splice($item.index(), 1)[0];
+				var itemIndex = $item.index();
+				this._trigger('beforeMove', null, {"item": fromList[itemIndex], "fromList": fromList, "toList": toList, "fromListElement": $fromList, "toListElement": $toList});				
+				var removedItem = fromList.splice(itemIndex, 1)[0];
 				toList.push(removedItem);				
 				var $newItem = $('<li id="' + $item.attr('id') + '" class="ui-state-default ui-groupbox-item ui-item-' + this.options.itemSize + '">' + $item.html() + '</li>');	
 				$newItem.css(this.options.itemStyle);
 				this._bindListItemEvents($newItem, $fromList);
 				$toList.append($newItem);			
 				$item.remove();
-				this._trigger('itemMoved', null, {"item": removedItem, "fromList": fromList, "toList": toList, "fromListElement": $fromList, "toListElement": $toList});
+				this._trigger('afterMove', null, {"item": removedItem, "fromList": fromList, "toList": toList, "fromListElement": $fromList, "toListElement": $toList});
 			}			
 		},		
 		_moveSelected: function($fromList, $toList) {
@@ -291,26 +293,28 @@
 			var $list = this.$groupbox.find('ul.group' + listNumber);
 			var $otherList = this.$groupbox.find('ul.group' + otherListNumber);
 			var list = listNumber == 1 ? opts.itemsList1 : opts.itemsList2;
+			this._trigger('beforeAdd', null, {"item": item, "list": list, "listElement": $list});
 			list.push(item);			
 			this.itemsObject[id] = item;
 			var $newItem = $('<li id="' + id + '" class="ui-state-default ui-groupbox-item ui-item-' + this.options.itemSize + '">' + item[opts.labelAttr] + '</li>');
 			$newItem.css(this.options.itemStyle);
 			this._bindListItemEvents($newItem, $otherList);
 			$list.append($newItem);
-			this._trigger('itemAdded', null, {"item": item, "list": list, "listElement": $list});					
+			this._trigger('afterAdd', null, {"item": item, "list": list, "listElement": $list});					
 		},
-		removeItem: function(listNumber, item) {
+		removeItem: function(listNumber, item) {			
 			var id = typeof item === 'object' ? item[this.options.idAttr] : item;
 			var theItem = this.itemsObject['ui-groupbox-item-' + id];
 			var $list = this.$groupbox.find('ul.group' + listNumber);
-			var $item = $list.children('#ui-groupbox-item-' + id);
+			var $item = $list.children('#ui-groupbox-item-' + id);			
+			this._trigger('beforeRemove', null, {"item": theItem, "list": list, "listElement": $list});
 				
 			if(theItem && $item.length) {				
 				var list = this.options['itemsList' + listNumber];
 				list.splice($item.index(), 1);
 				delete this.itemsObject['ui-groupbox-item-' + id];
 				$item.remove();
-				this._trigger('itemRemoved', null, {"item": theItem, "list": list, "listElement": $list});
+				this._trigger('afterRemove', null, {"item": theItem, "list": list, "listElement": $list});
 			}			
 		},
 		enable: function() {			
