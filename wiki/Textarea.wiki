@@ -1,5 +1,8 @@
-#summary JQuery UI based textarea widget that provides a maximum character length and text selection functionality. The maximum character limit is correctly enforced whether the user types in the textarea or pastes content into it. There are known issues with how Opera handles pasted content.
+#summary JQuery UI based textarea widget that provides maximum character length and text selection functionality.
 #labels Featured
+
+=Summary=
+A JQuery UI based textarea widget that provides maximum character length and text selection functionality. The maximum character limit is correctly enforced whether the user types in the textarea or pastes content into it. There are known issues with how Opera handles pasted content.
 
 =Example=
 As you can see from the following screen shot the widget automatically renders a character limit message which is updated as the user types or pastes content into the textara. There are also events triggered as the textarea content is updated, allowing you to provide callback functions to react to user input.
