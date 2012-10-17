@@ -111,7 +111,7 @@ CSS style applied to limit message.
 
 *Type:*  [http://api.jquery.com/Types/#String String] or  [http://api.jquery.com/Types/#Object Object]
 
-*Default:* {"height": "16px", "font-size": ".8em", "position": "relative", "margin": "-3px 0 0 3px"}
+*Default:* ""
 
 *Example:*
 
