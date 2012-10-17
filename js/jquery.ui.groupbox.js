@@ -14,19 +14,21 @@
 	
 	$.widget('ui.groupbox', {  
 		options: {		
-			"itemsList1": [],
-			"labelList1": "From",
+			"buttonSize": "medium",
+			"buttonStyle": {},
 			"cssClassList1": "",
-			"itemsList2": [],
-			"labelList2": "To",
 			"cssClassList2": "",
-			"width": "300",
 			"height": "500",
 			"idAttr": "id",
+			"itemSize": "medium",
+			"itemsList1": [],
+			"itemsList2": [],
+			"itemStyle": {},			
 			"labelAttr": "name",
+			"labelList1": "From",						
+			"labelList2": "To",
 			"selectable": true,
-			"buttonSize": "medium",
-			"itemSize": "medium"
+			"width": "300",			
 		},
 		_create: function() {
 			var $groupbox = this.element;
@@ -77,6 +79,7 @@
 			$('div.ui-groupbox-buttons button span.ui-button-text').addClass('ui-button-' + opts.buttonSize);
 			var buttonTop = $('div.ui-groupbox-list-wrapper').height()/2 - $('div.ui-groupbox-buttons').height()/2 + $('label.ui-groupbox-label').height()/2;
 			$buttons.css('top', buttonTop);
+			$buttons.find('button').css(opts.buttonStyle);			
 			this._bindListEvents($itemsList1, $itemsList2);
 			this._bindListEvents($itemsList2, $itemsList1);			
 		},
@@ -92,7 +95,8 @@
 			$scrollDiv = $('<div class="ui-groupbox-scroll"></div>');
 			$scrollDiv.css({"width": opts.width, "height": opts.height});
 			$list = $('<ul class="ui-groupbox-list"></ul>');			
-			this._refreshItems($list, items);					
+			this._refreshItems($list, items);
+			$list.children('li.ui-groupbox-item').css(opts.itemStyle);
 			$scrollDiv.append($list);
 			$wrapperDiv.append($scrollDiv);				
 			this.$groupbox.append($wrapperDiv);
@@ -195,7 +199,19 @@
 						opts[option] = $.parseJSON(opts[option]);
 					}					
 					this.setItems(1, opts[option]);
-					break;				
+					break;
+				case 'buttonStyle':
+					if(typeof opts.buttonStyle === 'string') {
+						opts.buttonStyle = $.parseJSON(opts.buttonStyle);
+					}					
+					this.$groupbox.find('div.ui-groupbox-buttons button').css(opts.buttonStyle);					
+					break;
+				case 'itemStyle':
+					if(typeof opts.itemStyle === 'string') {
+						opts.itemStyle = $.parseJSON(opts.itemStyle);
+					}					
+					this.$groupbox.find('li.ui-groupbox-item').css(opts.itemStyle);					
+					break;
 			}
 		},
 		_moveItem: function($item, $toList) {			
