@@ -14,52 +14,62 @@
 	<td>[#itemAdded(event,_data) itemAdded]</td>
 </tr>
 <tr>
-	<td>[#cssClassList1 cssClassList1]</td>		
+	<td>[#buttonStyle buttonStyle]</td>		
 	<td>[#destroy() destroy]</td>
 	<td>[#itemMoved(event,_data) itemMoved]</td>
 </tr>
 <tr>
-	<td>[#cssClassList2 cssClassList2]</td>		
+	<td>[#cssClassList1 cssClassList1]</td>			
 	<td>[#getItems(listNumber) getItems]</td>
 	<td>[#itemRemoved(event,_data) itemRemoved]</td>
 </tr>			
 <tr>
-	<td>[#height height]</td>		
+	<td>[#cssClassList2 cssClassList2]</td>			
 	<td>[#getSelected(listNumber) getSelected]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>[#idAttr idAttr]</td>		
+	<td>[#height height]</td>		
 	<td>[#removeItem(listNumber,_item) removeItem]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>[#itemsList1 itemsList1]</td>		
+	<td>[#idAttr idAttr]</td>
 	<td>[#setItems(listNumber,_items) setItems]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>[#itemsList2 itemsList2]</td>		
+	<td>[#itemsList1 itemsList1]</td>			
 	<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
 	<td></td>
 </tr>
 <tr>
+	<td>[#itemsList2 itemsList2]</td>			
+	<td></td>
+	<td></td>
+</tr>
+<tr>		
 	<td>[#itemSize itemSize]</td>				
 	<td></td>
 	<td></td>
 </tr>
 <tr>		
-	<td>[#labelAttr labelAttr]</td>				
+	<td>[#itemStyle itemStyle]</td>	
 	<td></td>
 	<td></td>
 </tr>
 <tr>		
-	<td>[#labelList1 labelList1]</td>			
+	<td>[#labelAttr labelAttr]</td>	
 	<td></td>
 	<td></td>
 </tr>
-<tr>		
-	<td>[#labelList2 labelList2]</td>			
+<tr>
+	<td>[#labelList1 labelList1]</td>	
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>[#labelList2 labelList2]</td>
 	<td></td>
 	<td></td>
 </tr>
