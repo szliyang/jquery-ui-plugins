@@ -235,6 +235,16 @@ Removes the groupbox functionality completely. This will return the element back
 
 ---------------------------------------
 
+====disable()====
+Disables the groupbox.
+
+---------------------------------------
+
+====enable()====
+Enables the groupbox.
+
+---------------------------------------
+
 ====getItems(listNumber)====
 Get all of the items currently contained in the list specified by {{{listNumber}}}.
 
