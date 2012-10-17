@@ -217,18 +217,21 @@
 					break;
 			}
 		},
-		_moveItem: function($item, $toList) {			
-			var $fromList = $item.parent('ul');
-			var removeFromList1 = $fromList.hasClass('group1');
-			var fromList = removeFromList1 ? this.options.itemsList1 : this.options.itemsList2;
-			var toList = removeFromList1 ? this.options.itemsList2 : this.options.itemsList1;
-			var removedItem = fromList.splice($item.index(), 1)[0];
-			toList.push(removedItem);
-			var $newItem = $('<li id="' + $item.attr('id') + '" class="ui-state-default ui-groupbox-item">' + $item.html() + '</li>');			
-			this._bindListItemEvents($newItem, $fromList);
-			$toList.append($newItem);			
-			$item.remove();
-			this._trigger('itemMoved', null, {"item": removedItem, "fromList": fromList, "toList": toList, "fromListElement": $fromList, "toListElement": $toList});
+		_moveItem: function($item, $toList) {	
+			if(!this.options['disabled']) {
+				var $fromList = $item.parent('ul');
+				var removeFromList1 = $fromList.hasClass('group1');
+				var fromList = removeFromList1 ? this.options.itemsList1 : this.options.itemsList2;
+				var toList = removeFromList1 ? this.options.itemsList2 : this.options.itemsList1;
+				var removedItem = fromList.splice($item.index(), 1)[0];
+				toList.push(removedItem);				
+				var $newItem = $('<li id="' + $item.attr('id') + '" class="ui-state-default ui-groupbox-item  ui-item-' + this.options.itemSize + '">' + $item.html() + '</li>');	
+				$newItem.css(this.options.itemStyle);
+				this._bindListItemEvents($newItem, $fromList);
+				$toList.append($newItem);			
+				$item.remove();
+				this._trigger('itemMoved', null, {"item": removedItem, "fromList": fromList, "toList": toList, "fromListElement": $fromList, "toListElement": $toList});
+			}			
 		},		
 		_moveSelected: function($fromList, $toList) {
 			var self = this;
