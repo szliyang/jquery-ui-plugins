@@ -94,7 +94,7 @@ As you can see from this screenshot, the widget is styled using jQuery UI themes
 
 ==Options==
 ====buttonSize====
-The size of the buttons used to move items from one list to the other on the groupbox control. Valid values are xsmall, small, medium, large and xlarge.
+The size of the buttons used to move items from one list to the other on the groupbox control. Valid values are xsmall, small, medium, large and xlarge. This is a convenience option that makes setting the button size simple, a custom size can be achieved by setting CSS padding via the [#buttonStyle buttonStyle] option.
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
@@ -158,7 +158,7 @@ List of items to populate list #2 with.
 ---------------------------------------
 
 ====itemSize====
-The size of the list items in the groupbox control. Valid values are xsmall, small, medium, large and xlarge.
+The size of the list items in the groupbox control. Valid values are xsmall, small, medium, large and xlarge. This is a convenience option that makes setting the item size simple, a custom size can be achieved by setting CSS padding via the [#itemStyle itemStyle] option.
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
