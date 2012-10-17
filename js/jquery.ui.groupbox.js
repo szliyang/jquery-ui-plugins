@@ -76,9 +76,8 @@
 				self._moveSelected($itemsList2, $itemsList1);
 			});
 						
-			$('div.ui-groupbox-buttons button span.ui-button-text').addClass('ui-button-' + opts.buttonSize);
-			var buttonTop = $('div.ui-groupbox-list-wrapper').height()/2 - $('div.ui-groupbox-buttons').height()/2 + $('label.ui-groupbox-label').height()/2;
-			$buttons.css('top', buttonTop);
+			$('div.ui-groupbox-buttons button span.ui-button-text').addClass('ui-button-' + opts.buttonSize);			
+			$buttons.css('top', this._getButtonTop());
 			$buttons.find('button').css(opts.buttonStyle);			
 			this._bindListEvents($itemsList1, $itemsList2);
 			this._bindListEvents($itemsList2, $itemsList1);			
@@ -164,6 +163,9 @@
 				}
 			});
 		},
+		_getButtonTop: function() {
+			return this.$groupbox.find('div.ui-groupbox-list-wrapper').height()/2 - this.$groupbox.find('div.ui-groupbox-buttons').height()/2 + this.$groupbox.find('label.ui-groupbox-label').height()/2;
+		},
 		_setOption: function(option, value) {
 			$.Widget.prototype._setOption.apply(this, arguments);
 			var self = this;						
@@ -174,7 +176,8 @@
 					this.$groupbox.find('div.ui-groupbox-scroll').width(value);					
 					break;
 				case 'height':
-					this.$groupbox.find('div.ui-groupbox-scroll').height(value);		
+					this.$groupbox.find('div.ui-groupbox-scroll').height(value);
+					this.$groupbox.find('div.ui-groupbox-buttons').css('top', this._getButtonTop());
 					break;	
 				case 'selectable':
 					this.$groupbox.find('ul.ui-groupbox-list').each(function() {
