@@ -18,9 +18,8 @@ ul.ui-groupbox-list {
 }
 
 ul.ui-groupbox-list li {
-	cursor: pointer;
-	height: 18px;
-	padding: 8px 4px 4px 4px;				
+	cursor: pointer;		
+	height: auto;	
 }
 			
 div.ui-groupbox-buttons {
@@ -51,4 +50,24 @@ div.ui-groupbox-buttons button {
 
 .ui-button-xlarge {
 	padding: 1.2em 2em !important;
+}
+
+.ui-item-xsmall {
+	padding: 0 !important;
+}
+
+.ui-item-small {
+	padding: 4px 2px 2px 2px;
+}
+
+.ui-item-medium {
+	padding: 8px 4px 4px 4px;
+}
+
+.ui-item-large {
+	padding: 12px 8px 8px 8px;
+}
+
+.ui-item-xlarge {
+	padding: 16px 12px 12px 12px;
 }
