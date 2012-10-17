@@ -25,7 +25,8 @@
 			"idAttr": "id",
 			"labelAttr": "name",
 			"selectable": true,
-			"buttonSize": "medium"
+			"buttonSize": "medium",
+			"itemSize": "medium"
 		},
 		_create: function() {
 			var $groupbox = this.element;
@@ -105,7 +106,7 @@
 			if(items.length) {
 				for(var i = 0; i < items.length; i++) {
 					var item = items[i];
-					var classList = item.selected ? 'ui-selected ui-state-active ui-groupbox-item' : 'ui-state-default ui-groupbox-item';
+					var classList = item.selected ? 'ui-selected ui-state-active ui-groupbox-item ui-item-' + opts.itemSize : 'ui-state-default ui-groupbox-item ui-item-' + opts.itemSize;
 					itemsHtml += '<li id="ui-groupbox-item-' + item[opts.idAttr] + '" class="' + classList + '">' + item[opts.labelAttr] + '</li>';
 				}
 			}
