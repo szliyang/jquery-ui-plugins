@@ -303,6 +303,32 @@ Set the selected {{{items}}} in {{{listNumber}}}. This method can take either an
 	*itemRemoved
 
 ==Events==
+====disable(event, data)====
+Triggered when the groupbox is disabled.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+</ul>
+   
+---------------------------------------
+
+====enable(event, data)====
+Triggered when the groupbox is enabled.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+</ul>
+   
+---------------------------------------
+
 ====itemAdded(event, data)====
 Triggered when an item is added to a list.
 
