@@ -1,5 +1,7 @@
 #summary JQuery UI based groupbox widget for moving items between two lists.
 
+<img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/demos/images/groupbox.png">
+
 =Groupbox API=
 
 <table cellspacing="10px" style="text-align:left;">
