@@ -19,46 +19,46 @@ As you can see from this screenshot, the widget is styled using jQuery UI themes
 <tr>
 	<td>[#buttonSize buttonSize]</td>		
 	<td>[#addItem(listNumber,_item) addItem]</td>
-	<td>[#itemAdded(event,_data) itemAdded]</td>
+	<td>[#disable(event,_data) disable]</td>
 </tr>
 <tr>
 	<td>[#buttonStyle buttonStyle]</td>		
 	<td>[#destroy() destroy]</td>
-	<td>[#itemMoved(event,_data) itemMoved]</td>
+	<td>[#enable(event,_data) enable]</td>	
 </tr>
 <tr>
-	<td>[#cssClassList1 cssClassList1]</td>			
-	<td>[#getItems(listNumber) getItems]</td>
-	<td>[#itemRemoved(event,_data) itemRemoved]</td>
+	<td>[#cssClassList1 cssClassList1]</td>
+	<td>[#disable() disable]</td>	
+	<td>[#itemAdded(event,_data) itemAdded]</td>	
 </tr>			
 <tr>
 	<td>[#cssClassList2 cssClassList2]</td>			
-	<td>[#getSelected(listNumber) getSelected]</td>
-	<td></td>
+	<td>[#enable() enable]</td>		
+	<td>[#itemMoved(event,_data) itemMoved]</td>	
 </tr>
 <tr>
 	<td>[#height height]</td>		
-	<td>[#removeItem(listNumber,_item) removeItem]</td>
-	<td></td>
+	<td>[#getItems(listNumber) getItems]</td>	
+	<td>[#itemRemoved(event,_data) itemRemoved]</td>
 </tr>
 <tr>
 	<td>[#idAttr idAttr]</td>
-	<td>[#setItems(listNumber,_items) setItems]</td>
+	<td>[#getSelected(listNumber) getSelected]</td>	
 	<td></td>
 </tr>
 <tr>
 	<td>[#itemsList1 itemsList1]</td>			
-	<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
+	<td>[#removeItem(listNumber,_item) removeItem]</td>	
 	<td></td>
 </tr>
 <tr>
-	<td>[#itemsList2 itemsList2]</td>			
-	<td></td>
+	<td>[#itemsList2 itemsList2]</td>
+	<td>[#setItems(listNumber,_items) setItems]</td>	
 	<td></td>
 </tr>
 <tr>		
 	<td>[#itemSize itemSize]</td>				
-	<td></td>
+	<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
 	<td></td>
 </tr>
 <tr>		
