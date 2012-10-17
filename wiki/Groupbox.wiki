@@ -3,71 +3,89 @@
 =Groupbox API=
 
 <table cellspacing="10px" style="text-align:left;">
-	<tr>
-		<td><h3>[#Options Options]</h3></td>
-		<td><h3>[#Methods Methods]</h3></td>
-		<td><h3>[#Events Events]</h3></td>
-	</tr>		
-	<tr>
-		<td>[#cssClassList1 cssClassList1]</td>
-		<td>[#addItem(listNumber,_item) addItem]</td>
-		<td>[#itemAdded(event,_data) itemAdded]</td>
-	</tr>
-	<tr>
-		<td>[#cssClassList2 cssClassList2]</td>
-		<td>[#destroy() destroy]</td>
-		<td>[#itemMoved(event,_data) itemMoved]</td>
-	</tr>
-	<tr>
-		<td>[#height height]</td>
-		<td>[#getItems(listNumber) getItems]</td>
-		<td>[#itemRemoved(event,_data) itemRemoved]</td>
-	</tr>			
-	<tr>
-		<td>[#idAttr idAttr]</td>
-		<td>[#getSelected(listNumber) getSelected]</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>[#itemsList1 itemsList1]</td>
-		<td>[#removeItem(listNumber,_item) removeItem]</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>[#itemsList2 itemsList2]</td>
-		<td>[#setItems(listNumber,_items) setItems]</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>[#labelAttr labelAttr]</td>
-		<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>[#labelList1 labelList1]</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>		
-		<td>[#labelList2 labelList2]</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>		
-		<td>[#selectable selectable]</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>		
-		<td>[#width width]</td>
-		<td></td>
-		<td></td>
-	</tr>
+<tr>
+	<td><h3>[#Options Options]</h3></td>
+	<td><h3>[#Methods Methods]</h3></td>
+	<td><h3>[#Events Events]</h3></td>
+</tr>		
+<tr>
+	<td>[#buttonSize buttonSize]</td>		
+	<td>[#addItem(listNumber,_item) addItem]</td>
+	<td>[#itemAdded(event,_data) itemAdded]</td>
+</tr>
+<tr>
+	<td>[#cssClassList1 cssClassList1]</td>		
+	<td>[#destroy() destroy]</td>
+	<td>[#itemMoved(event,_data) itemMoved]</td>
+</tr>
+<tr>
+	<td>[#cssClassList2 cssClassList2]</td>		
+	<td>[#getItems(listNumber) getItems]</td>
+	<td>[#itemRemoved(event,_data) itemRemoved]</td>
+</tr>			
+<tr>
+	<td>[#height height]</td>		
+	<td>[#getSelected(listNumber) getSelected]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>[#idAttr idAttr]</td>		
+	<td>[#removeItem(listNumber,_item) removeItem]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>[#itemsList1 itemsList1]</td>		
+	<td>[#setItems(listNumber,_items) setItems]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>[#itemsList2 itemsList2]</td>		
+	<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>[#itemSize itemSize]</td>				
+	<td></td>
+	<td></td>
+</tr>
+<tr>		
+	<td>[#labelAttr labelAttr]</td>				
+	<td></td>
+	<td></td>
+</tr>
+<tr>		
+	<td>[#labelList1 labelList1]</td>			
+	<td></td>
+	<td></td>
+</tr>
+<tr>		
+	<td>[#labelList2 labelList2]</td>			
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>[#selectable selectable]</td>		
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>[#width width]</td>
+	<td></td>
+	<td></td>
+</tr>
 </table>
 
 ---------------------------------------
 
 ==Options==
+====buttonSize====
+The size of the buttons used to move items from one list to the other on the groupbox control. Valid values are xsmall, small, medium, large and xlarge.
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* "medium"
+---------------------------------------
+
 ====cssClassList1====
 List of CSS classes to be applied to list #1.
 
@@ -114,6 +132,14 @@ List of items to populate list #2 with.
 *Type:* [http://api.jquery.com/Types/#Array Array]
 
 *Default:* []
+---------------------------------------
+
+====itemSize====
+The size of the list items in the groupbox control. Valid values are xsmall, small, medium, large and xlarge.
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* "medium"
 ---------------------------------------
 
 ====labelAttr====
