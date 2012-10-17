@@ -1,7 +1,7 @@
 #summary JQuery UI based groupbox widget for moving items between two lists.
 
 =Example=
-As you can see from this screenshot, the widget is styled using jQuery UI themes. In this case the [#https://github.com/taitems/Aristo-jQuery-UI-Theme Aristo] theme was used.
+As you can see from this screenshot, the widget is styled using jQuery UI themes. In this case the [https://github.com/taitems/Aristo-jQuery-UI-Theme Aristo] theme was used.
 
 <img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/demos/images/groupbox.png">
 
