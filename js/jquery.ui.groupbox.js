@@ -94,8 +94,7 @@
 			$scrollDiv = $('<div class="ui-groupbox-scroll"></div>');
 			$scrollDiv.css({"width": opts.width, "height": opts.height});
 			$list = $('<ul class="ui-groupbox-list"></ul>');			
-			this._refreshItems($list, items);
-			$list.children('li.ui-groupbox-item').css(opts.itemStyle);
+			this._refreshItems($list, items);			
 			$scrollDiv.append($list);
 			$wrapperDiv.append($scrollDiv);				
 			this.$groupbox.append($wrapperDiv);
@@ -115,6 +114,7 @@
 			}
 						
 			$list.html(itemsHtml);	
+			$list.children('li.ui-groupbox-item').css(opts.itemStyle);
 		},
 		_bindListEvents: function($list, $otherList) {
 			var self = this;
