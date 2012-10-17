@@ -292,10 +292,10 @@
 		removeItem: function(listNumber, item) {
 			var id = typeof item === 'object' ? item[this.options.idAttr] : item;
 			var theItem = this.itemsObject['ui-groupbox-item-' + id];
-			
-			if(theItem) {
-				var $list = this.$groupbox.find('ul.group' + listNumber);
-				var $item = $list.children('#ui-groupbox-item-' + id);
+			var $list = this.$groupbox.find('ul.group' + listNumber);
+			var $item = $list.children('#ui-groupbox-item-' + id);
+				
+			if(theItem && $item.length) {				
 				var list = this.options['itemsList' + listNumber];
 				list.splice($item.index(), 1);
 				delete this.itemsObject['ui-groupbox-item-' + id];
