@@ -225,7 +225,7 @@
 				var toList = removeFromList1 ? this.options.itemsList2 : this.options.itemsList1;
 				var removedItem = fromList.splice($item.index(), 1)[0];
 				toList.push(removedItem);				
-				var $newItem = $('<li id="' + $item.attr('id') + '" class="ui-state-default ui-groupbox-item  ui-item-' + this.options.itemSize + '">' + $item.html() + '</li>');	
+				var $newItem = $('<li id="' + $item.attr('id') + '" class="ui-state-default ui-groupbox-item ui-item-' + this.options.itemSize + '">' + $item.html() + '</li>');	
 				$newItem.css(this.options.itemStyle);
 				this._bindListItemEvents($newItem, $fromList);
 				$toList.append($newItem);			
@@ -283,7 +283,8 @@
 			var list = listNumber == 1 ? opts.itemsList1 : opts.itemsList2;
 			list.push(item);			
 			this.itemsObject[id] = item;
-			var $newItem = $('<li id="' + id + '" class="ui-state-default ui-groupbox-item">' + item[opts.labelAttr] + '</li>');
+			var $newItem = $('<li id="' + id + '" class="ui-state-default ui-groupbox-item ui-item-' + this.options.itemSize + '">' + item[opts.labelAttr] + '</li>');
+			$newItem.css(this.options.itemStyle);
 			this._bindListItemEvents($newItem, $otherList);
 			$list.append($newItem);
 			this._trigger('itemAdded', null, {"item": item, "list": list, "listElement": $list});					
