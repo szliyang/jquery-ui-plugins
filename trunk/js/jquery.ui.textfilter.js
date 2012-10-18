@@ -19,24 +19,7 @@
 		},
 		_create: function() {
 			var self = this;
-			var regex = '[^0-9.]';
-			
-			switch(this.options.type) {
-				case 'digits':
-					regex = '[^0-9]';					
-					break;
-				case 'alpha':
-					regex = '[^a-zA-Z]';
-					break;				
-			}
-			
-			if(this.options.allow && this.options.allow.length) {
-				regex = '[^' + this._buildCharsExpr(this.options.allow) + ']';								
-			} else if(this.options.exclude && this.options.exclude.length) {
-				regex = '[' + this._buildCharsExpr(this.options.exclude) + ']';
-			}
-			
-			this.regex = new RegExp(regex);
+			self._setRegEx();
 			
 			this.element.bind('keydown', function(event) {		
 				if(!self._checkRegEx(event)) {
@@ -64,6 +47,30 @@
 			}
 			
 			return charsExpr;
+		},
+		_setRegEx: function() {
+			var regex = '[^0-9.]';
+			
+			switch(this.options.type) {
+				case 'digits':
+					regex = '[^0-9]';					
+					break;
+				case 'alpha':
+					regex = '[^a-zA-Z]';
+					break;				
+			}
+			
+			if(this.options.allow && this.options.allow.length) {
+				regex = '[^' + this._buildCharsExpr(this.options.allow) + ']';								
+			} else if(this.options.exclude && this.options.exclude.length) {
+				regex = '[' + this._buildCharsExpr(this.options.exclude) + ']';
+			}
+			
+			this.regex = new RegExp(regex);
+		},
+		_setOption: function(option, value) {
+			$.Widget.prototype._setOption.apply(this, arguments);
+			this._setRegEx();			
 		},
 		destroy: function() {
 			this.element.unbind();			
