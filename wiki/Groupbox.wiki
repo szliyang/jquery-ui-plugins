@@ -665,7 +665,7 @@ $('#myGroupbox').groupbox('setSelected', 1,  [{"id": 3, "name": "Moose"}, {"id":
 
 ==Events==
 ====afterAdd(event, data)====
-Triggered fater an item has been added to a list.
+Triggered after an item has been added to a list.
 
 <ul>
 <li>*event*</li>
@@ -693,7 +693,17 @@ The jQuery wrapped UL element that the item was added to.
 
 </ul> 
 </ul>
-   
+
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'afterAdd': function(event, data) {
+    // code to execute after an items is added to a list
+  }
+});
+}}}   
 ---------------------------------------
 ====afterMove(event, data)====
 Triggered after an item has been moved from one list to the other.
@@ -734,6 +744,16 @@ The jQuery wrapped UL element that the item was moved to.
 </ul> 
 </ul>
 
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'afterMove': function(event, data) {
+    // code to execute after an item is moved from one list to the other
+  }
+});
+}}}  
 ---------------------------------------
 ====afterRemove(event, data)====
 Triggered after an item has been removed from a list.
@@ -764,6 +784,17 @@ The jQuery wrapped UL element that the item was removed from.
 
 </ul> 
 </ul> 
+
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'afterRemove': function(event, data) {
+    // code to execute after an item is removed from a list
+  }
+});
+}}} 
 ---------------------------------------
 ====beforeAdd(event, data)====
 Triggered before an item is added to a list.
@@ -795,6 +826,16 @@ The jQuery wrapped UL element that the item is being added to.
 </ul> 
 </ul>
    
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'beforeAdd': function(event, data) {
+    // code to execute before an item is added to a list
+  }
+});
+}}}
 ---------------------------------------
 ====beforeMove(event, data)====
 Triggered before an item is moved from one list to the other.
@@ -835,6 +876,16 @@ The jQuery wrapped UL element that the item is being moved to.
 </ul> 
 </ul>
 
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'beforeMove': function(event, data) {
+    // code to execute before an item is moved from one list to the other
+  }
+});
+}}}
 ---------------------------------------
 ====beforeRemove(event, data)====
 Triggered before an item is removed from a list.
@@ -863,7 +914,18 @@ Type: [http://api.jquery.com/Types/#jQuery jQuery]
 
 The jQuery wrapped UL element that the item is being removed from.
 </ul> 
-</ul>  
+</ul>
+
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'beforeRemove': function(event, data) {
+    // code to execute before an item is removed from a list
+  }
+});
+}}}
 ---------------------------------------
 ====disable(event, data)====
 Triggered when the groupbox is disabled.
@@ -875,7 +937,17 @@ Type: [http://api.jquery.com/Types/#Event Event]
 <li>*data*</li>
 Type: [http://api.jquery.com/Types/#Object Object]
 </ul>
-   
+ 
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'disable': function(event, data) {
+    // code to execute when the groupbox is disabled
+  }
+});
+}}}  
 ---------------------------------------
 
 ====enable(event, data)====
@@ -888,5 +960,15 @@ Type: [http://api.jquery.com/Types/#Event Event]
 <li>*data*</li>
 Type: [http://api.jquery.com/Types/#Object Object]
 </ul>
-   
+
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'enable': function(event, data) {
+    // code to execute when the groupbox is enabled
+  }
+});
+}}}
 ---------------------------------------
