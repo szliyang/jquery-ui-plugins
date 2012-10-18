@@ -149,6 +149,22 @@ The size of the buttons used to move items from one list to the other on the gro
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "medium"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'buttonSize': 'large',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myGroupbox').groupbox('option', 'buttonSize', 'xsmall');
+}}}
 ---------------------------------------
 
 ====buttonStyle====
@@ -157,6 +173,22 @@ CSS style to be applied to the buttons used to move items from one list to the o
 *Type:* [http://api.jquery.com/Types/#Object Object]
 
 *Default:* {}
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'buttonStyle': {"border": "2px solid green", "font-weight": "bold"},
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myGroupbox').groupbox('option', 'buttonStyle',  {"border": "2px solid green", "font-weight": "bold"});
+}}}
 ---------------------------------------
 
 ====cssClassList1====
@@ -165,6 +197,23 @@ List of CSS classes to be applied to list #1.
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* ""
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'cssClassList1': 'myCustomCssClass anotherClass',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'cssClassList1',  'myCustomCssClass anotherClass');
+}}}
 ---------------------------------------
   
 ====cssClassList2====
@@ -173,22 +222,72 @@ List of CSS classes to be applied to list #2.
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* ""
----------------------------------------
 
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'cssClassList2': 'myCustomCssClass anotherClass',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'cssClassList2',  'myCustomCssClass anotherClass');
+}}}
+---------------------------------------
 ====height====
 The height of each list in the groupbox control.
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "500"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'height': '200',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'height',  '200');
+}}}
 ---------------------------------------
  
 ====idAttr====
-Name of the attribute on the list item objects that will be used as a unique id for each item. This attribute must be unique across both lists.
+Name of the attribute on the list item objects that will be used as a unique id for each item. This value of this attribute must be unique for each list item across both lists.
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "id"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'idAttr': 'key',
+  'itemsList1': [{"key": 1, "name": "Cat"}, {"key": 2, "name": "Dog"}],               
+  'itemsList2': [{"key": 3, "name": "Lion"}, {"key": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'idAttr',  'key');
+}}}
 ---------------------------------------
  
 ====itemsList1====
@@ -197,6 +296,27 @@ List of items to populate list #1 with.
 *Type:* [http://api.jquery.com/Types/#Array Array]
 
 *Default:* []
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'itemsList1',  [{"id": 3, "name": "Moose"}, {"id": 4, "name": "Elk"}]);
+}}}
+
+OR via setItems method after initialization:
+{{{
+$('#myGroupbox').groupbox('setItems', 1,  [{"id": 3, "name": "Moose"}, {"id": 4, "name": "Elk"}]);
+}}}
 ---------------------------------------
 
 ====itemsList2====
@@ -205,6 +325,27 @@ List of items to populate list #2 with.
 *Type:* [http://api.jquery.com/Types/#Array Array]
 
 *Default:* []
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'itemsList2',  [{"id": 3, "name": "Moose"}, {"id": 4, "name": "Elk"}]);
+}}}
+
+OR via setItems method after initialization:
+{{{
+$('#myGroupbox').groupbox('setItems', 2,  [{"id": 3, "name": "Moose"}, {"id": 4, "name": "Elk"}]);
+}}}
 ---------------------------------------
 
 ====itemSize====
@@ -213,6 +354,23 @@ The size of the list items in the groupbox control. Valid values are xsmall, sma
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "medium"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'itemSize': 'large',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'itemSize',  'large');
+}}}
 ---------------------------------------
 
 ====itemStyle====
@@ -221,6 +379,23 @@ CSS style to be applied to the list item elements.
 *Type:* [http://api.jquery.com/Types/#Object Object]
 
 *Default:* {}
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'itemStyle': {"border": "2px solid blue", "font-weight": "bold"},
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'itemStyle',   {"border": "2px solid blue", "font-weight": "bold"});
+}}}
 ---------------------------------------
 
 ====labelAttr====
@@ -229,6 +404,23 @@ Name of the attribute on the list item objects containing the value that will be
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "name"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'labelAttr': 'label',
+  'itemsList1': [{"id": 1, "label": "Cat"}, {"id": 2, "label": "Dog"}],               
+  'itemsList2': [{"id": 3, "label": "Lion"}, {"id": 4, "label": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'labelAttr',  'label');
+}}}
 ---------------------------------------
 
 ====labelList1====
@@ -237,6 +429,23 @@ Label displayed as the heading for list #1.
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "From"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'labelList1': 'Animals',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'labelList1',  'Animals');
+}}}
 ---------------------------------------
 
 ====labelList2====
@@ -245,6 +454,23 @@ Label displayed as the heading for list #2.
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "To"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'labelList2': 'Good Pets',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'labelList2',  'Good Pets');
+}}}
 ---------------------------------------
 
 ====selectable====
@@ -253,6 +479,23 @@ Boolean value indicating if the list items should be made selectable, meaning th
 *Type:* [http://api.jquery.com/Types/#Boolean Boolean]
 
 *Default:* true
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'selectable': false,
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'selectable',  false);
+}}}
 ---------------------------------------
 
 ====width====
@@ -261,6 +504,23 @@ The width of each list in the groupbox control.
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* "300"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myGroupbox').groupbox({
+  'width': '100',
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],               
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}]
+});
+}}}
+
+OR via option method after initialization:
+
+{{{
+$('#myGroupbox').groupbox('option', 'width',  100);
+}}}
 ---------------------------------------
 	
 ==Methods==
