@@ -19,22 +19,24 @@
 		},
 		_create: function() {
 			var self = this;
-			this.regex = '[^0-9.]';
+			var regex = '[^0-9.]';
 			
 			switch(this.options.type) {
 				case 'digits':
-					this.regex = '[^0-9]';					
+					regex = '[^0-9]';					
 					break;
 				case 'alpha':
-					this.regex = '[^a-zA-Z]';
+					regex = '[^a-zA-Z]';
 					break;
 				case 'exclude':
-					this.regex = '[' + this._buildCharsExpr(this.options.chars) + ']';			
+					regex = '[' + this._buildCharsExpr(this.options.chars) + ']';			
 					break;
 				case 'allow':
-					this.regex = '[^' + this._buildCharsExpr(this.options.chars) + ']';
+					regex = '[^' + this._buildCharsExpr(this.options.chars) + ']';
 					break;
 			}
+			
+			this.regex = new RegExp(regex);
 			
 			this.element.bind('keydown', function(event) {		
 				if(!self._checkRegEx(event)) {
@@ -44,7 +46,7 @@
 		},
 		_checkRegEx: function(keyEvent) {
 			var value = $.ui.keyCode.keyCode2Char(keyEvent.keyCode, keyEvent.shiftKey);
-			return !value.match(new RegExp(this.regex));
+			return !value.match(this.regex);
 		},		
 		_buildCharsExpr: function(chars) {
 			var charsExpr = '';		
