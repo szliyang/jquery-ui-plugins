@@ -8,6 +8,54 @@ As you can see from this screenshot, the widget is styled using jQuery UI themes
 
 <img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/demos/images/groupbox.png">
 
+{{{
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Groupbox Example</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/redmond/jquery-ui.css">
+	<link rel="stylesheet" href="../css/jquery-ui-plugins.css" type="text/css"/>
+	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script type="text/javascript" src="../js/jquery.ui.groupbox.js"></script>	
+</head>
+<body>		
+	<div id="myGroupbox"></div>													
+</body>
+	
+	<script type="text/javascript">		
+		
+		$(function() {				
+			var animals = [{"id": 1, "name": "Ape"},
+				{"id": 2, "name": "Bear"},			
+				{"id": 5, "name": "Elephant"},
+				{"id": 7, "name": "Gorilla"},
+				{"id": 9, "name": "Koala"},
+				{"id": 10, "name": "Llama"},
+				{"id": 11, "name": "Mouse"},
+				{"id": 12, "name": "Ostrich"},
+				{"id": 13, "name": "Panda"},
+				{"id": 14, "name": "Rhinoceros"},
+				{"id": 15, "name": "Tiger"}];
+			
+			var pets = [{"id": 3, "name": "Cat"}, 
+				{"id": 4, "name": "Dog"}, 
+				{"id": 6, "name": "Ferret"}, 
+				{"id": 8, "name": "Hamster"}];									
+			
+			$('#myGroupbox').groupbox({				
+				"labelList1": "Animals",
+				"itemsList1": animals,
+				"labelList2": "Good Pets",
+				"itemsList2": pets
+			});							
+		});
+	</script>
+</html>
+
+}}}
+
 =Groupbox API=
 
 <table cellspacing="10px" style="text-align:left;">
