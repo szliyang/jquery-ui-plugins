@@ -27,13 +27,13 @@
 					break;
 				case 'alpha':
 					regex = '[^a-zA-Z]';
-					break;
-				case 'exclude':
-					regex = '[' + this._buildCharsExpr(this.options.chars) + ']';			
-					break;
-				case 'allow':
-					regex = '[^' + this._buildCharsExpr(this.options.chars) + ']';
-					break;
+					break;				
+			}
+			
+			if(this.options.allow && this.options.allow.length) {
+				regex = '[^' + this._buildCharsExpr(this.options.allow) + ']';								
+			} else if(this.options.exclude && this.options.exclude.length) {
+				regex = '[' + this._buildCharsExpr(this.options.exclude) + ']';
 			}
 			
 			this.regex = new RegExp(regex);
