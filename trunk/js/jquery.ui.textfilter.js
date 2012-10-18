@@ -4,7 +4,7 @@
  * Copyright 2012, Chad LaVigne
  * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php) 
  *
- * http://code.google.com/p/jquery-ui-plugins/wiki/Filter
+ * http://code.google.com/p/jquery-ui-plugins/wiki/TextFilter
  *
  * Depends:
  *	jquery.ui.core.js
