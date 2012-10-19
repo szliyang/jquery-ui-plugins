@@ -11,10 +11,10 @@ JQuery UI based text input filter that provides a simple way to selectively supp
   <meta charset="utf-8">
   <title>Text Filter Example</title>
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/redmond/jquery-ui.css">
-  <link rel="stylesheet" href="css/jquery-ui-plugins.css" type="text/css"/>
+  <link rel="stylesheet" href="css/jquery-ui-plugins.min.css" type="text/css"/>
   <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
   <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-  <script type="text/javascript" src="js/jquery.ui.plugins.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-plugins.min.js"></script>
 </head>
 <body>		
   <label>Numbers Only</label><input type="text" class="numbersOnly"/>	
