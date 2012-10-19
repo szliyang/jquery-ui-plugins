@@ -1,7 +1,7 @@
 * Documentation
-	* [Groupbox]
-        * [Text]
-	* [Textarea]
+  * [Groupbox]
+  * [Text]
+  * [Textarea]
 
 * Downloads
 
