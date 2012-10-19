@@ -234,17 +234,27 @@ $('#myText').text({
 ====keyEventSuppressed(event, data)====
 Triggered when a key press is suppressed.
 
- * *event*
- Type: [http://api.jquery.com/Types/#Event Event]
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
 
- * *data*
- Type: [http://api.jquery.com/Types/#Object Object]
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*key*</li>
+Type: [http://api.jquery.com/Types/#String String]
+
+The key that was suppressed.
+
+</ul> 
+</ul>
  
 *Example:*
 {{{
 $('#myText').text({
   'keyEventSuppressed': function(event, data) {
-    // code to execute when a key is suppressed
+    console.log(data.key + ' was suppressed');
   }
 });
 }}}
