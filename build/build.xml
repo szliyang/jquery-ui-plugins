@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<project name="jquery-ui-plugins" basedir="." default="build">
+	
+	<property file="build.properties"/>	
+	
+	<path id="path.svnant">
+		<pathelement location="${build.lib.dir}/svnant.jar" />
+		<pathelement location="${build.lib.dir}/svnClientAdapter.jar" />	    
+	</path>
+	    
+	<taskdef resource="svntask.properties" classpathref="path.svnant"/>
+	
+	<taskdef name="yuicompress" classname="com.yahoo.platform.yui.compressor.YUICompressTask">
+		<classpath>
+			<pathelement path="${build.lib.dir}/YUIAnt.jar" />
+			<pathelement path="${build.lib.dir}/yuicompressor-2.4.2.jar" />
+			<pathelement path="${build.lib.dir}/js.jar" />
+		</classpath>
+	</taskdef> 
+	
+	<target name="checkout">
+		<delete dir="${checkout.dir}"/>
+		<mkdir dir="${checkout.dir}"/>
+		<input addproperty="svnant.repository.user" message="Please enter SVN username"></input>
+		<input addproperty="svnant.repository.passwd" message="Please enter SVN password">
+			<handler classname="org.apache.tools.ant.input.SecureInputHandler" />
+		</input>
+		<input addproperty="svn.tag" message="Please enter the revision (tag) you're building"></input>
+		<svn username="${svnant.repository.user}" password="${svnant.repository.passwd}" javahl="false">			
+			<checkout url="${svnant.builds.url}/${svn.tag}" revision="HEAD" destPath="${checkout.dir}"/>
+		</svn>		
+	</target>
+	
+	<target name="css.cat" depends="css.min" description="Concatenate CSS files">
+			<echo message="Building ${css.min.dir}/${project.name}-${svn.tag}.min.css" />
+				<concat destfile="${css.min.dir}/${project.name}-${svn.tag}.min.css">
+					<fileset dir="${css.min.dir}">
+						<include name="*.css" />
+					</fileset>
+				</concat>
+				<echo message="${css.min.dir}/${project.name}-${svn.tag}.min.css built." />
+		</target>
+		
+		<target name="css.min" description="Minimize CSS files">		
+			<mkdir dir="${css.min.dir}"/>
+			
+			<yuicompress linebreak="300" warn="false" munge="yes" preserveallsemicolons="true" outputfolder="${css.min.dir}" outputsuffix="-${svn.tag}.min">
+				<fileset dir="${css.checkout.dir}" >
+					<include name="**/*.css" />
+				</fileset>
+			</yuicompress>		
+		</target>
+	
+	<target name="js.cat" depends="js.min" description="Concatenate Javascript files">
+		<echo message="Building ${js.min.dir}/${project.name}-${svn.tag}.min.js" />
+			<concat destfile="${js.min.dir}/${project.name}-${svn.tag}.min.js">
+				<fileset dir="${js.min.dir}">
+					<include name="*.js" />
+				</fileset>
+			</concat>
+			<echo message="${js.min.dir}/${project.name}-${svn.tag}.min.js built." />
+	</target>
+	
+	<target name="js.min" description="Minimize Javascript files">		
+		<mkdir dir="${js.min.dir}"/>
+		
+		<yuicompress linebreak="300" warn="false" munge="yes" preserveallsemicolons="true" outputfolder="${js.min.dir}" outputsuffix="-${svn.tag}.min">
+			<fileset dir="${js.checkout.dir}" >
+				<include name="**/*.js" />
+			</fileset>
+		</yuicompress>		
+	</target>	
+
+	<target name="clean" description="Clean output dirs">
+		<delete dir="${dist.dir}"/>
+		<delete dir="${build.output.dir}"/>
+	</target>
+
+	<target name="build" depends="clean,checkout,css.cat,js.cat" description="Minify JS and CSS and bundle everything into a zip file.">		
+		<mkdir dir="${dist.dir}"/>		
+		<zip destfile="${dist.dir}/${project.name}-${svn.tag}.zip" basedir="${min.dir}"/>
+		<delete dir="${checkout.dir}"/>
+		<delete dir="${min.dir}"/>
+	</target>
+
+</project>
