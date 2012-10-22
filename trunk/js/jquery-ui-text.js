@@ -11,7 +11,7 @@
  *	jquery.ui.widget.js
  */
 ;(function($, undefined) {
-	$.widget('ui.text', {  
+	$.widget('uiplugins.text', {  
 		options: {			
 			'filter': null, // type of filter to apply, valid values are numeric, digits, alpha
 			'allow': null, // array or string of characters that should be allowed, even if filtered out by filter			

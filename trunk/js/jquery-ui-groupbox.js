@@ -12,7 +12,7 @@
  */
 ;(function($, undefined) {
 	
-	$.widget('ui.groupbox', {  
+	$.widget('uiplugins.groupbox', {  
 		options: {		
 			"buttonSize": "medium",
 			"buttonStyle": {},
