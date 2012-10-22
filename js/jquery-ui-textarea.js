@@ -13,7 +13,7 @@
  */
 ;(function($, undefined) {
 	
-	$.widget('ui.textarea', {  
+	$.widget('uiplugins.textarea', {  
 		options: {			
 			"maxChars": -1, // number or function returning the number of chars allowed, using a function is valuable for dynamic limits, for example, when the limit depends on the contents of another textarea
 			"charLimitMessage": "", // message displaying character limit info
