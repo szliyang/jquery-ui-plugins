@@ -56,17 +56,23 @@ JQuery UI based text input filter that provides a simple way to selectively supp
 		<td>[#keyEventSuppressed keyEventSuppressed]</td>
 	</tr>
 	<tr>
-		<td>[#filter filter]</td>
+		<td>[#blacklist blacklist]</td>		
 		<td>[#disable() disable]</td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>[#whitelist whitelist]</td>
+		<td>[#filter filter]</td>
+		
 		<td>[#enable() enable]</td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>[#blacklist blacklist]</td>
+		<td>[#stylize stylize]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#whitelist whitelist]</td>
 		<td></td>
 		<td></td>
 	</tr>
@@ -98,7 +104,29 @@ OR via option method after initialization:
 $('#myText').text('option', 'allow', '@.');
 }}}
 ---------------------------------------
-  
+
+====blacklist====
+A list of characters the user is not allowed to enter.
+
+*Type:* [http://api.jquery.com/Types/#String String] OR [http://api.jquery.com/Types/#Array Array]
+
+*Default:* null
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myText').text({
+  // "a", "b" and "c" are suppressed
+  'blacklist': 'abc'
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myText').text('option', 'blacklist', 'abc');
+}}}
+---------------------------------------  
 ====filter====
 A text filter applied to restrict character input. Valid values are "numeric", "digits" and "alpha".
 
@@ -118,6 +146,28 @@ $('#myText').text({
 OR via option method after initialization:
 {{{
 $('#myText').text('option', 'filter', 'numeric');
+}}}
+---------------------------------------
+
+====stylize====
+A boolean value that determines if the text field should be stylized with jQuery UI classes.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* true
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myText').text({ 
+  'stylize': false
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myText').text('option', 'stylize', false);
 }}}
 ---------------------------------------
 
@@ -141,29 +191,6 @@ $('#myText').text({
 OR via option method after initialization:
 {{{
 $('#myText').text('option', 'whitelist', 'abc');
-}}}
----------------------------------------
- 
-====blacklist====
-A list of characters the user is not allowed to enter.
-
-*Type:* [http://api.jquery.com/Types/#String String] OR [http://api.jquery.com/Types/#Array Array]
-
-*Default:* null
-
-*Example:*
-
-Set during initialization:
-{{{
-$('#myText').text({
-  // "a", "b" and "c" are suppressed
-  'blacklist': 'abc'
-});
-}}}
-
-OR via option method after initialization:
-{{{
-$('#myText').text('option', 'blacklist', 'abc');
 }}}
 ---------------------------------------
 
