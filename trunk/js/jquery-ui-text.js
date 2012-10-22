@@ -12,17 +12,18 @@
  */
 ;(function($, undefined) {
 	$.widget('uiplugins.text', {  
-		options: {			
-			'filter': null, // type of filter to apply, valid values are numeric, digits, alpha
-			'allow': null, // array or string of characters that should be allowed, even if filtered out by filter			
-			'whitelist': null, // white list of valid characters, everything else is excluded regardless of other filter
-			'blacklist': null // black list of characters that are never valid			
+		options: {
+			'allow': null, // array or string of characters that should be allowed, even if filtered out by filter
+			'blacklist': null, // black list of characters that are never valid
+			'filter': null, // type of filter to apply, valid values are numeric, digits, alpha	
+			'stylize': true,
+			'whitelist': null // white list of valid characters, everything else is excluded regardless of other filter
 		},
 		_create: function() {
 			var self = this;
 			self._initFilters();
-			
-			this.element.addClass('ui-text');
+			var cssClass = this.options.stylize ? 'ui-text ui-state-default ui-corner-all' : 'ui-text';
+			this.element.addClass(cssClass);
 			this.element.bind('keydown', function(event) {
 				var result = self._isValidKeyPress(event);
 				
@@ -119,7 +120,15 @@
 		_setOption: function(option, value) {
 			$.Widget.prototype._setOption.apply(this, arguments);
 			
-			this._initFilters();			
+			if(option == 'stylize') {
+				if(eval(value)) {
+					this.element.addClass('ui-state-default ui-corner-all');
+				} else {
+					this.element.removeClass('ui-state-default ui-corner-all');
+				}
+			} else {
+				this._initFilters();
+			}						
 		},
 		enable: function() {			
 			this.element.removeAttr('disabled');			
