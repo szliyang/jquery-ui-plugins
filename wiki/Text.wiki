@@ -42,7 +42,7 @@ JQuery UI based text input filter that provides a simple way to selectively supp
 </html>
 }}}
 
-=Textarea API=
+=Text API=
 
 <table cellspacing="10px">
 	<tr>
