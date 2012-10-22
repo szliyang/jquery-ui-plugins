@@ -1,7 +1,13 @@
 * Documentation
   * [Groupbox]
+    * [Groupbox#Groupbox_API API]
+    * [Groupbox#Example Example]
   * [Text]
+    * [Text#Text_API API]
+    * [Text#Example Example]
   * [Textarea]
+    * [Textarea#Textarea_API API]
+    * [Textarea#Example Example]
 
 * Links
   * [http://jquery.com JQuery]
