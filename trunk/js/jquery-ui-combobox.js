@@ -14,7 +14,7 @@ $.widget("uiplugins.combobox", {
 		var $input = $("<input />")
 			.keydown(function(event) {
 				var $this = $(this);
-				// if they hit arrow down and the list isn't show, just show the whole thing regardless of the current value
+				// if they hit arrow down and the list isn't showing, show the whole thing regardless of the current value
 				if(event.which == $.ui.keyCode.DOWN && !$this.autocomplete("widget").is(":visible")) {
 					$this.autocomplete("search", "");
 					return false;
