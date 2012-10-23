@@ -38,7 +38,7 @@
 			var valid = true;
 			var key = keyEvent.which;
 			var emptyChar = (key >= $.ui.keyCode.SHIFT && key <= $.ui.keyCode.CAPS_LOCK) || key == $.ui.keyCode.ESCAPE || (key > $.ui.keyCode.SPACE && key <= $.ui.keyCode.DOWN) || key == $.ui.keyCode.INSERT || (key >= $.ui.keyCode.COMMAND && key <= $.ui.keyCode.COMMAND_RIGHT) || (key >= $.ui.keyCode.NUM_LOCK && key <= $.ui.keyCode.SCROLL_LOCK);
-			var alwaysValid = key == 0 || key == $.ui.keyCode.BACKSPACE || key == $.ui.keyCode.DELETE || (event.ctrlKey && key == $.ui.keyCode.A) || key == $.ui.keyCode.TAB;
+			var alwaysValid = key == 0 || key == $.ui.keyCode.BACKSPACE || key == $.ui.keyCode.DELETE || (keyEvent.ctrlKey && key == $.ui.keyCode.A) || key == $.ui.keyCode.TAB;
 			var value = $.ui.keyCode.keyCode2Char(keyEvent.keyCode, keyEvent.shiftKey);
 
 			if(!(emptyChar || alwaysValid)) {
@@ -83,40 +83,16 @@
 			var regex = null;
 			
 			if(chars && chars.length) {
-				if(typeof chars === 'string') {
-					chars = this._toCharArray(chars);
+				if(chars instanceof Array) {
+					chars = chars.join("");
 				}
 				
-				regex = new RegExp('[' + (negate ? '^' : '') + this._buildCharsExpr(chars) + ']');				
+				console.log(typeof chars);
+				regex = new RegExp('[' + (negate ? '^' : '') + chars.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") + ']');				
 			}
 			
 			return regex;
-		},
-		_buildCharsExpr: function(chars) {
-			var charsExpr = '';		
-			
-			for (var i = 0; i < chars.length; i++) {
-				var c = chars[i];
-	
-				if (c == '\\') {
-					charsExpr += '\\\\';
-				} else if (c == '\'' || c == ']' || c == '~' || c == '`' || c == '-') {
-					charsExpr += '\\' + c;
-				} else {
-					charsExpr += c;
-				}
-			}
-			
-			return charsExpr;
-		},
-		_toCharArray: function(charString) {
-			var charArray = new Array();
-			for(var i = 0; i < charString.length; i++) {
-				charArray[i] = charString.charAt(i);
-			}
-			
-			return charArray;
-		},
+		},		
 		_setOption: function(option, value) {
 			$.Widget.prototype._setOption.apply(this, arguments);
 			
