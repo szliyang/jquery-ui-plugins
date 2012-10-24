@@ -7,6 +7,7 @@
  * http://code.google.com/p/jquery-ui-plugins/wiki/Textarea
  *
  * Depends:
+ *  jquery 1.8.2
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
  *  jquery.ui.plugins.core.js
