@@ -10,6 +10,7 @@
  *  jquery 1.8.2
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
+ *	jquery.ui.position.js
  */
 $.widget("uiplugins.combobox", {
 	options: {
@@ -143,7 +144,7 @@ $.widget("uiplugins.combobox", {
 				return false;
 			});
 		
-		$input.width(this.options.width - $button.width());			
+		$input.width(this.options.width - $button.width());		
 	},
 	_getButtonHeight: function() {
 		return this.$input.height() + Number(this.$input.css("border-top-width").replace("px", "")) + Number(this.$input.css("border-bottom-width").replace("px", ""));
