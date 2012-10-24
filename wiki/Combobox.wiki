@@ -1,0 +1,113 @@
+#summary JQuery UI based combobox widget which combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type.
+
+=Summary=
+A JQuery UI based combobox widget which combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type. This widget
+was created based on the [http://jqueryui.com/autocomplete/#combobox demo] provided by the jQuery UI team in the documentation for the [http://jqueryui.com/autocomplete/ Autocomplete] widget. It adds
+some functionality to make it behave a bit more like a regular HTML select list and provides some options, methods and events so it can be manipulated and customized like a regular jQuery UI widget.
+
+=Example=
+<img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/demos/images/combobox.png">
+
+{{{
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Combobox Example</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="css/jquery-ui-combobox.css" type="text/css"/>	
+  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-combobox.js"></script>		
+</head>
+<body>		
+  <select id="myCombobox">
+    <option value="">Select one...</option>
+    <option value="ActionScript">ActionScript</option>
+    <option value="AppleScript">AppleScript</option>
+    <option value="Asp">Asp</option>
+    <option value="BASIC">BASIC</option>
+    <option value="C">C</option>
+    <option value="C++">C++</option>
+    <option value="Clojure">Clojure</option>
+    <option value="COBOL">COBOL</option>
+    <option value="ColdFusion">ColdFusion</option>
+    <option value="Erlang">Erlang</option>
+    <option value="Fortran">Fortran</option>
+    <option value="Groovy">Groovy</option>
+    <option value="Haskell">Haskell</option>
+    <option value="Java">Java</option>
+    <option value="JavaScript">JavaScript</option>
+    <option value="Lisp">Lisp</option>
+    <option value="Perl">Perl</option>
+    <option value="PHP">PHP</option>
+    <option value="Python">Python</option>
+    <option value="Ruby">Ruby</option>
+    <option value="Scala">Scala</option>
+    <option value="Scheme">Scheme</option>
+  </select>
+	
+  <script type="text/javascript">			
+    $(function() {				
+      $("#myCombobox").combobox();						
+    });
+  </script>								
+</body>
+</html>
+}}}
+
+=Combobox API=
+
+<table cellspacing="10px">
+	<tr>
+		<td><h3>[#Options Options]</h3></td>
+		<td><h3>[#Methods Methods]</h3></td>
+		<td><h3>[#Events Events]</h3></td>
+	</tr>	
+	
+	<tr>
+		<td>[#buttonClass buttonClass]</td>
+		<td>[#close() close]</td>
+		<td>[#change(event,_data) change]</td>
+	</tr>
+	<tr>
+		<td>[#buttonStyle buttonStyle]</td>
+		<td>[#destroy() destroy]</td>
+		<td>[#close(event,_data) close]</td>
+	</tr>
+	<tr>
+		<td>[#height height]</td>
+		<td>[#disable() disable]</td>
+		<td>[#disable(event,_data) disable]</td>
+	</tr>
+	<tr>
+		<td>[#ignoreCase ignoreCase]</td>
+		<td>[#enable() enable]</td>
+		<td>[#enable(event,_data) enable]</td>
+	</tr>
+	<tr>
+		<td>[#inputClass inputClass]</td>
+		<td>[#open() open]</td>
+		<td>[#open(event,_data) open]</td>
+	</tr>
+	<tr>
+		<td>[#inputStyle inputStyle]</td>
+		<td></td>
+		<td>[#select(event,_data) select]</td>
+	</tr>
+	<tr>
+		<td>[#maxHeight maxHeight]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#searchType searchType]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#width width]</td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
