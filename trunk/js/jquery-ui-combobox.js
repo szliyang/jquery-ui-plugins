@@ -21,12 +21,12 @@ $.widget("uiplugins.combobox", {
 		"inputClass": "",
 		"inputStyle": {},
 		"maxHeight": 200,
-		"searchType": "startsWith", // specify what type of search the auto complete does, valid values are contains or startsWith
+		"searchType": "startsWith",
 		"width": 200
 	},
 	_create: function() {
 		var self = this;				
-		var $select = this.element.addClass("ui-combobox-select").hide(),
+		var $select = this.$select = this.element.addClass("ui-combobox-select").hide(),
 			selected = $select.children(":selected"),
 			value = selected.val() ? selected.text() : "";
 		var $input = this.$input = $("<input />")
@@ -37,78 +37,15 @@ $.widget("uiplugins.combobox", {
 					$this.autocomplete("search", "");
 					return false;
 				}
-			})			
+			})
 			.height(this.options.height)
 			.insertAfter($select)
 			.val(value)
 			// wrap elements in a div because they're floated to make the tops align but we don't want the widget floated
 			.wrap($("<div></div>").addClass("ui-combobox"))
-			.autocomplete({
-				delay: 0,
-				minLength: 0,
-				source: function(request, response) {
-					var quantifier = self.options.searchType == "startsWith" ? "^" : "";					
-					var modifier = self.options.ignoreCase && self.options.ignoreCase !== "false" ? "i" : "";					
-					var matcher = new RegExp(quantifier + $.ui.autocomplete.escapeRegex(request.term), modifier);
-					
-					response($select.children("option").map(function() {
-						var text = $(this).text();
-						if (this.value && (!request.term || matcher.test(text))) {
-							return {
-								// this regex highlights the matching part of the label
-								label: text.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(request.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>"),
-								value: text,
-								option: this
-							};
-						}
-					}));					
-				},
-				select: function( event, ui ) {
-					ui.item.option.selected = true;
-					self._trigger("select", event, {
-						"item": ui.item.option
-					});
-				},
-				change: function(event, ui) {
-					if (!ui.item) {
-						// check the contents of the text field and see if it matches the text of any options
-						var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex($(this).val()) + "$", "i");
-						var valid = false;
-						
-						$select.children("option").each(function() {							
-							if (this.text.match(matcher)) {
-								this.selected = valid = true;
-								$select.val(this.value);
-								self._trigger("change", event, {"item": this});
-								return false;
-							}
-						});
-						
-						if (!valid) {
-							// remove invalid value that didn't match anything, just set the value back to what it was							
-							$(this).val($select.children("option:selected").text());
-							return false;
-						}
-					}
-				},
-				open: function(event, ui) {					
-					self._trigger("open");					
-				},
-				close: function() {
-					self._trigger("close");
-				}
-			})
+			.autocomplete(this._initAutocomplete())
 			.addClass("ui-widget ui-widget-content ui-corner-left ui-combobox-input" + (this.options.inputClass ? " " + this.options.inputClass : ""))
-			.css(this.options.inputStyle);
-		
-		
-		$input.keydown(function(event) {
-			var key = event.which;
-			
-			if(key == $.ui.keyCode.DOWN && !$input.autocomplete("widget").is(":visible")) {
-				$input.autocomplete("search", "");
-			}
-		});
+			.css(this.options.inputStyle);		
 		
 		$input.data("autocomplete")._renderItem = function(ul, item) {
 			ul.addClass("ui-combobox-list");
@@ -119,7 +56,53 @@ $.widget("uiplugins.combobox", {
 				.appendTo(ul);
 		};				   
 		
-		var $button = this.$button = $("<button>&nbsp;</button>")
+		this.$button = this._initButton();		
+		$input.width(this.options.width - this.$button.width());		
+	},
+	_initAutocomplete: function() {
+		var self = this;
+		
+		return {
+			delay: 0,
+			minLength: 0,
+			source: function(request, response) {
+				var quantifier = self.options.searchType == "startsWith" ? "^" : "";					
+				var modifier = self.options.ignoreCase && self.options.ignoreCase !== "false" ? "i" : "";					
+				var matcher = new RegExp(quantifier + $.ui.autocomplete.escapeRegex(request.term), modifier);
+				
+				response(self.$select.children("option").map(function() {
+					var text = $(this).text();
+					if (this.value && (!request.term || matcher.test(text))) {
+						return {
+							// this regex highlights the matching part of the label
+							label: text.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(request.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>"),
+							value: text,
+							option: this
+						};
+					}
+				}));					
+			},
+			select: function( event, ui ) {
+				ui.item.option.selected = true;
+				self._trigger("select", event, {
+					"item": ui.item.option
+				});
+			},
+			change: function(event, ui) {
+				self._onChange(event, ui);
+			},
+			open: function(event, ui) {					
+				self._trigger("open"); // note this is triggered whenever the value is updated, not just when the list is opened			
+			},
+			close: function() {
+				self._trigger("close");
+			}
+		};
+	},
+	_initButton: function() {
+		var $input = this.$input;
+		
+		return $("<button>&nbsp;</button>")
 			.attr("tabIndex", -1)
 			.attr("title", "Show All Items")
 			.insertAfter($input)
@@ -143,8 +126,30 @@ $.widget("uiplugins.combobox", {
 				$input.autocomplete("search", "").select();
 				return false;
 			});
-		
-		$input.width(this.options.width - $button.width());		
+	},
+	_onChange: function(event, ui) {
+		if (!ui.item) {
+			// check the contents of the text field and see if it matches the text of any options
+			var self = this;
+			var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(this.$input.val()) + "$", "i");
+			var valid = false;
+			var $select = this.$select;
+			
+			$select.children("option").each(function() {							
+				if (this.text.match(matcher)) {
+					this.selected = valid = true;
+					$select.val(this.value);
+					self._trigger("change", event, {"item": this});
+					return false;
+				}
+			});
+			
+			if (!valid) {
+				// remove invalid value that didn't match anything, just set the value back to what it was							
+				this.$input.val($select.children("option:selected").text());
+				return false;
+			}
+		}
 	},
 	_getButtonHeight: function() {
 		return this.$input.height() + Number(this.$input.css("border-top-width").replace("px", "")) + Number(this.$input.css("border-bottom-width").replace("px", ""));
