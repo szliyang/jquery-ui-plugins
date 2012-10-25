@@ -94,23 +94,23 @@ As you can see from this screenshot, the widget is styled using jQuery UI themes
 	<td>[#beforeRemove(event,_data) beforeRemove]</td>
 </tr>
 <tr>
-	<td>[#itemsList1 itemsList1]</td>			
-	<td>[#removeItem(listNumber,_item) removeItem]</td>	
+	<td>[#itemsList1 itemsList1]</td>		
+	<td>[#option() option]</td>		
 	<td>[#disable(event,_data) disable]</td>
 </tr>
 <tr>
 	<td>[#itemsList2 itemsList2]</td>
-	<td>[#setItems(listNumber,_items) setItems]</td>	
+	<td>[#removeItem(listNumber,_item) removeItem]</td>		
 	<td>[#enable(event,_data) enable]</td>
 </tr>
 <tr>		
 	<td>[#itemSize itemSize]</td>				
-	<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
+	<td>[#setItems(listNumber,_items) setItems]</td>		
 	<td></td>
 </tr>
 <tr>		
 	<td>[#itemStyle itemStyle]</td>	
-	<td></td>
+	<td>[#setSelected(listNumber,_items,_clearSelections) setSelected]</td>
 	<td></td>
 </tr>
 <tr>		
@@ -576,6 +576,8 @@ Get all of the items currently contained in the list specified by {{{listNumber}
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
  Number indicating from which list the items should be retrieved (1 or 2).
+ 
+*Returns:* [http://api.jquery.com/Types/#Array Array]
 
 *Example:*
 {{{
@@ -583,16 +585,46 @@ $('#myGroupbox').groupbox('getItems', 1);
 }}}
 ---------------------------------------
 ====getSelected(listNumber)====
-Get the remaining number of characters that can be entered
+Get the list of items currently selected in the list specified by listNumber.
 
  * *listNumber*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
  Number indicating from which list the items should be retrieved (1 or 2).
+ 
+*Returns:* [http://api.jquery.com/Types/#Array Array]
 
 *Example:*
 {{{
 $('#myGroupbox').groupbox('getSelected', 1);
+}}}
+---------------------------------------
+====option()====
+Gets an object containing key/value pairs representing the groupbox's current options hash.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var options = $('#myGroupbox').groupbox('option');
+}}}
+---------------------------------------
+====option(optionName)====
+Gets the value currently associated with the option specified by optionName.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var groupboxHeight = $('#myGroupbox').groupbox('option', 'height');
+}}}
+---------------------------------------
+====option(optionName, value)====
+Sets the value of the option specified by optionName.
+
+*Example:*
+{{{
+$('#myGroupbox').groupbox('option', 'height', 400);
 }}}
 ---------------------------------------
 ====removeItem(listNumber, item)====
