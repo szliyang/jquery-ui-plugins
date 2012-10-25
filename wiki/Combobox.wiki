@@ -1,4 +1,5 @@
 #summary JQuery UI based combobox widget which combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type.
+#labels Featured
 
 =Summary=
 A JQuery UI based combobox widget which combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type. This widget
