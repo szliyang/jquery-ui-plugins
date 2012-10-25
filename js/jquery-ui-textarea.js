@@ -109,7 +109,7 @@
 			var opts = self.options;
 			var max = typeof opts.maxChars === 'function' ? opts.maxChars.apply() : opts.maxChars;
 			var $textarea = self.$textarea;
-			var $textareaClone;
+			var $textareaClone = null;
 			
 			// the paste flicker fix puts a text area containing a copy of the current value on top of the original text area so the original one is hidden, 
 			// this hides the flicker that sometimes occurs when the pasted text is too long but we see it for a split second before it's truncated to fit				
@@ -287,7 +287,7 @@
  * http://www.opensource.org/licenses/mit-license.php
  *
  */
-(function($, len, createRange, duplicate) {
+;(function($, len, createRange, duplicate) {
     $.fn.caret = function(options, opt2) {
         var start, end, t = this[0], browser = $.browser.msie, s, e;
         if (typeof options === "object" && typeof options.start === "number" && typeof options.end === "number") {
