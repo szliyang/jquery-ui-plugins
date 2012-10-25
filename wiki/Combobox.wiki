@@ -111,3 +111,383 @@ some functionality to make it behave a bit more like a regular HTML select list 
 		<td></td>
 	</tr>
 </table>
+==Options==
+====buttonClass====
+CSS class to apply to the drop-down button.
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* ""
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'buttonClass': 'redButton'
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'buttonClass', 'redButton');
+}}}
+---------------------------------------
+====buttonStyle====
+CSS style to apply to the drop-down button.
+
+*Type:* [http://api.jquery.com/Types/#Object Object]
+
+*Default:* {}
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'buttonStyle': {"border": "1px solid black"}
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'buttonStyle', {"border": "1px solid black"});
+}}}
+---------------------------------------
+====height====
+Height of the combobox.
+
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 20
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'height': 30
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'height', 30);
+}}}
+---------------------------------------
+====ignoreCase====
+Boolean value indicating whether case should be ignored while searching the list for values matching the user's input.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* true
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'ignoreCase': false
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'ignoreCase', false);
+}}}
+---------------------------------------
+====inputClass====
+CSS class to apply to the input box.
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* ""
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'inputClass': 'bigInput'
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'inputClass', 'bigInput');
+}}}
+---------------------------------------
+====inputStyle====
+CSS style to apply to the input box.
+
+*Type:* [http://api.jquery.com/Types/#Object Object]
+
+*Default:* {}
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'inputStyle': {"padding": "20px"}
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'inputStyle', {"padding": "20px"});
+}}}
+---------------------------------------
+====maxHeight====
+Maximum height of the drop-down list of values. If the list of values exceeds this height the list becomes scrollable.
+
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 200
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'maxHeight': 100
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'maxHeight', 100);
+}}}
+---------------------------------------
+====searchType====
+The type of search performed when attempting to find values that match the user's input. Valid values are "startsWith" and "contains".
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* "startsWith"
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'searchType': 'contains'
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'searchType', 'contains');
+}}}
+---------------------------------------
+====width====
+The width of the combobox.
+
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 200
+
+*Example:*
+
+Set during initialization:
+{{{
+$('#myCombobox').combobox({
+  'width': 100
+});
+}}}
+
+OR via option method after initialization:
+{{{
+$('#myCombobox').combobox('option', 'width', 100);
+}}}
+---------------------------------------
+	
+==Methods==
+====close()====
+Close the drop-down list if it's displayed.
+
+*Example:*
+{{{
+$('#myCombobox').combobox('close');
+}}}
+---------------------------------------
+====destroy()====
+Destroy the combobox, removing all functionality added by the plugin and returning the element to it's original state.
+
+*Example:*
+{{{
+$('#myCombobox').combobox('destroy');
+}}}
+---------------------------------------
+====disable()====
+Disable the combobox.
+
+*Example:*
+{{{
+$('#myCombobox').combobox('disable');
+}}}
+---------------------------------------
+====enable()====
+Enable the combobox.
+
+*Example:*
+{{{
+$('#myCombobox').combobox('enable');
+}}}
+---------------------------------------
+====open()====
+Open the drop-down list.
+
+*Example:*
+{{{
+$('#myCombobox').combobox('open');
+}}}
+---------------------------------------
+
+==Events==
+====change(event, data)====
+Triggered when the input field is blurred after the user has typed a value that matches one of the items in the list, thereby changing the selected value. This event is NOT fired when user selects a value from the list using the mouse or arrows keys, in that case the [select() select] event is fired.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The option item that is now selected.
+
+</ul> 
+</ul>
+
+*Example:*
+{{{
+$('#myCombobox').combobox({    
+  'change': function(event, data) {
+    // code to execute when the selection is changed by the user typing a valid value
+  }
+});
+}}}   
+---------------------------------------
+====close(event, data)====
+Triggered when the drop-down list is closed.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+  
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+*Example:*
+{{{
+$('#myCombobox').combobox({    
+  'close': function(event, data) {
+    // code to execute when the select list is closed
+  }
+});
+}}}   
+---------------------------------------
+====disable(event, data)====
+Triggered when the combobox is disabled.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+  
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+*Example:*
+{{{
+$('#myCombobox').combobox({    
+  'disable': function(event, data) {
+    // code to execute when the combobox is disabled
+  }
+});
+}}}   
+---------------------------------------
+====enable(event, data)====
+Triggered when the combobox is enabled.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+  
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+*Example:*
+{{{
+$('#myCombobox').combobox({    
+  'enable': function(event, data) {
+    // code to execute when the combobox is enabled
+  }
+});
+}}}   
+---------------------------------------
+====open(event, data)====
+Triggered when the drop-down list is opened.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+  
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+*Example:*
+{{{
+$('#myCombobox').combobox({    
+  'open': function(event, data) {
+    // code to execute when the drop-down list is opened
+  }
+});
+}}}   
+---------------------------------------
+====select(event, data)====
+Triggered when a value is selected from the list using the arrow keys or the mouse.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+  
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+<ul>
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The option item that is now selected.
+
+</ul> 
+</ul>
+
+*Example:*
+{{{
+$('#myCombobox').combobox({    
+  'select': function(event, data) {
+    // code to execute when a value is selected from the drop-down list
+  }
+});
+}}}   
+---------------------------------------
