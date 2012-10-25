@@ -3,7 +3,7 @@
     * [Groupbox#Groupbox_API API]
     * [Groupbox#Example Example]
   * [TextInput Text Input]
-    * [TextInput#TextInput_API API]
+    * [TextInput#Text_Input_API API]
     * [TextInput#Example Example]
   * [Textarea]
     * [Textarea#Textarea_API API]
