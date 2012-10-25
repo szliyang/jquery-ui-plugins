@@ -62,27 +62,32 @@ As you can see from the following screen shot the widget automatically renders a
 	</tr>
 	<tr>
 		<td>[#maxChars maxChars]</td>
-		<td>[#refresh() refresh]</td>
+		<td>[#option() option]</td>		
 		<td></td>
 	</tr>
 	<tr>
 		<td>[#pasteFlickerFix pasteFlickerFix]</td>
-		<td>[#remaining() remaining]</td>
+		<td>[#refresh() refresh]</td>		
 		<td></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#replaceSelection(replacement) replaceSelection]</td>
+		<td>[#remaining() remaining]</td>		
 		<td></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#selectedText() selectedText]</td>
+		<td>[#replaceSelection(replacement) replaceSelection]</td>		
 		<td></td>
 	</tr>
 	<tr>
 		<td></td>
-		<td>[#selectionEnd() selectionEnd]</td>
+		<td>[#selectedText() selectedText]</td>		
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>[#selectionEnd() selectionEnd]</td>		
 		<td></td>
 	</tr>
 	<tr>
@@ -242,7 +247,34 @@ Destroy the text area, removing all functionality added by the plugin.
 $('#myTextarea').textarea('destroy');
 }}}
 ---------------------------------------
+====option()====
+Gets an object containing key/value pairs representing the textarea's current options hash.
 
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var options = $('#myTextarea').textarea('option');
+}}}
+---------------------------------------
+====option(optionName)====
+Gets the value currently associated with the option specified by optionName.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var maxChars = $('#myTextarea').textarea('option', 'maxChars');
+}}}
+---------------------------------------
+====option(optionName, value)====
+Sets the value of the option specified by optionName.
+
+*Example:*
+{{{
+$('#myTextarea').textarea('option', 'maxChars', 400);
+}}}
+---------------------------------------
 ====refresh()====
 Refresh the text area. This is useful for updating the char limit message on a textarea with a dynamic character limit, e.g. when the limit is based on the content of multiple textareas
 
