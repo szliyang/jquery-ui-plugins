@@ -92,7 +92,7 @@ some functionality to make it behave a bit more like a regular HTML select list 
 	</tr>
 	<tr>
 		<td>[#inputStyle inputStyle]</td>
-		<td></td>
+		<td>[#option() option]</td>
 		<td>[#select(event,_data) select]</td>
 	</tr>
 	<tr>
@@ -343,7 +343,34 @@ Open the drop-down list.
 $('#myCombobox').combobox('open');
 }}}
 ---------------------------------------
+====option()====
+Gets an object containing key/value pairs representing the combobox's current options hash.
 
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var options = $('#myCombobox').combobox('option');
+}}}
+---------------------------------------
+====option(optionName)====
+Gets the value currently associated with the option specified by optionName.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var comboHeight = $('#myCombobox').combobox('option', 'height');
+}}}
+---------------------------------------
+====option(optionName, value)====
+Sets the value of the option specified by optionName.
+
+*Example:*
+{{{
+$('#myCombobox').combobox('option', 'height', 30);
+}}}
+---------------------------------------
 ==Events==
 ====change(event, data)====
 Triggered when the input field is blurred after the user has typed a value that matches one of the items in the list, thereby changing the selected value. This event is NOT fired when user selects a value from the list using the mouse or arrows keys, in that case the [select() select] event is fired.
