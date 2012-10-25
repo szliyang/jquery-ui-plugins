@@ -62,14 +62,13 @@ JQuery UI based text input filter that provides a simple way to selectively supp
 		<td></td>
 	</tr>
 	<tr>
-		<td>[#filter filter]</td>
-		
+		<td>[#filter filter]</td>		
 		<td>[#enable() enable]</td>
 		<td></td>
 	</tr>
 	<tr>
 		<td>[#stylize stylize]</td>
-		<td></td>
+		<td>[#option() option]</td>
 		<td></td>
 	</tr>
 	<tr>
@@ -222,7 +221,34 @@ Enables the text field
 $('#myText').textinput('disable');
 }}}
 ---------------------------------------
+====option()====
+Gets an object containing key/value pairs representing the text input's current options hash.
 
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var options = $('#myText').textinput('option');
+}}}
+---------------------------------------
+====option(optionName)====
+Gets the value currently associated with the option specified by optionName.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+{{{
+var filter = $('#myText').textinput('option', 'filter');
+}}}
+---------------------------------------
+====option(optionName, value)====
+Sets the value of the option specified by optionName.
+
+*Example:*
+{{{
+$('#myText').textinput('option', 'filter', 'digits');
+}}}
+---------------------------------------
 ==Events==
 ====disable(event, data)====
 Triggered when the text field is disabled.
