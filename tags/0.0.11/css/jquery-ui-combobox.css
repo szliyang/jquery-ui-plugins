@@ -1,0 +1,16 @@
+div.ui-combobox {
+	display: inline-block;
+}
+
+input.ui-combobox-input {
+	margin: 0;
+	float: left;	
+}
+
+button.ui-combobox-button {
+	float: left;
+}
+
+ul.ui-combobox-list {
+	overflow-y: scroll;
+}
