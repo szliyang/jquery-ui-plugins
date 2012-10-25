@@ -1,4 +1,7 @@
 * Documentation
+  * [Combobox]
+    * [Combobox#Combobox_API API]
+    * [Combobox#Example Example]
   * [Groupbox]
     * [Groupbox#Groupbox_API API]
     * [Groupbox#Example Example]
