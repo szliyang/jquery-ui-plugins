@@ -1,4 +1,5 @@
 #summary JQuery UI based groupbox widget for moving items between two lists.
+#labels Featured
 
 =Summary=
 A JQuery UI based groupbox widget for moving items between two lists. Items can be selected by clicking on them, dragging the mouse to select multiple items or using Shift + Click to select a range of items. In addition to using the arrow buttons to move items from one list to the other, users can also double click on an item to quickly to move it.
