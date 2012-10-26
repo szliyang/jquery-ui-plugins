@@ -54,22 +54,22 @@ JQuery UI based text input filter that provides a simple way to selectively supp
 	<tr>
 		<td>[#allow allow]</td>
 		<td>[#destroy() destroy]</td>
-		<td>[#disable(event,_data) disable]</td>		
+		<td>[#create(event,_data) create]</td>		
 	</tr>
 	<tr>
 		<td>[#blacklist blacklist]</td>		
 		<td>[#disable() disable]</td>
-		<td>[#enable(event,_data) enable]</td>
+		<td>[#disable(event,_data) disable]</td>		
 	</tr>
 	<tr>
 		<td>[#filter filter]</td>		
 		<td>[#enable() enable]</td>
-		<td>[#keyEventSuppressed(event,_data) keyEventSuppressed]</td>
+		<td>[#enable(event,_data) enable]</td>		
 	</tr>
 	<tr>
 		<td>[#stylize stylize]</td>
 		<td>[#option() option]</td>
-		<td></td>
+		<td>[#keyEventSuppressed(event,_data) keyEventSuppressed]</td>
 	</tr>
 	<tr>
 		<td>[#whitelist whitelist]</td>
@@ -250,6 +250,24 @@ $('#myText').textinput('option', 'filter', 'digits');
 }}}
 ---------------------------------------
 ==Events==
+====create(event, data)====
+Triggered when the text field is created.
+
+ * *event*
+ Type: [http://api.jquery.com/Types/#Event Event]
+
+ * *data*
+ Type: [http://api.jquery.com/Types/#Object Object]
+ 
+*Example:*
+{{{
+$('#myText').textinput({
+  'create': function(event, data) {
+    // code to execute when the text field is created
+  }
+});
+}}}
+---------------------------------------
 ====disable(event, data)====
 Triggered when the text field is disabled.
 
@@ -263,7 +281,7 @@ Triggered when the text field is disabled.
 {{{
 $('#myText').textinput({
   'disable': function(event, data) {
-    // code to execute when text field is disabled
+    // code to execute when the text field is disabled
   }
 });
 }}}
@@ -281,7 +299,7 @@ Triggered when the text field is enabled.
 {{{
 $('#myText').textinput({
   'enable': function(event, data) {
-    // code to execute when text field is enabled
+    // code to execute when the text field is enabled
   }
 });
 }}}
