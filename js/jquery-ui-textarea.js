@@ -265,6 +265,16 @@
 			var entered = this.$textarea.val().length;			
 			return max - entered;
 		},
+		enable: function() {			
+			this.element.removeAttr('disabled');			
+			$.Widget.prototype.enable.call(this);
+			this._trigger('enable', null, this.element);
+		},
+		disable: function() {
+			this.element.attr('disabled', 'disabled');
+			$.Widget.prototype.disable.call(this);
+			this._trigger('disable', null, this.element);
+		},
 		destroy: function() {
 			var $textarea = this.$textarea;			
 			$textarea.unbind();			
