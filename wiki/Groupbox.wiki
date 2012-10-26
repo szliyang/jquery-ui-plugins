@@ -92,22 +92,22 @@ As you can see from this screenshot, the widget is styled using jQuery UI themes
 <tr>
 	<td>[#idAttr idAttr]</td>
 	<td>[#getSelected(listNumber) getSelected]</td>	
-	<td>[#beforeRemove(event,_data) beforeRemove]</td>
+	<td>[#beforeRemove(event,_data) beforeRemove]</td>		
 </tr>
 <tr>
 	<td>[#itemsList1 itemsList1]</td>		
 	<td>[#option() option]</td>		
-	<td>[#disable(event,_data) disable]</td>
+	<td>[#create(event,_data) create]</td>	
 </tr>
 <tr>
 	<td>[#itemsList2 itemsList2]</td>
 	<td>[#removeItem(listNumber,_item) removeItem]</td>		
-	<td>[#enable(event,_data) enable]</td>
+	<td>[#disable(event,_data) disable]</td>	
 </tr>
 <tr>		
 	<td>[#itemSize itemSize]</td>				
 	<td>[#setItems(listNumber,_items) setItems]</td>		
-	<td></td>
+	<td>[#enable(event,_data) enable]</td>
 </tr>
 <tr>		
 	<td>[#itemStyle itemStyle]</td>	
@@ -959,6 +959,28 @@ $('#myGroupbox').groupbox({
   }
 });
 }}}
+---------------------------------------
+====create(event, data)====
+Triggered when the groupbox is created.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+</ul>
+ 
+*Example:*
+{{{
+$('#myGroupbox').groupbox({  
+  'itemsList1': [{"id": 1, "name": "Cat"}, {"id": 2, "name": "Dog"}],
+  'itemsList2': [{"id": 3, "name": "Lion"}, {"id": 4, "name": "Tiger"}],
+  'create': function(event, data) {
+    // code to execute when the groupbox is created
+  }
+});
+}}}  
 ---------------------------------------
 ====disable(event, data)====
 Triggered when the groupbox is disabled.
