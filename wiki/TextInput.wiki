@@ -64,7 +64,7 @@ JQuery UI based text input filter that provides a simple way to selectively supp
 	<tr>
 		<td>[#filter filter]</td>		
 		<td>[#enable() enable]</td>
-		<td>[#keyEventSuppressed keyEventSuppressed]</td>
+		<td>[#keyEventSuppressed(event,_data) keyEventSuppressed]</td>
 	</tr>
 	<tr>
 		<td>[#stylize stylize]</td>
