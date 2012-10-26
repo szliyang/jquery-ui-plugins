@@ -1,8 +1,8 @@
-#summary JQuery UI based combobox widget which combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type.
+#summary JQuery UI based combobox widget that combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type.
 #labels Featured
 
 =Summary=
-A JQuery UI based combobox widget which combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type. This widget
+A JQuery UI based combobox widget that combines a drop-down list with a text field to create a drop-down list that filters options based on the user's input as they type. This widget
 was created based on the [http://jqueryui.com/autocomplete/#combobox demo] provided by the jQuery UI team in the documentation for the [http://jqueryui.com/autocomplete/ Autocomplete] widget. It adds
 some functionality to make it behave a bit more like a regular HTML select list and provides some options, methods and events so it can be manipulated and customized like a regular jQuery UI widget.
 
