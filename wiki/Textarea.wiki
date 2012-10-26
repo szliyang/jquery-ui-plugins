@@ -29,7 +29,7 @@ As you can see from the following screen shot the widget automatically renders a
     $(function() {				
       $('#myTextarea').textarea({
         'maxChars': 100, 
-	'charLimitMessage': '{ENTERED} of {MAX} characters, {REMAINING} left'					
+		'charLimitMessage': '{ENTERED} of {MAX} characters, {REMAINING} left'					
       });		
     });
   </script>													
@@ -58,17 +58,17 @@ As you can see from the following screen shot the widget automatically renders a
 	<tr>
 		<td>[#limitMessageStyle limitMessageStyle]</td>
 		<td>[#destroy() destroy]</td>
-		<td>[#disable(event,_data) disable]</td>
+		<td>[#create(event,_data) create]</td>		
 	</tr>
 	<tr>
 		<td>[#maxChars maxChars]</td>
-		<td>[#disable() disable]</td>				
-		<td>[#enable(event,_data) enable]</td>
+		<td>[#disable() disable]</td>
+		<td>[#disable(event,_data) disable]</td>				
 	</tr>
 	<tr>
 		<td>[#pasteFlickerFix pasteFlickerFix]</td>
 		<td>[#enable() enable]</td>		
-		<td></td>
+		<td>[#enable(event,_data) enable]</td>
 	</tr>
 	<tr>
 		<td></td>
@@ -422,6 +422,24 @@ $('#myTextarea').textarea({
 });
 }}}
 ---------------------------------------
+====create(event, data)====
+Triggered when the textarea is created.
+
+ * *event*
+ Type: [http://api.jquery.com/Types/#Event Event]
+
+ * *data*
+ Type: [http://api.jquery.com/Types/#Object Object]
+ 
+*Example:*
+{{{
+$('#myTextarea').textarea({
+  'create': function(event, data) {
+    // code to execute when the textarea is created
+  }
+});
+}}}
+---------------------------------------
 ====disable(event, data)====
 Triggered when the textarea is disabled.
 
@@ -435,7 +453,7 @@ Triggered when the textarea is disabled.
 {{{
 $('#myTextarea').textarea({
   'disable': function(event, data) {
-    // code to execute when textarea is disabled
+    // code to execute when the textarea is disabled
   }
 });
 }}}
@@ -453,7 +471,7 @@ Triggered when the textarea is enabled.
 {{{
 $('#myTextarea').textarea({
   'enable': function(event, data) {
-    // code to execute when textarea is enabled
+    // code to execute when the textarea is enabled
   }
 });
 }}}
