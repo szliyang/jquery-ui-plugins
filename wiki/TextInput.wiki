@@ -54,17 +54,17 @@ JQuery UI based text input filter that provides a simple way to selectively supp
 	<tr>
 		<td>[#allow allow]</td>
 		<td>[#destroy() destroy]</td>
-		<td>[#keyEventSuppressed keyEventSuppressed]</td>
+		<td>[#disable(event,_data) disable]</td>		
 	</tr>
 	<tr>
 		<td>[#blacklist blacklist]</td>		
 		<td>[#disable() disable]</td>
-		<td></td>
+		<td>[#enable(event,_data) enable]</td>
 	</tr>
 	<tr>
 		<td>[#filter filter]</td>		
 		<td>[#enable() enable]</td>
-		<td></td>
+		<td>[#keyEventSuppressed keyEventSuppressed]</td>
 	</tr>
 	<tr>
 		<td>[#stylize stylize]</td>
