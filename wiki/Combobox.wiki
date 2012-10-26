@@ -79,27 +79,27 @@ some functionality to make it behave a bit more like a regular HTML select list 
 	<tr>
 		<td>[#height height]</td>
 		<td>[#disable() disable]</td>
-		<td>[#disable(event,_data) disable]</td>
+		<td>[#create(event,_data) create]</td>		
 	</tr>
 	<tr>
 		<td>[#ignoreCase ignoreCase]</td>
 		<td>[#enable() enable]</td>
-		<td>[#enable(event,_data) enable]</td>
+		<td>[#disable(event,_data) disable]</td>		
 	</tr>
 	<tr>
 		<td>[#inputClass inputClass]</td>
 		<td>[#open() open]</td>
-		<td>[#open(event,_data) open]</td>
+		<td>[#enable(event,_data) enable]</td>		
 	</tr>
 	<tr>
 		<td>[#inputStyle inputStyle]</td>
 		<td>[#option() option]</td>
-		<td>[#select(event,_data) select]</td>
+		<td>[#open(event,_data) open]</td>		
 	</tr>
 	<tr>
 		<td>[#maxHeight maxHeight]</td>
 		<td></td>
-		<td></td>
+		<td>[#select(event,_data) select]</td>
 	</tr>
 	<tr>
 		<td>[#searchType searchType]</td>
@@ -420,6 +420,28 @@ Type: [http://api.jquery.com/Types/#Object Object]
 $('#myCombobox').combobox({    
   'close': function(event, data) {
     // code to execute when the select list is closed
+  }
+});
+}}}   
+---------------------------------------
+====create(event, data)====
+Triggered when the combobox is created.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+  
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+*Example:*
+{{{
+$('#myCombobox').combobox({    
+  'create': function(event, data) {
+    // code to execute when the combobox is created
   }
 });
 }}}   
