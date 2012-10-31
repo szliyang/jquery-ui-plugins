@@ -1,4 +1,37 @@
-;(function($, undefined) {
+if (!String.prototype.contains) {
+    String.prototype.contains = function(prefix) {
+        return this.indexOf(prefix) > -1;
+    };
+}
+
+if (!String.prototype.containsAny) {
+    String.prototype.containsAny = function(arrayOfStrings) {
+        for (var x in arrayOfStrings) {
+            if (this.indexOf(arrayOfStrings[x]) > -1) {
+                return true;
+            }
+        }
+        return false
+    };
+}
+
+if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(prefix) {
+        return this.indexOf(prefix) === 0;
+    };
+}
+
+if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function(suffix) {    	
+    	if (this.length < suffix.length) {
+    		return false;
+    	}
+ 
+    	return this.lastIndexOf(suffix) === this.length - suffix.length;     	
+    };
+}
+
+;(function($, undefined) {	
 	
 	var chars = new Array();
 	chars[32]=' ';
