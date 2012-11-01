@@ -23,6 +23,9 @@
 			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false
 			filter: null, // can be 'startsWith', 'endsWith', 'contains', 'doesNotContain', an array of values for a drop down list or an object with an impl property that is a function
 			// to do custom filtering, the function receives filterValue and itemValue parameters and "this" refers to the filter object, it returns true if the value should be shown, false otherwise
+			// if filter is an array or a custom filter object has an options array, a drop down list will be rendered
+			// options for drop downs can either be a simple string array, in which case the value displayed for an option is the same as the option's value OR it can be an array of objects 
+			// containing name & value attributes - the name is what will be displayed in the dropdown list, the value is the value that will be used for filtering when the option is selected
 			filterDefault: null, // default value selected for filter
 			enableCellNavigation: true,
 			enableColumnReorder: false,
@@ -41,13 +44,11 @@
 				this._renderFilters();
 				
 				$(this.grid.getHeaderRow()).on("change keyup", "input, select", function(e) {
-					//updateColumnFilter($(this).data('columnId'));
 					var columnId = $(this).data('columnId');
 					if (!columnId) {
-						return; // this check shouldn't be required but there's some occasional flakiness with the delegate that mandates it
+						return; // this check shouldn't be required but there's some occasional issues with the delegate that mandates it
 					}
 		            self.filters[columnId].value = $.trim($('#ui-grid-filter-' + columnId).val());				
-            		//filterPostProcessing();
 					self.dataView.refresh();
 					grid.invalidate();
 				});	
@@ -233,8 +234,8 @@
 			this._trigger("enable");
 		},		
 		destroy: function() {
-			//this.grid.onColumnsReordered.unsubscribe(renderFilters);
-			//this.grid.onColumnsResized.unsubscribe(renderFilters);
+			this.grid.onColumnsReordered.unsubscribe();
+			this.grid.onColumnsResized.unsubscribe();
 			$.Widget.prototype.destroy.call(this);		
 		}
 	});
