@@ -215,6 +215,9 @@
 		                    	case 'contains':
 		                    		result =  itemVal.toLowerCase().indexOf(filter.value) > -1;
 		                    		break;
+		                    	case 'doesNotContain':
+		                    		result =  itemVal.toLowerCase().indexOf(filter.value) === -1;
+		                    		break;
 		                    	case 'list':
 		                    		result = itemVal === filter.value;
 		                    		break;
