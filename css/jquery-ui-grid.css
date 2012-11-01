@@ -26,6 +26,8 @@
 
 .ui-grid {
 	font-size: 12px !important;	
+	border: 1px solid silver;
+	border-top: none;
 }
 
 .ui-grid-filter {
