@@ -27,9 +27,10 @@
 			showHeaderRow: false // if filters are turned on, these needs to be true
 		},		
 		_create: function() {
-			var self = this;
-			var opts = this.options;
-			var dataView = this.dataView = new Slick.Data.DataView();			
+			var self = this,
+				opts = this.options,
+				dataView = this.dataView = new Slick.Data.DataView();	
+			this.element.addClass('ui-grid ui-state-default');
 			this._initSortAndFilterFunctions();
 			opts.showHeaderRow = this.filters ? true : false;
 			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
@@ -125,7 +126,8 @@
                     	$('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
                     		.appendTo(header)
                     		.data("columnId", column.id)
-                    		.width($(header).width() - 4);
+                    		.width($(header).width() - 4)
+                    		.height($(header).height() - 12);
                     }
                     
                    // }
@@ -144,7 +146,10 @@
 				html += '<option value="' + value + '"' + (value === filterValue ? 'selected' : '') + '>' + name + '</option>';								
 			}			
             html += '</select>';
-            $(html).appendTo(header).data("columnId", column.id).val(filterValue);
+            $(html).appendTo(header)
+            	.data("columnId", column.id)
+            	.width($(header).width() - 4)
+                .val(filterValue);
 		},
 		_filter: function(item) {		
 			var grid = this.grid;
