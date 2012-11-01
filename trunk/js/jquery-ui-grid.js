@@ -22,6 +22,9 @@
 			data: [],
 			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false
 			// columns can have the following values for filter "startsWith", "contains", array of values or a function that receives the item and returns true/false
+			// default value and caseSensitive are also options on the filter
+			// it would be cool if filter was either just a string (e.g. "startsWith") or an array of options but we need a home for defaultFilterValue & caseSensitive, could put
+			// caseSensitive in string name like "startsWithIgnoreCase" but still have issue of how to pass in defaultValue, probably better as an object property on the param than a separate param
 			enableCellNavigation: true,
 			enableColumnReorder: false,
 			showHeaderRow: false // if filters are turned on, these needs to be true
@@ -30,7 +33,7 @@
 			var self = this,
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();	
-			this.element.addClass('ui-grid ui-state-default');
+			this.element.addClass('ui-grid');
 			this._initSortAndFilterFunctions();
 			opts.showHeaderRow = this.filters ? true : false;
 			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
@@ -57,8 +60,11 @@
 	            self.dataView.sort(self.sortFunctions[args.sortCol.id], args.sortAsc);	           
 	            grid.invalidate();
 	        });			
-			
-			//grid.onColumnsReordered.subscribe(this._renderFilters);
+						
+			grid.onColumnsReordered.subscribe(function() {
+				self._renderFilters();
+			});
+		
 			grid.onColumnsResized.subscribe(function() {
 				self._renderFilters();
 			});
