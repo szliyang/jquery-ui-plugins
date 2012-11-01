@@ -21,13 +21,12 @@
 			rowKey: "id",
 			data: [],
 			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false
-			// columns can have the following values for filter "startsWith", "contains", array of values or a function that receives the item and returns true/false
-			// default value and caseSensitive are also options on the filter
-			// it would be cool if filter was either just a string (e.g. "startsWith") or an array of options but we need a home for defaultFilterValue & caseSensitive, could put
-			// caseSensitive in string name like "startsWithIgnoreCase" but still have issue of how to pass in defaultValue, probably better as an object property on the param than a separate param
+			filter: null, // can be 'startsWith', 'endsWith', 'contains', 'doesNotContain', an array of values for a drop down list or an object with an impl property that is a function
+			// to do custom filtering, the function receives filterValue and itemValue parameters and "this" refers to the filter object, it returns true if the value should be shown, false otherwise
+			filterDefault: null, // default value selected for filter
 			enableCellNavigation: true,
 			enableColumnReorder: false,
-			showHeaderRow: false // if filters are turned on, these needs to be true
+			showHeaderRow: false
 		},		
 		_create: function() {
 			var self = this,
@@ -95,10 +94,6 @@
 				
 				if(col.filter) {
 					hasFilters = true;					
-					//filters[col.id] = $.extend({}, col.filter, {"value": col.filter.defaultValue});
-					// filter is either a string or an array
-					
-					
 					// if the filter is an object, it's a custom filter and we expect an impl attribute that's a function that will do the filtering
 					// if the custom filter has an options attribute, we render a list and it's value is used in the custom filter otherwise we do a text field
 					if(col.filter.impl) {
@@ -135,24 +130,10 @@
                     var header = grid.getHeaderRowColumn(column.id);
                     $(header).empty();
 
-                   // if (column.filter && column.filter.renderer) {
-                   //     column.filter.renderer.call(column, column.filter.rendererOptions, header, _columnFilters[column.id]);
-                   // } else {
                     var id = 'ui-grid-filter-' + column.id;
                     var value = filter.value ? filter.value : '';
                     
-                    switch(filter.type) {
-                    	case 'list':
-                    		self._renderDropDownFilter(id, header, column, filter.options);
-                    		break;
-                    	default:
-                    		$('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
-                    		.appendTo(header)
-                    		.data("columnId", column.id)
-                    		.width($(header).width() - 4)
-                    		.height($(header).height() - 12);                   	
-                	}	
-                    /*if(filter.options) {
+                    if(filter.options) {
                     	self._renderDropDownFilter(id, header, column, filter.options);
                     } else {
                     	$('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
@@ -160,9 +141,7 @@
                     		.data("columnId", column.id)
                     		.width($(header).width() - 4)
                     		.height($(header).height() - 12);
-                    }*/
-                    
-                   // }
+                    }                    		          
                 }
 			}
 		},
@@ -226,16 +205,9 @@
 	                    	}	                    	                   
 	                    }
 	
-	                    if (!result) {  // short circuit if we can
+	                    if (!result) {
 	                        return result;
-	                    }
-	                    //var filterVal = $('#ui-grid-filter-' + columnId).val();
-	
-	                    //if (column.filter && column.filter.impl) {
-	                    //    result = column.filter.impl.call(filterVal, column, item);
-	                    //} else { // default filter is a case insensitive text comparison...
-//	                        result = itemVal && itemVal.toLowerCase().indexOf(filter.value) > -1;
-	                   // }	                    
+	                    }                
 	                }
 	            }
 			}
