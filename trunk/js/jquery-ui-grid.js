@@ -95,7 +95,20 @@
 				
 				if(col.filter) {
 					hasFilters = true;					
-					filters[col.id] = $.extend({}, col.filter, {"value": col.filter.defaultValue});					
+					//filters[col.id] = $.extend({}, col.filter, {"value": col.filter.defaultValue});
+					// filter is either a string or an array
+					
+					
+					// if the filter is an object, it's a custom filter and we expect an impl attribute that's a function that will do the filtering
+					// if the custom filter has an options attribute, we render a list and it's value is used in the custom filter otherwise we do a text field
+					if(col.filter.impl) {
+						filters[col.id] = $.extend(col.filter, {"type": "custom", "value": col.filterDefaultValue});						
+					} else {
+						var isList = $.isArray(col.filter);
+						var type = isList ? 'list' : col.filter;
+						var options = isList ? col.filter : null;
+						filters[col.id] = {"type": type, "value": col.filterDefault, "options": options};
+					}					
 				}
 			}
 			
@@ -128,7 +141,18 @@
                     var id = 'ui-grid-filter-' + column.id;
                     var value = filter.value ? filter.value : '';
                     
-                    if(filter.options) {
+                    switch(filter.type) {
+                    	case 'list':
+                    		self._renderDropDownFilter(id, header, column, filter.options);
+                    		break;
+                    	default:
+                    		$('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
+                    		.appendTo(header)
+                    		.data("columnId", column.id)
+                    		.width($(header).width() - 4)
+                    		.height($(header).height() - 12);                   	
+                	}	
+                    /*if(filter.options) {
                     	self._renderDropDownFilter(id, header, column, filter.options);
                     } else {
                     	$('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
@@ -136,7 +160,7 @@
                     		.data("columnId", column.id)
                     		.width($(header).width() - 4)
                     		.height($(header).height() - 12);
-                    }
+                    }*/
                     
                    // }
                 }
@@ -180,13 +204,20 @@
 	                    
 	                    var itemVal = item[column.field] + '';
 	                    
-	                    if(itemVal) {	                    		                    	
-	                    	if(filter.options) {
-	                    		result = itemVal === filter.value;	                    		
-	                    	} else {
-	                    		itemVal = !filter.caseSensitive ? itemVal.toLowerCase() : itemVal;
-	                    		result = filter.type === 'startsWith' ? itemVal.startsWith(filter.value) : itemVal.indexOf(filter.value) > -1;
-	                    	}	                    	
+	                    if(itemVal) {
+	                    	switch(filter.type) {
+		                    	case 'startsWith':
+		                    		result =  itemVal.toLowerCase().startsWith(filter.value);
+		                    		break;
+		                    	case 'contains':
+		                    		result =  itemVal.toLowerCase().indexOf(filter.value) > -1;
+		                    		break;
+		                    	case 'list':
+		                    		result = itemVal === filter.value;
+		                    		break;
+		                    	case 'custom':
+		                    		result = filter.impl.call(filter, filter.value, itemVal);
+	                    	}	                    	                   
 	                    }
 	
 	                    if (!result) {  // short circuit if we can
