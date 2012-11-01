@@ -209,6 +209,9 @@
 		                    	case 'startsWith':
 		                    		result =  itemVal.toLowerCase().startsWith(filter.value);
 		                    		break;
+		                    	case 'endsWith':
+		                    		result =  itemVal.toLowerCase().endsWith(filter.value);
+		                    		break;
 		                    	case 'contains':
 		                    		result =  itemVal.toLowerCase().indexOf(filter.value) > -1;
 		                    		break;
