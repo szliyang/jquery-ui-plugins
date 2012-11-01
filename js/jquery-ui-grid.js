@@ -112,8 +112,10 @@
 		_renderFilters: function() {
 			var self = this;
 			var grid = this.grid;
+			var columns = grid.getColumns();
 			
-			grid.getColumns().forEach(function(column) {
+			for(var i = 0; i < columns.length; i++) {
+				var column = columns[i];
 				var filter = self.filters[column.id];
 				
                 if(filter) {
@@ -138,7 +140,7 @@
                     
                    // }
                 }
-            });
+			}
 		},
 		_renderDropDownFilter: function(id, header, column, options) {
 			var html = '<select id="' + id + '" class="ui-grid-filter">';
