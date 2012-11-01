@@ -1,0 +1,37 @@
+.slick-header {
+	border-bottom: none !important;	
+}
+
+.slick-headerrow {
+	border-top: none !important;	
+}
+
+.slick-headerrow-column {
+	height: 100%;
+	border-left: none !important;
+}
+
+.slick-header-columns {
+	border-bottom: 1px solid silver;
+}
+
+.slick-row {
+	line-height: 20px;
+}
+
+.slick-cell {
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.ui-grid {
+	font-size: 12px !important;	
+}
+
+.ui-grid-filter {
+	height: 18px;
+}
+
+.slick-headerrow-column {
+	font-size: 12px;
+}
