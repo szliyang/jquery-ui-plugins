@@ -17,7 +17,7 @@
 			'allow': null, // array or string of characters that should be allowed, even if filtered out by filter
 			'blacklist': null, // black list of characters that are never valid
 			'filter': null, // type of filter to apply, valid values are numeric, digits, alpha	
-			'stylize': true,
+			'stylize': false,
 			'whitelist': null // white list of valid characters, everything else is excluded regardless of other filter
 		},
 		_create: function() {
