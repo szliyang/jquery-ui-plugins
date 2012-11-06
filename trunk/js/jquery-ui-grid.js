@@ -8,12 +8,12 @@
  *
  * Depends:
  *  jquery 1.8.2
- *	jquery.ui.core.js
- *	jquery.ui.widget.js
- *	jquery.event.drag-2.0.js
- *	slick.core.js
- *	slick.grid.js
- *	slick.dataview.js
+ *	jquery.ui.core.1.8.16.js
+ *	jquery.ui.widget.1.8.16.js
+ *	jquery.event.drag-2.0.js 	
+ *	slick.core.2.0.2.js
+ *	slick.grid.2.0.2.js
+ *	slick.dataview.2.0.2.js
  */
 ;(function($, undefined) {
 	$.widget("uiplugins.grid", {
@@ -27,6 +27,18 @@
 			// options for drop downs can either be a simple string array, in which case the value displayed for an option is the same as the option's value OR it can be an array of objects 
 			// containing name & value attributes - the name is what will be displayed in the dropdown list, the value is the value that will be used for filtering when the option is selected
 			filterDefault: null, // default value selected for filter
+			// columns can have an editor which can be a string for pre-defined types or a function that gets an object param with the following attributes:
+				/*
+				 * cancelChanges: function cancelEditAndSetFocus() {
+					column: Object
+					commitChanges: function commitEditAndSetFocus() {
+					container: HTMLDivElement
+					grid: SlickGrid
+					gridPosition: Object
+					item: Object
+					position: Object
+					defaultValue: undefined
+				 */
 			enableCellNavigation: true,
 			enableColumnReorder: false,
 			showHeaderRow: false
@@ -36,7 +48,7 @@
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();	
 			this.element.addClass('ui-grid');
-			this._initSortAndFilterFunctions();
+			this._initColumns();
 			opts.showHeaderRow = this.filters ? true : false;
 			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
 			
@@ -74,7 +86,7 @@
 			dataView.endUpdate();
 			grid.invalidate();
 		},
-		_initSortAndFilterFunctions: function() {
+		_initColumns: function() {
 			var sortFunctions = {};
 			var filters = {};
 			var hasFilters = false;
@@ -105,6 +117,22 @@
 						var options = isList ? col.filter : null;
 						filters[col.id] = {"type": type, "value": col.filterDefault, "options": options};
 					}					
+				}
+				
+				if(col.editor) {
+					// if it's not a custom function apply the correct built-in editor
+					if(typeof col.editor !== 'function') {
+						var editorType = col.editor;
+						
+						switch(col.editor) {
+							case 'dropdown':
+								break;
+							default:
+								col.editor = this._textEdit;
+								col.dataType = editorType;
+								break;
+						}								
+					}
 				}
 			}
 			
@@ -214,6 +242,87 @@
 			}
             
             return true;        
+		},		
+		_textEdit: function(args) {			
+			var $input;
+			var defaultValue;
+		
+		    this.init = function () {
+		    	var $cell = $(args.container);
+		    	var $paddingTop = $cell.padding('top');
+		    	$input = $('<input type="text" class="editor-text"/>')
+					.appendTo(args.container)
+					.bind('keydown.nav', function (e) {
+						if (e.keyCode === $.ui.keyCode.LEFT || e.keyCode === $.ui.keyCode.RIGHT) {
+							e.stopImmediatePropagation();
+						}
+					})
+					.width($cell.width() + $cell.padding('right') - ($.browser.msie || $.browser.mozilla ? 2 : 1))
+					.height($cell.height() - $paddingTop - $cell.padding('bottom'))
+					.css({'position': 'relative', 'top': -$paddingTop, 'left': -$cell.padding('left')})
+					.focus()
+					.select();
+		    	
+		    	switch(args.column.dataType) {
+		    		case 'integer':
+		    			$input.textinput({'filter': 'digits'});
+		    			break;
+		    		case 'float':
+		    			$input.textinput({'filter': 'numeric'});
+		    			break;
+		    	}
+		    };
+		
+		    this.destroy = function () {
+		    	$input.remove();
+		    };
+		
+		    this.focus = function () {
+		    	$input.focus();
+		    };
+		
+		    this.getValue = function () {
+		    	return $input.val();
+		    };
+		
+		    this.setValue = function (val) {
+		    	$input.val(val);
+		    };
+		
+		    this.loadValue = function (item) {
+				defaultValue = item[args.column.field] || '';
+				$input.val(defaultValue);
+				$input[0].defaultValue = defaultValue;
+				$input.select();
+		    };
+		
+		    this.serializeValue = function () {
+		    	return $input.val();
+		    };
+		
+		    this.applyValue = function (item, state) {
+		    	item[args.column.field] = state;
+		    };
+		
+		    this.isValueChanged = function () {
+		    	return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+		    };
+		
+		    this.validate = function () {
+		    	if (args.column.validator) {
+		    		var validationResults = args.column.validator($input.val());
+		    		if (!validationResults.valid) {
+		    			return validationResults;
+		    		}
+		    	}
+		
+		    	return {
+		    		valid: true,
+		    		msg: null
+		    	};
+		    };
+		
+		    this.init();
 		},
 		_compare: function(row1, row2) {			
 			var val = row1[sortcol], val2 = row2[sortcol];			

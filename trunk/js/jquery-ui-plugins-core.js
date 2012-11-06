@@ -33,6 +33,17 @@ if (!String.prototype.endsWith) {
 
 ;(function($, undefined) {	
 	
+	$.fn.padding = function(position) {
+  
+		var value = 0;
+	
+		this.each(function() {
+			value = Number($(this).css('padding-' + position).replace('px', ''));
+		});
+	
+		return value;
+	};
+	
 	var chars = new Array();
 	chars[32]=' ';
 	chars[48]='0';
