@@ -122,16 +122,15 @@
 				if(col.editor) {
 					// if it's not a custom function apply the correct built-in editor
 					if(typeof col.editor !== 'function') {
-						var editorType = col.editor;
+						var editor = col.editor;
 						
-						switch(col.editor) {
-							case 'dropdown':
-								break;
-							default:
-								col.editor = this._textEdit;
-								col.dataType = editorType;
-								break;
-						}								
+						if($.isArray(editor)) {
+							col.editor = this._dropDownEdit;
+							col.editorOptions = editor;
+						} else {							
+							col.editor = this._textEdit;
+							col.dataType = editor;
+						}													
 					}
 				}
 			}
@@ -250,7 +249,7 @@
 		    this.init = function () {
 		    	var $cell = $(args.container);
 		    	var $paddingTop = $cell.padding('top');
-		    	$input = $('<input type="text" class="editor-text"/>')
+		    	$input = $('<input type="text" class="ui-grid-editor"/>')
 					.appendTo(args.container)
 					.bind('keydown.nav', function (e) {
 						if (e.keyCode === $.ui.keyCode.LEFT || e.keyCode === $.ui.keyCode.RIGHT) {
@@ -323,6 +322,68 @@
 		    };
 		
 		    this.init();
+		},
+		_dropDownEdit: function(args) {
+			var $select;
+			var defaultValue;
+
+			this.init = function () {
+				var html = '<select tabIndex="0" class="ui-grid-editor">';
+				var options = args.column.editorOptions;
+				var $cell = $(args.container);
+		    	var paddingTop = $cell.padding('top');
+		    	var paddingLeft = $cell.padding('left');
+		    	
+				for(var i = 0; i < options.length; i++) {
+					var option = options[i];
+					var name = option.name ? option.name : option;
+					var value = option.value ? option.value : option;
+					
+					html += '<option value="' + value + '">' + name + '</option>';
+				}
+				
+				html += '</select>';
+				$select = $(html)
+					.width($cell.width() + $cell.padding('right') + paddingLeft)
+					.height($cell.height() + paddingTop + $cell.padding('bottom'))
+					.css({'position': 'relative', 'top': -paddingTop, 'left': -paddingLeft})
+					.appendTo(args.container)
+					.focus();
+			};
+
+			this.destroy = function () {
+				$select.remove();
+			};
+
+			this.focus = function () {
+				$select.focus();
+			};
+
+			this.loadValue = function (item) {
+				$select.val((defaultValue = item[args.column.field] + ''));
+				$select.select();
+			};
+
+			this.serializeValue = function () {
+				return $select.val();
+			};
+
+			this.applyValue = function (item, state) {
+				item[args.column.field] = state;
+			};
+
+			this.isValueChanged = function () {
+				return ($select.val() != defaultValue);
+			};
+
+			this.validate = function () {
+				return {
+					valid: true,
+					msg: null
+				};
+			};
+
+			this.init();
 		},
 		_compare: function(row1, row2) {			
 			var val = row1[sortcol], val2 = row2[sortcol];			
