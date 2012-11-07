@@ -187,7 +187,9 @@
                     	$('<input type="image" src="../css/images/filter.png" class="ui-filter-button"/>')
                     		.appendTo($header)
                     		.data("columnId", column.id);                    	
-                    	$textFilter.width($header.width() - 24); // subtract image width + a little padding                    	
+                    	$textFilter
+                    		.width($header.width() - 24) // subtract image width + a little padding
+                    		.textinput({'filter': 'numeric'});
                     } else {
                     	self._renderTextFilter(id, $header, column, value);
                     }                    		          
