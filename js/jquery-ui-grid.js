@@ -7,46 +7,62 @@
  * http://code.google.com/p/jquery-ui-plugins/wiki/Grid
  *
  * Depends:
- *  jquery 1.8.2
+ *  jquery 1.7 // currently broken with 1.8.2 and 1.9
  *	jquery.ui.core.1.8.16.js
  *	jquery.ui.widget.1.8.16.js
  *	jquery.event.drag-2.0.js 	
  *	slick.core.2.0.2.js
  *	slick.grid.2.0.2.js
  *	slick.dataview.2.0.2.js
+ *
+ *Notes for column model:
+ *	filter: null, // can be 'startsWith', 'endsWith', 'contains', 'doesNotContain', an array of values for a drop down list or an object with an impl property that is a function
+		// to do custom filtering, the function receives filterValue and itemValue parameters and "this" refers to the filter object, it returns true if the value should be shown, false otherwise
+		// if filter is an array or a custom filter object has an options array, a drop down list will be rendered
+		// options for drop downs can either be a simple string array, in which case the value displayed for an option is the same as the option's value OR it can be an array of objects 
+		// containing name & value attributes - the name is what will be displayed in the dropdown list, the value is the value that will be used for filtering when the option is selected
+		filterDefault: null, // default value selected for filter		
+		editor: null,
+		// columns can have an editor which can be a string for pre-defined types or a function that gets an object param with the following attributes:
+			/*
+			 * cancelChanges: function cancelEditAndSetFocus() {
+				column: Object
+				commitChanges: function commitEditAndSetFocus() {
+				container: HTMLDivElement
+				grid: SlickGrid
+				gridPosition: Object
+				item: Object
+				position: Object
+				defaultValue: undefined
+
  */
 ;(function($, undefined) {
 	$.widget("uiplugins.grid", {
 		options: {
 			rowKey: "id",
 			data: [],
-			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false
-			filter: null, // can be 'startsWith', 'endsWith', 'contains', 'doesNotContain', an array of values for a drop down list or an object with an impl property that is a function
-			// to do custom filtering, the function receives filterValue and itemValue parameters and "this" refers to the filter object, it returns true if the value should be shown, false otherwise
-			// if filter is an array or a custom filter object has an options array, a drop down list will be rendered
-			// options for drop downs can either be a simple string array, in which case the value displayed for an option is the same as the option's value OR it can be an array of objects 
-			// containing name & value attributes - the name is what will be displayed in the dropdown list, the value is the value that will be used for filtering when the option is selected
-			filterDefault: null, // default value selected for filter
-			// columns can have an editor which can be a string for pre-defined types or a function that gets an object param with the following attributes:
-				/*
-				 * cancelChanges: function cancelEditAndSetFocus() {
-					column: Object
-					commitChanges: function commitEditAndSetFocus() {
-					container: HTMLDivElement
-					grid: SlickGrid
-					gridPosition: Object
-					item: Object
-					position: Object
-					defaultValue: undefined
-				 */
+			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false				
 			enableCellNavigation: true,
 			enableColumnReorder: false,
 			showHeaderRow: false
+			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
+			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
+			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
 		},		
 		_create: function() {
 			var self = this,
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();	
+			this.numericFilters = [{"name": "Greater Than...", "value": "gt"}, {"name": "Less Than...", "value": "lt"}, {"name": "Between", "value": "btw"}];
+			this.operators = {
+			    'gt': function(a, b) {return +a > +b;}, // the plus is a fast way to convert the string to a number
+			    'gte': function(a, b) {return +a >= +b;},
+			    'lt': function(a, b) {return +a < +b;},
+			    'lte': function(a, b) {return +a <= +b;},
+			    'eq': function(a, b) {return +a == +b;},
+			    'and': function(a, b) {return a && b;},
+			    'or': function(a, b) {return a || b;},
+			};
 			this.element.addClass('ui-grid');
 			this._initColumns();
 			opts.showHeaderRow = this.filters ? true : false;
@@ -55,16 +71,19 @@
 			if(this.filters) {
 				this._renderFilters();
 				
+				// bind events that will cause filters to run when filter value changes
 				$(this.grid.getHeaderRow()).on("change keyup", "input, select", function(e) {
 					var columnId = $(this).data('columnId');
-					if (!columnId) {
-						return; // this check shouldn't be required but there's some occasional issues with the delegate that mandates it
-					}
-		            self.filters[columnId].value = $.trim($('#ui-grid-filter-' + columnId).val());				
-					self.dataView.refresh();
-					grid.invalidate();
+					
+					// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog					
+					if(self.filters[columnId].type === 'numeric') {
+						self._showNumericFilterDialog($(this), columnId);
+					} else {
+						self._filterColumn(columnId);
+					}						
 				});	
 			}
+			
 			grid.onSort.subscribe(function(e, args) {
 	            sortcol = args.sortCol.field;	
 	            // using native sort with comparer
@@ -87,13 +106,15 @@
 			grid.invalidate();
 		},
 		_initColumns: function() {
+			this.columns = {};
 			var sortFunctions = {};
-			var filters = {};
-			var hasFilters = false;
+			var filters = {};			
+			var hasFilters = false;			
 			var columns = this.options.columns;
 			
 			for(var i = 0; i < columns.length; i++) {
 				var col = columns[i];
+				this.columns[col.id] = col; // store columns in a hash so we can access them by id easily later
 				
 				if(col.sort !== false) {
 					col.sortable = true;
@@ -114,7 +135,7 @@
 					} else {
 						var isList = $.isArray(col.filter);
 						var type = isList ? 'list' : col.filter;
-						var options = isList ? col.filter : null;
+						var options = isList ? col.filter : (type === 'numeric' ? this.numericFilters : null);
 						filters[col.id] = {"type": type, "value": col.filterDefault, "options": options};
 					}					
 				}
@@ -155,28 +176,29 @@
 				var filter = self.filters[column.id];
 				
                 if(filter) {
-                    var header = grid.getHeaderRowColumn(column.id);
-                    $(header).empty();
+                    var $header = $(grid.getHeaderRowColumn(column.id));
+                    $header.empty();
 
                     var id = 'ui-grid-filter-' + column.id;
                     var value = filter.value ? filter.value : '';
                     
                     if(filter.options) {
-                    	self._renderDropDownFilter(id, header, column, filter.options);
+                    	self._renderDropDownFilter(id, $header, column, filter.options);                    	
                     } else {
                     	$('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
-                    		.appendTo(header)
+                    		.appendTo($header)
                     		.data("columnId", column.id)
-                    		.width($(header).width() - 4)
-                    		.height($(header).height() - 12);
+                    		.width($header.width() - 4)
+                    		.height($header.height() - 12);
                     }                    		          
                 }
 			}
 		},
-		_renderDropDownFilter: function(id, header, column, options) {
+		_renderDropDownFilter: function(id, $header, column, options) {
 			var html = '<select id="' + id + '" class="ui-grid-filter">';
 			html += '<option value=""></option>';
-			var filterValue = this.filters[column.id].value;
+			var filter = this.filters[column.id];
+			var filterValue = filter.value;
 			
 			for(var i = 0; i < options.length; i++) {
 				var option = options[i];
@@ -185,11 +207,56 @@
 				html += '<option value="' + value + '"' + (value === filterValue ? 'selected' : '') + '>' + name + '</option>';								
 			}			
             html += '</select>';
-            $(html).appendTo(header)
+            $(html).appendTo($header)
             	.data("columnId", column.id)
-            	.width($(header).width() - 4)
-                .val(filterValue);
+            	.width($header.width() - 4)
+                .val(filterValue);            
 		},
+		_showNumericFilterDialog: function($select, columnId) {
+			var self = this;
+			var $dialog = $('#numericFilterDialog');
+			var column = this.columns[columnId];
+			$dialog.find('label.columnName').text(column.name + ' is:');
+			$dialog.dialog({
+				"title": "Numeric Filter", 
+				"modal": true,
+				"dialogClass": "ui-numeric-filter-dialog",
+				"buttons": {
+					"OK": function() { 
+						self._filterColumn(columnId);
+						$(this).dialog('close');
+					},
+					"Cancel": function() {
+						$(this).dialog('close');
+					}
+				},
+				"position": {my: "left top", at: "left bottom", of: $select}
+    			}).show();
+		},
+		_filterColumn: function(columnId) {
+			// shouldn't need this null check but there's some inconsistent behavior with the event handling that requires it
+			if (columnId) {
+				var filter = this.filters[columnId];
+				
+				if(filter.type === 'numeric') {
+					var $dialog = $('#numericFilterDialog');
+					var filterLogic = {};
+					filterLogic.comparisons = [];
+					$dialog.find('select.ui-filter-compare-operator').each(function() {
+						var $select = $(this);
+						filterLogic.comparisons.push({"operator": $select.val(), "value": $select.next('input.ui-filter-val').val()});
+					});
+					filterLogic.logicOperator = $dialog.find('input.ui-filter-logic-operator:checked').val();
+					filter.value = filterLogic;
+				} else {
+					filter.value = $.trim($('#ui-grid-filter-' + columnId).val());
+				}
+				
+				this.dataView.refresh();
+				// invalidate will cause slick grid to call _filter because we registered _filter as the filter function for the grid
+				this.grid.invalidate();
+			}			
+		},		
 		_filter: function(item) {		
 			var grid = this.grid;
             var filters = this.filters;
@@ -227,9 +294,25 @@
 		                    		break;
 		                    	case 'list':
 		                    		result = itemVal === filter.value;
+		                    		break;		                    	
+		                    	case 'numeric':
+		                    		var compare1 =  filter.value.comparisons[0];
+		                    		if(compare1.operator && compare1.value) {
+		                    			var compare2 =  filter.value.comparisons[1];
+			                    		var logicOperator = filter.value.logicOperator;
+			                    		
+			                    		if(compare2 && logicOperator) {
+			                    			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
+			                    			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
+			                    			result = this.operators[logicOperator](result1, result2);			                    			
+			                    		} else {
+			                    			result = this.operators[compare1.operator](itemVal, compare1.value);
+			                    		}
+		                    		}		                    			                    	
 		                    		break;
 		                    	case 'custom':
 		                    		result = filter.impl.call(filter, filter.value, itemVal);
+		                    		break;
 	                    	}	                    	                   
 	                    }
 	
@@ -266,7 +349,7 @@
 		    		case 'integer':
 		    			$input.textinput({'filter': 'digits'});
 		    			break;
-		    		case 'float':
+		    		case 'numeric':
 		    			$input.textinput({'filter': 'numeric'});
 		    			break;
 		    	}
