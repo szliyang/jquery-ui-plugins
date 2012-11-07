@@ -53,7 +53,6 @@
 			var self = this,
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();	
-			this.numericFilters = [{"name": "Greater Than...", "value": "gt"}, {"name": "Less Than...", "value": "lt"}, {"name": "Between", "value": "btw"}];
 			this.operators = {
 			    'gt': function(a, b) {return +a > +b;}, // the plus is a fast way to convert the string to a number
 			    'gte': function(a, b) {return +a >= +b;},
@@ -72,16 +71,17 @@
 				this._renderFilters();
 				
 				// bind events that will cause filters to run when filter value changes
-				$(this.grid.getHeaderRow()).on("change keyup", "input, select", function(e) {
+				$headerRow = $(this.grid.getHeaderRow());
+				$headerRow.on('change keyup', 'input, select', function(e) {
+					var columnId = $(this).data('columnId');					
+					self._filterColumn(columnId);
+				});
+				
+				// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog
+				$headerRow.on('click', 'input.ui-filter-button', function(e) {
 					var columnId = $(this).data('columnId');
-					
-					// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog					
-					if(self.filters[columnId].type === 'numeric') {
-						self._showNumericFilterDialog($(this), columnId);
-					} else {
-						self._filterColumn(columnId);
-					}						
-				});	
+					self._showNumericFilterDialog($(this), columnId);
+				});
 			}
 			
 			grid.onSort.subscribe(function(e, args) {
@@ -135,7 +135,7 @@
 					} else {
 						var isList = $.isArray(col.filter);
 						var type = isList ? 'list' : col.filter;
-						var options = isList ? col.filter : (type === 'numeric' ? this.numericFilters : null);
+						var options = isList ? col.filter : null;
 						filters[col.id] = {"type": type, "value": col.filterDefault, "options": options};
 					}					
 				}
@@ -176,23 +176,30 @@
 				var filter = self.filters[column.id];
 				
                 if(filter) {
-                    var $header = $(grid.getHeaderRowColumn(column.id));
-                    $header.empty();
-
+                    var $header = $(grid.getHeaderRowColumn(column.id)).empty();
                     var id = 'ui-grid-filter-' + column.id;
                     var value = filter.value ? filter.value : '';
                     
                     if(filter.options) {
                     	self._renderDropDownFilter(id, $header, column, filter.options);                    	
-                    } else {
-                    	$('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
+                    } else if(filter.type === 'numeric') {
+                    	var $textFilter = self._renderTextFilter(id, $header, column, value);
+                    	$('<input type="image" src="../css/images/filter.png" class="ui-filter-button"/>')
                     		.appendTo($header)
-                    		.data("columnId", column.id)
-                    		.width($header.width() - 4)
-                    		.height($header.height() - 12);
+                    		.data("columnId", column.id);                    	
+                    	$textFilter.width($header.width() - 24); // subtract image width + a little padding                    	
+                    } else {
+                    	self._renderTextFilter(id, $header, column, value);
                     }                    		          
                 }
 			}
+		},
+		_renderTextFilter: function(id, $header, column, value) {
+			return $('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
+        		.appendTo($header)
+        		.data('columnId', column.id)
+        		.width($header.width() - 4)
+        		.height($header.height() - 12);
 		},
 		_renderDropDownFilter: function(id, $header, column, options) {
 			var html = '<select id="' + id + '" class="ui-grid-filter">';
@@ -208,26 +215,27 @@
 			}			
             html += '</select>';
             $(html).appendTo($header)
-            	.data("columnId", column.id)
+            	.data('columnId', column.id)
             	.width($header.width() - 4)
                 .val(filterValue);            
 		},
-		_showNumericFilterDialog: function($select, columnId) {
+		_showNumericFilterDialog: function($filterButton, columnId) {
 			var self = this;
 			var $dialog = $('#numericFilterDialog');
 			var column = this.columns[columnId];
-			var buttons = {
+			var buttons = {				
+				'Cancel': function() {
+					$(this).dialog('close');
+				},
 				'OK': function() { 
 					self._filterColumn(columnId);
 					$(this).dialog('close');
 				},
-				'Cancel': function() {
-					$(this).dialog('close');
-				}
 			};
 			
-			if(this.filters[columnId].value) {
+			if(this.filters[columnId].logic) {
 				buttons['Clear'] = function() {
+					self.filters[columnId].logic = null;
 					$dialog.find('select.ui-filter-compare-operator').val('');
 					$dialog.find('input.ui-filter-val').val('');					
 					$dialog.find('input.ui-filter-logic-operator').removeAttr('checked');					
@@ -241,7 +249,8 @@
 				"modal": true,
 				"dialogClass": "ui-numeric-filter-dialog",
 				"buttons": buttons,
-				"position": {my: "left top", at: "left bottom", of: $select}
+				"width": "230px",
+				"position": {my: "left top", at: "left bottom", of: $filterButton}
     			}).show();
 		},
 		_filterColumn: function(columnId) {
@@ -255,13 +264,19 @@
 					filterLogic.comparisons = [];
 					$dialog.find('select.ui-filter-compare-operator').each(function() {
 						var $select = $(this);
-						filterLogic.comparisons.push({"operator": $select.val(), "value": $select.next('input.ui-filter-val').val()});
+						var compareValue = $select.next('input.ui-filter-val').val();
+						if(compareValue) {
+							filterLogic.comparisons.push({"operator": $select.val(), "value": compareValue});
+						}						
 					});
-					filterLogic.logicOperator = $dialog.find('input.ui-filter-logic-operator:checked').val();					
-					filter.value = filterLogic.comparisons.length ? filterLogic : null;
-				} else {
-					filter.value = $.trim($('#ui-grid-filter-' + columnId).val());
+					filterLogic.logicOperator = $dialog.find('input.ui-filter-logic-operator:checked').val();
+					
+					if(filterLogic.comparisons.length) {
+						filter.logic = filterLogic;
+					} 					
 				}
+				
+				filter.value = $.trim($('#ui-grid-filter-' + columnId).val());
 				
 				this.dataView.refresh();
 				// invalidate will cause slick grid to call _filter because we registered _filter as the filter function for the grid
@@ -278,7 +293,7 @@
 	            for (var columnId in filters) {
 	            	var filter = filters[columnId];
 	            		              
-	            	if(filter && filter.value) {
+	            	if((filter && filter.value) || (filter.logic)) {
 	                    var columns = grid.getColumns();
 	                    var column = columns[grid.getColumnIndex(columnId)];
 	                    
@@ -306,25 +321,26 @@
 		                    	case 'list':
 		                    		result = itemVal === filter.value;
 		                    		break;		                    	
-		                    	case 'numeric':
-		                    		if(filter.value) {
-		                    			var compare1 =  filter.value.comparisons[0];
-			                    		if(compare1.operator && compare1.value) {
-			                    			var compare2 =  filter.value.comparisons[1];
-				                    		var logicOperator = filter.value.logicOperator;
-				                    		
-				                    		if(compare2 && logicOperator) {
-				                    			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
-				                    			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
-				                    			result = this.operators[logicOperator](result1, result2);			                    			
-				                    		} else {
-				                    			result = this.operators[compare1.operator](itemVal, compare1.value);
-				                    		}
+		                    	case 'numeric':		
+		                    		var logic = filter.logic;
+		                    		
+	                    			if(logic && logic.comparisons.length > 0) {
+		                    			var compare1 =  logic.comparisons[0];
+		                    			var compare2 =  logic.comparisons[1];
+			                    		var logicOperator = logic.logicOperator;
+			                    		
+			                    		if(compare2 && logicOperator) {
+			                    			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
+			                    			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
+			                    			result = this.operators[logicOperator](result1, result2);			                    			
+			                    		} else {
+			                    			result = this.operators[compare1.operator](itemVal, compare1.value);
 			                    		}
-		                    		} else {
-		                    			result = true;
 		                    		}
-		                    				                    			                    	
+	                    			
+	                    			if(filter.value) {
+		                    			result = result && +itemVal == +filter.value;
+		                    		}	                    				                    				                    			                    
 		                    		break;
 		                    	case 'custom':
 		                    		result = filter.impl.call(filter, filter.value, itemVal);
