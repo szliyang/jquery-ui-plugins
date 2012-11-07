@@ -32,8 +32,39 @@
 
 .ui-grid-filter {
 	height: 18px;
+	position: relative;
+	top: -1px;
 }
 
 .slick-headerrow-column {
 	font-size: 12px;
+}
+
+.ui-numeric-filter-dialog .ui-dialog-title {
+	font-size: 14px;
+}
+
+.ui-numeric-filter-dialog .ui-dialog-content {
+	font-size: 12px;
+}
+
+select.ui-filter-compare-operator {
+	width: 115px;
+}
+
+input.ui-filter-val {
+	width: 30px;
+}
+
+.ui-numeric-filter-dialog .ui-button-text {
+	font-size: 12px;
+	padding: 3px 8px !important;
+}
+
+.ui-numeric-filter-dialog input, .ui-numeric-filter-dialog select {
+	margin: 7px 7px 2px 0;
+}
+
+.ui-filter-button {
+	float: right;
 }
