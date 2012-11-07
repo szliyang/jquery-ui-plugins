@@ -216,20 +216,31 @@
 			var self = this;
 			var $dialog = $('#numericFilterDialog');
 			var column = this.columns[columnId];
+			var buttons = {
+				'OK': function() { 
+					self._filterColumn(columnId);
+					$(this).dialog('close');
+				},
+				'Cancel': function() {
+					$(this).dialog('close');
+				}
+			};
+			
+			if(this.filters[columnId].value) {
+				buttons['Clear'] = function() {
+					$dialog.find('select.ui-filter-compare-operator').val('');
+					$dialog.find('input.ui-filter-val').val('');					
+					$dialog.find('input.ui-filter-logic-operator').removeAttr('checked');					
+					self._filterColumn(columnId);
+					$(this).dialog('close');
+				};
+			}
 			$dialog.find('label.columnName').text(column.name + ' is:');
 			$dialog.dialog({
 				"title": "Numeric Filter", 
 				"modal": true,
 				"dialogClass": "ui-numeric-filter-dialog",
-				"buttons": {
-					"OK": function() { 
-						self._filterColumn(columnId);
-						$(this).dialog('close');
-					},
-					"Cancel": function() {
-						$(this).dialog('close');
-					}
-				},
+				"buttons": buttons,
 				"position": {my: "left top", at: "left bottom", of: $select}
     			}).show();
 		},
@@ -246,8 +257,8 @@
 						var $select = $(this);
 						filterLogic.comparisons.push({"operator": $select.val(), "value": $select.next('input.ui-filter-val').val()});
 					});
-					filterLogic.logicOperator = $dialog.find('input.ui-filter-logic-operator:checked').val();
-					filter.value = filterLogic;
+					filterLogic.logicOperator = $dialog.find('input.ui-filter-logic-operator:checked').val();					
+					filter.value = filterLogic.comparisons.length ? filterLogic : null;
 				} else {
 					filter.value = $.trim($('#ui-grid-filter-' + columnId).val());
 				}
@@ -296,19 +307,24 @@
 		                    		result = itemVal === filter.value;
 		                    		break;		                    	
 		                    	case 'numeric':
-		                    		var compare1 =  filter.value.comparisons[0];
-		                    		if(compare1.operator && compare1.value) {
-		                    			var compare2 =  filter.value.comparisons[1];
-			                    		var logicOperator = filter.value.logicOperator;
-			                    		
-			                    		if(compare2 && logicOperator) {
-			                    			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
-			                    			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
-			                    			result = this.operators[logicOperator](result1, result2);			                    			
-			                    		} else {
-			                    			result = this.operators[compare1.operator](itemVal, compare1.value);
+		                    		if(filter.value) {
+		                    			var compare1 =  filter.value.comparisons[0];
+			                    		if(compare1.operator && compare1.value) {
+			                    			var compare2 =  filter.value.comparisons[1];
+				                    		var logicOperator = filter.value.logicOperator;
+				                    		
+				                    		if(compare2 && logicOperator) {
+				                    			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
+				                    			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
+				                    			result = this.operators[logicOperator](result1, result2);			                    			
+				                    		} else {
+				                    			result = this.operators[compare1.operator](itemVal, compare1.value);
+				                    		}
 			                    		}
-		                    		}		                    			                    	
+		                    		} else {
+		                    			result = true;
+		                    		}
+		                    				                    			                    	
 		                    		break;
 		                    	case 'custom':
 		                    		result = filter.impl.call(filter, filter.value, itemVal);
