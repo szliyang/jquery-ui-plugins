@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Combobox Example</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
+	<!-- <link rel="stylesheet" href="css/aristo/jquery-ui-1.8.16.custom.css" type="text/css"/> -->
+	<link rel="stylesheet" href="../css/jquery-ui-combobox.css" type="text/css"/>
+	
+	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui-combobox.js"></script>	
+	
+	<style style="text/css">
+		.blue {
+			border: 1px solid blue;
+		}
+		
+		.red {
+			border: 1px solid red;
+		}
+		
+		.noBackground {
+			background-image: none !important;
+		}
+	</style>
+</head>
+<body>	
+
+	<input type="text"/>	
+	<select id="lang">
+		<option value="a">ASP</option>
+		<option value="c">C</option>
+		<option value="cpp">C++</option>
+		<option value="cf" style="font-size: 22px">Coldfusion</option>
+		<option value="g">Groovy</option>
+		<option value="h">Haskell</option>
+		<option value="j">Java</option>
+		<option value="js">Javascript</option>
+		<option value="p1">Perl</option>
+		<option value="p2">PHP</option>
+		<option value="p3">Python</option>
+		<option value="r">Ruby</option>
+		<option value="s">Scala</option>
+	</select>
+
+	<input type="text"/>
+	
+	<select id="normal">
+		<option value="a">asp</option>
+		<option value="c">c</option>
+		<option value="cpp">c++</option>
+		<option value="cf">coldfusion</option>
+		<option value="g">groovy</option>
+		<option value="h">haskell</option>
+		<option value="j">java</option>
+		<option value="js">javascript</option>
+		<option value="p1">perl</option>
+		<option value="p2">php</option>
+		<option value="p3">python</option>
+		<option value="r">ruby</option>
+		<option value="s">scala</option>
+	</select>
+	
+	<fieldset id="options" style="float: left;">
+			<legend>Options</legend>	
+			<div>
+				<label>Width</label>
+				<input id="width" type="text" value="200"/>
+			</div>
+			
+			<div>
+				<label>Height</label>
+				<input id="height" type="text" value="20"/>
+			</div>
+			
+			<div>
+				<label>Max Height</label>
+				<input id="maxHeight" type="text" value="200"/>
+			</div>
+			
+			<div>
+				<label>Search Type</label>
+				<select id="searchType">
+					<option value="contains">Contains</option>
+					<option value="startsWith">Starts With</option>					
+				</select>
+			</div>
+			
+			<div>
+				<label>Ignore Case</label>
+				<select id="ignoreCase">
+					<option value="true">True</option>
+					<option value="false">False</option>					
+				</select>
+			</div>
+			
+			<div>
+				<label>Autocomplete On</label>
+				<select id="autocompleteOn">
+					<option value="true">True</option>
+					<option value="false">False</option>					
+				</select>
+			</div>
+			
+			<div>
+				<label>Button Class</label>
+				<select id="buttonClass">
+					<option value="none">None</option>
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>					
+				</select>
+			</div>
+			
+			<div>
+				<label>Button Style</label>
+				<input id="buttonStyle" type="text" value=""/>
+			</div>
+			
+			<div>
+				<label>Input Class</label>
+				<select id="inputClass">
+					<option value="none">None</option>
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>					
+				</select>
+			</div>
+			
+			<div>
+				<label>Input Style</label>
+				<input id="inputStyle" type="text" value=""/>
+			</div>
+			
+			<button id="setOptionsButton">Set Options</button>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Events</legend>
+			<div>
+				<label>Open</label>
+				<ul id="openEventList"></ul>
+			</div>
+			<div>
+				<label>Close</label>
+				<ul id="closeEventList"></ul>
+			</div>
+			<div>
+				<label>Enable</label>
+				<ul id="enableEventList"></ul>
+			</div>
+			<div>
+				<label>Disable</label>
+				<ul id="disableEventList"></ul>
+			</div>
+			<div>
+				<label>Change</label>
+				<ul id="changeEventList"></ul>
+			</div>
+			<div>
+				<label>Select</label>
+				<ul id="selectEventList"></ul>
+			</div>
+		</fieldset>
+	
+	<input id="option" type="text"/><button id="getOption">Get Option</button>
+	<button id="getValue">Get Value</button>
+	<button id="open">Open</button>
+	<button id="close">Close</button>
+	<button id="enable">Enable</button>
+	<button id="disable">Disable</button>
+	<button id="destroy">Destroy</button>
+															
+</body>
+	
+	<script type="text/javascript">		
+		
+		$(function() {				
+			$("#lang").combobox({
+				"autocompleteOn": false, 
+				"open": function() {
+					$("#openEventList").append("<li>Open event</li>");
+				},
+				"close": function(event, data) {					
+					$("#closeEventList").append("<li>Close event</li>");
+				},
+				"enable": function() {
+					$("#enableEventList").append("<li>Enable event</li>");
+				},
+				"disable": function(event, data) {
+					$("#disableEventList").append("<li>Disable event</li>");
+				},
+				"change": function(event, data) {
+					$("#changeEventList").append("<li>Changed to " + data.item.text + ", " + data.item.value + "</li>");
+				},
+				"select": function(event, data) {
+					$("#selectEventList").append("<li>" + data.item.text + ", " + data.item.value + " selected</li>");
+				},
+				"create": function() {
+					console.log("created!!");
+				},
+				"buttonStyle": {"width": "30px"},
+				//"inputStyle": {"border": "2px solid yellow"}				
+			});
+			
+			$("#destroy").click(function() {
+				$("#lang").combobox("destroy");	
+			});
+			
+			$("#getValue").click(function() {
+				console.log($("#lang").val());
+			});
+						
+			$("#open").click(function() {
+				$("#lang").combobox("open");
+			});
+			
+			$("#close").click(function() {
+				$("#lang").combobox("close");
+			});
+			
+			$("#enable").click(function() {
+				$("#lang").combobox("enable");
+			});
+			
+			$("#disable").click(function() {
+				$("#lang").combobox("disable");
+			});
+			
+			$('#getOption').click(function() {
+				var optionName = $('#option').val();
+				if(!optionName) {
+					console.log($('#lang').combobox('option'));
+				} else {
+					console.log($('#lang').combobox('option', optionName));	
+				}				
+			});
+			
+			$('#setOptionsButton').click(function() {			
+				$('#options input, #options select').each(function() {
+					var $input = $(this);
+					var id = $input.attr('id');						
+					var value = $input.val();
+					
+					if(value) {
+						$('#lang').combobox('option', id, $input.val());
+					}						
+				});					
+			});
+		});
+	</script>
+</html>
