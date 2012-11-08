@@ -78,6 +78,10 @@
 			    'and': function(a, b) {return a && b;},
 			    'or': function(a, b) {return a || b;},
 			};
+			this.formatDefaults = {
+			    'checkbox': {'notCheckedValue': 'false'},				
+				'currency': {'region': 'USD', 'thousands': ',', 'decimal': '.', 'decimals': 2},
+			};
 			this.element.addClass('ui-grid');
 			this._initColumns();
 			opts.showHeaderRow = this.filters ? true : false;
@@ -173,9 +177,22 @@
 					}
 				}
 				
+				// if it's not a custom format function, set up the correct built-in formatter
 				if(col.formatter && typeof col.formatter !== 'function') {
-					if(col.formatter === 'checkbox') {
-						col.formatter = this._checkboxFormatter;
+
+					if(typeof col.formatter === 'string') {
+						col.formatOptions = $.extend({'type': col.formatter}, this.formatDefaults[col.formatter]);
+					} else if(typeof col.formatter === 'object' && col.formatter.type) {
+						col.formatOptions = $.extend({}, this.formatDefaults[col.formatter.type], col.formatter);
+					}
+					
+					switch(col.formatOptions.type) {
+						case 'checkbox':							
+							col.formatter = this._checkboxFormatter;
+							break;
+						case 'currency':
+							col.formatter = this._currencyFormatter;
+							break;
 					}
 				}
 			}
@@ -653,11 +670,18 @@
 
 			this.init();
 		},
+		_currencyFormatter: function(rowNum, cellNum, value, columnDef, row) {			
+
+			if($.currency) {
+				value = $.currency(value, columnDef.formatOptions);
+			}			
+						
+			return value;
+		},
 		_checkboxFormatter: function(rowNum, cellNum, value, columnDef, row) {
-			var html = '<input type="checkbox"'; 
-			var notCheckedVal = columnDef.notCheckedValue ? columnDef.notCheckedValue + '' : 'false';
+			var html = '<input type="checkbox"';			
 			
-			if(value && (value + '').toLowerCase() !== notCheckedVal.toLowerCase()) {
+			if(value && (value + '').toLowerCase() !== columnDef.formatOptions.notCheckedValue.toLowerCase()) {
 				html += ' checked="checked"';
 			}
 			
