@@ -148,7 +148,9 @@
 						if($.isArray(editor)) {
 							col.editor = this._dropDownEdit;
 							col.editorOptions = editor;
-						} else {							
+						} else if(editor === 'date') {
+							col.editor = this._dateEdit;
+						} else {
 							col.editor = this._textEdit;
 							col.dataType = editor;
 						}													
@@ -358,7 +360,95 @@
 			}
             
             return true;        
-		},		
+		},
+		_dateEdit: function(args) {
+			var $input;
+			var defaultValue;			   
+			var calendarOpen = false;
+			
+			this.init = function () {
+				var $cell = $(args.container);
+		    	var $paddingTop = $cell.padding('top');
+				$input = $('<input type="text" class="ui-grid-editor" />')
+					.appendTo(args.container)
+					.width($cell.width() + $cell.padding('right') - ($.browser.msie || $.browser.mozilla ? 2 : 1))
+					.height($cell.height() - $paddingTop - $cell.padding('bottom'))
+					.css({'position': 'relative', 'top': -$paddingTop, 'left': -$cell.padding('left')})
+					.focus().select();
+				
+				$input.datepicker({
+					showOn: "button",
+					buttonImageOnly: true,
+					buttonImage: "../css/images/calendar.gif",
+					beforeShow: function () {
+						calendarOpen = true;
+					},
+					onClose: function () {
+						calendarOpen = false;
+					}
+				});
+				
+				$input.width($input.width() - 18);
+			};
+			
+			this.destroy = function () {
+				$.datepicker.dpDiv.stop(true, true);
+				$input.datepicker("hide");
+				$input.datepicker("destroy");
+				$input.remove();
+			};
+			
+			this.show = function () {
+				if (calendarOpen) {
+					$.datepicker.dpDiv.stop(true, true).show();
+				}
+			};
+			
+			this.hide = function () {
+				if (calendarOpen) {
+					$.datepicker.dpDiv.stop(true, true).hide();
+				}
+			};
+			
+			this.position = function (position) {
+				if (!calendarOpen) {
+					return;
+				}
+				$.datepicker.dpDiv.css("top", position.top + 30).css("left", position.left);
+			};
+			
+			this.focus = function () {
+				$input.focus();
+			};
+			
+			this.loadValue = function (item) {
+				defaultValue = item[args.column.field];
+					$input.val(defaultValue);
+					$input[0].defaultValue = defaultValue;
+					$input.select();
+			};
+			
+			this.serializeValue = function () {
+				return $input.val();
+			};
+			
+			this.applyValue = function (item, state) {
+				item[args.column.field] = state;
+			};
+			
+			this.isValueChanged = function () {
+				return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+			};
+			
+			this.validate = function () {
+				return {
+					valid: true,
+					msg: null
+				};
+			};
+			
+			this.init();
+		},
 		_textEdit: function(args) {			
 			var $input;
 			var defaultValue;
@@ -385,11 +475,11 @@
 		    			break;
 		    		case 'numeric':
 		    			$input.textinput({'filter': 'numeric'});
-		    			break;
+		    			break;		    		
 		    	}
 		    };
 		
-		    this.destroy = function () {
+		    this.destroy = function () {				
 		    	$input.remove();
 		    };
 		
@@ -410,7 +500,7 @@
 				$input.val(defaultValue);
 				$input[0].defaultValue = defaultValue;
 				$input.select();
-		    };
+		    };		    
 		
 		    this.serializeValue = function () {
 		    	return $input.val();
