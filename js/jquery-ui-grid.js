@@ -16,6 +16,11 @@
  *	slick.dataview.2.0.2.js
  *
  *Notes for column model:
+ * ID == unique id for the column
+ * FIELD == property on the data object used to get the value to display for the data
+ * NAME == the column Header text
+ * ID will often be the same as FIELD but it allows you to make 2 different columns display the same data differently (using a different formatter or whatever)
+ * if you don't provide a value for FIELD the column won't display any data but if you omit ID it works, the id in this case is presumably the field?
  *	filter: null, // can be 'startsWith', 'endsWith', 'contains', 'doesNotContain', an array of values for a drop down list or an object with an impl property that is a function
 		// to do custom filtering, the function receives filterValue and itemValue parameters and "this" refers to the filter object, it returns true if the value should be shown, false otherwise
 		// if filter is an array or a custom filter object has an options array, a drop down list will be rendered
@@ -62,7 +67,7 @@
 			];
 			this.logicOperators = [
 			    {'name': 'And', 'value': 'and'},
-				{'name': 'Or', 'value': 'or'},
+				{'name': 'Or', 'value': 'or'}
 			];
 			this.operators = {
 			    'gt': function(a, b) {return +a > +b;}, // the plus is a fast way to convert the string to a number
@@ -167,6 +172,12 @@
 						}													
 					}
 				}
+				
+				if(col.formatter && typeof col.formatter !== 'function') {
+					if(col.formatter === 'checkbox') {
+						col.formatter = this._checkboxFormatter;
+					}
+				}
 			}
 			
 			this.sortFunctions = sortFunctions;
@@ -202,6 +213,7 @@
                     		.data("columnId", column.id);                    	
                     	$textFilter
                     		.width($header.width() - 24) // subtract image width + a little padding
+                    		.css('float', 'left')
                     		.textinput({'filter': 'numeric'});
                     } else {
                     	self._renderTextFilter(id, $header, column, value);
@@ -302,7 +314,7 @@
 				"modal": true,
 				"dialogClass": "ui-numeric-filter-dialog",
 				"buttons": buttons,
-				"width": "230px",
+				"width": "254px",
 				"position": {my: "left top", at: "left bottom", of: $filterButton}
     			}).show();
 		},
@@ -640,6 +652,17 @@
 			};
 
 			this.init();
+		},
+		_checkboxFormatter: function(rowNum, cellNum, value, columnDef, row) {
+			var html = '<input type="checkbox"'; 
+			var notCheckedVal = columnDef.notCheckedValue ? columnDef.notCheckedValue + '' : 'false';
+			
+			if(value && (value + '').toLowerCase() !== notCheckedVal.toLowerCase()) {
+				html += ' checked="checked"';
+			}
+			
+			html += '/>';
+			return html;
 		},
 		_compare: function(row1, row2) {			
 			var val = row1[sortcol], val2 = row2[sortcol];			
