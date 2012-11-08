@@ -52,7 +52,18 @@
 		_create: function() {
 			var self = this,
 				opts = this.options,
-				dataView = this.dataView = new Slick.Data.DataView();	
+				dataView = this.dataView = new Slick.Data.DataView();
+			this.numericFilters = [
+				{'name': 'Equals', 'value': 'eq'},
+				{'name': 'Greater Than', 'value': 'gt'}, 
+				{'name': 'Greater Than OR Equal To', 'value': 'gte'}, 
+				{'name': 'Less Than', 'value': 'lt'}, 
+				{'name': 'Less Than OR Equal To', 'value': 'lte'}
+			];
+			this.logicOperators = [
+			    {'name': 'And', 'value': 'and'},
+				{'name': 'Or', 'value': 'or'},
+			];
 			this.operators = {
 			    'gt': function(a, b) {return +a > +b;}, // the plus is a fast way to convert the string to a number
 			    'gte': function(a, b) {return +a >= +b;},
@@ -223,9 +234,47 @@
             	.width($header.width() - 4)
                 .val(filterValue);            
 		},
+		_renderNumericFilterDialog: function(columnId) {
+			var $dialog = $('#ui-grid-filter-dialog-' + columnId);
+			
+			if($dialog.length == 0) {
+				var html = '<div id="ui-grid-filter-dialog-' + columnId + '" style="display: none;" class="ui-grid-filter-dialog">';
+				html += '<div><label>Show rows where </label><label class="columnName"></label></div>';
+				
+				html += this._getNumericFilterHtml();				
+				html += '<div>';
+				
+				for(var i = 0; i < this.logicOperators.length; i++) {
+					var operator = this.logicOperators[i];
+					html += '<input type="radio" name="logicOperator" class="ui-filter-logic-operator" value="' + operator.value + '"/><label>' + operator.name + '</label>';
+				}
+				
+				html += '</div>';				
+				html += this._getNumericFilterHtml();
+					
+				html += '</div>';
+				$dialog = $(html);
+			}
+			
+			return $dialog;			
+		},
+		_getNumericFilterHtml: function() {
+			var html = '<div><select class="ui-filter-compare-operator">';
+			
+			for(var i = 0; i < this.numericFilters.length; i++) {
+				var filter = this.numericFilters[i];
+				html += '<option value="' + filter.value + '">' + filter.name + '</option>';
+			}
+			
+			html += '<input type="text" class="ui-filter-val"/>';
+			html += '</select>';
+			html += '</div>';
+			
+			return html;
+		},
 		_showNumericFilterDialog: function($filterButton, columnId) {
 			var self = this;
-			var $dialog = $('#numericFilterDialog');
+			var $dialog = this._renderNumericFilterDialog(columnId);
 			var column = this.columns[columnId];
 			var buttons = {				
 				'Cancel': function() {
@@ -263,7 +312,7 @@
 				var filter = this.filters[columnId];
 				
 				if(filter.type === 'numeric') {
-					var $dialog = $('#numericFilterDialog');
+					var $dialog = $('#ui-grid-filter-dialog-' + columnId);
 					var filterLogic = {};
 					filterLogic.comparisons = [];
 					$dialog.find('select.ui-filter-compare-operator').each(function() {
@@ -379,7 +428,7 @@
 				$input.datepicker({
 					showOn: "button",
 					buttonImageOnly: true,
-					buttonImage: "../css/images/calendar.gif",
+					buttonImage: "../css/images/calendar.png",
 					beforeShow: function () {
 						calendarOpen = true;
 					},
