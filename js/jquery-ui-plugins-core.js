@@ -1,10 +1,45 @@
-if (!String.prototype.contains) {
+if(!String.prototype.left) {
+	String.prototype.left = function(n) {
+		if (n <= 0) {
+			return '';
+		} else if (n > this.length) {
+			return this;
+		} else
+			return this.substring(0, n);
+	};
+}
+
+if(!String.prototype.right) {
+	String.prototype.right = function(n) {
+		if(n <= 0) {
+			return '';
+		} else if (n > this.length) {
+			return this;
+		} else {
+			var iLen = this.length;
+			return this.substring(iLen, iLen - n);
+		}
+	};
+}
+
+if(!String.prototype.padLeft) {
+	String.prototype.padLeft = function(toLength, char) {
+		var padded = this;
+		while(padded.length < toLength) {
+			padded = char + padded;
+		}
+	
+		return padded;
+	};
+}
+
+if(!String.prototype.contains) {
     String.prototype.contains = function(prefix) {
         return this.indexOf(prefix) > -1;
     };
 }
 
-if (!String.prototype.containsAny) {
+if(!String.prototype.containsAny) {
     String.prototype.containsAny = function(arrayOfStrings) {
         for (var x in arrayOfStrings) {
             if (this.indexOf(arrayOfStrings[x]) > -1) {
@@ -15,13 +50,13 @@ if (!String.prototype.containsAny) {
     };
 }
 
-if (!String.prototype.startsWith) {
+if(!String.prototype.startsWith) {
     String.prototype.startsWith = function(prefix) {
         return this.indexOf(prefix) === 0;
     };
 }
 
-if (!String.prototype.endsWith) {
+if(!String.prototype.endsWith) {
     String.prototype.endsWith = function(suffix) {    	
     	if (this.length < suffix.length) {
     		return false;
