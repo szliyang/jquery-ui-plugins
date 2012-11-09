@@ -152,7 +152,7 @@
 						this._initDateSort(col);
 						sortFunctions[col.id] = this._dateSort;
 					} else {
-						sortFunctions[col.id] = this._compare;
+						sortFunctions[col.id] = this._sort;
 					}
 				}		
 				
@@ -216,23 +216,35 @@
 					return self._filter(item);
 				});
 			}			
+		},		
+		_initDateSort:function (column) {
+			var start = new Date().getTime();
+	            
+			var rows = this.option('data');
+			for(var i = 0; i < rows.length; i++) {
+				var row = rows[i];
+				// experimenting with storing ISO date string as sort date and using dataView.fastSort
+				// which does a native lexicographic sort to improve performance
+				// before we do that we'll need to simulate some threading in this
+				// init method so the page load doesn't take forever when the dataset is huge
+				//row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).toISOString();
+				
+				// parse date and store it as separate column so we don't take the hit of parsing on every sort
+				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat);
+			}
+			
+			console.log(new Date().getTime() - start);
 		},
-		_compare: function(row1, row2) {
+		_sort: function(row1, row2) {
 			// sortCol is set in the onSort.subscribe callback
 			var val = row1[sortCol.field], val2 = row2[sortCol.field];			
 			return (val == val2 ? 0 : (val > val2 ? 1 : -1));
 		},
-		_initDateSort:function (column) {
-			var rows = this.option('data');
-			for(var i = 0; i < rows.length; i++) {
-				var row = rows[i];
-				// parse date and store it as separate column so we don't take the hit of parsing on every sort
-				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat);
-			}
-		},
 		_dateSort: function(row1, row2) {
 			// sortCol is set in the onSort.subscribe callback
 			return row1[sortCol.field + '-sort'].compareTo(row2[sortCol.field + '-sort']);
+			//var val = row1[sortCol.field + '-sort'], val2 = row2[sortCol.field + '-sort'];			
+			//return (val == val2 ? 0 : (val > val2 ? 1 : -1));
 		},
 		_renderFilters: function() {
 			var self = this;
@@ -467,8 +479,8 @@
             return true;        
 		},
 		_dateEdit: function(args) {
-			var $input;
-			var defaultValue;			   
+			var $input = null;
+			var defaultValue = null;			   
 			var calendarOpen = false;
 			
 			this.init = function () {
@@ -560,8 +572,8 @@
 			this.init();
 		},
 		_textEdit: function(args) {			
-			var $input;
-			var defaultValue;
+			var $input = null;
+			var defaultValue = null;
 		
 		    this.init = function () {
 		    	var $cell = $(args.container);
@@ -641,8 +653,8 @@
 		    this.init();
 		},
 		_dropDownEdit: function(args) {
-			var $select;
-			var defaultValue;
+			var $select = null;
+			var defaultValue = null;
 
 			this.init = function () {
 				var html = '<select tabIndex="0" class="ui-grid-editor">';
@@ -728,11 +740,11 @@
 		},
 		disable: function() {
 			$.Widget.prototype.disable.call(this);			
-			this._trigger("disable");
+			this._trigger('disable');
 		},
 		enable: function() {
 			$.Widget.prototype.enable.call(this);			
-			this._trigger("enable");
+			this._trigger('enable');
 		},		
 		destroy: function() {
 			this.grid.onColumnsReordered.unsubscribe();
