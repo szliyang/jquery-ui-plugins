@@ -109,7 +109,9 @@
 			grid.onSort.subscribe(function(e, args) {
 	            sortCol = args.sortCol;
 	            var start = new Date().getTime();	            
-	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);	            
+	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);
+	            // fast sort seems to be much better in IE & FF but actually slower in Chrome so probably do a browser check here
+	            //self.dataView.fastSort(sortCol.id, args.sortAsc);
 	            grid.invalidate();
 	            console.log(new Date().getTime() - start);
 	        });			
@@ -140,7 +142,7 @@
 				
 				if(col.sort !== false) {
 					col.sortable = true;
-					
+					col.headerCssClass = 'ui-grid-sortable';
 					if(typeof col.sort === 'function') {
 						sortFunctions[col.id] = col.sort;
 					} else if(col.sort === 'date' && col.dateFormat) {
@@ -222,11 +224,12 @@
 			var rows = this.option('data');
 			for(var i = 0; i < rows.length; i++) {
 				var row = rows[i];
+				// parse date and store it as separate column so we don't take the hit of parsing on every sort
 				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat);
 			}
 		},
 		_dateSort: function(row1, row2) {
-			// sortCol is set in the onSort.subscribe callback			
+			// sortCol is set in the onSort.subscribe callback
 			return row1[sortCol.field + '-sort'].compareTo(row2[sortCol.field + '-sort']);
 		},
 		_renderFilters: function() {

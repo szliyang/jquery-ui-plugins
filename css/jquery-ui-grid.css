@@ -87,3 +87,7 @@ input.ui-filter-val {
 	top: 2px;
 	left: -2px;
 }
+
+.ui-grid-sortable {
+	cursor: pointer;
+}
