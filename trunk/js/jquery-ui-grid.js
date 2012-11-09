@@ -7,10 +7,10 @@
  * http://code.google.com/p/jquery-ui-plugins/wiki/Grid
  *
  * Depends:
- *  jquery 1.7 // currently broken with 1.8.2 and 1.9
+ *  jquery 1.7 // currently broken with 1.8.2 and 1.9  
  *	jquery.ui.core.1.8.16.js
  *	jquery.ui.widget.1.8.16.js
- *	jquery.event.drag-2.0.js 	
+ *	jquery.event.drag-2.0.js	
  *	slick.core.2.0.2.js
  *	slick.grid.2.0.2.js
  *	slick.dataview.2.0.2.js
@@ -58,6 +58,7 @@
 			var self = this,
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();
+						
 			this.numericFilters = [
 				{'name': 'Equals', 'value': 'eq'},
 				{'name': 'Greater Than', 'value': 'gt'}, 
@@ -105,11 +106,11 @@
 			}
 			
 			grid.onSort.subscribe(function(e, args) {
-	            sortcol = args.sortCol.field;	
-	            // using native sort with comparer
-	            // preferred method but can be very slow in IE with huge datasets      
-	            self.dataView.sort(self.sortFunctions[args.sortCol.id], args.sortAsc);	           
+	            sortCol = args.sortCol;
+	            var start = new Date().getTime();	            
+	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);	            
 	            grid.invalidate();
+	            console.log(new Date().getTime() - start);
 	        });			
 						
 			grid.onColumnsReordered.subscribe(function() {
@@ -139,8 +140,12 @@
 				if(col.sort !== false) {
 					col.sortable = true;
 					
-					if(typeof col.sort === "function") {
+					if(typeof col.sort === 'function') {
 						sortFunctions[col.id] = col.sort;
+					} else if(col.sort === 'date' && col.dateFormat) {
+						// parse the date, convert to standard format, store standard format on row as new column, sort on that column
+						this._initDateSort(col);
+						sortFunctions[col.id] = this._dateSort;
 					} else {
 						sortFunctions[col.id] = this._compare;
 					}
@@ -206,7 +211,23 @@
 					return self._filter(item);
 				});
 			}			
-		},	
+		},
+		_compare: function(row1, row2) {
+			// sortCol is set in the onSort.subscribe callback
+			var val = row1[sortCol.field], val2 = row2[sortCol.field];			
+			return (val == val2 ? 0 : (val > val2 ? 1 : -1));
+		},
+		_initDateSort:function (column) {
+			var rows = this.option('data');
+			for(var i = 0; i < rows.length; i++) {
+				var row = rows[i];
+				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat);
+			}
+		},
+		_dateSort: function(row1, row2) {
+			// sortCol is set in the onSort.subscribe callback			
+			return row1[sortCol.field + '-sort'].compareTo(row2[sortCol.field + '-sort']);
+		},
 		_renderFilters: function() {
 			var self = this;
 			var grid = this.grid;
@@ -229,7 +250,7 @@
                     		.appendTo($header)
                     		.data("columnId", column.id);                    	
                     	$textFilter
-                    		.width($header.width() - 24) // subtract image width + a little padding
+                    		.width($header.width() - 24)
                     		.css('float', 'left')
                     		.textinput({'filter': 'numeric'});
                     } else {
@@ -511,7 +532,12 @@
 			};
 			
 			this.applyValue = function (item, state) {
-				item[args.column.field] = state;
+				var col = args.column;
+				item[col.field] = state;
+				
+				if(col.sort === 'date' && col.dateFormat) {
+					item[col.field + '-sort'] = Date.parseExact(state, col.dateFormat);
+				}				
 			};
 			
 			this.isValueChanged = function () {
@@ -687,11 +713,7 @@
 			
 			html += '/>';
 			return html;
-		},
-		_compare: function(row1, row2) {			
-			var val = row1[sortcol], val2 = row2[sortcol];			
-			return (val == val2 ? 0 : (val > val2 ? 1 : -1));
-		},
+		},		
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
 		},
