@@ -14,6 +14,7 @@
  *	slick.core.2.0.2.js
  *	slick.grid.2.0.2.js
  *	slick.dataview.2.0.2.js
+ *	date.js // required for date sorting
  *
  *Notes for column model:
  * ID == unique id for the column
