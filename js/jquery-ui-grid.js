@@ -61,7 +61,8 @@
 				dataView = this.dataView = new Slick.Data.DataView();
 						
 			this.numericFilters = [
-				{'name': 'Equals', 'value': 'eq'},
+				{'name': 'Equal To', 'value': 'eq'},
+				{'name': 'Not Equal To', 'value': 'neq'},
 				{'name': 'Greater Than', 'value': 'gt'}, 
 				{'name': 'Greater Than OR Equal To', 'value': 'gte'}, 
 				{'name': 'Less Than', 'value': 'lt'}, 
@@ -77,6 +78,7 @@
 			    'lt': function(a, b) {return +a < +b;},
 			    'lte': function(a, b) {return +a <= +b;},
 			    'eq': function(a, b) {return +a == +b;},
+			    'neq': function(a, b) {return +a != +b;},
 			    'and': function(a, b) {return a && b;},
 			    'or': function(a, b) {return a || b;},
 			};
