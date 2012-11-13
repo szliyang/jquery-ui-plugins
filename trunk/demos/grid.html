@@ -28,7 +28,7 @@
 	<script src="../js/lib/jquery.event.drag-2.0.min.js"></script>
 	<script src="../js/lib/jquery.event.drop-2.0.min.js"></script>
 
-	<script src="../js/lib/jquery-currency.js"></script>
+	<script src="../js/lib/date.js"></script>
 	<script src="../js/lib/slick.core.js"></script>
 	<script src="../js/lib/slick.grid.js"></script>
 	<script src="../js/lib/slick.dataview.js"></script>
@@ -49,6 +49,7 @@
 			id : "title",
 			name : "Title",
 			field : "title",
+			// custom sort function that parses the number and then sorts based on that
 			sort: function(row1, row2) {
 				var val = Number(row1["title"].substring(5));
 				var val2 = Number(row2["title"].substring(5));				
@@ -75,8 +76,8 @@
 			field : "invoicePrice",
 			filter: "numeric",
 			editor: "numeric",
-			//formatter: "currency"  // example using defaults
-			formatter: {"type": "currency", "region": "GBP", "decimal": ","}  // fancy example using object that sets region
+			formatter: "currency"  // example using defaults
+			//formatter: {"type": "currency", "region": "GBP", "decimal": ","}  // fancy example using object that sets region
 		}, 
 		{
 			id : "percentComplete",
@@ -89,12 +90,19 @@
 			id : "start",
 			name : "Start",
 			field : "start",
-			editor: "date"
+			editor: "date",
+			sort: "date",
+			dateFormat: "MM/dd/yyyy",
+			filter: "date"
 		}, 
 		{
 			id : "finish",
 			name : "Finish",
-			field : "finish"
+			field : "finish",
+			editor: "date",
+			sort: "date",
+			filter: "date",
+			dateFormat: "MM/dd/yyyy"
 		}, 
 		{
 			id : "effort-driven",
@@ -142,20 +150,25 @@
 
 		$(function() {
 			var myData = [];
-			for ( var i = 0; i < 50000; i++) {			
+			var start = Date.parseExact('01/01/2010', 'MM/dd/yyyy');
+			var end = Date.parseExact('01/05/2010', 'MM/dd/yyyy');
+			for ( var i = 0; i < 50000; i++) {
+				var day = (Math.round(Math.random() * 29) + '').padLeft(2, '0');
 				myData[i] = {
 					title : "Task " + i,
 					duration : "Approximately " + (i % 100) + " days",
 					invoicePrice: i/4,
 					percentComplete : Math.round(Math.random() * 100),
-					start : "01/01/2009",
-					finish : "01/05/2009",
+					start : start.toString('MM/dd/yyyy'),
+					finish : end.toString('MM/dd/yyyy'),
 					effortDriven : (i % 5 == 0),
 					hasOrders: (i % 7 == 0),
 					deliveryMethod: (i % 9 == 0 ? 'dropShip' : (i % 7 == 0 ? 'earlyShip' : 'preDelivered')),
 					displayOnWeb: i % 2 == 0 ? 'true' : 'false'
 					//displayOnWeb: (i % 2 == 0 ? "noway" : "sure")
 				};
+				start.addDays(1);
+				end.addDays(1);
 			}
 
 			$("#myGrid").grid({
