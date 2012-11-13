@@ -59,15 +59,36 @@
 			var self = this,
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();
-						
-			this.numericFilters = [
-				{'name': 'Equal To', 'value': 'eq'},
-				{'name': 'Not Equal To', 'value': 'neq'},
-				{'name': 'Greater Than', 'value': 'gt'}, 
-				{'name': 'Greater Than OR Equal To', 'value': 'gte'}, 
-				{'name': 'Less Than', 'value': 'lt'}, 
-				{'name': 'Less Than OR Equal To', 'value': 'lte'}
-			];
+			this.dateInfo = this._initDateInfo();			
+			this.filterValues = {
+				'numericDialog': [
+					{'name': 'Equal To', 'value': 'eq'},
+					{'name': 'Not Equal To', 'value': 'neq'},
+					{'name': 'Greater Than', 'value': 'gt'}, 
+					{'name': 'Greater Than OR Equal To', 'value': 'gte'}, 
+					{'name': 'Less Than', 'value': 'lt'}, 
+					{'name': 'Less Than OR Equal To', 'value': 'lte'}
+				],
+				'dateDialog': [
+					{'name': 'On', 'value': 'eq'},
+					{'name': 'Before', 'value': 'lt'},
+					{'name': 'After', 'value': 'gt'}
+				],
+				'date': [
+				    {'name': 'Today', 'value': 'today'},
+				    {'name': 'Tomorrow', 'value': 'tomorrow'},					
+					{'name': 'Yesterday', 'value': 'yesterday'},					
+					{'name': 'This Week', 'value': 'thisweek'},
+					{'name': 'Next Week', 'value': 'nextweek'},
+					{'name': 'Last Week', 'value': 'lastweek'},
+					{'name': 'This Month', 'value': 'thismonth'},
+					{'name': 'Next Month', 'value': 'nextmonth'},					
+					{'name': 'Last Month', 'value': 'lastmonth'},
+					{'name': 'This Year', 'value': 'thisyear'},
+					{'name': 'Next Year', 'value': 'nextyear'},					
+					{'name': 'Last Year', 'value': 'lastyear'}
+				]
+			};
 			this.logicOperators = [
 			    {'name': 'And', 'value': 'and'},
 				{'name': 'Or', 'value': 'or'}
@@ -80,7 +101,7 @@
 			    'eq': function(a, b) {return +a == +b;},
 			    'neq': function(a, b) {return +a != +b;},
 			    'and': function(a, b) {return a && b;},
-			    'or': function(a, b) {return a || b;},
+			    'or': function(a, b) {return a || b;}
 			};
 			this.formatDefaults = {
 			    'checkbox': {'notCheckedValue': 'false'},				
@@ -103,8 +124,10 @@
 				
 				// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog
 				$headerRow.on('click', 'input.ui-filter-button', function(e) {
-					var columnId = $(this).data('columnId');
-					self._showNumericFilterDialog($(this), columnId);
+					var $this = $(this);
+					var columnId = $this.data('columnId');
+					var filterType = $this.data('type'); 
+					self._showFilterDialog($(this), columnId, filterType);
 				});
 			}
 			
@@ -149,7 +172,7 @@
 						sortFunctions[col.id] = col.sort;
 					} else if(col.sort === 'date' && col.dateFormat) {
 						// parse the date, convert to standard format, store standard format on row as new column, sort on that column
-						this._initDateSort(col);
+						this._initDateSort(col);						
 						sortFunctions[col.id] = this._dateSort;
 					} else {
 						sortFunctions[col.id] = this._sort;
@@ -216,21 +239,39 @@
 					return self._filter(item);
 				});
 			}			
-		},		
+		},	
+		_initDateInfo: function() {
+			var today = Date.today().clearTime();
+			
+			return {
+				'today': today.getTime(),
+				'tomorrow': Date.today().addDays(1).getTime(),
+				'yesterday': Date.today().addDays(-1).getTime(),
+				'sunday': today.getDay() == 0 ? today.clone() : Date.today().moveToDayOfWeek(0, -1).getTime(),
+				'lastSunday': today.getDay() == 0 ? Date.today().moveToDayOfWeek(0, -1).getTime() : Date.today().moveToDayOfWeek(0, -1).moveToDayOfWeek(0, -1).getTime(),
+				'nextSunday': Date.today().moveToDayOfWeek(0).getTime(),
+				'dayMillis': 60 * 60 * 24 * 1000,
+				'weekMillis': 60 * 60 * 24 * 7 * 1000,
+				'lastMonthStart': Date.today().moveToFirstDayOfMonth().addDays(-1).moveToFirstDayOfMonth().getTime(),
+				'thisMonthStart': Date.today().moveToFirstDayOfMonth().getTime(),				
+				'nextMonthStart': Date.today().moveToLastDayOfMonth().addDays(1).getTime(),
+				'nextMonthEnd': Date.today().moveToLastDayOfMonth().addDays(1).moveToLastDayOfMonth().addDays(1).getTime(),				
+				'lastYearStart': Date.today().set({day: 1, month: 0, year: today.getFullYear() - 1}).getTime(),
+				'thisYearStart': Date.today().set({day: 1, month: 0}).getTime(),
+				'nextYearStart': Date.today().set({day: 1, month: 0, year: today.getFullYear() + 1}).getTime(),
+				'nextYearEnd': Date.today().set({day: 1, month: 0, year: today.getFullYear() + 2}).getTime()
+			};								
+		},
 		_initDateSort:function (column) {
-			var start = new Date().getTime();
-	            
+			var start = new Date().getTime();	            
 			var rows = this.option('data');
+			
 			for(var i = 0; i < rows.length; i++) {
 				var row = rows[i];
-				// experimenting with storing ISO date string as sort date and using dataView.fastSort
-				// which does a native lexicographic sort to improve performance
 				// before we do that we'll need to simulate some threading in this
-				// init method so the page load doesn't take forever when the dataset is huge
-				//row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).toISOString();
-				
+				// init method so the page load doesn't take forever when the dataset is huge				
 				// parse date and store it as separate column so we don't take the hit of parsing on every sort
-				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat);
+				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).getTime();
 			}
 			
 			console.log(new Date().getTime() - start);
@@ -242,9 +283,8 @@
 		},
 		_dateSort: function(row1, row2) {
 			// sortCol is set in the onSort.subscribe callback
-			return row1[sortCol.field + '-sort'].compareTo(row2[sortCol.field + '-sort']);
-			//var val = row1[sortCol.field + '-sort'], val2 = row2[sortCol.field + '-sort'];			
-			//return (val == val2 ? 0 : (val > val2 ? 1 : -1));
+			var val = row1[sortCol.field + '-sort'], val2 = row2[sortCol.field + '-sort'];			
+			return (val == val2 ? 0 : (val > val2 ? 1 : -1));
 		},
 		_renderFilters: function() {
 			var self = this;
@@ -263,19 +303,27 @@
                     if(filter.options) {
                     	self._renderDropDownFilter(id, $header, column, filter.options);                    	
                     } else if(filter.type === 'numeric') {
-                    	var $textFilter = self._renderTextFilter(id, $header, column, value);
-                    	$('<input type="image" src="../css/images/filter.png" class="ui-filter-button"/>')
-                    		.appendTo($header)
-                    		.data("columnId", column.id);                    	
-                    	$textFilter
+                		self._renderTextFilter(id, $header, column, value)
                     		.width($header.width() - 24)
                     		.css('float', 'left')
-                    		.textinput({'filter': 'numeric'});
+                    		.textinput({'filter': 'numeric'});                    	                    	
+                    	self._renderFilterButton(filter.type, column, $header);                    	
+                    } else if(filter.type === 'date') {
+                    	self._renderDropDownFilter(id, $header, column, self.filterValues[filter.type])
+                    		.width($header.width() - 20)
+                    		.css('float', 'left')
+                    		.textinput({'filter': 'numeric'}); 
+                    	self._renderFilterButton(filter.type, column, $header);
                     } else {
                     	self._renderTextFilter(id, $header, column, value);
                     }                    		          
                 }
 			}
+		},
+		_renderFilterButton: function(type, column, $appendTo) {
+			$('<input type="image" src="../css/images/filter.png" class="ui-filter-button"/>')
+        		.appendTo($appendTo)
+        		.data({'columnId': column.id, 'type': type});
 		},
 		_renderTextFilter: function(id, $header, column, value) {
 			return $('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
@@ -297,19 +345,19 @@
 				html += '<option value="' + value + '"' + (value === filterValue ? 'selected' : '') + '>' + name + '</option>';								
 			}			
             html += '</select>';
-            $(html).appendTo($header)
+            return $(html).appendTo($header)
             	.data('columnId', column.id)
             	.width($header.width() - 4)
                 .val(filterValue);            
 		},
-		_renderNumericFilterDialog: function(columnId) {
+		_renderFilterDialog: function(columnId, type) {
 			var $dialog = $('#ui-grid-filter-dialog-' + columnId);
 			
 			if($dialog.length == 0) {
 				var html = '<div id="ui-grid-filter-dialog-' + columnId + '" style="display: none;" class="ui-grid-filter-dialog">';
 				html += '<div><label>Show rows where </label><label class="columnName"></label></div>';
 				
-				html += this._getNumericFilterHtml();				
+				html += this._getFilterHtml(type + 'Dialog');				
 				html += '<div>';
 				
 				for(var i = 0; i < this.logicOperators.length; i++) {
@@ -318,7 +366,7 @@
 				}
 				
 				html += '</div>';				
-				html += this._getNumericFilterHtml();
+				html += this._getFilterHtml(type + 'Dialog');
 					
 				html += '</div>';
 				$dialog = $(html);
@@ -326,23 +374,24 @@
 			
 			return $dialog;			
 		},
-		_getNumericFilterHtml: function() {
+		_getFilterHtml: function(type) {
 			var html = '<div><select class="ui-filter-compare-operator">';
+			var filters = this.filterValues[type];
 			
-			for(var i = 0; i < this.numericFilters.length; i++) {
-				var filter = this.numericFilters[i];
+			for(var i = 0; i < filters.length; i++) {
+				var filter = filters[i];
 				html += '<option value="' + filter.value + '">' + filter.name + '</option>';
 			}
-			
-			html += '<input type="text" class="ui-filter-val"/>';
+
+			html += '<input type="text" class="ui-filter-val' + (type.startsWith('date') ? ' ui-date-filter' : '') + '"/>';			
 			html += '</select>';
 			html += '</div>';
 			
 			return html;
 		},
-		_showNumericFilterDialog: function($filterButton, columnId) {
+		_showFilterDialog: function($filterButton, columnId, type) {
 			var self = this;
-			var $dialog = this._renderNumericFilterDialog(columnId);
+			var $dialog = this._renderFilterDialog(columnId, type);
 			var column = this.columns[columnId];
 			var buttons = {				
 				'Cancel': function() {
@@ -351,7 +400,7 @@
 				'OK': function() { 
 					self._filterColumn(columnId);
 					$(this).dialog('close');
-				},
+				}
 			};
 			
 			if(this.filters[columnId].logic) {
@@ -365,28 +414,43 @@
 				};
 			}
 			$dialog.find('label.columnName').text(column.name + ' is:');
+			$dialog.find('input.ui-date-filter').datepicker({
+				showOn: 'button',
+				buttonImageOnly: true,
+				buttonImage: '../css/images/calendar.png',
+				beforeShow: function() {
+					$('#ui-datepicker-div').addClass('ui-grid-datepicker');			       
+				},
+				onClose: function() {
+					$('#ui-datepicker-div').addClass('ui-grid-datepicker');
+				}
+			});
+			
 			$dialog.dialog({
-				"title": "Numeric Filter", 
+				"title": (type.toProperCase() + " Filter"), 
 				"modal": true,
 				"dialogClass": "ui-numeric-filter-dialog",
 				"buttons": buttons,
 				"width": "254px",
 				"position": {my: "left top", at: "left bottom", of: $filterButton}
     			}).show();
-		},
+		},		
 		_filterColumn: function(columnId) {
 			// shouldn't need this null check but there's some inconsistent behavior with the event handling that requires it
 			if (columnId) {
 				var filter = this.filters[columnId];
 				
-				if(filter.type === 'numeric') {
+				if(filter.type === 'numeric' || filter.type === 'date') {
 					var $dialog = $('#ui-grid-filter-dialog-' + columnId);
+					var column = this.columns[columnId];
 					var filterLogic = {};
 					filterLogic.comparisons = [];
 					$dialog.find('select.ui-filter-compare-operator').each(function() {
 						var $select = $(this);
 						var compareValue = $select.next('input.ui-filter-val').val();
+						
 						if(compareValue) {
+							compareValue = filter.type === 'date' ? Date.parseExact(compareValue, column.dateFormat).getTime() : compareValue;
 							filterLogic.comparisons.push({"operator": $select.val(), "value": compareValue});
 						}						
 					});
@@ -418,7 +482,7 @@
 	                    var columns = grid.getColumns();
 	                    var column = columns[grid.getColumnIndex(columnId)];
 	                    
-	                    if (column == null || column == undefined){
+	                    if (column == null || column == undefined) {
 	                    	//column is in the filter list, but is not visible, no need to filter
 	                    	continue;
 	                    }
@@ -443,25 +507,10 @@
 		                    		result = itemVal === filter.value;
 		                    		break;		                    	
 		                    	case 'numeric':		
-		                    		var logic = filter.logic;
-		                    		
-	                    			if(logic && logic.comparisons.length > 0) {
-		                    			var compare1 =  logic.comparisons[0];
-		                    			var compare2 =  logic.comparisons[1];
-			                    		var logicOperator = logic.logicOperator;
-			                    		
-			                    		if(compare2 && logicOperator) {
-			                    			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
-			                    			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
-			                    			result = this.operators[logicOperator](result1, result2);			                    			
-			                    		} else {
-			                    			result = this.operators[compare1.operator](itemVal, compare1.value);
-			                    		}
-		                    		}
-	                    			
-	                    			if(filter.value) {
-		                    			result = result && +itemVal == +filter.value;
-		                    		}	                    				                    				                    			                    
+		                    		result = this._applyNumericFilter(filter, itemVal);                   				                    				                    			                    
+		                    		break;
+		                    	case 'date':
+		                    		result = this._applyDateFilter(filter, item[column.field + '-sort']);
 		                    		break;
 		                    	case 'custom':
 		                    		result = filter.impl.call(filter, filter.value, itemVal);
@@ -477,6 +526,92 @@
 			}
             
             return true;        
+		},
+		_applyNumericFilter: function(filter, itemVal) {
+			var result = true;
+			var logic = filter.logic;
+		                    		
+			if(logic && logic.comparisons.length > 0) {
+    			var compare1 =  logic.comparisons[0];
+    			var compare2 =  logic.comparisons[1];
+        		var logicOperator = logic.logicOperator;
+        		
+        		if(compare2 && logicOperator) {
+        			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
+        			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
+        			result = this.operators[logicOperator](result1, result2);			                    			
+        		} else {
+        			result = this.operators[compare1.operator](itemVal, compare1.value);
+        		}
+    		}
+			
+			if(filter.value) {
+    			result = result && +itemVal == +filter.value;
+    		}
+			
+			return result;
+		},
+		_applyDateFilter: function(filter, itemVal) {
+			var result = true;
+			itemVal = +itemVal;
+			var logic = filter.logic;
+		                    		
+			if(logic && logic.comparisons.length > 0) {
+    			var compare1 =  logic.comparisons[0];
+    			var compare2 =  logic.comparisons[1];
+        		var logicOperator = logic.logicOperator;
+        		
+        		if(compare2 && logicOperator) {
+        			var result1 = this.operators[compare1.operator](itemVal, compare1.value);
+        			var result2 = this.operators[compare2.operator](itemVal, compare2.value);		                    			
+        			result = this.operators[logicOperator](result1, result2);			                    			
+        		} else {
+        			result = this.operators[compare1.operator](itemVal, compare1.value);
+        		}
+    		}
+			
+			if(filter.value) {
+				switch(filter.value) {
+					case 'today':						
+						result = itemVal >= this.dateInfo.today && itemVal < this.dateInfo.tomorrow;
+						break;
+					case 'tomorrow':
+						result = itemVal >= this.dateInfo.tomorrow && itemVal < this.dateInfo.tomorrow + this.dateInfo.dayMillis;
+						break;
+					case 'yesterday':
+						result = itemVal >= this.dateInfo.yesterday && itemVal < this.dateInfo.today;
+						break;
+					case 'thisweek':
+						result = itemVal >= this.dateInfo.sunday && itemVal < this.dateInfo.nextSunday;
+						break;
+					case 'nextweek':
+						result = itemVal >= this.dateInfo.nextSunday && itemVal < this.dateInfo.nextSunday + this.dateInfo.weekMillis;
+						break;
+					case 'lastweek':
+						result = itemVal >= this.dateInfo.lastSunday && itemVal < this.dateInfo.sunday;
+						break;
+					case 'thismonth':
+						result = itemVal >= this.dateInfo.thisMonthStart && itemVal < this.dateInfo.nextMonthStart;
+						break;
+					case 'nextmonth':						
+						result = itemVal >= this.dateInfo.nextMonthStart && itemVal < this.dateInfo.nextMonthEnd;
+						break;
+					case 'lastmonth':
+						result = itemVal >= this.dateInfo.lastMonthStart && itemVal < this.dateInfo.thisMonthStart;
+						break;
+					case 'thisyear':
+						result = itemVal >= this.dateInfo.thisYearStart && itemVal < this.dateInfo.nextYearStart;
+						break;
+					case 'nextyear':
+						result = itemVal >= this.dateInfo.nextYearStart && itemVal < this.dateInfo.nextYearEnd;
+						break;
+					case 'lastyear':
+						result = itemVal >= this.dateInfo.lastYearStart && itemVal < this.dateInfo.thisYearStart;
+						break;
+				}    			
+    		}
+			
+			return result;
 		},
 		_dateEdit: function(args) {
 			var $input = null;
@@ -498,9 +633,11 @@
 					buttonImageOnly: true,
 					buttonImage: "../css/images/calendar.png",
 					beforeShow: function () {
+						$('#ui-datepicker-div').addClass('ui-grid-datepicker');	
 						calendarOpen = true;
 					},
 					onClose: function () {
+						$('#ui-datepicker-div').addClass('ui-grid-datepicker');
 						calendarOpen = false;
 					}
 				});
@@ -554,7 +691,7 @@
 				item[col.field] = state;
 				
 				if(col.sort === 'date' && col.dateFormat) {
-					item[col.field + '-sort'] = Date.parseExact(state, col.dateFormat);
+					item[col.field + '-sort'] = Date.parseExact(state, col.dateFormat).getTime();
 				}				
 			};
 			
