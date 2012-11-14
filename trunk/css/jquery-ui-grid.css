@@ -40,11 +40,19 @@
 	font-size: 12px;
 }
 
-.ui-numeric-filter-dialog .ui-dialog-title {
+.ui-grid-header span.slick-column-name {
+	white-space: normal;
+}
+
+.ui-filter-dialog {
+	width: 255px !important;
+}
+
+.ui-filter-dialog .ui-dialog-title {
 	font-size: 14px;
 }
 
-.ui-numeric-filter-dialog .ui-dialog-content {
+.ui-filter-dialog .ui-dialog-content {
 	font-size: 12px;
 }
 
@@ -67,12 +75,12 @@ input.ui-filter-val.ui-date-filter {
 	display: none;	
 }
 
-.ui-numeric-filter-dialog .ui-button-text {
+.ui-filter-dialog .ui-button-text {
 	font-size: 12px;
 	padding: 3px 8px !important;
 }
 
-.ui-numeric-filter-dialog input, .ui-numeric-filter-dialog select {
+.ui-filter-dialog input, .ui-filter-dialog select {
 	margin: 7px 7px 2px 0;
 }
 
