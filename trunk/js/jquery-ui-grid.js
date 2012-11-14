@@ -113,22 +113,8 @@
 			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
 			
 			if(this.filters) {
-				this._renderFilters();
-				
-				// bind events that will cause filters to run when filter value changes
-				$headerRow = $(this.grid.getHeaderRow());
-				$headerRow.on('change keyup', 'input, select', function(e) {
-					var columnId = $(this).data('columnId');					
-					self._filterColumn(columnId);
-				});
-				
-				// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog
-				$headerRow.on('click', 'input.ui-filter-button', function(e) {
-					var $this = $(this);
-					var columnId = $this.data('columnId');
-					var filterType = $this.data('type'); 
-					self._showFilterDialog($(this), columnId, filterType);
-				});
+				this._renderFilters();				
+				this._bindFilterEvents();
 			}
 			
 			grid.onSort.subscribe(function(e, args) {
@@ -155,10 +141,7 @@
 			grid.invalidate();
 		},
 		_initColumns: function() {
-			this.columns = {};
-			var sortFunctions = {};
-			var filters = {};			
-			var hasFilters = false;			
+			this.columns = {};			
 			var columns = this.options.columns;
 			
 			for(var i = 0; i < columns.length; i++) {
@@ -166,81 +149,93 @@
 				col.headerCssClass += ' ui-grid-header';
 				this.columns[col.id] = col; // store columns in a hash so we can access them by id easily later
 				
-				if(col.sort !== false) {
-					col.sortable = true;
-					col.headerCssClass += col.headerCssClass + ' ui-grid-sortable';
-					if(typeof col.sort === 'function') {
-						sortFunctions[col.id] = col.sort;
-					} else if(col.sort === 'date' && col.dateFormat) {
-						// parse the date, convert to standard format, store standard format on row as new column, sort on that column
-						this._initDateSort(col);						
-						sortFunctions[col.id] = this._dateSort;
-					} else {
-						sortFunctions[col.id] = this._sort;
-					}
-				}		
-				
-				if(col.filter) {
-					hasFilters = true;					
-					// if the filter is an object, it's a custom filter and we expect an impl attribute that's a function that will do the filtering
-					// if the custom filter has an options attribute, we render a list and it's value is used in the custom filter otherwise we do a text field
-					if(col.filter.impl) {
-						filters[col.id] = $.extend(col.filter, {"type": "custom", "value": col.filterDefaultValue});						
-					} else {
-						var isList = $.isArray(col.filter);
-						var type = isList ? 'list' : col.filter;
-						var options = isList ? col.filter : null;
-						filters[col.id] = {"type": type, "value": col.filterDefault, "options": options};
-					}					
-				}
-				
-				if(col.editor) {
-					// if it's not a custom function apply the correct built-in editor
-					if(typeof col.editor !== 'function') {
-						var editor = col.editor;
-						
-						if($.isArray(editor)) {
-							col.editor = this._dropDownEdit;
-							col.editorOptions = editor;
-						} else if(editor === 'date') {
-							col.editor = this._dateEdit;
-						} else {
-							col.editor = this._textEdit;
-							col.dataType = editor;
-						}													
-					}
-				}
-				
-				// if it's not a custom format function, set up the correct built-in formatter
-				if(col.formatter && typeof col.formatter !== 'function') {
-
-					if(typeof col.formatter === 'string') {
-						col.formatOptions = $.extend({'type': col.formatter}, this.formatDefaults[col.formatter]);
-					} else if(typeof col.formatter === 'object' && col.formatter.type) {
-						col.formatOptions = $.extend({}, this.formatDefaults[col.formatter.type], col.formatter);
-					}
-					
-					switch(col.formatOptions.type) {
-						case 'checkbox':							
-							col.formatter = this._checkboxFormatter;
-							break;
-						case 'currency':
-							col.formatter = this._currencyFormatter;
-							break;
-					}
-				}
-			}
+				this._initSorting(col);				
+				this._initFiltering(col);				
+				this._initEditing(col);				
+				this._initFormatting(col);				
+			}			
 			
-			this.sortFunctions = sortFunctions;
-			
-			if(hasFilters) {				
-				this.filters = filters;
+			if(this.filters) {								
 				var self = this;			
 				this.dataView.setFilter(function(item) {
 					return self._filter(item);
 				});
 			}			
 		},	
+		_initSorting: function(col, sortFunctions) {
+			if(col.sort !== false) {
+				if(!this.sortFunctions) {
+					this.sortFunctions = {};
+				}
+				col.sortable = true;
+				col.headerCssClass += col.headerCssClass + ' ui-grid-sortable';
+				
+				if(typeof col.sort === 'function') {
+					this.sortFunctions[col.id] = col.sort;
+				} else if(col.sort === 'date' && col.dateFormat) {
+					// parse the date, convert to standard format, store standard format on row as new column, sort on that column
+					this._initDateSort(col);						
+					this.sortFunctions[col.id] = this._dateSort;
+				} else {
+					this.sortFunctions[col.id] = this._sort;
+				}
+			}			
+		},
+		_initFiltering: function(col) {
+			if(col.filter) {			
+				if(!this.filters) {
+					this.filters = {};
+				}
+				// if the filter is an object, it's a custom filter and we expect an impl attribute that's a function that will do the filtering
+				// if the custom filter has an options attribute, we render a list and it's value is used in the custom filter otherwise we do a text field
+				if(col.filter.impl) {
+					this.filters[col.id] = $.extend(col.filter, {"type": "custom", "value": col.filterDefaultValue});						
+				} else {
+					var isList = $.isArray(col.filter);
+					var type = isList ? 'list' : col.filter;
+					var options = isList ? col.filter : null;
+					this.filters[col.id] = {"type": type, "value": col.filterDefault, "options": options};
+				}					
+			}
+		},
+		_initEditing: function(col) {
+			if(col.editor) {
+				// if it's not a custom function apply the correct built-in editor
+				if(typeof col.editor !== 'function') {
+					var editor = col.editor;
+					
+					if($.isArray(editor)) {
+						col.editor = this._dropDownEdit;
+						col.editorOptions = editor;
+					} else if(editor === 'date') {
+						col.editor = this._dateEdit;
+					} else {
+						col.editor = this._textEdit;
+						col.dataType = editor;
+					}													
+				}
+			}
+		},
+		_initFormatting: function(col) {
+			// if it's not a custom format function, set up the correct built-in formatter
+			if(col.formatter && typeof col.formatter !== 'function') {
+
+				if(typeof col.formatter === 'string') {
+					col.formatOptions = $.extend({'type': col.formatter}, this.formatDefaults[col.formatter]);
+				} else if(typeof col.formatter === 'object' && col.formatter.type) {
+					col.formatOptions = $.extend({}, this.formatDefaults[col.formatter.type], col.formatter);
+				}
+				
+				switch(col.formatOptions.type) {
+					case 'checkbox':							
+						col.formatter = this._checkboxFormatter;
+						break;
+					case 'currency':
+						col.formatter = this._currencyFormatter;
+						break;
+				}
+			}
+		},
 		_initDateInfo: function() {
 			var today = Date.today().clearTime();
 			
@@ -269,7 +264,7 @@
 			
 			for(var i = 0; i < rows.length; i++) {
 				var row = rows[i];
-				// before we do that we'll need to simulate some threading in this
+				// we'll need to simulate some threading in this
 				// init method so the page load doesn't take forever when the dataset is huge				
 				// parse date and store it as separate column so we don't take the hit of parsing on every sort
 				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).getTime();
@@ -388,6 +383,23 @@
 			html += '</div>';
 			
 			return html;
+		},
+		_bindFilterEvents: function() {
+			var self = this;
+			// bind events that will cause filters to run when filter value changes
+			$headerRow = $(this.grid.getHeaderRow());
+			$headerRow.on('change keyup', 'input, select', function(e) {
+				var columnId = $(this).data('columnId');					
+				self._filterColumn(columnId);
+			});
+			
+			// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog
+			$headerRow.on('click', 'input.ui-filter-button', function(e) {
+				var $this = $(this);
+				var columnId = $this.data('columnId');
+				var filterType = $this.data('type'); 
+				self._showFilterDialog($(this), columnId, filterType);
+			});
 		},
 		_showFilterDialog: function($filterButton, columnId, type) {
 			var self = this;
