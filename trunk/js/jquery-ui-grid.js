@@ -312,8 +312,7 @@
                     } else if(filter.type === 'date') {
                     	self._renderDropDownFilter(id, $header, column, self.filterValues[filter.type])
                     		.width($header.width() - 20)
-                    		.css('float', 'left')
-                    		.textinput({'filter': 'numeric'}); 
+                    		.css('float', 'left'); 
                     	self._renderFilterButton(filter.type, column, $header);
                     } else {
                     	self._renderTextFilter(id, $header, column, value);
