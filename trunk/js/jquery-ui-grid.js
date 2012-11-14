@@ -397,20 +397,19 @@
 				'Cancel': function() {
 					$(this).dialog('close');
 				},
-				'OK': function() { 
-					self._filterColumn(columnId);
+				'OK': function() {					
+					self._filterColumn(columnId);					
+					self.grid.updateColumnHeader(columnId, column.name + '<img id="' + columnId + '_removeFilterButton" src="../css/images/filter-remove.png" class="ui-filter-button"/>', '');
+					$('#' + columnId + '_removeFilterButton').click(function() {
+						self._clearDialogFilter($dialog, columnId);						
+					});
 					$(this).dialog('close');
 				}
 			};
 			
 			if(this.filters[columnId].logic) {
 				buttons['Clear'] = function() {
-					self.filters[columnId].logic = null;
-					$dialog.find('select.ui-filter-compare-operator').val('');
-					$dialog.find('input.ui-filter-val').val('');					
-					$dialog.find('input.ui-filter-logic-operator').removeAttr('checked');					
-					self._filterColumn(columnId);
-					$(this).dialog('close');
+					self._clearDialogFilter($dialog, columnId);
 				};
 			}
 			$dialog.find('label.columnName').text(column.name + ' is:');
@@ -612,6 +611,15 @@
     		}
 			
 			return result;
+		},
+		_clearDialogFilter: function($dialog, columnId) {
+			this.filters[columnId].logic = null;
+			$dialog.find('select.ui-filter-compare-operator').val('');
+			$dialog.find('input.ui-filter-val').val('');					
+			$dialog.find('input.ui-filter-logic-operator').removeAttr('checked');					
+			this._filterColumn(columnId);
+			$('#' + columnId + '_removeFilterButton').remove();
+			$dialog.dialog('close');
 		},
 		_dateEdit: function(args) {
 			var $input = null;
