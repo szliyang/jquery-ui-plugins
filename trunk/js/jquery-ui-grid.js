@@ -398,12 +398,7 @@
 					$(this).dialog('close');
 				},
 				'OK': function() {					
-					self._filterColumn(columnId);					
-					self.grid.updateColumnHeader(columnId, column.name + '<img id="' + columnId + '_removeFilterButton" src="../css/images/filter-remove.png" class="ui-filter-button"/>', '');
-					$('#' + columnId + '_removeFilterButton').click(function() {
-						self._clearDialogFilter($dialog, columnId);						
-					});
-					$(this).dialog('close');
+					self._applyDialogFilter($dialog, column);
 				}
 			};
 			
@@ -422,6 +417,12 @@
 				},
 				onClose: function() {
 					$('#ui-datepicker-div').addClass('ui-grid-datepicker');
+				}
+			});
+			
+			$dialog.keypress(function(event) {
+				if (event.keyCode == $.ui.keyCode.ENTER) {
+					self._applyDialogFilter($dialog, column);
 				}
 			});
 			
@@ -611,6 +612,16 @@
     		}
 			
 			return result;
+		},
+		_applyDialogFilter: function($dialog, column) {
+			var self = this;
+			var columnId = column.id;
+			this._filterColumn(columnId);					
+			this.grid.updateColumnHeader(columnId, column.name + '<img id="' + columnId + '_removeFilterButton" src="../css/images/filter-remove.png" class="ui-filter-button"/>', '');
+			$('#' + columnId + '_removeFilterButton').click(function() {
+				self._clearDialogFilter($dialog, columnId);						
+			});
+			$dialog.dialog('close');
 		},
 		_clearDialogFilter: function($dialog, columnId) {
 			this.filters[columnId].logic = null;
