@@ -54,59 +54,59 @@
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
-		},		
+		},
+		filterValues: {
+			'numericDialog': [
+				{'name': 'Equal To', 'value': 'eq'},
+				{'name': 'Not Equal To', 'value': 'neq'},
+				{'name': 'Greater Than', 'value': 'gt'}, 
+				{'name': 'Greater Than OR Equal To', 'value': 'gte'}, 
+				{'name': 'Less Than', 'value': 'lt'}, 
+				{'name': 'Less Than OR Equal To', 'value': 'lte'}
+			],
+			'dateDialog': [
+				{'name': 'On', 'value': 'eq'},
+				{'name': 'Before', 'value': 'lt'},
+				{'name': 'After', 'value': 'gt'}
+			],
+			'date': [
+			    {'name': 'Today', 'value': 'today'},
+			    {'name': 'Tomorrow', 'value': 'tomorrow'},					
+				{'name': 'Yesterday', 'value': 'yesterday'},					
+				{'name': 'This Week', 'value': 'thisweek'},
+				{'name': 'Next Week', 'value': 'nextweek'},
+				{'name': 'Last Week', 'value': 'lastweek'},
+				{'name': 'This Month', 'value': 'thismonth'},
+				{'name': 'Next Month', 'value': 'nextmonth'},					
+				{'name': 'Last Month', 'value': 'lastmonth'},
+				{'name': 'This Year', 'value': 'thisyear'},
+				{'name': 'Next Year', 'value': 'nextyear'},					
+				{'name': 'Last Year', 'value': 'lastyear'}
+			]
+		},
+		logicOperators: [
+		    {'name': 'And', 'value': 'and'},
+			{'name': 'Or', 'value': 'or'}
+		],
+		operators: {
+		    'gt': function(a, b) {return +a > +b;}, // the plus is a fast way to convert the string to a number
+		    'gte': function(a, b) {return +a >= +b;},
+		    'lt': function(a, b) {return +a < +b;},
+		    'lte': function(a, b) {return +a <= +b;},
+		    'eq': function(a, b) {return +a == +b;},
+		    'neq': function(a, b) {return +a != +b;},
+		    'and': function(a, b) {return a && b;},
+		    'or': function(a, b) {return a || b;}
+		},
+		formatDefaults: {
+		    'checkbox': {'notCheckedValue': 'false'},				
+			'currency': {'region': 'USD', 'thousands': ',', 'decimal': '.', 'decimals': 2},
+		},
 		_create: function() {
 			var self = this,
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();
 			this.dateInfo = this._initDateInfo();			
-			this.filterValues = {
-				'numericDialog': [
-					{'name': 'Equal To', 'value': 'eq'},
-					{'name': 'Not Equal To', 'value': 'neq'},
-					{'name': 'Greater Than', 'value': 'gt'}, 
-					{'name': 'Greater Than OR Equal To', 'value': 'gte'}, 
-					{'name': 'Less Than', 'value': 'lt'}, 
-					{'name': 'Less Than OR Equal To', 'value': 'lte'}
-				],
-				'dateDialog': [
-					{'name': 'On', 'value': 'eq'},
-					{'name': 'Before', 'value': 'lt'},
-					{'name': 'After', 'value': 'gt'}
-				],
-				'date': [
-				    {'name': 'Today', 'value': 'today'},
-				    {'name': 'Tomorrow', 'value': 'tomorrow'},					
-					{'name': 'Yesterday', 'value': 'yesterday'},					
-					{'name': 'This Week', 'value': 'thisweek'},
-					{'name': 'Next Week', 'value': 'nextweek'},
-					{'name': 'Last Week', 'value': 'lastweek'},
-					{'name': 'This Month', 'value': 'thismonth'},
-					{'name': 'Next Month', 'value': 'nextmonth'},					
-					{'name': 'Last Month', 'value': 'lastmonth'},
-					{'name': 'This Year', 'value': 'thisyear'},
-					{'name': 'Next Year', 'value': 'nextyear'},					
-					{'name': 'Last Year', 'value': 'lastyear'}
-				]
-			};
-			this.logicOperators = [
-			    {'name': 'And', 'value': 'and'},
-				{'name': 'Or', 'value': 'or'}
-			];
-			this.operators = {
-			    'gt': function(a, b) {return +a > +b;}, // the plus is a fast way to convert the string to a number
-			    'gte': function(a, b) {return +a >= +b;},
-			    'lt': function(a, b) {return +a < +b;},
-			    'lte': function(a, b) {return +a <= +b;},
-			    'eq': function(a, b) {return +a == +b;},
-			    'neq': function(a, b) {return +a != +b;},
-			    'and': function(a, b) {return a && b;},
-			    'or': function(a, b) {return a || b;}
-			};
-			this.formatDefaults = {
-			    'checkbox': {'notCheckedValue': 'false'},				
-				'currency': {'region': 'USD', 'thousands': ',', 'decimal': '.', 'decimals': 2},
-			};
 			this.element.addClass('ui-grid');
 			this._initColumns();
 			opts.showHeaderRow = this.filters ? true : false;
@@ -163,11 +163,12 @@
 			
 			for(var i = 0; i < columns.length; i++) {
 				var col = columns[i];
+				col.headerCssClass += ' ui-grid-header';
 				this.columns[col.id] = col; // store columns in a hash so we can access them by id easily later
 				
 				if(col.sort !== false) {
 					col.sortable = true;
-					col.headerCssClass = 'ui-grid-sortable';
+					col.headerCssClass += col.headerCssClass + ' ui-grid-sortable';
 					if(typeof col.sort === 'function') {
 						sortFunctions[col.id] = col.sort;
 					} else if(col.sort === 'date' && col.dateFormat) {
@@ -429,9 +430,8 @@
 			$dialog.dialog({
 				"title": (type.toProperCase() + " Filter"), 
 				"modal": true,
-				"dialogClass": "ui-numeric-filter-dialog",
+				"dialogClass": "ui-filter-dialog",
 				"buttons": buttons,
-				"width": "254px",
 				"position": {my: "left top", at: "left bottom", of: $filterButton}
     			}).show();
 		},		
@@ -617,7 +617,7 @@
 			var self = this;
 			var columnId = column.id;
 			this._filterColumn(columnId);					
-			this.grid.updateColumnHeader(columnId, column.name + '<img id="' + columnId + '_removeFilterButton" src="../css/images/filter-remove.png" class="ui-filter-button"/>', '');
+			this.grid.updateColumnHeader(columnId, column.name + '<span><img id="' + columnId + '_removeFilterButton" src="../css/images/filter-remove.png" class="ui-filter-button"/></span>', '');
 			$('#' + columnId + '_removeFilterButton').click(function() {
 				self._clearDialogFilter($dialog, columnId);						
 			});
