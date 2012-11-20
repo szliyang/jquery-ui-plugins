@@ -119,13 +119,11 @@
 			}
 			
 			grid.onSort.subscribe(function(e, args) {
-	            sortCol = args.sortCol;
-	            var start = new Date().getTime();	            
+	            sortCol = args.sortCol;	            
 	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);
 	            // fast sort seems to be much better in IE & FF but actually slower in Chrome so probably do a browser check here
 	            //self.dataView.fastSort(sortCol.id, args.sortAsc);
 	            grid.invalidate();
-	            console.log(new Date().getTime() - start);
 	        });			
 						
 			grid.onColumnsReordered.subscribe(function() {
@@ -261,8 +259,7 @@
 				'nextYearEnd': Date.today().set({day: 1, month: 0, year: today.getFullYear() + 2}).getTime()
 			};								
 		},
-		_initDateSort:function (column) {
-			var start = new Date().getTime();	            
+		_initDateSort:function (column) {	            
 			var rows = this.option('data');
 			
 			for(var i = 0; i < rows.length; i++) {
@@ -272,8 +269,6 @@
 				// parse date and store it as separate column so we don't take the hit of parsing on every sort
 				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).getTime();
 			}
-			
-			console.log(new Date().getTime() - start);
 		},
 		_sort: function(row1, row2) {
 			// sortCol is set in the onSort.subscribe callback
@@ -323,7 +318,7 @@
 			}
 		},
 		_renderFilterButton: function(type, column, $appendTo) {
-			$('<input type="image" src="../css/images/filter.png" class="ui-filter-button"/>')
+			$('<span class="ui-filter-button"/>')
         		.appendTo($appendTo)
         		.data({'columnId': column.id, 'type': type});
 		},
@@ -401,7 +396,7 @@
 			});
 			
 			// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog
-			$headerRow.on('click', 'input.ui-filter-button', function(e) {
+			$headerRow.on('click', 'span.ui-filter-button', function(e) {
 				var $this = $(this);
 				var columnId = $this.data('columnId');
 				var filterType = $this.data('type'); 
@@ -635,7 +630,7 @@
 			var self = this;
 			var columnId = column.id;
 			this._filterColumn(columnId);					
-			this.grid.updateColumnHeader(columnId, column.name + '<span><img id="' + columnId + '_removeFilterButton" src="../css/images/filter-remove.png" class="ui-filter-button"/></span>', '');
+			this.grid.updateColumnHeader(columnId, column.name + '<span id="' + columnId + '_removeFilterButton" class="ui-remove-filter-button"></span>', '');
 			$('#' + columnId + '_removeFilterButton').click(function() {
 				self._clearDialogFilter($dialog, columnId);						
 			});

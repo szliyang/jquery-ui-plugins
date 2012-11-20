@@ -90,10 +90,23 @@ input.ui-filter-val.ui-date-filter {
 	left: 4px;
 }
 
-.ui-filter-button {
+.ui-filter-button, .ui-remove-filter-button {
 	float: right;
 	position: relative;	
 	left: 1px;
+	cursor: pointer;
+	background: url('images/filter.png') no-repeat;
+	width: 16px;
+	height: 16px;
+	z-index: 3000;
+	border: none;
+}
+
+.ui-remove-filter-button {
+	background: url('images/filter-remove.png') no-repeat;
+}
+
+.ui-datepicker-trigger {
 	cursor: pointer;
 }
 
