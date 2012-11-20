@@ -849,7 +849,7 @@
 				$select = $(html)
 					.width($cell.width() + $cell.padding('right') + paddingLeft)
 					.height($cell.height() + paddingTop + $cell.padding('bottom'))
-					.css({'position': 'relative', 'top': -paddingTop, 'left': -paddingLeft})
+					.css({'position': 'relative', 'top': -paddingTop, 'left': -paddingLeft, 'text-align': $cell.css('text-align')})
 					.appendTo(args.container)
 					.focus();
 			};
