@@ -51,7 +51,8 @@
 			enableCellNavigation: true,
 			enableColumnReorder: false,
 			showHeaderRow: false,
-			dataType: null
+			dataType: null,
+			calendarImage: '../css/images/calendar.png'
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
@@ -425,7 +426,7 @@
 			$dialog.find('input.ui-date-filter').datepicker({
 				showOn: 'button',
 				buttonImageOnly: true,
-				buttonImage: '../css/images/calendar.png',
+				buttonImage: self.options.calendarImage,
 				beforeShow: function() {
 					$('#ui-datepicker-div').addClass('ui-grid-datepicker');			       
 				},
@@ -647,7 +648,8 @@
 		},
 		_dateEdit: function(args) {
 			var $input = null;
-			var defaultValue = null;			   
+			var defaultValue = null;
+			var calendarImage = args.grid.getOptions()['calendarImage'];
 			var calendarOpen = false;
 			
 			this.init = function () {
@@ -661,9 +663,9 @@
 					.focus().select();
 				
 				$input.datepicker({
-					showOn: "button",
+					showOn: 'button',
 					buttonImageOnly: true,
-					buttonImage: "../css/images/calendar.png",
+					buttonImage: calendarImage,
 					beforeShow: function () {
 						$('#ui-datepicker-div').addClass('ui-grid-datepicker');	
 						calendarOpen = true;
