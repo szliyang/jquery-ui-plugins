@@ -43,9 +43,9 @@
 
  */
 ;(function($, undefined) {
-	$.widget("uiplugins.grid", {
+	$.widget('uiplugins.grid', {
 		options: {
-			rowKey: "id",
+			rowKey: 'id',
 			data: [],
 			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false				
 			enableCellNavigation: true,
@@ -192,12 +192,12 @@
 				// if the filter is an object, it's a custom filter and we expect an impl attribute that's a function that will do the filtering
 				// if the custom filter has an options attribute, we render a list and it's value is used in the custom filter otherwise we do a text field
 				if(col.filter.impl) {
-					this.filters[col.id] = $.extend(col.filter, {"type": "custom", "value": col.filterDefaultValue});						
+					this.filters[col.id] = $.extend(col.filter, {'type': 'custom', 'value': col.filterDefaultValue});						
 				} else {
 					var isList = $.isArray(col.filter);
 					var type = isList ? 'list' : col.filter;
 					var options = isList ? col.filter : null;
-					this.filters[col.id] = {"type": type, "value": col.filterDefault, "options": options};
+					this.filters[col.id] = {'type': type, 'value': col.filterDefault, 'options': options};
 				}					
 			}
 		},
@@ -446,11 +446,11 @@
 			});
 			
 			$dialog.dialog({
-				"title": (type.toProperCase() + " Filter"), 
-				"modal": true,
-				"dialogClass": "ui-filter-dialog",
-				"buttons": buttons,
-				"position": {my: "left top", at: "left bottom", of: $filterButton}
+				'title': (type.toProperCase() + ' Filter'), 
+				'modal': true,
+				'dialogClass': "ui-filter-dialog",
+				'buttons': buttons,
+				'position': {my: 'left top', at: 'left bottom', of: $filterButton}
     			}).show();
 		},		
 		_filterColumn: function(columnId) {
@@ -684,8 +684,8 @@
 			
 			this.destroy = function () {
 				$.datepicker.dpDiv.stop(true, true);
-				$input.datepicker("hide");
-				$input.datepicker("destroy");
+				$input.datepicker('hide');
+				$input.datepicker('destroy');
 				$input.remove();
 			};
 			
@@ -705,7 +705,7 @@
 				if (!calendarOpen) {
 					return;
 				}
-				$.datepicker.dpDiv.css("top", position.top + 30).css("left", position.left);
+				$.datepicker.dpDiv.css('top', position.top + 30).css('left', position.left);
 			};
 			
 			this.focus = function () {
@@ -733,7 +733,7 @@
 			};
 			
 			this.isValueChanged = function () {
-				return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+				return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
 			};
 			
 			this.validate = function () {
@@ -807,7 +807,7 @@
 		    };
 		
 		    this.isValueChanged = function () {
-		    	return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+		    	return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
 		    };
 		
 		    this.validate = function () {
