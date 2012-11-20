@@ -150,25 +150,30 @@
 
 		$(function() {
 			var myData = [];
-			var start = Date.parseExact('01/01/2010', 'MM/dd/yyyy');
-			var end = Date.parseExact('01/05/2010', 'MM/dd/yyyy');
+			//var start = Date.parseExact('01/01/2010', 'MM/dd/yyyy');
+			//var end = Date.parseExact('01/05/2010', 'MM/dd/yyyy');
+			var year = 10;
 			for ( var i = 0; i < 50000; i++) {
 				var day = (Math.round(Math.random() * 29) + '').padLeft(2, '0');
 				myData[i] = {
 					title : "Task " + i,
 					duration : "Approximately " + (i % 100) + " days",
 					invoicePrice: i/4,
-					percentComplete : Math.round(Math.random() * 100),
-					start : start.toString('MM/dd/yyyy'),
-					finish : end.toString('MM/dd/yyyy'),
+					percentComplete : Math.round(Math.random() * 100) + '',
+					//start : start.toString('MM/dd/yyyy'),
+					start : '11/08/19' + year,
+//					finish : end.toString('MM/dd/yyyy'),
+					finish : '12/29/19' + year,
 					effortDriven : (i % 5 == 0),
 					hasOrders: (i % 7 == 0),
 					deliveryMethod: (i % 9 == 0 ? 'dropShip' : (i % 7 == 0 ? 'earlyShip' : 'preDelivered')),
-					displayOnWeb: i % 2 == 0 ? 'true' : 'false'
+					displayOnWeb: i % 2 == 0 ? 'true' : 'false',
+					dataType: 'numeric'
 					//displayOnWeb: (i % 2 == 0 ? "noway" : "sure")
 				};
-				start.addDays(1);
-				end.addDays(1);
+				year = year == 99 ? 10 : ++year;
+				//start.addDays(1);
+				//end.addDays(1);
 			}
 
 			$("#myGrid").grid({
