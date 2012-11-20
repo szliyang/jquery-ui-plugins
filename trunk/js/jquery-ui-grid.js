@@ -50,7 +50,8 @@
 			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false				
 			enableCellNavigation: true,
 			enableColumnReorder: false,
-			showHeaderRow: false
+			showHeaderRow: false,
+			dataType: null
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
@@ -176,6 +177,8 @@
 					// parse the date, convert to standard format, store standard format on row as new column, sort on that column
 					this._initDateSort(col);						
 					this.sortFunctions[col.id] = this._dateSort;
+				} else if(col.dataType === 'numeric') {
+					this.sortFunctions[col.id] = this._numericSort;
 				} else {
 					this.sortFunctions[col.id] = this._sort;
 				}
@@ -274,12 +277,16 @@
 		},
 		_sort: function(row1, row2) {
 			// sortCol is set in the onSort.subscribe callback
-			var val = row1[sortCol.field], val2 = row2[sortCol.field];			
+			var val = row1[sortCol.field], val2 = row2[sortCol.field];
+			return (val == val2 ? 0 : (val > val2 ? 1 : -1));
+		},
+		_numericSort: function(row1, row2) {
+			var val = +row1[sortCol.field], val2 = +row2[sortCol.field];
 			return (val == val2 ? 0 : (val > val2 ? 1 : -1));
 		},
 		_dateSort: function(row1, row2) {
 			// sortCol is set in the onSort.subscribe callback
-			var val = row1[sortCol.field + '-sort'], val2 = row2[sortCol.field + '-sort'];			
+			var val = row1[sortCol.field + '-sort'], val2 = row2[sortCol.field + '-sort'];
 			return (val == val2 ? 0 : (val > val2 ? 1 : -1));
 		},
 		_renderFilters: function() {
