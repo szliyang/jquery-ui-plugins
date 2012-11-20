@@ -235,6 +235,9 @@
 					case 'currency':
 						col.formatter = this._currencyFormatter;
 						break;
+					case 'properCase':
+						col.formatter = this._properCaseFormatter;
+						break;
 				}
 			}
 		},
@@ -646,9 +649,9 @@
 			$('#' + columnId + '_removeFilterButton').remove();
 			$dialog.dialog('close');
 		},
-		_dateEdit: function(args) {
+		_dateEdit: function(args) {			
 			var $input = null;
-			var defaultValue = null;
+			var defaultValue = null;		
 			var calendarImage = args.grid.getOptions()['calendarImage'];
 			var calendarOpen = false;
 			
@@ -902,7 +905,12 @@
 			
 			html += '/>';
 			return html;
-		},		
+		},
+		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
+			if(value) {
+				return value.toProperCase();
+			}
+		},
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
 		},
