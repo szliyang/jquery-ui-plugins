@@ -842,8 +842,9 @@
 		    	
 				for(var i = 0; i < options.length; i++) {
 					var option = options[i];
-					var name = option.name ? option.name : option;
-					var value = option.value ? option.value : option;
+					var isObject = typeof option === 'object';
+					var name = isObject ? option.name : option;
+					var value = isObject ? option.value : option;
 					
 					html += '<option value="' + value + '">' + name + '</option>';
 				}
