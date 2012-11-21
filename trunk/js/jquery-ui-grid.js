@@ -119,6 +119,8 @@
 				this._bindFilterEvents();
 			}
 			
+			this._initEventHandlers();
+			
 			grid.onSort.subscribe(function(e, args) {
 	            sortCol = args.sortCol;	            
 	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);
@@ -274,6 +276,41 @@
 				// init method so the page load doesn't take forever when the dataset is huge				
 				// parse date and store it as separate column so we don't take the hit of parsing on every sort
 				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).getTime();
+			}
+		},
+		_initEventHandlers: function() {
+			this._bindEventHandler('onCellChange', this.options.onCellChange);			
+			this._bindEventHandler('onActiveCellChanged', this.options.onActiveCellChanged);
+			this._bindEventHandler('onActiveCellPositionChanged', this.options.onActiveCellPositionChanged);
+			this._bindEventHandler('onAddNewRow', this.options.onAddNewRow);
+			this._bindEventHandler('onBeforeCellEditorDestroy', this.options.onBeforeCellEditorDestroy);
+			this._bindEventHandler('onBeforeDestroy', this.options.onBeforeDestroy);
+			this._bindEventHandler('onBeforeEditCell', this.options.onBeforeEditCell);
+			this._bindEventHandler('onCellChange', this.options.onCellChange);
+			this._bindEventHandler('onCellCssStylesChanged', this.options.onCellCssStylesChanged);
+			this._bindEventHandler('onClick', this.options.onClick);
+			this._bindEventHandler('onColumnsReordered', this.options.onColumnsReordered);
+			this._bindEventHandler('onColumnsResized', this.options.onColumnsResized);
+			this._bindEventHandler('onContextMenu', this.options.onContextMenu);
+			this._bindEventHandler('onDblClick', this.options.onDblClick);
+			this._bindEventHandler('onDrag', this.options.onDrag);
+			this._bindEventHandler('onDragEnd', this.options.onDragEnd);
+			this._bindEventHandler('onDragInit', this.options.onDragInit);
+			this._bindEventHandler('onDragStart', this.options.onDragStart);
+			this._bindEventHandler('onHeaderClick', this.options.onHeaderClick);
+			this._bindEventHandler('onHeaderContextMenu', this.options.onHeaderContextMenu);
+			this._bindEventHandler('onKeyDown', this.options.onKeyDown);
+			this._bindEventHandler('onMouseEnter', this.options.onMouseEnter);
+			this._bindEventHandler('onMouseLeave', this.options.onMouseLeave);
+			this._bindEventHandler('onScroll', this.options.onScroll);
+			this._bindEventHandler('onSelectedRowsChanged', this.options.onSelectedRowsChanged);
+			this._bindEventHandler('onSort', this.options.onSort);
+			this._bindEventHandler('onValidationError', this.options.onValidationError);
+			this._bindEventHandler('onViewportChanged', this.options.onViewportChanged);
+		},
+		_bindEventHandler: function(eventName, handler) {
+			if(handler) {
+				this.grid[eventName].subscribe(handler);
 			}
 		},
 		_sort: function(row1, row2) {
