@@ -101,7 +101,7 @@
 		    'or': function(a, b) {return a || b;}
 		},
 		formatDefaults: {
-		    'checkbox': {'notCheckedValue': 'false'},				
+		    'checkbox': {'checkedValue': 'true', 'notCheckedValue': 'false'},				
 			'currency': {'region': 'USD', 'thousands': ',', 'decimal': '.', 'decimals': 2},
 		},
 		_create: function() {
@@ -235,6 +235,7 @@
 				switch(col.formatOptions.type) {
 					case 'checkbox':							
 						col.formatter = this._checkboxFormatter;
+						this.hasCheckboxes = true;
 						break;
 					case 'currency':
 						col.formatter = this._currencyFormatter;
@@ -307,6 +308,35 @@
 			this._bindEventHandler('onSort', this.options.onSort);
 			this._bindEventHandler('onValidationError', this.options.onValidationError);
 			this._bindEventHandler('onViewportChanged', this.options.onViewportChanged);
+			
+			if(this.hasCheckboxes) {
+				this._bindCheckboxHandler();
+			}			
+		},
+		_bindCheckboxHandler: function() {
+			var self = this;
+			var grid = this.grid;
+			
+			this.element.on('click', 'input.ui-grid-checkbox', function(e) {
+				var activeCell = grid.getActiveCell();
+				var item = grid.getDataItem(activeCell.row);
+				var col = grid.getColumns()[activeCell.cell];
+				var oldVal = item[col.field];
+				//var newVal = $(this).is(':checked') ? col.checkedValue : col.notCheckedValue;
+				item[col.field] = $(this).is(':checked') ? col.formatOptions.checkedValue : col.formatOptions.notCheckedValue;
+				console.log('value was ' + oldVal + ' and is now ' + item[col.field]);
+				self._slickGridTrigger(grid.onCellChange, {
+					row: activeCell.row,
+					cell: activeCell.cell,
+					item: item
+				 });
+			});
+		},
+		_slickGridTrigger: function(evt, args, e) {	
+			e = e || new Slick.EventData();
+			args = args || {};
+			args.grid = self;
+			return evt.notify(args, e, self);
 		},
 		_bindEventHandler: function(eventName, handler) {
 			if(handler) {
@@ -938,7 +968,7 @@
 			return value;
 		},
 		_checkboxFormatter: function(rowNum, cellNum, value, columnDef, row) {
-			var html = '<input type="checkbox"';			
+			var html = '<input type="checkbox" class="ui-grid-checkbox"';			
 			
 			if(value && (value + '').toLowerCase() !== columnDef.formatOptions.notCheckedValue.toLowerCase()) {
 				html += ' checked="checked"';
