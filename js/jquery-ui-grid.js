@@ -104,6 +104,7 @@
 		    'checkbox': {'checkedValue': 'true', 'notCheckedValue': 'false'},				
 			'currency': {'region': 'USD', 'thousands': ',', 'decimal': '.', 'decimals': 2},
 		},
+		cssStyleHash: {},
 		_create: function() {
 			var self = this,
 				opts = this.options,
@@ -122,10 +123,11 @@
 			this._initEventHandlers();
 			
 			grid.onSort.subscribe(function(e, args) {
-	            sortCol = args.sortCol;	            
+	            sortCol = args.sortCol;
+	            self.dataView.syncGridCellCssStyles(grid, 'cssStyleHash');
 	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);
 	            // fast sort seems to be much better in IE & FF but actually slower in Chrome so probably do a browser check here
-	            //self.dataView.fastSort(sortCol.id, args.sortAsc);
+	            //self.dataView.fastSort(sortCol.id, args.sortAsc);	            
 	            grid.invalidate();
 	        });			
 						
@@ -981,13 +983,13 @@
 		getGrid: function() {
 			return this.grid;
 		},
-		setCellCssClass: function(rowIndex, columnIndex, cssClass) {
-			var updateHash = {};
-	        var row = {};
+		setCellCssClass: function(rowIndex, columnIndex, cssClass) {			
+	        var row = this.cssStyleHash[rowIndex] ? this.cssStyleHash[rowIndex] : {};
 	        row[this.grid.getColumns()[columnIndex].field] = cssClass;
-	        updateHash[rowIndex] = row; 
-	        var key = '' + rowIndex + columnIndex + cssClass;
-	        this.grid.setCellCssStyles(key, updateHash);    
+	        this.cssStyleHash[rowIndex] = row; 
+	        //var key = 'row' + rowIndex + '_col' + columnIndex + cssClass;
+	        this.grid.removeCellCssStyles('cssStyleHash');
+	        this.grid.setCellCssStyles('cssStyleHash', this.cssStyleHash);	        
 		},
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
