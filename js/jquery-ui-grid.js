@@ -320,11 +320,9 @@
 			this.element.on('click', 'input.ui-grid-checkbox', function(e) {
 				var activeCell = grid.getActiveCell();
 				var item = grid.getDataItem(activeCell.row);
-				var col = grid.getColumns()[activeCell.cell];
-				var oldVal = item[col.field];
-				//var newVal = $(this).is(':checked') ? col.checkedValue : col.notCheckedValue;
+				var col = grid.getColumns()[activeCell.cell];				
 				item[col.field] = $(this).is(':checked') ? col.formatOptions.checkedValue : col.formatOptions.notCheckedValue;
-				console.log('value was ' + oldVal + ' and is now ' + item[col.field]);
+				
 				self._slickGridTrigger(grid.onCellChange, {
 					row: activeCell.row,
 					cell: activeCell.cell,
