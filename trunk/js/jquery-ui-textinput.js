@@ -88,7 +88,6 @@
 					chars = chars.join("");
 				}
 				
-				console.log(typeof chars);
 				regex = new RegExp('[' + (negate ? '^' : '') + chars.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") + ']');				
 			}
 			
