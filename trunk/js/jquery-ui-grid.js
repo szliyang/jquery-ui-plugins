@@ -188,16 +188,18 @@
 				if(!this.filters) {
 					this.filters = {};
 				}
+				
+				var isList = $.isArray(col.filter);
+				var defaultVal = isList && !col.filterDefault ? '$NO_FILTER$' : col.filterDefault; 
 				// if the filter is an object, it's a custom filter and we expect an impl attribute that's a function that will do the filtering
 				// if the custom filter has an options attribute, we render a list and it's value is used in the custom filter otherwise we do a text field
 				if(col.filter.impl) {
-					this.filters[col.id] = $.extend(col.filter, {'type': 'custom', 'value': col.filterDefaultValue});						
+					this.filters[col.id] = $.extend(col.filter, {'type': 'custom', 'value': defaultVal});						
 				} else {
-					var isList = $.isArray(col.filter);
 					var type = isList ? 'list' : col.filter;
 					var options = isList ? col.filter : null;
-					this.filters[col.id] = {'type': type, 'value': col.filterDefault, 'options': options};
-				}					
+					this.filters[col.id] = {'type': type, 'value': defaultVal, 'options': options};
+				}
 			}
 		},
 		_initEditing: function(col) {
@@ -335,14 +337,15 @@
 		},
 		_renderDropDownFilter: function(id, $header, column, options) {
 			var html = '<select id="' + id + '" class="ui-grid-filter">';
-			html += '<option value=""></option>';
+			html += '<option value="$NO_FILTER$"></option>';
 			var filter = this.filters[column.id];
 			var filterValue = filter.value;
 			
 			for(var i = 0; i < options.length; i++) {
 				var option = options[i];
-				var value = option.value ? option.value : option;
-				var name = option.name ? option.name : option;				
+				var isObject = typeof option === 'object';
+				var value = isObject ? option.value : option;
+				var name = isObject ? option.name : option;				
 				html += '<option value="' + value + '"' + (value === filterValue ? 'selected' : '') + '>' + name + '</option>';								
 			}			
             html += '</select>';
@@ -468,7 +471,7 @@
 						
 						if(compareValue) {
 							compareValue = filter.type === 'date' ? Date.parseExact(compareValue, column.dateFormat).getTime() : compareValue;
-							filterLogic.comparisons.push({"operator": $select.val(), "value": compareValue});
+							filterLogic.comparisons.push({'operator': $select.val(), 'value': compareValue});
 						}						
 					});
 					filterLogic.logicOperator = $dialog.find('input.ui-filter-logic-operator:checked').val();
@@ -495,7 +498,7 @@
 	            for (var columnId in filters) {
 	            	var filter = filters[columnId];
 	            		              
-	            	if((filter && filter.value) || (filter.logic)) {
+	            	if((filter && filter.value !== undefined && filter.value !== '$NO_FILTER$') || (filter.logic)) {
 	                    var columns = grid.getColumns();
 	                    var column = columns[grid.getColumnIndex(columnId)];
 	                    
@@ -506,7 +509,7 @@
 	                    
 	                    var itemVal = item[column.field] + '';
 	                    
-	                    if(itemVal) {
+	                    if(itemVal || itemVal === '') {
 	                    	switch(filter.type) {
 		                    	case 'startsWith':
 		                    		result =  itemVal.toLowerCase().startsWith(filter.value);
@@ -761,7 +764,7 @@
 					})
 					.width($cell.width() + $cell.padding('right') - ($.browser.msie || $.browser.mozilla ? 2 : 1))
 					.height($cell.height() - $paddingTop - $cell.padding('bottom'))
-					.css({'position': 'relative', 'top': -$paddingTop, 'left': -$cell.padding('left')})
+					.css({'position': 'relative', 'top': -$paddingTop, 'left': -$cell.padding('left'), 'text-align': $cell.css('text-align')})
 					.focus()
 					.select();
 		    	
@@ -907,9 +910,7 @@
 			return html;
 		},
 		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
-			if(value) {
-				return value.toProperCase();
-			}
+			return value ? value.toProperCase() : '';			
 		},
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
