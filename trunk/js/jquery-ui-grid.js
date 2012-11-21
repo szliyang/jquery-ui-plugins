@@ -913,6 +913,17 @@
 		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
 			return value ? value.toProperCase() : '';			
 		},
+		getGrid: function() {
+			return this.grid;
+		},
+		setCellCssClass: function(rowIndex, columnIndex, cssClass) {
+			var updateHash = {};
+	        var row = {};
+	        row[this.grid.getColumns()[columnIndex].field] = cssClass;
+	        updateHash[rowIndex] = row; 
+	        var key = '' + rowIndex + columnIndex + cssClass;
+	        this.grid.setCellCssStyles(key, updateHash);    
+		},
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
 		},
