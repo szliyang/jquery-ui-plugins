@@ -549,7 +549,7 @@
 				}
 				
 				filter.value = $.trim($('#ui-grid-filter-' + columnId).val());
-				
+				this.dataView.syncGridCellCssStyles(this.grid, 'cssStyleHash');
 				this.dataView.refresh();
 				// invalidate will cause slick grid to call _filter because we registered _filter as the filter function for the grid
 				this.grid.invalidate();
