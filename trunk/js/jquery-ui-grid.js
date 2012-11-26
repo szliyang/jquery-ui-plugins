@@ -524,7 +524,7 @@
 		},		
 		_filterColumn: function(columnId) {
 			// shouldn't need this null check but there's some inconsistent behavior with the event handling that requires it
-			if (columnId) {
+			if (columnId) {				
 				var filter = this.filters[columnId];
 				
 				if(filter.type === 'numeric' || filter.type === 'date') {
@@ -716,6 +716,7 @@
 			$dialog.find('input.ui-filter-val').val('');					
 			$dialog.find('input.ui-filter-logic-operator').removeAttr('checked');					
 			this._filterColumn(columnId);
+			this.dataView.syncGridCellCssStyles(this.grid, 'cssStyleHash');
 			$('#' + columnId + '_removeFilterButton').remove();
 			$dialog.dialog('close');
 		},
