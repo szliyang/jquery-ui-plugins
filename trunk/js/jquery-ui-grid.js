@@ -836,7 +836,7 @@
 			this.isValueChanged = function () {
 				var value = $input.val();
 				var isChanged = (!(value == '' && defaultValue == null)) && (value != defaultValue);
-				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field];
+				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field] !== undefined;
 				
 				// track the original value of changed items
 		    	if(isChanged && !changeTracked) {
@@ -924,7 +924,7 @@
 		    	var isNumeric = args.column.dataType === 'numeric';
 		    	var value = isNumeric ? Number($input.val()) : $input.val();
 		    	var isChanged = (!(value == '' && defaultValue == null)) && (value != defaultValue);
-		    	var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field];
+		    	var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field] !== undefined;
 		    	
 		    	// track the original value of changed items
 		    	if(isChanged && !changeTracked) {
@@ -1010,7 +1010,7 @@
 			this.isValueChanged = function () {
 				var value = $select.val();
 				var isChanged = value != defaultValue;
-				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field];
+				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field] !== undefined;
 				
 				// track the original value of changed items
 		    	if(isChanged && !changeTracked) {
@@ -1068,7 +1068,7 @@
 				value = columnDef.primaryFormatter.call(this, rowNum, cellNum, value, columnDef, row);
 			}
 							
-			if(row.changedCells && row.changedCells[columnDef.field]) {
+			if(row.changedCells && row.changedCells[columnDef.field] !== undefined) {
 				html += ' class="' + self.options.changedCellCssClass + ' ui-changed-cell"';
 			}
 			
