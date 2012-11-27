@@ -1111,6 +1111,25 @@
 			
 			return changes;
 		},
+		getChangedItems: function() {
+			var changedItems = [];
+			
+			for(var i = 0; i < this.options.data.length; i++) {
+				var item = this.options.data[i];
+				
+				if(item.changedCells) {
+					// this loop is here so we don't return items with an empty changeCells object, i.e. it had changes that were removed
+					for(var field in item.changedCells) {
+						var clone = $.extend(true, {}, item);
+						delete clone.changedCells;
+						changedItems.push(clone);
+						break;
+					}									
+				}
+			}
+			
+			return changedItems;
+		},
 		disable: function() {
 			$.Widget.prototype.disable.call(this);			
 			this._trigger('disable');
