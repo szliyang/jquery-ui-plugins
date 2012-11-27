@@ -52,7 +52,8 @@
 			enableColumnReorder: false,
 			showHeaderRow: false,
 			dataType: null,
-			calendarImage: '../css/images/calendar.png'
+			calendarImage: '../css/images/calendar.png',
+			changedCellCssClass: ''
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
@@ -124,8 +125,7 @@
 			
 			grid.onSort.subscribe(function(e, args) {
 	            sortCol = args.sortCol;
-	            self.dataView.syncGridCellCssStyles(grid, 'cssStyleHash');
-	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);
+	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);	            
 	            // fast sort seems to be much better in IE & FF but actually slower in Chrome so probably do a browser check here
 	            //self.dataView.fastSort(sortCol.id, args.sortAsc);	            
 	            grid.invalidate();
@@ -247,6 +247,14 @@
 						break;
 				}
 			}
+			
+			if(this.options.changedCellCssClass) {
+				var self = this;
+				col.primaryFormatter = col.formatter;								
+				col.formatter = function(rowNum, cellNum, value, columnDef, row) {
+					return self._changedCellFormatter.call(this, rowNum, cellNum, value, columnDef, row, self);
+				};
+			}
 		},
 		_initDateInfo: function() {
 			var today = Date.today().clearTime();
@@ -281,8 +289,7 @@
 				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).getTime();
 			}
 		},
-		_initEventHandlers: function() {
-			this._bindEventHandler('onCellChange', this.options.onCellChange);			
+		_initEventHandlers: function() {	
 			this._bindEventHandler('onActiveCellChanged', this.options.onActiveCellChanged);
 			this._bindEventHandler('onActiveCellPositionChanged', this.options.onActiveCellPositionChanged);
 			this._bindEventHandler('onAddNewRow', this.options.onAddNewRow);
@@ -322,8 +329,23 @@
 			this.element.on('click', 'input.ui-grid-checkbox', function(e) {
 				var activeCell = grid.getActiveCell();
 				var item = grid.getDataItem(activeCell.row);
-				var col = grid.getColumns()[activeCell.cell];				
-				item[col.field] = $(this).is(':checked') ? col.formatOptions.checkedValue : col.formatOptions.notCheckedValue;
+				var col = grid.getColumns()[activeCell.cell];	
+				var $checkbox = $(this);
+				item[col.field] = $checkbox.is(':checked') ? col.formatOptions.checkedValue : col.formatOptions.notCheckedValue;
+				
+				if(self.options.changedCellCssClass) {
+					var $wrapperDiv = $checkbox.parent('div');
+					$wrapperDiv.toggleClass(self.options.changedCellCssClass);
+										
+					if($wrapperDiv.hasClass(self.options.changedCellCssClass)) {
+						var change = {};
+						var originalValue = item[col.field] === col.formatOptions.checkedValue ? col.formatOptions.notCheckedValue : col.formatOptions.checkedValue;
+			    		change[col.field] = originalValue;
+			    		$.extend(true, item, {'changedCells': change});
+					} else {
+						delete item.changedCells[col.field];
+					}
+				}				
 				
 				self._slickGridTrigger(grid.onCellChange, {
 					row: activeCell.row,
@@ -396,13 +418,19 @@
         		.data({'columnId': column.id, 'type': type});
 		},
 		_renderTextFilter: function(id, $header, column, value) {
+			var self = this;
 			return $('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
         		.appendTo($header)
         		.data('columnId', column.id)
         		.width($header.width() - 4)
-        		.height($header.height() - 12);
+        		.height($header.height() - 12)
+        		.click(function() {
+                	self._saveCurrentEdit();
+                	$(this).focus();
+                });
 		},
 		_renderDropDownFilter: function(id, $header, column, options) {
+			var self = this;
 			var html = '<select id="' + id + '" class="ui-grid-filter">';
 			html += '<option value="$NO_FILTER$"></option>';
 			var filter = this.filters[column.id];
@@ -419,7 +447,11 @@
             return $(html).appendTo($header)
             	.data('columnId', column.id)
             	.width($header.width() - 4)
-                .val(filterValue);            
+                .val(filterValue)
+                .click(function() {
+                	self._saveCurrentEdit();
+                	$(this).focus();
+                });
 		},
 		_renderFilterDialog: function(columnId, type) {
 			var $dialog = $('#ui-grid-filter-dialog-' + columnId);
@@ -548,12 +580,11 @@
 					} 					
 				}
 				
-				filter.value = $.trim($('#ui-grid-filter-' + columnId).val());
-				this.dataView.syncGridCellCssStyles(this.grid, 'cssStyleHash');
-				this.dataView.refresh();
+				filter.value = $.trim($('#ui-grid-filter-' + columnId).val());				
+				this.dataView.refresh();				
 				// invalidate will cause slick grid to call _filter because we registered _filter as the filter function for the grid
-				this.grid.invalidate();
-			}			
+				this.grid.invalidate();				
+			}	
 		},		
 		_filter: function(item) {		
 			var grid = this.grid;
@@ -715,8 +746,7 @@
 			$dialog.find('select.ui-filter-compare-operator').val('');
 			$dialog.find('input.ui-filter-val').val('');					
 			$dialog.find('input.ui-filter-logic-operator').removeAttr('checked');					
-			this._filterColumn(columnId);
-			this.dataView.syncGridCellCssStyles(this.grid, 'cssStyleHash');
+			this._filterColumn(columnId);			
 			$('#' + columnId + '_removeFilterButton').remove();
 			$dialog.dialog('close');
 		},
@@ -803,8 +833,17 @@
 				}				
 			};
 			
-			this.isValueChanged = function () {
-				return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
+			this.isValueChanged = function () {				
+				var isChanged = (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
+				
+				// track the original value of changed items
+		    	if(isChanged && (!args.item.changedCells || !args.item.changedCells[args.column.field])) {
+		    		var change = {};
+		    		change[args.column.field] = defaultValue;
+		    		$.extend(true, args.item, {'changedCells': change});
+		    	}
+		    	
+				return isChanged;
 			};
 			
 			this.validate = function () {
@@ -877,8 +916,17 @@
 		    	item[args.column.field] = state;
 		    };
 		
-		    this.isValueChanged = function () {
-		    	return (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
+		    this.isValueChanged = function () {		
+		    	var isChanged = (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
+		    			    	
+		    	// track the original value of changed items
+		    	if(isChanged && (!args.item.changedCells || !args.item.changedCells[args.column.field])) {
+		    		var change = {};
+		    		change[args.column.field] = defaultValue;
+		    		$.extend(true, args.item, {'changedCells': change});
+		    	}
+				
+		    	return isChanged; 
 		    };
 		
 		    this.validate = function () {
@@ -948,7 +996,15 @@
 			};
 
 			this.isValueChanged = function () {
-				return ($select.val() != defaultValue);
+				var isChanged = $select.val() != defaultValue;
+				
+				// track the original value of changed items
+		    	if(isChanged && (!args.item.changedCells || !args.item.changedCells[args.column.field])) {
+		    		var change = {};
+		    		change[args.column.field] = defaultValue;
+		    		$.extend(true, args.item, {'changedCells': change});
+		    	}
+				return isChanged;
 			};
 
 			this.validate = function () {
@@ -959,6 +1015,13 @@
 			};
 
 			this.init();
+		},		
+		_saveCurrentEdit: function() {
+			var gridEditorLock = this.grid.getEditorLock();
+			
+			if(gridEditorLock.isActive()) {
+				gridEditorLock.commitCurrentEdit();
+			}
 		},
 		_currencyFormatter: function(rowNum, cellNum, value, columnDef, row) {			
 
@@ -969,28 +1032,39 @@
 			return value;
 		},
 		_checkboxFormatter: function(rowNum, cellNum, value, columnDef, row) {
-			var html = '<input type="checkbox" class="ui-grid-checkbox"';			
+			var html = '<div><input type="checkbox" class="ui-grid-checkbox"';			
 			
 			if(value && (value + '').toLowerCase() !== columnDef.formatOptions.notCheckedValue.toLowerCase()) {
 				html += ' checked="checked"';
 			}
 			
-			html += '/>';
+			html += '/></div>';
 			return html;
 		},
 		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
 			return value ? value.toProperCase() : '';			
 		},
+		_changedCellFormatter: function(rowNum, cellNum, value, columnDef, row, self) {
+			
+			if(columnDef.primaryFormatter) {
+				value = columnDef.primaryFormatter.call(this, rowNum, cellNum, value, columnDef, row);
+			}
+						
+			if(row.changedCells && row.changedCells[columnDef.field]) {
+				value = '<div class="' + self.options.changedCellCssClass + ' ui-changed-cell">' + value + '</div>';
+			}
+			
+			return value;
+		},
 		getGrid: function() {
 			return this.grid;
 		},
-		setCellCssClass: function(rowIndex, columnIndex, cssClass) {			
+		setCellCssClass: function(rowIndex, columnIndex, cssClass) {
 	        var row = this.cssStyleHash[rowIndex] ? this.cssStyleHash[rowIndex] : {};
 	        row[this.grid.getColumns()[columnIndex].field] = cssClass;
-	        this.cssStyleHash[rowIndex] = row; 
-	        //var key = 'row' + rowIndex + '_col' + columnIndex + cssClass;
+	        this.cssStyleHash[rowIndex] = row;	        
 	        this.grid.removeCellCssStyles('cssStyleHash');
-	        this.grid.setCellCssStyles('cssStyleHash', this.cssStyleHash);	        
+	        this.grid.setCellCssStyles('cssStyleHash', this.cssStyleHash);	  
 		},
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
