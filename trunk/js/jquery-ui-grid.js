@@ -1091,6 +1091,26 @@
 		setSelectedItems: function() {
 			
 		},
+		getChanges: function() {
+			var changes = [];
+			
+			for(var i = 0; i < this.options.data.length; i++) {
+				var item = this.options.data[i];
+				
+				if(item.changedCells) {
+					for(var field in item.changedCells) {
+						changes.push({
+							'item': item[this.options.rowKey], 
+							'field': field, 
+							'oldValue': item.changedCells[field], 
+							'newValue': item[field]}
+						);
+					}					
+				}
+			}
+			
+			return changes;
+		},
 		disable: function() {
 			$.Widget.prototype.disable.call(this);			
 			this._trigger('disable');
