@@ -425,7 +425,7 @@
         		.width($header.width() - 4)
         		.height($header.height() - 12)
         		.click(function() {
-                	self._saveCurrentEdit();
+                	self.saveCurrentEdit();
                 	$(this).focus();
                 });
 		},
@@ -449,7 +449,7 @@
             	.width($header.width() - 4)
                 .val(filterValue)
                 .click(function() {
-                	self._saveCurrentEdit();
+                	self.saveCurrentEdit();
                 	$(this).focus();
                 });
 		},
@@ -1033,13 +1033,6 @@
 
 			this.init();
 		},		
-		_saveCurrentEdit: function() {
-			var gridEditorLock = this.grid.getEditorLock();
-			
-			if(gridEditorLock.isActive()) {
-				gridEditorLock.commitCurrentEdit();
-			}
-		},
 		_currencyFormatter: function(rowNum, cellNum, value, columnDef, row) {			
 
 			if($.currency) {
@@ -1077,6 +1070,13 @@
 		},
 		getGrid: function() {
 			return this.grid;
+		},
+		saveCurrentEdit: function() {
+			var gridEditorLock = this.grid.getEditorLock();
+			
+			if(gridEditorLock.isActive()) {
+				gridEditorLock.commitCurrentEdit();
+			}
 		},
 		setCellCssClass: function(rowIndex, columnIndex, cssClass) {
 	        var row = this.cssStyleHash[rowIndex] ? this.cssStyleHash[rowIndex] : {};
