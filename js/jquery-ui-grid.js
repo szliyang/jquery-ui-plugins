@@ -1130,6 +1130,17 @@
 			
 			return changedItems;
 		},
+		clearChangedItems: function() {
+			for(var i = 0; i < this.options.data.length; i++) {
+				var item = this.options.data[i];
+				
+				if(item.changedCells) {						
+					delete item.changedCells;		
+				}
+			}
+			
+			this.grid.invalidate();
+		},
 		disable: function() {
 			$.Widget.prototype.disable.call(this);			
 			this._trigger('disable');
