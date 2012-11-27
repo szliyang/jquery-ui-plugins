@@ -19,15 +19,15 @@
 	line-height: 20px;
 }
 
-.slick-cell {
-	padding-left: 4px;
-	padding-right: 4px;
-}
-
 .ui-grid {
 	font-size: 12px !important;	
 	border: 1px solid silver;
 	border-top: none;
+}
+
+.ui-changed-cell {
+	width: 100%;
+	height: 100%;
 }
 
 .ui-grid-filter {
