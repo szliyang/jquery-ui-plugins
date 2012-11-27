@@ -335,7 +335,7 @@
 				
 				if(self.options.changedCellCssClass) {
 					var $wrapperDiv = $checkbox.parent('div');
-					$wrapperDiv.toggleClass(self.options.changedCellCssClass);
+					$wrapperDiv.toggleClass(self.options.changedCellCssClass + ' ui-changed-cell');
 										
 					if($wrapperDiv.hasClass(self.options.changedCellCssClass)) {
 						var change = {};
@@ -833,15 +833,19 @@
 				}				
 			};
 			
-			this.isValueChanged = function () {				
-				var isChanged = (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
+			this.isValueChanged = function () {
+				var value = $input.val();
+				var isChanged = (!(value == '' && defaultValue == null)) && (value != defaultValue);
+				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field];
 				
 				// track the original value of changed items
-		    	if(isChanged && (!args.item.changedCells || !args.item.changedCells[args.column.field])) {
+		    	if(isChanged && !changeTracked) {
 		    		var change = {};
 		    		change[args.column.field] = defaultValue;
 		    		$.extend(true, args.item, {'changedCells': change});
-		    	}
+		    	} else if(isChanged && changeTracked && value === args.item.changedCells[args.column.field]) {
+		    		delete args.item.changedCells[args.column.field];		    		
+		    	}		    	
 		    	
 				return isChanged;
 			};
@@ -916,14 +920,22 @@
 		    	item[args.column.field] = state;
 		    };
 		
-		    this.isValueChanged = function () {		
-		    	var isChanged = (!($input.val() == '' && defaultValue == null)) && ($input.val() != defaultValue);
-		    			    	
+		    this.isValueChanged = function () {	
+		    	var isNumeric = args.column.dataType === 'numeric';
+		    	var value = isNumeric ? Number($input.val()) : $input.val();
+		    	var isChanged = (!(value == '' && defaultValue == null)) && (value != defaultValue);
+		    	var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field];
+		    	
 		    	// track the original value of changed items
-		    	if(isChanged && (!args.item.changedCells || !args.item.changedCells[args.column.field])) {
+		    	if(isChanged && !changeTracked) {
 		    		var change = {};
 		    		change[args.column.field] = defaultValue;
 		    		$.extend(true, args.item, {'changedCells': change});
+		    	} else if(isChanged && changeTracked) {
+		    		var originalValue = isNumeric ? Number(args.item.changedCells[args.column.field]) : args.item.changedCells[args.column.field];
+		    		if(value === originalValue) {
+		    			delete args.item.changedCells[args.column.field];
+		    		}		    		
 		    	}
 				
 		    	return isChanged; 
@@ -996,14 +1008,19 @@
 			};
 
 			this.isValueChanged = function () {
-				var isChanged = $select.val() != defaultValue;
+				var value = $select.val();
+				var isChanged = value != defaultValue;
+				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field];
 				
 				// track the original value of changed items
-		    	if(isChanged && (!args.item.changedCells || !args.item.changedCells[args.column.field])) {
+		    	if(isChanged && !changeTracked) {
 		    		var change = {};
 		    		change[args.column.field] = defaultValue;
 		    		$.extend(true, args.item, {'changedCells': change});
+		    	} else if(isChanged && changeTracked && value === args.item.changedCells[args.column.field]) {
+		    		delete args.item.changedCells[args.column.field];		    		
 		    	}
+		    	
 				return isChanged;
 			};
 
@@ -1032,29 +1049,31 @@
 			return value;
 		},
 		_checkboxFormatter: function(rowNum, cellNum, value, columnDef, row) {
-			var html = '<div><input type="checkbox" class="ui-grid-checkbox"';			
+			var html = '<input type="checkbox" class="ui-grid-checkbox"';			
 			
 			if(value && (value + '').toLowerCase() !== columnDef.formatOptions.notCheckedValue.toLowerCase()) {
 				html += ' checked="checked"';
 			}
 			
-			html += '/></div>';
+			html += '/>';			
 			return html;
 		},
 		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
 			return value ? value.toProperCase() : '';			
 		},
 		_changedCellFormatter: function(rowNum, cellNum, value, columnDef, row, self) {
+			html = '<div';
 			
 			if(columnDef.primaryFormatter) {
 				value = columnDef.primaryFormatter.call(this, rowNum, cellNum, value, columnDef, row);
 			}
-						
+							
 			if(row.changedCells && row.changedCells[columnDef.field]) {
-				value = '<div class="' + self.options.changedCellCssClass + ' ui-changed-cell">' + value + '</div>';
+				html += ' class="' + self.options.changedCellCssClass + ' ui-changed-cell"';
 			}
 			
-			return value;
+			html += '>' + value + '</div>';
+			return html;
 		},
 		getGrid: function() {
 			return this.grid;
