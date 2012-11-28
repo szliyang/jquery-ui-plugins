@@ -5,13 +5,25 @@
 <title>Basic grid</title>	
 
 	<link rel="stylesheet" href="../css/slick-grid.css" type="text/css" />
-	<link rel="stylesheet" href="../css/jquery-ui-grid.css" type="text/css" />
+	<link rel="stylesheet" href="../css/jquery-ui-plugins-grid.css" type="text/css" />
 	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css"> -->
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.16/themes/redmond/jquery-ui.css">
 	<!-- <link rel="stylesheet" href="css/aristo/jquery-ui-1.8.16.custom.css" type="text/css"/> -->
 	<style type="text/css">
 		div.slick-cell.centered {
 			text-align: center;
+		}
+		
+		.changed, .slick-cell .ui-changed-cell {
+			background-color: #fccf70;
+		}
+		
+		$.slick-cell  > .ui-changed-cell {
+			background-color: #fccf70;
+		}
+				
+		.red {
+			background-color: #ff0000;
 		}
 	</style>
 </head>
@@ -33,12 +45,13 @@
 	<script src="../js/lib/slick.grid.js"></script>
 	<script src="../js/lib/slick.dataview.js"></script>
 	<script src="../js/jquery-ui-plugins-core.js"></script>	
-	<script src="../js/jquery-ui-grid.js"></script>
-	<script src="../js/jquery-ui-textinput.js"></script>
+	<script src="../js/jquery-ui-plugins-grid.js"></script>
+	<script src="../js/jquery-ui-plugins-textinput.js"></script>
 
 	<script>		
 		
 		var deliveryOptions = [
+			{"name": "None", "value": ""}, 
 			{"name": "Drop Ship", "value": "dropShip"}, 
 			{"name": "Pre-Delivered", "value": "preDelivered"},
 			{"name": "Early Ship", "value": "earlyShip"}
@@ -83,7 +96,8 @@
 			name : "% Complete",
 			field : "percentComplete",
 			filter: "numeric",
-			editor: "numeric"
+			editor: "numeric",
+			dataType: "numeric"
 		}, 
 		{
 			id : "start",
@@ -127,7 +141,7 @@
 			id : "deliveryMethod",
 			name : "Delivery Method",
 			field : "deliveryMethod",			
-			formatter: formatDeliveryMethod,
+			formatter: 'properCase',
 			filter: deliveryOptions,
 			//filterDefault: "dropShip",
 			cssClass: "centered",
@@ -139,11 +153,11 @@
 			field: "displayOnWeb",
 			cssClass: "centered",
 			filter: [
-					{"name": "Yes", "value": "true"}, // object array filter example - allows us to display whatever we want (checkmark image), the filter is set up to just filter on the item value 
-					{"name": "No", "value": "false"}
-			],
+					{"name": "Yes", "value": "sure"}, // object array filter example - allows us to display whatever we want (checkmark image), the filter is set up to just filter on the item value 
+					{"name": "No", "value": "noway"}
+			],			
 			formatter: "checkbox",
-			//formatter: {"type": "checkbox", "notCheckedValue": "noway"}
+			//formatter: {"type": "checkbox", "checkedValue": "sure", "notCheckedValue": "noway"}
 		}
 		];		
 
@@ -152,7 +166,7 @@
 			//var start = Date.parseExact('01/01/2010', 'MM/dd/yyyy');
 			//var end = Date.parseExact('01/05/2010', 'MM/dd/yyyy');
 			var year = 10;
-			for ( var i = 0; i < 50000; i++) {
+			for ( var i = 0; i < 10; i++) {
 				var day = (Math.round(Math.random() * 29) + '').padLeft(2, '0');
 				myData[i] = {
 					title : "Task " + i,
@@ -160,44 +174,37 @@
 					invoicePrice: i/4,
 					percentComplete : Math.round(Math.random() * 100) + '',
 					//start : start.toString('MM/dd/yyyy'),
-					start : '11/08/19' + year,
+					start : '11/08/20' + year,
 //					finish : end.toString('MM/dd/yyyy'),
-					finish : '12/29/19' + year,
+					finish : '12/29/20' + year,
 					effortDriven : (i % 5 == 0),
 					hasOrders: (i % 7 == 0),
-					deliveryMethod: (i % 9 == 0 ? 'dropShip' : (i % 7 == 0 ? 'earlyShip' : 'preDelivered')),
-					displayOnWeb: i % 2 == 0 ? 'true' : 'false',
-					dataType: 'numeric'
+					deliveryMethod: (i % 9 == 0 ? '' : (i % 7 == 0 ? 'earlyShip' : 'preDelivered')),
+					displayOnWeb: i % 2 == 0 ? 'true' : 'false'
 					//displayOnWeb: (i % 2 == 0 ? "noway" : "sure")
 				};
+			
 				year = year == 99 ? 10 : ++year;
+				
 				//start.addDays(1);
 				//end.addDays(1);
 			}
 
-			$("#myGrid").grid({
+			var $grid = $("#myGrid").grid({
 				"data": myData,
 				"columns": cols,
 				"rowKey": "title",
 				"forceFitColumns": true,
 				"editable": true,
-				"enableColumnReorder": true
+				"enableColumnReorder": true,
+				"changedCellCssClass": "changed"
+				/*
+				"onCellChange": function(e, args) {
+					$grid.grid('setCellCssClass', args.row, args.cell, 'changedCell');        
+			    }
+			*/
 			});
 		})
-		
-		function formatDeliveryMethod(rowNum, cellNum, value, columnDef, row) {
-			switch(value) {
-				case 'preDelivered':
-					return 'Pre-Delievered';
-					break;
-				case 'dropShip':
-					return 'Drop Ship';
-					break;
-				case 'earlyShip':
-					return 'Early Ship';
-					break;
-			}
-		}
 		
 		function formatCheckMark(rowNum, cellNum, value, columnDef, row) {
 			var image = '';
