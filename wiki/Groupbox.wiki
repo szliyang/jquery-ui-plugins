@@ -2,7 +2,7 @@
 #labels Featured
 
 =Summary=
-A JQuery UI based groupbox widget for moving items between two lists. Items can be selected by clicking on them, dragging the mouse to select multiple items or using Shift + Click to select a range of items. In addition to using the arrow buttons to move items from one list to the other, users can also double click on an item to quickly to move it.
+A JQuery UI based groupbox widget for moving items between two lists. Items can be selected by clicking on them, dragging the mouse to select multiple items or using Shift + Click to select a range of items. In addition to using the arrow buttons to move items from one list to the other, users can also double click on an item to quickly move it.
 
 =Example=
 As you can see from this screenshot, the widget is styled using jQuery UI themes. In this case the [https://github.com/taitems/Aristo-jQuery-UI-Theme Aristo] theme was used.
