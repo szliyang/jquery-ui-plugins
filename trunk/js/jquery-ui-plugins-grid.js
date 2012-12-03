@@ -1,5 +1,5 @@
 /*
- * jQuery UI Grid 0.0.9
+ * jQuery UI Grid Plugin 0.0.9
  *
  * Copyright 2012, Chad LaVigne
  * Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php) 
@@ -16,7 +16,7 @@
  *	slick.dataview.2.0.2.js
  *	date.js // required for date sorting
  *
- *Notes for column model:
+ * Notes for column model:
  * ID == unique id for the column
  * FIELD == property on the data object used to get the value to display for the data
  * NAME == the column Header text
@@ -1098,13 +1098,20 @@
 				var item = this.options.data[i];
 				
 				if(item.changedCells) {
+					var itemChanges = [];
+					
 					for(var field in item.changedCells) {
-						changes.push({
-							'item': item[this.options.rowKey], 
+						itemChanges.push({
 							'field': field, 
 							'oldValue': item.changedCells[field], 
 							'newValue': item[field]}
 						);
+					}	
+										
+					if(itemChanges.length > 0) {
+						var itemChange = {'changes': itemChanges};
+						itemChange[this.options.rowKey] = item[this.options.rowKey];						
+						changes.push(itemChange);
 					}					
 				}
 			}
