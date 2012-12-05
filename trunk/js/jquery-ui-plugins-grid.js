@@ -52,8 +52,7 @@
 			enableColumnReorder: false,
 			showHeaderRow: false,
 			dataType: null,
-			calendarImage: '../css/images/calendar.png',
-			changedCellCssClass: ''
+			calendarImage: '../css/images/calendar.png'
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
@@ -109,7 +108,8 @@
 		_create: function() {
 			var self = this,
 				opts = this.options,
-				dataView = this.dataView = new Slick.Data.DataView();
+				dataView = this.dataView = new Slick.Data.DataView();			
+			this.dataHash = this._initDataHash();
 			this.dateInfo = this._initDateInfo();			
 			this.element.addClass('ui-grid');
 			this._initColumns();
@@ -225,7 +225,13 @@
 			}
 		},
 		_initFormatting: function(col) {
-			// if it's not a custom format function, set up the correct built-in formatter
+			// maintain a list of formatters so they can be chained together
+			var formatters = [];			
+			
+			if(col.formatter && typeof col.formatter === 'function') {
+				formatters.push(col.formatter);				
+			}
+			
 			if(col.formatter && typeof col.formatter !== 'function') {
 
 				if(typeof col.formatter === 'string') {
@@ -236,25 +242,38 @@
 				
 				switch(col.formatOptions.type) {
 					case 'checkbox':							
-						col.formatter = this._checkboxFormatter;
+						formatters.push(this._checkboxFormatter);
 						this.hasCheckboxes = true;
 						break;
 					case 'currency':
-						col.formatter = this._currencyFormatter;
+						formatters.push(this._currencyFormatter);
 						break;
 					case 'properCase':
-						col.formatter = this._properCaseFormatter;
+						formatters.push(this._properCaseFormatter);
 						break;
 				}
 			}
 			
-			if(this.options.changedCellCssClass) {
+			formatters.push(this._addCellCssFormatter);			
+			
+			if(formatters.length > 0) {
 				var self = this;
-				col.primaryFormatter = col.formatter;								
+				col.formatters = formatters;
 				col.formatter = function(rowNum, cellNum, value, columnDef, row) {
-					return self._changedCellFormatter.call(this, rowNum, cellNum, value, columnDef, row, self);
-				};
+					return self._formatterChain.call(this, rowNum, cellNum, value, columnDef, row, self);
+				};					
 			}
+		},
+		_initDataHash: function() {			
+			var dataHash = {};
+			var rowKey = this.options.rowKey;
+			
+			for(var i = 0; i < this.options.data.length; i++) {
+				var row = this.options.data[i];
+				dataHash[row[rowKey]] = row;
+			}
+			
+			return dataHash;
 		},
 		_initDateInfo: function() {
 			var today = Date.today().clearTime();
@@ -333,19 +352,17 @@
 				var $checkbox = $(this);
 				item[col.field] = $checkbox.is(':checked') ? col.formatOptions.checkedValue : col.formatOptions.notCheckedValue;
 				
-				if(self.options.changedCellCssClass) {
-					var $wrapperDiv = $checkbox.parent('div');
-					$wrapperDiv.toggleClass(self.options.changedCellCssClass + ' ui-changed-cell');
-										
-					if($wrapperDiv.hasClass(self.options.changedCellCssClass)) {
-						var change = {};
-						var originalValue = item[col.field] === col.formatOptions.checkedValue ? col.formatOptions.notCheckedValue : col.formatOptions.checkedValue;
-			    		change[col.field] = originalValue;
-			    		$.extend(true, item, {'changedCells': change});
-					} else {
-						delete item.changedCells[col.field];
-					}
-				}				
+				var $wrapperDiv = $checkbox.parent('div');
+				$wrapperDiv.toggleClass('ui-changed-cell');
+									
+				if($wrapperDiv.hasClass('ui-changed-cell')) {
+					var change = {};
+					var originalValue = item[col.field] === col.formatOptions.checkedValue ? col.formatOptions.notCheckedValue : col.formatOptions.checkedValue;
+		    		change[col.field] = originalValue;
+		    		$.extend(true, item, {'changedCells': change});
+				} else {
+					delete item.changedCells[col.field];
+				}		
 				
 				self._slickGridTrigger(grid.onCellChange, {
 					row: activeCell.row,
@@ -1054,19 +1071,42 @@
 		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
 			return value ? value.toProperCase() : '';			
 		},
-		_changedCellFormatter: function(rowNum, cellNum, value, columnDef, row, self) {
-			html = '<div';
-			
-			if(columnDef.primaryFormatter) {
-				value = columnDef.primaryFormatter.call(this, rowNum, cellNum, value, columnDef, row);
-			}
-							
-			if(row.changedCells && row.changedCells[columnDef.field] !== undefined) {
-				html += ' class="' + self.options.changedCellCssClass + ' ui-changed-cell"';
+		// changed cell class gets added to the rows cssClasses on cell change
+		// same cellCssFormatter is used for changed cell or any other classes added to cells later		
+		_addCellCssFormatter: function(rowNum, cellNum, value, columnDef, row, self) {
+			html = '<div';						
+						
+			if(row.cellClasses && row.cellClasses[columnDef.field] !== undefined) {
+				html += ' class="' + row.cellClasses[columnDef.field] + '"';
 			}
 			
 			html += '>' + value + '</div>';
 			return html;
+		},
+		_formatterChain: function(rowNum, cellNum, value, columnDef, row, self) {
+			var cellClasses = row.cellClasses ? row.cellClasses : {};
+			
+			if(row.changedCells && row.changedCells[columnDef.field] !== undefined) {					
+				cellClasses[columnDef.field] = cellClasses[columnDef.field] ? cellClasses[columnDef.field] + ' ui-changed-cell' : 'ui-changed-cell';
+				row.cellClasses = cellClasses;
+			} else if(cellClasses[columnDef.field]) {
+				var classes = cellClasses[columnDef.field].split(' ');
+				var newClasses = '';
+				
+				for(var i = 0; i < classes.length; i++) {
+					if(classes[i] !== 'ui-changed-cell') {
+						newClasses += (' ' + classes[i]); 
+					}
+				}
+				
+				row.cellClasses[columnDef.field] = newClasses;
+			}
+			
+			for(var i = 0; i < columnDef.formatters.length; i++) {
+				value = columnDef.formatters[i].call(this, rowNum, cellNum, value, columnDef, row);
+			}
+			
+			return value;
 		},
 		getGrid: function() {
 			return this.grid;
@@ -1077,6 +1117,19 @@
 			if(gridEditorLock.isActive()) {
 				gridEditorLock.commitCurrentEdit();
 			}
+		},		
+		setCellCssClasses: function(cssInfo) {
+			if(cssInfo && cssInfo.length) {
+				for(var i = 0; i < cssInfo.length; i++) {
+					var rowCssInfo = cssInfo[i];
+					var row = this.getItem(rowCssInfo.rowKey);
+					if(row) {
+						row.cellClasses = rowCssInfo.cellClasses;
+					}								
+				}
+			}
+			
+			this.grid.invalidate();
 		},
 		setCellCssClass: function(rowIndex, columnIndex, cssClass) {
 	        var row = this.cssStyleHash[rowIndex] ? this.cssStyleHash[rowIndex] : {};
@@ -1090,6 +1143,18 @@
 		},
 		setSelectedItems: function() {
 			
+		},
+		getItem: function(rowKey) {
+			return this.dataHash[rowKey];						
+		},
+		getItems: function(rowKeys) {
+			var items = [];
+			
+			for(var i = 0; i < rowKeys.length; i++) {
+				items.push(this.dataHash[rowKeys[i]]);
+			}
+			
+			return items;
 		},
 		getChanges: function() {
 			var changes = [];
