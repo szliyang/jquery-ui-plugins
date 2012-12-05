@@ -1124,19 +1124,23 @@
 					var rowCssInfo = cssInfo[i];
 					var row = this.getItem(rowCssInfo.rowKey);
 					if(row) {
-						row.cellClasses = rowCssInfo.cellClasses;
+						var cssClasses = row.cellClasses ? row.cellClasses : {};
+						$.extend(cssClasses, rowCssInfo.cellClasses);
+						row.cellClasses = cssClasses;
 					}								
 				}
 			}
 			
 			this.grid.invalidate();
 		},
-		setCellCssClass: function(rowIndex, columnIndex, cssClass) {
-	        var row = this.cssStyleHash[rowIndex] ? this.cssStyleHash[rowIndex] : {};
-	        row[this.grid.getColumns()[columnIndex].field] = cssClass;
-	        this.cssStyleHash[rowIndex] = row;	        
-	        this.grid.removeCellCssStyles('cssStyleHash');
-	        this.grid.setCellCssStyles('cssStyleHash', this.cssStyleHash);	  
+		setCellCssClass: function(rowKey, columnName, cssClass) {
+			var row = this.getItem(rowKey);
+			
+			if(row) {
+				var clazz = {};
+				clazz[columnName] = cssClass;
+				this.setCellCssClasses([{rowKey: rowKey, cellClasses: clazz}]);
+			}				       	 
 		},
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
