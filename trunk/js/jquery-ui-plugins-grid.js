@@ -419,7 +419,7 @@
 		},
 		_renderTextFilter: function(id, $header, column, value) {
 			var self = this;
-			return $('<input id="' + id + '" type="text" class="ui-grid-filter" value="' + value + '">')
+			return $('<input type="text" class="ui-grid-filter ' + id + '" value="' + value + '">')
         		.appendTo($header)
         		.data('columnId', column.id)
         		.width($header.width() - 4)
@@ -431,7 +431,7 @@
 		},
 		_renderDropDownFilter: function(id, $header, column, options) {
 			var self = this;
-			var html = '<select id="' + id + '" class="ui-grid-filter">';
+			var html = '<select class="ui-grid-filter ' + id + '">';
 			html += '<option value="$NO_FILTER$"></option>';
 			var filter = this.filters[column.id];
 			var filterValue = filter.value;
@@ -580,7 +580,7 @@
 					} 					
 				}
 				
-				filter.value = $.trim($('#ui-grid-filter-' + columnId).val());				
+				filter.value = $.trim($('#' + this.element.attr('id') + ' .ui-grid-filter-' + columnId).val());				
 				this.dataView.refresh();				
 				// invalidate will cause slick grid to call _filter because we registered _filter as the filter function for the grid
 				this.grid.invalidate();				
