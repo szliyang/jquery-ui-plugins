@@ -1071,7 +1071,7 @@
 		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
 			return value ? value.toProperCase() : '';			
 		},	
-		_addCellCssFormatter: function(rowNum, cellNum, value, columnDef, row, self) {
+		_addCellCssFormatter: function(rowNum, cellNum, value, columnDef, row) {
 			html = '<div';						
 						
 			if(row.cellClasses && row.cellClasses[columnDef.field] !== undefined) {
