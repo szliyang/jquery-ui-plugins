@@ -1140,6 +1140,15 @@
 				this.setCellCssClasses([{rowKey: rowKey, cellClasses: clazz}]);
 			}				       	 
 		},
+		removeCellCssClasses: function(rowKey, columnName) {
+			var row = this.getItem(rowKey);
+			
+			if(row) {
+				delete row.cellClasses;
+			}
+			
+			this.grid.invalidate();
+		},
 		getSelectedItems: function() {
 			return this.grid.getSelectionModel().getSelectedItemIds();
 		},
