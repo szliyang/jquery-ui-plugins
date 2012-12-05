@@ -1070,9 +1070,7 @@
 		},
 		_properCaseFormatter: function(rowNum, cellNum, value, columnDef, row) {
 			return value ? value.toProperCase() : '';			
-		},
-		// changed cell class gets added to the rows cssClasses on cell change
-		// same cellCssFormatter is used for changed cell or any other classes added to cells later		
+		},	
 		_addCellCssFormatter: function(rowNum, cellNum, value, columnDef, row, self) {
 			html = '<div';						
 						
@@ -1198,6 +1196,7 @@
 					for(var field in item.changedCells) {
 						var clone = $.extend(true, {}, item);
 						delete clone.changedCells;
+						delete clone.cellClasses;
 						changedItems.push(clone);
 						break;
 					}									
