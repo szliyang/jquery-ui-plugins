@@ -105,7 +105,7 @@
 			'currency': {'region': 'USD', 'thousands': ',', 'decimal': '.', 'decimals': 2},
 		},
 		cssStyleHash: {},
-		_create: function() {
+		_create: function() {			
 			var self = this,
 				opts = this.options,
 				dataView = this.dataView = new Slick.Data.DataView();			
@@ -139,10 +139,22 @@
 				self._renderFilters();
 			});
 			
+			
+			dataView.getItemMetadata = function (rowIndex) {
+				var rowData = {};
+				var row = this.getItem(rowIndex);				
+				
+			    if(row && row.cssClasses) {
+			    	rowData.cssClasses = row.cssClasses;			    	
+			    }			    
+			    
+			    return rowData;
+			};
+			
 			dataView.beginUpdate();
 			dataView.setItems(opts.data, opts.rowKey);
 			dataView.endUpdate();
-			grid.invalidate();
+			grid.invalidate();			
 		},
 		_initColumns: function() {
 			this.columns = {};			
@@ -1115,22 +1127,120 @@
 			if(gridEditorLock.isActive()) {
 				gridEditorLock.commitCurrentEdit();
 			}
-		},		
-		setCellCssClasses: function(cssInfo) {
-			if(cssInfo && cssInfo.length) {
-				for(var i = 0; i < cssInfo.length; i++) {
-					var rowCssInfo = cssInfo[i];
-					var row = this.getItem(rowCssInfo.rowKey);
+		},	
+		setRowCssClass: function(rowKey, cssClass) {
+			var row = this.getItem(rowKey);
+			
+			if(row) {
+				row.cssClasses = cssClass;
+				this.grid.invalidate();
+			}
+		},
+		removeRowCssClass: function(rowKey, columnName) {
+			var row = this.getItem(rowKey);
+			
+			if(row) {
+				delete row.cellClasses;
+				this.grid.invalidate();
+			}						
+		},
+		/**
+		 * Method to set CSS classes on several cells in one call. The <code>cssData</code> parameter is a
+		 * Javascript array of objects containing, by row, a list of CSS classes to apply to columns. An
+		 * example cssData parameter follows:<br/> 
+		 * 
+		 * <code>
+		 * [
+		 * 	{
+		 * 		rowKey: 'row1234',
+		 * 		cellClasses: {'column1': 'error', 'column3': 'warning anotherClass'}
+		 *	},
+		 *	{
+		 * 		rowKey: 'row4567',
+		 * 		cellClasses: {'column1': 'warning'}
+		 *	} 
+		 * ]
+		 * </code>
+		 * @param cssData
+		 */
+		setCellCssClasses: function(cssData) {
+			if(cssData && cssData.length) {
+				for(var i = 0; i < cssData.length; i++) {
+					var rowCssData = cssData[i];
+					var row = this.getItem(rowCssData.rowKey);
 					if(row) {
 						var cssClasses = row.cellClasses ? row.cellClasses : {};
-						$.extend(cssClasses, rowCssInfo.cellClasses);
+						$.extend(cssClasses, rowCssData.cellClasses);
 						row.cellClasses = cssClasses;
 					}								
 				}
-			}
-			
+				
+				this.grid.invalidate();
+			}			
+		},	
+		/**
+		 * Add the specified <code>cssClass</code> to the cell at <code>rowKey</code> and <code>columnName</code>.
+		 * 
+		 * @param rowKey
+		 * @param columnName
+		 * @param cssClass
+		 */
+		addCellCssClass: function(rowKey, columnName, cssClass) {
+			var classes = this.getCellCssClass(rowKey, columnName);
+			classes += ' ' + cssClass;				
+			this.setCellCssClass(rowKey, columnName, classes.trim());
 			this.grid.invalidate();
 		},
+		/**
+		 * Remove the specified <code>cssClass</code> from the cell at <code>rowKey</code> and <code>columnName</code>.
+		 * 
+		 * @param rowKey
+		 * @param columnName
+		 * @param cssClass
+		 */
+		removeCellCssClass: function(rowKey, columnName, cssClass) {
+			var classes = this.getCellCssClass(rowKey, columnName);
+			
+			if(classes) {
+				var remove = cssClass.split(' ');
+				var current = classes.split(' ');
+				var newClasses = '';
+				
+				for(var i = 0; i < current.length; i++) {
+					if($.inArray(current[i], remove) === -1) {
+						newClasses += current[i] + ' ';
+					}
+					
+				}
+				this.setCellCssClass(rowKey, columnName, newClasses.trim());
+				this.grid.invalidate();
+			}	
+		},
+		/**
+		 * Get the css class of the cell at <code>rowKey</code> and <code>columnName</code>.
+		 * 
+		 * @param rowKey
+		 * @param columnName
+		 */
+		getCellCssClass: function(rowKey, columnName) {
+			var classes = '';
+			var row = this.getItem(rowKey);
+			
+			if(row) {
+				classes = row.cellClasses ? row.cellClasses[columnName] : classes;
+			}
+			
+			return classes;
+		},
+		/**
+		 * Set the css class of the cell at <code>rowKey</code> and <code>columnName</code> to <code>cssClass</code>,
+		 * thus removing any class set on the cell previously by <code>setCellCssClass</code>, <code>addCellCssClass</code>
+		 * or <code>setCellCssClasses</code>.
+		 * 
+		 * @param rowKey
+		 * @param columnName
+		 * @param cssClass
+		 */
 		setCellCssClass: function(rowKey, columnName, cssClass) {
 			var row = this.getItem(rowKey);
 			
@@ -1139,21 +1249,15 @@
 				clazz[columnName] = cssClass;
 				this.setCellCssClasses([{rowKey: rowKey, cellClasses: clazz}]);
 			}				       	 
-		},
-		removeCellCssClasses: function(rowKey, columnName) {
-			var row = this.getItem(rowKey);
-			
-			if(row) {
-				delete row.cellClasses;
-			}
-			
-			this.grid.invalidate();
-		},
-		getSelectedItems: function() {
-			return this.grid.getSelectionModel().getSelectedItemIds();
-		},
-		setSelectedItems: function() {
-			
+		},		
+		/**
+		 * Clear all user specified classes from the cell at <code>rowKey</code> and <code>columnName</code>.
+		 * 
+		 * @param rowKey
+		 * @param columnName
+		 */
+		clearCellCssClass: function(rowKey, columnName) {
+			this.setCellCssClass(rowKey, columnName, '');				
 		},
 		getItem: function(rowKey) {
 			return this.dataHash[rowKey];						
