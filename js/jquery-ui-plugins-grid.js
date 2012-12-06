@@ -1308,6 +1308,7 @@
 					// this loop is here so we don't return items with an empty changeCells object, i.e. it had changes that were removed
 					for(var field in item.changedCells) {
 						var clone = $.extend(true, {}, item);
+						delete clone.cssClasses;
 						delete clone.changedCells;
 						delete clone.cellClasses;
 						changedItems.push(clone);
