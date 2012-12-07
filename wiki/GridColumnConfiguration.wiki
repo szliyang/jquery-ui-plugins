@@ -158,6 +158,52 @@ $('#myGrid').grid({
 });
 }}}
 --------------------------------------- 
+====focusable====
+Boolean value indicating whether cells in this column can obtain focus. When the <code>enableCellNavigation</code> 
+property is set to true, cells in columns for which <code>focusable</code> is set to false will be skipped over
+when tabbing through columns.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* true
+
+*Example*
+{{{
+$('#myGrid').grid({
+  columns: [
+    {
+      name : 'Title',
+      field : 'title',
+	  focusable: false
+    }
+  ]
+});
+}}}
+--------------------------------------- 
+====formatter====
+A string or function identifying what formatter should be used to render cell content for the column. A string can
+be used to specify one of the built-in types of "checkbox", "currency" or "properCase". A custom formatter can be specified 
+by using a custom callback function that will receive rowNum, cellNum, value, columnDef and row parameters.
+
+*Type:* [http://api.jquery.com/Types/#String String] OR [http://api.jquery.com/Types/#Function Function]
+
+*Default:* true
+
+*Example*
+{{{
+$('#myGrid').grid({
+  columns: [
+    {
+      name: 'On Schedule',
+      field: 'onSchedule',
+	  formatter: function (rowNum, cellNum, value, columnDef, row) {
+	    return value ? '<img src="images/tick.png"/>' : '';
+	  }
+    }
+  ]
+});
+}}}
+--------------------------------------- 
 ====headerCssClass====
 CSS class applied to the column header.
 
