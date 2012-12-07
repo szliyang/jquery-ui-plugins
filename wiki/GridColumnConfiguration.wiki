@@ -8,6 +8,7 @@ A large part of the grid's functionality is configured by defining attributes on
  * [#filter filter]
  * [#filterDefault filterDefault]
  * [#focusable focusable]
+ * [#formatter formatter]
  * [#headerCssClass headerCssClass]
  * [#id id]
  * [#minWidth minWidth]
