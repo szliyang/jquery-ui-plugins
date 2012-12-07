@@ -2,6 +2,25 @@
 A large part of the grid's functionality is configured by defining attributes on the column objects provided to the grid at initialization. The following example demonstrates a fairly extensive column configuration using sorting, filtering and in-line editing. For a complete list of column attributes see the [#Column_Attributes Column Attribute API].
 
 ==Column Attributes==
+ * [#cssClass cssClass]
+ * [#editor editor]
+ * [#field field]
+ * [#filter filter]
+ * [#filterDefault filterDefault]
+ * [#focusable focusable]
+ * [#headerCssClass headerCssClass]
+ * [#id id]
+ * [#minWidth minWidth]
+ * [#maxWidth maxWidth]
+ * [#name name]
+ * [#rerenderOnResize rerenderOnResize]
+ * [#resizable resizable]
+ * [#selectable selectable]
+ * [#sort sort]
+ * [#toolTip toolTip]
+ * [#width width]
+---------------------------------------
+==Column Attributes API==
 ====cssClass====
 CSS class applied to the column.
 
@@ -90,23 +109,49 @@ $('#myGrid').grid({
 });
 }}}
 ---------------------------------------
-====focusable====
-Boolean value indicating whether cells in this column can obtain focus. When the <code>enableCellNavigation</code> 
-property is set to true, cells in columns for which <code>focusable</code> is set to false will be skipped over
-when tabbing through columns.
+====filter====
+A string, array or function identifying a filter to be rendered in the column header. A string can be used to 
+specify one of the built-in filters, a list of strings or name/value pair objects can be used to specify a drop down
+list filter or a function can be used to specify a custom filter. For examples of each type of filter see the
+[#Filtering Filtering] section.
 
-*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+*Type:* [http://api.jquery.com/Types/#String String], [http://api.jquery.com/Types/#Array Array] OR [http://api.jquery.com/Types/#Function Function]
 
-*Default:* true
+*Default:* null
+
+*Example*
+This example demonstrates using an object array of name/value pairs to create a drop down filter filter.
+{{{
+$('#myGrid').grid({
+  columns: [
+    {
+      name: 'Title',
+      field: 'title',
+      filter: [
+        {'name': 'Yes', 'value': 'true'},
+        {'name': 'No', 'value': 'false'}
+      ], 
+    }
+  ]
+});
+}}}
+---------------------------------------
+====filterDefault====
+Default filter value selected when the grid is rendered.
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* ''
 
 *Example*
 {{{
 $('#myGrid').grid({
   columns: [
     {
-      name : 'Title',
-      field : 'title',
-	  focusable: false
+      name: 'Current Customer',
+      field: 'currentCustomer',
+      filter: ["true", "false"], // simple string array filter
+      filterDefault: "true" // default to only showing current customers
     }
   ]
 });
