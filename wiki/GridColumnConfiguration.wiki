@@ -1,4 +1,4 @@
 =Summary=
-A large part of the grid's functionality is configured by defining attributes on the column objects provided to the grid at initialization. The following example demonstrates a fairly extensive column configuration using sorting, filtering and in-line editing. A complete list of column attributes can be found [Attributes here].
+A large part of the grid's functionality is configured by defining attributes on the column objects provided to the grid at initialization. The following example demonstrates a fairly extensive column configuration using sorting, filtering and in-line editing. A complete list of column attributes can be found [#Column_Attributes here].
 
-==Attributes==
+==Column Attributes==
