@@ -136,7 +136,7 @@ if(!String.prototype.toProperCase) {
 	chars[106]='*';
 	chars[107]='+';
 	chars[109]='-';
-	chars[110]=',';
+	chars[110]='.';
 	chars[111]='/';
 	chars[186]=';';
 	chars[187]='=';
