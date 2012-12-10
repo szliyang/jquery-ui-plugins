@@ -173,7 +173,7 @@
       sortComparer = null;
       var oldToString = Object.prototype.toString;
       Object.prototype.toString = (typeof field == "function") ? field : function () {
-        return this[field]
+        return this[field];
       };
       // an extra reversal for descending sort keeps the sort stable
       // (assuming a stable native sort implementation, which isn't true in some cases)
@@ -728,11 +728,11 @@
       storeCellCssStyles(grid.getCellCssStyles(key));
 
       function storeCellCssStyles(hash) {
-        hashById = {};
-        for (var row in hash) {
-          var id = rows[row][idProperty];
-          hashById[id] = hash[row];
-        }
+        hashById = {};       
+        	for (var row in hash) {	          
+	          var id = rows[row][idProperty];
+	          hashById[id] = hash[row];
+	        }
       }
 
       grid.onCellCssStylesChanged.subscribe(function(e, args) {
