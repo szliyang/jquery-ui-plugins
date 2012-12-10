@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Basic grid</title>	
+
+	<link rel="stylesheet" href="../css/slick-grid.css" type="text/css" />
+	<link rel="stylesheet" href="../css/jquery-ui-plugins-grid.css" type="text/css" />
+	<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css"> -->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.16/themes/redmond/jquery-ui.css">
+	<!-- <link rel="stylesheet" href="css/aristo/jquery-ui-1.8.16.custom.css" type="text/css"/> -->
+	<style type="text/css">
+		div.slick-cell.centered {
+			text-align: center;
+		}
+		
+		.changed, .slick-cell .ui-changed-cell {
+			background-color: #fccf70;
+		}
+		
+		$.slick-cell  > .ui-changed-cell {
+			background-color: #fccf70;
+		}
+				
+		.red {
+			background-color: #ff0000;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="myGrid" style="width: 1000px; height: 500px;"></div>
+
+	<script src="http://code.jquery.com/jquery-1.7.1.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-1.8.2.js"></script> -->	
+	<!--  there's a bug that makes drag & drop broken if we don't include 1.9.0, but if we only have 1.9.0, the whole grid is broken. May have to look for a different version of drag & drop? -->
+	<!-- <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script> -->
+	<script src="http://code.jquery.com/ui/1.8.16/jquery-ui.js"></script>
+	
+	<script src="../js/lib/jquery.event.drag-2.0.min.js"></script>
+	<script src="../js/lib/jquery.event.drop-2.0.min.js"></script>
+
+	<script src="../js/lib/date.js"></script>
+	<script src="../js/lib/slick.core.js"></script>
+	<script src="../js/lib/slick.grid.js"></script>
+	<script src="../js/lib/slick.dataview.js"></script>
+	<script src="../js/jquery-ui-plugins-core.js"></script>	
+	<script src="../js/jquery-ui-plugins-grid.js"></script>
+	<script src="../js/jquery-ui-plugins-textinput.js"></script>
+
+	<script>		
+		
+		var deliveryOptions = [
+			{"name": "None", "value": ""}, 
+			{"name": "Drop Ship", "value": "dropShip"}, 
+			{"name": "Pre-Delivered", "value": "preDelivered"},
+			{"name": "Early Ship", "value": "earlyShip"}
+		];
+		
+		var cols = [ {
+			id : "title",
+			name : "Title",
+			field : "title",
+			// custom sort function that parses the number and then sorts based on that
+			sort: function(row1, row2) {
+				var val = Number(row1["title"].substring(5));
+				var val2 = Number(row2["title"].substring(5));				
+				return (val == val2 ? 0 : (val > val2 ? 1 : -1));	
+			},			
+			editor: "text",
+			filter: "contains"
+		}, 
+		{
+			id : "duration",
+			name : "Duration",
+			field : "duration",
+			sortable: true,
+			filter: {				
+				"impl": function(filterValue, itemValue) {
+					return Number(itemValue.replace('Approximately', '').replace('days', '').trim()) > Number(filterValue);
+				}				
+			},
+			editor: "text"
+		}, 
+		{
+			id : "invoicePrice",
+			name : "Invoice",
+			field : "invoicePrice",
+			filter: "numeric",
+			editor: "numeric",
+			formatter: "currency"  // example using defaults
+			//formatter: {"type": "currency", "region": "GBP", "decimal": ","}  // fancy example using object that sets region
+		}, 
+		{
+			id : "percentComplete",
+			name : "% Complete",
+			field : "percentComplete",
+			filter: "numeric",
+			editor: "numeric",
+			dataType: "numeric"
+		}, 
+		{
+			id : "start",
+			name : "Start",
+			field : "start",
+			editor: "date",
+			sort: "date",
+			dateFormat: "MM/dd/yyyy",
+			filter: "date"
+		}, 
+		{
+			id : "finish",
+			name : "Finish",
+			field : "finish",
+			editor: "date",
+			sort: "date",
+			filter: "date",
+			dateFormat: "MM/dd/yyyy"
+		}, 
+		{
+			id : "effort-driven",
+			name : "Effort Driven",
+			field : "effortDriven",
+			sort: true,
+			filter: ["true", "false"], // simple string array filter example,
+			editor: ["true", "false"]
+		},
+		{
+			id : "hasOrders",
+			name : "Has Orders",
+			field : "hasOrders",
+			formatter: formatCheckMark,			
+			filter: [
+					{"name": "Yes", "value": "true"}, // object array filter example - allows us to display whatever we want (checkmark image), the filter is set up to just filter on the item value 
+					{"name": "No", "value": "false"}
+			],
+			//filterDefault: "true",
+			cssClass: "centered"
+		},
+		{
+			id : "deliveryMethod",
+			name : "Delivery Method",
+			field : "deliveryMethod",			
+			formatter: 'properCase',
+			filter: deliveryOptions,
+			//filterDefault: "dropShip",
+			cssClass: "centered",
+			editor: deliveryOptions,			
+		},
+		{
+			id: "displayOnWeb",
+			name: "Display On Web",
+			field: "displayOnWeb",
+			cssClass: "centered",
+			filter: [
+					{"name": "Yes", "value": "sure"}, // object array filter example - allows us to display whatever we want (checkmark image), the filter is set up to just filter on the item value 
+					{"name": "No", "value": "noway"}
+			],			
+			formatter: "checkbox",
+			//formatter: {"type": "checkbox", "checkedValue": "sure", "notCheckedValue": "noway"}
+		}
+		];		
+
+		$(function() {
+			var myData = [];
+			//var start = Date.parseExact('01/01/2010', 'MM/dd/yyyy');
+			//var end = Date.parseExact('01/05/2010', 'MM/dd/yyyy');
+			var year = 10;
+			for ( var i = 0; i < 10; i++) {
+				var day = (Math.round(Math.random() * 29) + '').padLeft(2, '0');
+				myData[i] = {
+					title : "Task " + i,
+					duration : "Approximately " + (i % 100) + " days",
+					invoicePrice: i/4,
+					percentComplete : Math.round(Math.random() * 100) + '',
+					//start : start.toString('MM/dd/yyyy'),
+					start : '11/08/20' + year,
+//					finish : end.toString('MM/dd/yyyy'),
+					finish : '12/29/20' + year,
+					effortDriven : (i % 5 == 0),
+					hasOrders: (i % 7 == 0),
+					deliveryMethod: (i % 9 == 0 ? '' : (i % 7 == 0 ? 'earlyShip' : 'preDelivered')),
+					displayOnWeb: i % 2 == 0 ? 'true' : 'false'
+					//displayOnWeb: (i % 2 == 0 ? "noway" : "sure")
+				};
+			
+				year = year == 99 ? 10 : ++year;
+				
+				//start.addDays(1);
+				//end.addDays(1);
+			}
+
+			var $grid = $("#myGrid").grid({
+				"data": myData,
+				"columns": cols,
+				"rowKey": "title",
+				"forceFitColumns": true,
+				"editable": true,
+				"enableColumnReorder": true,
+				"changedCellCssClass": "changed"
+				/*
+				"onCellChange": function(e, args) {
+					$grid.grid('setCellCssClass', args.row, args.cell, 'changedCell');        
+			    }
+			*/
+			});
+		})
+		
+		function formatCheckMark(rowNum, cellNum, value, columnDef, row) {
+			var image = '';
+			
+			if(value) {
+				image = '<img src="images/tick.png"/>';
+			}
+			
+			return image;
+		}
+	</script>
+</body>
+</html>
