@@ -10,7 +10,8 @@
  *  jquery 1.7 // currently broken with 1.8.2 and 1.9  
  *	jquery.ui.core.1.8.16.js
  *	jquery.ui.widget.1.8.16.js
- *	jquery.event.drag-2.0.js	
+ *	jquery.event.drag-2.0.js
+ *	jquery.event.drop-2.0.js		
  *	slick.core.2.0.2.js
  *	slick.grid.2.0.2.js
  *	slick.dataview.2.0.2.js
@@ -42,17 +43,87 @@
 				defaultValue: undefined
 
  */
+// this plugin is currently broken with jquery 1.8.2 and 1.9
+/**
+ *	@module jquery-ui-plugins
+ *	@requires http://code.jquery.com/jquery-1.7.1.js,
+ *		jquery.ui.core.1.8.16.js,
+ *		jquery.ui.widget.1.8.16.js,
+ *		jquery.event.drag-2.0.js,
+ *		jquery.event.drop-2.0.js,		
+ *		slick.core.2.0.2.js,
+ *		slick.grid.2.0.2.js,
+ *		slick.dataview.2.0.2.js,
+ *		date.js
+ *	@namespace uiplugins	
+ */
 ;(function($, undefined) {
+	/**
+	 * A jQuery UI grid widget that wraps <a href="https://github.com/mleibman/SlickGrid">SlickGrid</a> and 
+	 * exposes options, methods and events to make accomplishing common tasks such as sorting, filtering and 
+	 * in-line editing simple using familiar jQuery UI syntax. 
+	 * 
+	 * @class Grid
+	 */
 	$.widget('uiplugins.grid', {
 		options: {
+			/** 
+			 * A property on each row object that can be used to uniquely identify the row.
+			 * 
+			 * @property rowKey
+			 * @type String	
+			 * @default 'id'		
+			 */
 			rowKey: 'id',
+			/**
+			 * An array of data objects to be displayed in the grid.
+			 * 
+			 * @property data
+			 * @type Array
+			 * @default []
+			 */
 			data: [],
-			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false				
+			/**
+			 * An array of objects defining the grid columns. See the 
+			 * <a href="">column model documentation</a> for details on configuring columns. 
+			 * 
+			 * @property columns
+			 * @type Array
+			 * @default []
+			 */
+			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false
+			/**
+			 * A boolean value indicating whether the user can navigate cells using the arrow keys. 
+			 * 
+			 * @property enableCellNavigation
+			 * @type Boolean
+			 * @default true
+			 */
 			enableCellNavigation: true,
+			/**
+			 * A boolean value indicating whether the user re-order columns using drag and drop. 
+			 * 
+			 * @property enableColumnReorder
+			 * @type Boolean
+			 * @default false
+			 */
 			enableColumnReorder: false,
+			/**
+			 * A boolean value indicating whether the column header show should be displayed. 
+			 * 
+			 * @property showHeaderRow
+			 * @type Boolean
+			 * @default false
+			 */
 			showHeaderRow: false,
-			dataType: null,
-			calendarImage: '../css/images/calendar.png'
+			/**
+			 * Location of the calendar image to be used for editable calendar fields. 
+			 * 
+			 * @property showHeaderRow
+			 * @type String
+			 * @default '../css/images/calendar.png'
+			 */
+			calendarImage: '../css/images/calendar.png',			
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
@@ -177,7 +248,7 @@
 					return self._filter(item);
 				});
 			}			
-		},	
+		},
 		_initSorting: function(col, sortFunctions) {
 			if(col.sort !== false) {
 				if(!this.sortFunctions) {
@@ -1161,6 +1232,8 @@
 		 *	} 
 		 * ]
 		 * </code>
+		 * @method setCellCssClasses 
+		 * 
 		 * @param cssData
 		 */
 		setCellCssClasses: function(cssData) {
@@ -1181,6 +1254,8 @@
 		/**
 		 * Add the specified <code>cssClass</code> to the cell at <code>rowKey</code> and <code>columnName</code>.
 		 * 
+		 * @method addCellCssClass
+		 * 
 		 * @param rowKey
 		 * @param columnName
 		 * @param cssClass
@@ -1193,6 +1268,8 @@
 		},
 		/**
 		 * Remove the specified <code>cssClass</code> from the cell at <code>rowKey</code> and <code>columnName</code>.
+		 * 
+		 * @method removeCellCssClass
 		 * 
 		 * @param rowKey
 		 * @param columnName
@@ -1217,10 +1294,16 @@
 			}	
 		},
 		/**
-		 * Get the css class of the cell at <code>rowKey</code> and <code>columnName</code>.
+		 * Get the css classes that have been applied to the cell at <code>rowKey</code> and <code>columnName</code>
+		 * via <code>addCellCssClass</code>, <code>setCellCssClass</code> or <code>setCellCssClasses</code>.
+		 * 
+		 * @method getCellCssClass
 		 * 
 		 * @param rowKey
 		 * @param columnName
+		 * @return {String} The list of classes that have been applied to the cell at <code>rowKey</code> and
+		 * 
+		 * <code>columnName</code>. 
 		 */
 		getCellCssClass: function(rowKey, columnName) {
 			var classes = '';
@@ -1237,6 +1320,8 @@
 		 * thus removing any class set on the cell previously by <code>setCellCssClass</code>, <code>addCellCssClass</code>
 		 * or <code>setCellCssClasses</code>.
 		 * 
+		 * @method setCellCssClass
+		 * 
 		 * @param rowKey
 		 * @param columnName
 		 * @param cssClass
@@ -1252,7 +1337,8 @@
 		},		
 		/**
 		 * Clear all user specified classes from the cell at <code>rowKey</code> and <code>columnName</code>.
-		 * 
+		 * @method clearCellCssClass
+		 *
 		 * @param rowKey
 		 * @param columnName
 		 */
@@ -1330,14 +1416,23 @@
 			
 			this.grid.invalidate();
 		},
+		/**
+		 * @method disable
+		 */
 		disable: function() {
 			$.Widget.prototype.disable.call(this);			
 			this._trigger('disable');
 		},
+		/**
+		 * @method enable
+		 */
 		enable: function() {
 			$.Widget.prototype.enable.call(this);			
 			this._trigger('enable');
-		},		
+		},	
+		/**
+		 * @method destroy
+		 */
 		destroy: function() {
 			this.grid.onColumnsReordered.unsubscribe();
 			this.grid.onColumnsResized.unsubscribe();
