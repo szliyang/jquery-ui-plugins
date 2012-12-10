@@ -23,10 +23,10 @@ if(!String.prototype.right) {
 }
 
 if(!String.prototype.padLeft) {
-	String.prototype.padLeft = function(toLength, char) {
+	String.prototype.padLeft = function(toLength, character) {
 		var padded = this;
 		while(padded.length < toLength) {
-			padded = char + padded;
+			padded = character + padded;
 		}
 	
 		return padded;
@@ -46,7 +46,7 @@ if(!String.prototype.containsAny) {
                 return true;
             }
         }
-        return false
+        return false;
     };
 }
 
