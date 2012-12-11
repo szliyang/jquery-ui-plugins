@@ -1,4 +1,4 @@
-#summary A jQuery UI based grid widget backed by [https://github.com/mleibman/SlickGrid/wiki Slick Grid]
+#summary A jQuery UI based grid widget backed by [https://github.com/mleibman/SlickGrid/wiki Slick_Grid]
 
 =Summary=
 A jQuery UI grid widget that wraps the extremely scalable <a href="https://github.com/mleibman/SlickGrid/wiki">SlickGrid</a> and 
