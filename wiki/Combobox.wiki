@@ -7,7 +7,7 @@ was created based on the [http://jqueryui.com/autocomplete/#combobox demo] provi
 some functionality to make it behave a bit more like a regular HTML select list and provides some options, methods and events so it can be manipulated and customized like a regular jQuery UI widget.
 
 =Example=
-<img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/demos/images/combobox.png">
+<img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/combobox.png">
 
 {{{
 <!doctype html>
