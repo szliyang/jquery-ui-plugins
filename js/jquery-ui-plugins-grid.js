@@ -66,63 +66,7 @@
 	 * @class Grid
 	 */
 	$.widget('uiplugins.grid', {
-		options: {
-			/** 
-			 * A property on each row object that can be used to uniquely identify the row.
-			 * 
-			 * @property rowKey
-			 * @type String	
-			 * @default 'id'		
-			 */
-			rowKey: 'id',
-			/**
-			 * An array of data objects to be displayed in the grid.
-			 * 
-			 * @property data
-			 * @type Array
-			 * @default []
-			 */
-			data: [],
-			/**
-			 * An array of objects defining the grid columns. See the 
-			 * <a href="">column model documentation</a> for details on configuring columns. 
-			 * 
-			 * @property columns
-			 * @type Array
-			 * @default []
-			 */
-			columns: [], // sorting defaults to true so that we get text & number sorting for free, if you specify a sort function we use that for compare, if you don't want sorting you have to opt out with sort: false
-			/**
-			 * A boolean value indicating whether the user can navigate cells using the arrow keys. 
-			 * 
-			 * @property enableCellNavigation
-			 * @type Boolean
-			 * @default true
-			 */
-			enableCellNavigation: true,
-			/**
-			 * A boolean value indicating whether the user re-order columns using drag and drop. 
-			 * 
-			 * @property enableColumnReorder
-			 * @type Boolean
-			 * @default false
-			 */
-			enableColumnReorder: false,
-			/**
-			 * A boolean value indicating whether the column header show should be displayed. 
-			 * 
-			 * @property showHeaderRow
-			 * @type Boolean
-			 * @default false
-			 */
-			showHeaderRow: false,
-			/**
-			 * Location of the calendar image to be used for editable calendar fields. 
-			 * 
-			 * @property showHeaderRow
-			 * @type String
-			 * @default '../css/images/calendar.png'
-			 */
+		options: {			
 			calendarImage: '../css/images/calendar.png',			
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
@@ -1189,7 +1133,20 @@
 			
 			return value;
 		},
-		getGrid: function() {
+		_removeFromClassList: function(currentList, removeList) {		
+			var remove = removeList.split(' ');
+			var current = currentList.split(' ');
+			var newClasses = '';
+				
+			for(var i = 0; i < current.length; i++) {
+				if($.inArray(current[i], remove) === -1) {
+					newClasses += current[i] + ' ';
+				}					
+			}
+			
+			return newClasses.trim();
+		},
+		getSlickGrid: function() {
 			return this.grid;
 		},
 		saveCurrentEdit: function() {
@@ -1207,11 +1164,11 @@
 				this.grid.invalidate();
 			}
 		},
-		removeRowCssClass: function(rowKey, columnName) {
+		removeRowCssClass: function(rowKey, classToRemove) {
 			var row = this.getItem(rowKey);
 			
-			if(row) {
-				delete row.cellClasses;
+			if(row && row.cssClasses) {
+				this.setRowCssClass(rowKey, this._removeFromClassList(row.cssClasses, classToRemove));				
 				this.grid.invalidate();
 			}						
 		},
@@ -1275,21 +1232,11 @@
 		 * @param columnName
 		 * @param cssClass
 		 */
-		removeCellCssClass: function(rowKey, columnName, cssClass) {
-			var classes = this.getCellCssClass(rowKey, columnName);
+		removeCellCssClass: function(rowKey, columnName, classToRemove) {
+			var currentClasses = this.getCellCssClass(rowKey, columnName);
 			
-			if(classes) {
-				var remove = cssClass.split(' ');
-				var current = classes.split(' ');
-				var newClasses = '';
-				
-				for(var i = 0; i < current.length; i++) {
-					if($.inArray(current[i], remove) === -1) {
-						newClasses += current[i] + ' ';
-					}
-					
-				}
-				this.setCellCssClass(rowKey, columnName, newClasses.trim());
+			if(currentClasses) {				
+				this.setCellCssClass(rowKey, columnName, this._removeFromClassList(currentClasses, classToRemove));
 				this.grid.invalidate();
 			}	
 		},
