@@ -1,6 +1,111 @@
 =Grid Column Configuration=
 A large part of the grid's functionality is configured by defining attributes on the column objects provided to the grid at initialization. The following example demonstrates a fairly extensive column configuration using sorting, filtering and in-line editing. For a complete list of column attributes see the [#Column_Attributes Column Attribute API].
 
+<code>
+// initialize columns array to provide to grid
+var cols = [{
+    id : 'project',
+    name : 'Project Name',
+    field : 'project',
+    // custom sort function that parses the number and then sorts based on that
+    sort: function(row1, row2) {
+      var val = Number(row1['project'].substring(7));
+      var val2 = Number(row2['project'].substring(7));
+      return (val == val2 ? 0 : (val > val2 ? 1 : -1));	
+    },			
+    editor: 'text',
+    filter: 'contains',
+    toolTip: 'This is the Project Name column'
+  }, 
+  {
+    id : 'duration',
+    name : 'Duration',
+    field : 'duration',
+    filter: {				
+      'impl': function(filterValue, itemValue) {
+        return Number(itemValue.replace('Approximately', '').replace('days', '').trim()) > Number(filterValue);
+      }				
+    },
+    editor: 'text'
+  }, 		
+  {
+    id : 'cost',
+    focusable: false,
+    name : 'Cost',
+    field : 'cost',
+    filter: 'numeric',
+    editor: 'numeric',
+    formatter: 'currency'
+  }, 
+  {
+    id : 'percentComplete',
+    name : '% Complete',
+    field : 'percentComplete',
+    filter: 'numeric',
+    editor: 'numeric',
+    dataType: 'numeric' // used for sorting string data that's numeric
+  }, 
+  {
+    id : 'start',
+    name : 'Start',
+    field : 'start',
+    editor: 'date',
+    sort: 'date',
+    dateFormat: 'MM/dd/yyyy',
+    filter: 'date'
+  }, 
+  {
+    id : 'finish',
+    name : 'Finish',
+    field : 'finish',
+    editor: 'date',
+    sort: 'date',
+    filter: 'date',
+    dateFormat: 'MM/dd/yyyy'
+  }, 
+  {
+    id: 'onSchedule',
+    name: 'On Schedule',
+    field: 'onSchedule',
+    cssClass: 'centered',
+    formatter: {'type': 'checkbox', 'checkedValue': 'sure', 'notCheckedValue': 'noway'},
+    filter: [
+      {'name': 'Yes', 'value': 'sure'},
+      {'name': 'No', 'value': 'noway'}
+    ]			
+  },
+  {
+    id : 'onBudget',
+    name : 'On Budget',
+    field : 'onBudget',
+    cssClass: 'centered',
+    filter: ['true', 'false'], // simple string array filter example,
+    editor: ['true', 'false']
+  },
+  {
+    id : 'fullyFunded',
+    name : 'Fully Funded',
+    field : 'fullyFunded',
+    formatter: formatCheckMark,	
+    // object array filter example
+    filter: [
+      {'name': 'Yes', 'value': 'true'}, 
+      {'name': 'No', 'value': 'false'}
+    ],			
+    cssClass: 'centered',
+    selectable: false
+  },
+  {
+    id : 'methodology',
+    name : 'Methodology',
+    field : 'methodology',			
+    formatter: 'properCase',
+    filter: methodologyOptions,
+    cssClass: 'centered',
+    editor: methodologyOptions
+  }];
+</code>
+
 ==Column Attributes==
  * [#cssClass cssClass]
  * [#dataType dataType]
