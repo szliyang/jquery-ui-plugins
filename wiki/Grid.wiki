@@ -6,6 +6,7 @@ exposes options, methods and events to make accomplishing common tasks such as s
 using familiar jQuery UI syntax.
 
 =Example=
+The following is a fairly extensive example that illustrates how to use various features of the grid. For a complete list of options, methods and events provided see the [#Grid_API Grid API documentation].
 <img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/grid.png">
 
 {{{
@@ -154,3 +155,188 @@ using familiar jQuery UI syntax.
 </body>
 </html>
 }}}
+
+=Grid API=
+<table cellspacing="10px">
+	<tr>
+		<td><h3>[#Options Options]</h3></td>
+		<td><h3>[#Methods Methods]</h3></td>
+		<td><h3>[#Events Events]</h3></td>
+	</tr>	
+	
+	<tr>
+		<td>[#asyncEditorLoadDelay asyncEditorLoadDelay]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#asyncEditorLoading asyncEditorLoading]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#asyncPostRenderDelay asyncPostRenderDelay]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#autoEdit autoEdit]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#autoHeight autoHeight]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#calendarImage calendarImage]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#cellFlashingCssClass cellFlashingCssClass]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#columns columns]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#data data]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#defaultColumnWidth defaultColumnWidth]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#defaultFormatter defaultFormatter]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#editable editable]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#editorFactory editorFactory]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#editorLock editorLock]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#enableAddRow enableAddRow]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#enableAsyncPostRender enableAsyncPostRender]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#enableCellNavigation enableCellNavigation]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#enableColumnReorder enableColumnReorder]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#explicitInitialization explicitInitialization]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#forceFitColumns forceFitColumns]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#forceSyncScrolling forceSyncScrolling]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#formatterFactory formatterFactory]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#fullWidthRows fullWidthRows]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#headerRowHeight headerRowHeight]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#multiColumnSort multiColumnSort]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#multiSelect multiSelect]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#rowHeight rowHeight]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#rowKey rowKey]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#selectedCellCssClass selectedCellCssClass]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#showHeaderRow showHeaderRow]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#showTopPanel showTopPanel]</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>[#topPanelHeight topPanelHeight]</td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
