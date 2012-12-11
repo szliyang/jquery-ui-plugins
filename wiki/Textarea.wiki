@@ -7,7 +7,7 @@ A JQuery UI based textarea widget that provides maximum character length and tex
 =Example=
 As you can see from the following screen shot the widget automatically renders a character limit message which is updated as the user types or pastes content into the textarea. There are also events triggered as the textarea content is updated, allowing you to provide callback functions to react to user input.
 
-<img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/demos/images/textarea.png">
+<img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/textarea.png">
 
 {{{
 <!doctype html>
