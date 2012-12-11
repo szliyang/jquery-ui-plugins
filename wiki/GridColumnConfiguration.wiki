@@ -3,6 +3,7 @@ A large part of the grid's functionality is configured by defining attributes on
 
 ==Column Attributes==
  * [#cssClass cssClass]
+ * [#dateFormat dateFormat]
  * [#editor editor]
  * [#enableCellNavigation enableCellNavigation]
  * [#field field]
@@ -35,9 +36,36 @@ CSS class applied to the column.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',		
       cssClass: 'myClass'
+    }
+  ]
+});
+}}}
+---------------------------------------
+====dateFormat====
+A string identifying the date format for columns containing date data. The grid uses the
+<a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">date.js library's formatting</a>. 
+Please note that this attribute must be provided for sorting or filtering to work correctly on date columns.
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* ''
+
+*Example*
+{{{
+$('#myGrid').grid({
+  columns: [
+    {
+	  id: 'start',
+      name: 'Start',
+      field: 'start',
+      editor: 'date',
+      sort: 'date',
+      dateFormat: 'MM/dd/yyyy',
+      filter: 'date'
     }
   ]
 });
@@ -57,6 +85,7 @@ of each type of editor see the [#Editing Editing] section.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',		
       editor: 'text'
@@ -77,6 +106,7 @@ Required, the property on the data object that is used to get the value displaye
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title'
     }
@@ -100,6 +130,7 @@ This example demonstrates using an object array of name/value pairs to create a 
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       filter: [
@@ -127,6 +158,7 @@ This example demonstrates using an object array of name/value pairs to create a 
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       filter: [
@@ -150,6 +182,7 @@ Default filter value selected when the grid is rendered.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'currentCustomer',
       name: 'Current Customer',
       field: 'currentCustomer',
       filter: ["true", "false"], // simple string array filter
@@ -172,6 +205,7 @@ is set to true, cells in columns for which focusable is set to false will be ski
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name : 'Title',
       field : 'title',
 	  focusable: false
@@ -194,6 +228,7 @@ by using a custom callback function that will receive rowNum, cellNum, value, co
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'onSchedule',
       name: 'On Schedule',
       field: 'onSchedule',
 	  formatter: function (rowNum, cellNum, value, columnDef, row) {
@@ -216,6 +251,7 @@ CSS class applied to the column header.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       headerCssClass: 'myHeaderClass'
@@ -241,6 +277,12 @@ $('#myGrid').grid({
       id: 'title1',
       name: 'Title',
       field: 'title'
+    },
+	{
+      id: 'title2',
+      name: 'Title',
+      field: 'title',
+	  formatter: formatTitleFunction	  
     }
   ]
 });
@@ -258,6 +300,7 @@ Minimum width of the column.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       minWidth: 50
@@ -278,6 +321,7 @@ Maximum width of the column.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       maxWidth: 200
@@ -298,6 +342,7 @@ Text displayed in the column header label.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
     }
@@ -317,6 +362,7 @@ Boolean value indicating whether the column should be re-rendered when it's resi
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       rerenderOnResize: true
@@ -337,6 +383,7 @@ Boolean value indicating whether the column can be resized.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       resizable: false
@@ -357,6 +404,7 @@ Boolean value indicating whether the column can be selected.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       selectable: false
@@ -385,6 +433,7 @@ remaining value, thus sorting the "Task" column in numeric order.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'task',
       name: 'Task',
       field: 'task',
       sort: function(row1, row2) {
@@ -409,6 +458,7 @@ A string to be displayed as a tool tip when the cursor hovers over the column he
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       toolTip: 'This is the title column'
@@ -429,6 +479,7 @@ Width of the column.
 $('#myGrid').grid({
   columns: [
     {
+	  id: 'title',
       name: 'Title',
       field: 'title',
       width: 75
