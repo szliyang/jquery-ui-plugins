@@ -170,34 +170,6 @@ $('#myGrid').grid({
 });
 }}}
 ---------------------------------------
-====filter====
-A string, array or function identifying a filter to be rendered in the column header. A string can be used to 
-specify one of the built-in filters, a list of strings or name/value pair objects can be used to specify a drop down
-list filter or a function can be used to specify a custom filter. For examples of each type of filter see the
-[#Filtering Filtering] section.
-
-*Type:* [http://api.jquery.com/Types/#String String], [http://api.jquery.com/Types/#Array Array] OR [http://api.jquery.com/Types/#Function Function]
-
-*Default:* null
-
-*Example*
-This example demonstrates using an object array of name/value pairs to create a drop down filter filter.
-{{{
-$('#myGrid').grid({
-  columns: [
-    {
-      id: 'title',
-      name: 'Title',
-      field: 'title',
-      filter: [
-        {'name': 'Yes', 'value': 'true'},
-        {'name': 'No', 'value': 'false'}
-      ], 
-    }
-  ]
-});
-}}}
----------------------------------------
 ====filterDefault====
 Default filter value selected when the grid is rendered.
 
