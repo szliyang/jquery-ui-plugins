@@ -1,6 +1,7 @@
 =Grid Column Configuration=
 A large part of the grid's functionality is configured by defining attributes on the column objects provided to the grid at initialization. The following example demonstrates a fairly extensive column configuration using sorting, filtering and in-line editing. For a complete list of column attributes see the [#Column_Attributes Column Attribute API].
 
+=Example=
 <code>
 // initialize columns array to provide to grid
 var cols = [{
