@@ -1,0 +1,156 @@
+#summary A jQuery UI based grid widget backed by <a href="https://github.com/mleibman/SlickGrid/wiki">Slick Grid</a>.
+
+=Summary=
+A jQuery UI grid widget that wraps the extremely scalable <a href="https://github.com/mleibman/SlickGrid/wiki">SlickGrid</a> and 
+exposes options, methods and events to make accomplishing common tasks such as sorting, filtering and in-line editing simple 
+using familiar jQuery UI syntax.
+
+=Example=
+<img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/grid.png">
+
+{{{
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Basic grid</title>	
+  <link rel="stylesheet" href="../css/slick-grid.css" type="text/css" />
+  <link rel="stylesheet" href="../css/jquery-ui-plugins-grid.css" type="text/css" />	
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.16/themes/redmond/jquery-ui.css">
+
+  <style type="text/css">		
+    .ui-changed-cell {
+      background-color: #fccf70;
+    }					
+    .error {
+      background: #ff0000 !important;
+    }	
+    .centered {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="myGrid" style="width: 575px; height: 500px;"></div>	
+
+  <script src="http://code.jquery.com/jquery-1.7.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.8.16/jquery-ui.js"></script>	
+  <script src="../js/jquery-ui-plugins-0.0.12.js"></script>	
+  <script>				  
+  		
+  var cols = [{
+    id : 'project',
+    name : 'Project Name',
+    field : 'project',
+    // custom sort function that parses the number and then sorts based on that
+    sort: function(row1, row2) {
+      var val = Number(row1['project'].substring(7));
+      var val2 = Number(row2['project'].substring(7));
+      return (val == val2 ? 0 : (val > val2 ? 1 : -1));	
+    },			
+    editor: 'text',
+    filter: 'contains',
+    toolTip: 'This is the Project Name column'
+  }, 		
+  {
+    id : 'cost',
+    focusable: false,
+    name : 'Cost',
+    field : 'cost',
+    filter: 'numeric',
+    editor: 'numeric',
+    formatter: 'currency'
+  }, 
+  {
+    id : 'percentComplete',
+    name : '% Complete',
+    field : 'percentComplete',
+    filter: 'numeric',
+    editor: 'numeric',
+    dataType: 'numeric'
+  }, 
+  {
+    id : 'start',
+    name : 'Start',
+    field : 'start',
+    editor: 'date',
+    sort: 'date',
+    dateFormat: 'MM/dd/yyyy',
+    filter: 'date'
+  }, 
+  {
+    id: 'onSchedule',
+    name: 'On Time',
+    field: 'onSchedule',
+    cssClass: 'centered',
+    formatter: {'type': 'checkbox', 'checkedValue': 'sure', 'notCheckedValue': 'noway'},
+    filter: [
+      {'name': 'Yes', 'value': 'sure'},
+      {'name': 'No', 'value': 'noway'}
+    ]
+  },
+  {
+    id : 'onBudget',
+    name : 'On Budget',
+    field : 'onBudget',
+    cssClass: 'centered',
+    filter: ['true', 'false'], // simple string array filter example,
+    editor: ['true', 'false']
+  },
+  {
+    id : 'fullyFunded',
+    name : 'Fully Funded',
+    field : 'fullyFunded',
+    formatter: formatCheckMark,	
+    // object array filter example
+    filter: [
+      {'name': 'Yes', 'value': 'true'}, 
+      {'name': 'No', 'value': 'false'}
+    ],			
+    cssClass: 'centered',
+    selectable: false
+  }];		
+
+  $(function() {
+    var myData = [];			
+    var year = 10;			
+			
+    for ( var i = 0; i < 5000; i++) {
+      var random = Math.random();
+      var day = (Math.round(Math.random() * 29) + '').padLeft(2, '0');
+        myData[i] = {
+          project : 'Project ' + i,          
+          cost: ((random + 1) * 3000000)/4,
+          percentComplete : Math.round(random * 100) + '',
+          start : '11/08/20' + year,
+          onBudget : (i % 5 != 0),
+          fullyFunded: (i % 7 == 0),
+          onSchedule: (i % 2 == 0 ? 'noway' : 'sure')
+        };
+			
+        year = year == 99 ? 10 : ++year;
+    }
+
+    var $grid = $('#myGrid').grid({
+      'data': myData,
+      'columns': cols,
+      'rowKey': 'project',
+      'forceFitColumns': true,
+      'editable': true,
+      'enableColumnReorder': true
+    });						
+  });
+  	
+  function formatCheckMark(rowNum, cellNum, value, columnDef, row) {
+    var image = '';
+		
+    if(value) {
+      image = '<img src="images/tick.png"/>';
+    }
+		
+    return image;
+  }
+</script>
+</body>
+</html>
+}}}
