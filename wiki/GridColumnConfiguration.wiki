@@ -3,7 +3,7 @@ A large part of the grid's functionality is configured by defining attributes on
 
 =Example=
 {{{
-// list of options for column with a drop down list filter & editor
+// a list of options for a column with a drop down list filter & editor
 var methodologyOptions = [
   {'name': 'None', 'value': ''}, 
   {'name': 'Extreme Programming', 'value': 'extreme programming'}, 
