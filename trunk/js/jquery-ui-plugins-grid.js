@@ -574,7 +574,8 @@
 				};
 			}
 			$dialog.find('label.columnName').text(column.name + ' is:');
-			$dialog.find('input.ui-date-filter').datepicker({
+			var $dateinputs = $dialog.find('input.ui-date-filter');
+			$dateinputs.datepicker({
 				showOn: 'button',
 				buttonImageOnly: true,
 				buttonImage: self.options.calendarImage,
@@ -585,7 +586,8 @@
 					$('#ui-datepicker-div').addClass('ui-grid-datepicker');
 				}
 			});
-			
+			// this is necessary because if calendarImage is changed via grid.setOption after the date pickers have been initialized, the new image won't be used
+			$dateinputs.datepicker('option', 'buttonImage', self.options.calendarImage); 
 			$dialog.keypress(function(event) {
 				if (event.keyCode == $.ui.keyCode.ENTER) {
 					self._applyDialogFilter($dialog, column);
@@ -798,8 +800,7 @@
 		},
 		_dateEdit: function(args) {			
 			var $input = null;
-			var defaultValue = null;		
-			var calendarImage = args.grid.getOptions()['calendarImage'];
+			var defaultValue = null;
 			var calendarOpen = false;
 			
 			this.init = function () {
@@ -815,7 +816,7 @@
 				$input.datepicker({
 					showOn: 'button',
 					buttonImageOnly: true,
-					buttonImage: calendarImage,
+					buttonImage: args.grid.getOptions()['calendarImage'],
 					beforeShow: function () {
 						$('#ui-datepicker-div').addClass('ui-grid-datepicker');	
 						calendarOpen = true;
@@ -1170,6 +1171,10 @@
 					}
 				}							
 			}			
+		},
+		_setOption: function(option, value) {
+			$.Widget.prototype._setOption.apply(this, arguments);
+			this.grid.setOptions(this.options);
 		},
 		getSlickGrid: function() {
 			return this.grid;
