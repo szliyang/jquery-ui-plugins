@@ -112,6 +112,7 @@ The following is a fairly extensive example that illustrates how to use various 
     selectable: false
   }];		
 
+  // create some data to load the grid
   $(function() {
     var myData = [];			
     var year = 10;			
@@ -142,6 +143,7 @@ The following is a fairly extensive example that illustrates how to use various 
     });						
   });
   	
+  // example of a custom format function 
   function formatCheckMark(rowNum, cellNum, value, columnDef, row) {
     var image = '';
 		
