@@ -67,7 +67,7 @@
 	 */
 	$.widget('uiplugins.grid', {
 		options: {
-			calendarImage: 'https://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/calendar.png',			
+			calendarImage: 'http://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/calendar.png',			
 			// should think about just having an options property on column that identifies valid values, this could be an array of strings or objects that are used to
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
