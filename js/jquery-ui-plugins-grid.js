@@ -1152,18 +1152,23 @@
 			
 			return newClasses.trim();
 		},
-		_toggleSorting: function(disable) {
+		_toggleColumnAttributesDisabled: function(attributes, disable) {
 			var columns = this.options.columns;
 			
 			for(var i = 0; i < columns.length; i++) {
 				var column = columns[i];
-				if(disable && column.sortable) {
-					column.sortable = false;
-					column.sortDisabled = true;					
-				} else if(column.sortDisabled) {
-					column.sortable = true;
-					column.sortDisabled = false;					
-				}
+				
+				for(var j = 0; j < attributes.length; j++) {
+					var attribute = attributes[j];
+					
+					if(disable && column[attribute]) {
+						column[attribute] = false;
+						column[attribute + 'Disabled'] = true;														
+					} else if(column[attribute + 'Disabled']) {
+						column[attribute] = true;
+						column[attribute + 'Disabled'] = false;					
+					}
+				}							
 			}			
 		},
 		getSlickGrid: function() {
@@ -1387,11 +1392,15 @@
 		 * @method disable
 		 */
 		disable: function() {
+			
 			$.Widget.prototype.disable.call(this);			
 			this.options.editDisabled = this.options.editable;
+			this.options.columnReorderDisabled = this.options.enableColumnReorder;
 			this.options.editable = false;			
+			this.options.enableColumnReorder = false;
 			this.grid.setOptions(this.options);
-			this._toggleSorting(true);
+			this.element.find('div.slick-header-columns').sortable('disable');
+			this._toggleColumnAttributesDisabled(['sortable', 'resizable'], true);
 			this.element.find('div.slick-headerrow-columns .ui-grid-filter').attr('disabled', 'disabled');
 			this.element.find('div.slick-viewport').css('overflow-y', 'hidden');
 			this.disabled = true;
@@ -1404,8 +1413,12 @@
 		enable: function() {
 			$.Widget.prototype.enable.call(this);			
 			this.options.editable = this.options.editDisabled;
+			this.options.enableColumnReorder = this.options.columnReorderDisabled;
 			this.grid.setOptions(this.options);
-			this._toggleSorting(false);
+			if(this.options.enableColumnReorder) {
+				this.element.find('div.slick-header-columns').sortable('enable');
+			}
+			this._toggleColumnAttributesDisabled(['sortable', 'resizable'], false);
 			this.element.find('div.slick-headerrow-columns .ui-grid-filter').removeAttr('disabled');
 			this.element.find('div.slick-viewport').css('overflow-y', 'auto');
 			this.disabled = false;
