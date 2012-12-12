@@ -547,10 +547,12 @@
 			
 			// numeric filters show a dialog where the user enters compare values, those filters run when they hit the ok button on the dialog
 			$headerRow.on('click', 'span.ui-filter-button', function(e) {
-				var $this = $(this);
-				var columnId = $this.data('columnId');
-				var filterType = $this.data('type'); 
-				self._showFilterDialog($(this), columnId, filterType);
+				if(!self.disabled) {
+					var $this = $(this);
+					var columnId = $this.data('columnId');
+					var filterType = $this.data('type'); 
+					self._showFilterDialog($(this), columnId, filterType);
+				}				
 			});
 		},
 		_showFilterDialog: function($filterButton, columnId, type) {
@@ -1085,11 +1087,15 @@
 						
 			return value;
 		},
-		_checkboxFormatter: function(rowNum, cellNum, value, columnDef, row) {
+		_checkboxFormatter: function(rowNum, cellNum, value, columnDef, row, self) {
 			var html = '<input type="checkbox" class="ui-grid-checkbox"';			
 			
 			if(value && (value + '').toLowerCase() !== columnDef.formatOptions.notCheckedValue.toLowerCase()) {
 				html += ' checked="checked"';
+			}
+			
+			if(self.disabled) {
+				html += ' disabled="disabled"';
 			}
 			
 			html += '/>';			
@@ -1128,7 +1134,7 @@
 			}
 			
 			for(var i = 0; i < columnDef.formatters.length; i++) {
-				value = columnDef.formatters[i].call(this, rowNum, cellNum, value, columnDef, row);
+				value = columnDef.formatters[i].call(this, rowNum, cellNum, value, columnDef, row, self);
 			}
 			
 			return value;
@@ -1145,6 +1151,20 @@
 			}
 			
 			return newClasses.trim();
+		},
+		_toggleSorting: function(disable) {
+			var columns = this.options.columns;
+			
+			for(var i = 0; i < columns.length; i++) {
+				var column = columns[i];
+				if(disable && column.sortable) {
+					column.sortable = false;
+					column.sortDisabled = true;					
+				} else if(column.sortDisabled) {
+					column.sortable = true;
+					column.sortDisabled = false;					
+				}
+			}			
 		},
 		getSlickGrid: function() {
 			return this.grid;
@@ -1173,8 +1193,8 @@
 			}						
 		},
 		/**
-		 * Method to set CSS classes on several cells in one call. The <code>cssData</code> parameter is a
-		 * Javascript array of objects containing, by row, a list of CSS classes to apply to columns. An
+		 * Method to set CSS classes on several cells in one call. The <code>cssData</code> parameter is an
+		 * array of objects containing, by row, a list of CSS classes to apply to columns. An
 		 * example cssData parameter follows:<br/> 
 		 * 
 		 * <code>
@@ -1368,6 +1388,14 @@
 		 */
 		disable: function() {
 			$.Widget.prototype.disable.call(this);			
+			this.options.editDisabled = this.options.editable;
+			this.options.editable = false;			
+			this.grid.setOptions(this.options);
+			this._toggleSorting(true);
+			this.element.find('div.slick-headerrow-columns .ui-grid-filter').attr('disabled', 'disabled');
+			this.element.find('div.slick-viewport').css('overflow-y', 'hidden');
+			this.disabled = true;
+			this.grid.invalidate();
 			this._trigger('disable');
 		},
 		/**
@@ -1375,6 +1403,13 @@
 		 */
 		enable: function() {
 			$.Widget.prototype.enable.call(this);			
+			this.options.editable = this.options.editDisabled;
+			this.grid.setOptions(this.options);
+			this._toggleSorting(false);
+			this.element.find('div.slick-headerrow-columns .ui-grid-filter').removeAttr('disabled');
+			this.element.find('div.slick-viewport').css('overflow-y', 'auto');
+			this.disabled = false;
+			this.grid.invalidate();
 			this._trigger('enable');
 		},	
 		/**
