@@ -130,6 +130,7 @@
 			this._initColumns();
 			opts.showHeaderRow = this.filters ? true : false;
 			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
+			this.options = grid.getOptions();
 			
 			if(this.filters) {
 				this._renderFilters();				
@@ -896,9 +897,9 @@
 		_textEdit: function(args) {			
 			var $input = null;
 			var defaultValue = null;
-		
+			
 		    this.init = function () {
-		    	var $cell = $(args.container);
+				var $cell = $(args.container);
 		    	var $paddingTop = $cell.padding('top');
 		    	$input = $('<input type="text" class="ui-grid-editor"/>')
 					.appendTo(args.container)
