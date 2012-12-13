@@ -881,20 +881,7 @@
 			};
 			
 			this.isValueChanged = function () {
-				var value = $input.val();
-				var isChanged = (!(value == '' && defaultValue == null)) && (value != defaultValue);
-				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field] !== undefined;
-				
-				// track the original value of changed items
-		    	if(isChanged && !changeTracked) {
-		    		var change = {};
-		    		change[args.column.field] = defaultValue;
-		    		$.extend(true, args.item, {'changedCells': change});
-		    	} else if(isChanged && changeTracked && value === args.item.changedCells[args.column.field]) {
-		    		delete args.item.changedCells[args.column.field];		    		
-		    	}		    	
-		    	
-				return isChanged;
+				return $.uiplugins.grid.prototype._trackChange.call(this, $input, defaultValue, args);	    			    	
 			};
 			
 			this.validate = function () {
@@ -967,25 +954,8 @@
 		    	item[args.column.field] = state;
 		    };
 		
-		    this.isValueChanged = function () {	
-		    	var isNumeric = args.column.dataType === 'numeric';
-		    	var value = isNumeric ? Number($input.val()) : $input.val();
-		    	var isChanged = (!(value == '' && defaultValue == null)) && (value != defaultValue);
-		    	var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field] !== undefined;
-		    	
-		    	// track the original value of changed items
-		    	if(isChanged && !changeTracked) {
-		    		var change = {};
-		    		change[args.column.field] = defaultValue;
-		    		$.extend(true, args.item, {'changedCells': change});
-		    	} else if(isChanged && changeTracked) {
-		    		var originalValue = isNumeric ? Number(args.item.changedCells[args.column.field]) : args.item.changedCells[args.column.field];
-		    		if(value === originalValue) {
-		    			delete args.item.changedCells[args.column.field];
-		    		}		    		
-		    	}
-				
-		    	return isChanged; 
+		    this.isValueChanged = function () {
+		    	return $.uiplugins.grid.prototype._trackChange.call(this, $input, defaultValue, args);				
 		    };
 		
 		    this.validate = function () {
@@ -1055,20 +1025,7 @@
 			};
 
 			this.isValueChanged = function () {
-				var value = $select.val();
-				var isChanged = value != defaultValue;
-				var changeTracked = args.item.changedCells && args.item.changedCells[args.column.field] !== undefined;
-				
-				// track the original value of changed items
-		    	if(isChanged && !changeTracked) {
-		    		var change = {};
-		    		change[args.column.field] = defaultValue;
-		    		$.extend(true, args.item, {'changedCells': change});
-		    	} else if(isChanged && changeTracked && value === args.item.changedCells[args.column.field]) {
-		    		delete args.item.changedCells[args.column.field];		    		
-		    	}
-		    	
-				return isChanged;
+		    	return $.uiplugins.grid.prototype._trackChange.call(this, $select, defaultValue, args);
 			};
 
 			this.validate = function () {
@@ -1080,6 +1037,27 @@
 
 			this.init();
 		},		
+		_trackChange: function($input, defaultValue, args) {
+			var item = args.item;
+			var isNumeric = args.column.dataType === 'numeric';
+			var value = isNumeric ? Number($input.val()) : $input.val();			
+			var isChanged = (!(value == '' && defaultValue == null)) && (value != defaultValue);	
+			var changeTracked = item.changedCells && item.changedCells[args.column.field] !== undefined;
+			
+			// track the original value of changed items
+			if(isChanged && !changeTracked) {
+				var change = {};
+				change[args.column.field] = defaultValue;
+				$.extend(true, item, {'changedCells': change});
+			} else if(isChanged && changeTracked) {
+				var originalValue = isNumeric ? Number(item.changedCells[args.column.field]) : item.changedCells[args.column.field];
+				if(value === originalValue) {
+					delete item.changedCells[args.column.field];
+				}		    		
+			}
+			
+			return isChanged;
+		},
 		_currencyFormatter: function(rowNum, cellNum, value, columnDef, row) {			
 
 			if($.currency) {
