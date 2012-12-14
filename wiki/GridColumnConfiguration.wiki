@@ -120,6 +120,7 @@ var cols = [{
  * [#dataType dataType]
  * [#dateFormat dateFormat]
  * [#editor editor]
+ * [#editorOptions editorOptions]
  * [#enableCellNavigation enableCellNavigation]
  * [#field field]
  * [#filter filter]
