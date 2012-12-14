@@ -257,6 +257,7 @@ $('#myGrid').grid({
       editorOptions: function(item, column) {
     	var options = [];
     	
+        // available shipping options are item specific
     	for(var option in item.shippingOptions) {
           options.push({'name': item.shippingOptions[option], 'value': option});
     	}
