@@ -1159,10 +1159,7 @@
 			switch(option) {
 				case 'showHeaderRow':
 					this.grid.setHeaderRowVisibility(value && value !== 'false');
-					break;
-				case 'headerRowHeight':
-					this.grid.setHeaderRowVisibility(true);
-					break;
+					break;				
 			}
 		},
 		getSlickGrid: function() {
