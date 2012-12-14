@@ -236,6 +236,37 @@ $('#myGrid').grid({
 });
 }}}
 ---------------------------------------
+====editorOptions====
+A callback function that will be called to retrieve the list of options 
+displayed for a drop down list cell editor. This is useful in cases where providing a static array of options via the editor option isn't sufficient because you need to display a different list of options based on some other criteria. The function receives the item and column of the item being edited as arguments. The function must return either an array of strings or an array of objects with "name" and "value" attributes. In the case of an object array, the name attribute is what is display in the drop down list and the value attribute is the option's value.
+
+*Type:* [http://api.jquery.com/Types/#Function Function]
+
+*Default:* null
+
+*Example*
+{{{
+$('#myGrid').grid({
+  columns: [
+    {
+      id: 'shipping',
+      name: 'Shipping',
+      field: 'shipping',		
+      editor: 'list',
+      editorOptions: function(item, column) {
+    	var options = [];
+    	
+    	for(var option in item.shippingOptions) {
+          options.push({'name': item.shippingOptions[option], 'value': option});
+    	}
+    	
+    	return options;
+      }
+    }
+  ]
+});
+}}}
+---------------------------------------
 ====field====
 Required, the property on the data object that is used to get the value displayed in the column cells.
 
