@@ -239,10 +239,11 @@
 				// if it's not a custom function apply the correct built-in editor
 				if(typeof col.editor !== 'function') {
 					var editor = col.editor;
+					var isList = $.isArray(editor);
 					
-					if($.isArray(editor)) {
+					if(editor === 'list' || isList) {
 						col.editor = this._dropDownEdit;
-						col.editorOptions = editor;
+						col.editorOptions = isList ? editor : col.editorOptions;
 					} else if(editor === 'date') {
 						col.editor = this._dateEdit;
 					} else {
@@ -981,7 +982,7 @@
 
 			this.init = function () {
 				var html = '<select tabIndex="0" class="ui-grid-editor">';
-				var options = args.column.editorOptions;
+				var options = typeof args.column.editorOptions === 'function' ? args.column.editorOptions.call(this, args.item, args.column) : args.column.editorOptions;				
 				var $cell = $(args.container);
 		    	var paddingTop = $cell.padding('top');
 		    	var paddingLeft = $cell.padding('left');
@@ -1154,6 +1155,15 @@
 		_setOption: function(option, value) {
 			$.Widget.prototype._setOption.apply(this, arguments);
 			this.grid.setOptions(this.options);
+			
+			switch(option) {
+				case 'showHeaderRow':
+					this.grid.setHeaderRowVisibility(value && value !== 'false');
+					break;
+				case 'headerRowHeight':
+					this.grid.setHeaderRowVisibility(true);
+					break;
+			}
 		},
 		getSlickGrid: function() {
 			return this.grid;
