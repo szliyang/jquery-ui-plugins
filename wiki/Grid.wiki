@@ -159,7 +159,8 @@ The following is a fairly extensive example that illustrates how to use various 
 }}}
 
 =Grid API=
-`*` Denotes options, methods & events that are specific to jQuery UI Plugin Grid (i.e. not part of Slick Grid).
+`*` Denotes options, methods & events that are specific to the jQuery UI Plugin Grid (i.e. not part of Slick Grid). Some simply delegate to underlying Slick Grid functionality but are exposed via the jQuery plugin so they can initialized/called like any other jQuery UI plugin option/method/event.
+
 <table cellspacing="10px">
         <tr>
 		<td><h3>[#Options Options]</h3></td>
