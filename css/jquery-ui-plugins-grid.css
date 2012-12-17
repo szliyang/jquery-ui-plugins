@@ -99,7 +99,7 @@ input.ui-filter-val.ui-date-filter {
 	background: url('images/filter.png') no-repeat;
 	width: 16px;
 	height: 16px;
-	z-index: 3000;
+	z-index: 1000;
 	border: none;
 }
 
