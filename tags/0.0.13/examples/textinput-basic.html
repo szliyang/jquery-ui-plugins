@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Text Filter Example</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/redmond/jquery-ui.css">	
+	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui-plugins-core.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui-plugins-textinput.js"></script>	
+</head>
+<body>		
+	<label>Numbers Only</label><input type="text" class="numbersOnly"/>
+	
+	<label>Digits Only</label><input type="text" class="digitsOnly"/>
+	
+	<label>Only ABC</label><input type="text" class="onlyabc"/>
+	
+	<label>Not ABC</label><input type="text" class="notabc"/>
+	
+	<script type="text/javascript">		
+		
+		$(function() {				
+			$('input.numbersOnly').textinput({'filter': 'numeric'});		
+			
+			$('input.digitsOnly').textinput({'filter': 'digits'});		
+			
+			$('input.onlyabc').textinput({
+				'whitelist': ['A', 'B', 'C']
+			});
+			
+			$('input.notabc').textinput({
+				'blacklist': ['A', 'B', 'C']
+			});
+		});
+	</script>													
+</body>
+</html>
