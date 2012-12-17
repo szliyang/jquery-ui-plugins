@@ -184,8 +184,8 @@
 				
 				this._initSorting(col);				
 				this._initFiltering(col);				
-				this._initEditing(col);				
-				this._initFormatting(col);				
+				this._initEditing(col);
+				this._initFormatting(col);
 			}			
 			
 			if(this.filters) {								
@@ -256,34 +256,37 @@
 		},
 		_initFormatting: function(col) {
 			// maintain a list of formatters so they can be chained together
-			var formatters = [];			
+			var formatters = [];	
 			
-			if(col.formatter && typeof col.formatter === 'function') {
-				formatters.push(col.formatter);				
-			}
-			
-			if(col.formatter && typeof col.formatter !== 'function') {
-
-				if(typeof col.formatter === 'string') {
-					col.formatOptions = $.extend({'type': col.formatter}, this.formatDefaults[col.formatter]);
-				} else if(typeof col.formatter === 'object' && col.formatter.type) {
-					col.formatOptions = $.extend({}, this.formatDefaults[col.formatter.type], col.formatter);
+			// column specific formatters override formatterFactory
+			if(col.formatter) {
+				if(typeof col.formatter === 'function') {
+					formatters.push(col.formatter);
+				} else {
+					if(typeof col.formatter === 'string') {
+						col.formatOptions = $.extend({'type': col.formatter}, this.formatDefaults[col.formatter]);
+					} else if(typeof col.formatter === 'object' && col.formatter.type) {
+						col.formatOptions = $.extend({}, this.formatDefaults[col.formatter.type], col.formatter);
+					}
+					
+					switch(col.formatOptions.type) {
+						case 'checkbox':							
+							formatters.push(this._checkboxFormatter);
+							this.hasCheckboxes = true;
+							break;
+						case 'currency':
+							formatters.push(this._currencyFormatter);
+							break;
+						case 'properCase':
+							formatters.push(this._properCaseFormatter);
+							break;
+					}
 				}
-				
-				switch(col.formatOptions.type) {
-					case 'checkbox':							
-						formatters.push(this._checkboxFormatter);
-						this.hasCheckboxes = true;
-						break;
-					case 'currency':
-						formatters.push(this._currencyFormatter);
-						break;
-					case 'properCase':
-						formatters.push(this._properCaseFormatter);
-						break;
-				}
-			}
-			
+								
+			} else if(this.options.formatterFactory && this.options.formatterFactory.getFormatter(col)) {				
+				formatters.push(this.options.formatterFactory.getFormatter(col));
+			}			
+						
 			formatters.push(this._addCellCssFormatter);			
 			
 			if(formatters.length > 0) {
@@ -1165,6 +1168,13 @@
 		},
 		getSlickGrid: function() {
 			return this.grid;
+		},
+		cancelCurrentEdit: function() {
+			var gridEditorLock = this.grid.getEditorLock();
+			
+			if(gridEditorLock.isActive()) {
+				gridEditorLock.cancelCurrentEdit();
+			}			
 		},
 		saveCurrentEdit: function() {
 			var gridEditorLock = this.grid.getEditorLock();
