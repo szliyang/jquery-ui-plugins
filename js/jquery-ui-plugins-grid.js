@@ -73,6 +73,7 @@
 			// create both filters and editors. In addition, it could really be used to do automatic formatting in the case of an object array with name/value, i.e. if there
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
 		},
+		slickMethods: ['addCellCssStyles','autosizeColumns','canCellBeActive','canCellBeSelected','editActiveCell','flashCell','focus','getActiveCell','getActiveCellNode','getActiveCellPosition','getCanvasNode','getCellCssStyles','getCellEditor','getCellFromEvent','getCellFromPoint','getCellNode','getCellNodeBox','getColumnIndex','getColumns','getData','getDataItem','getDataLength','getEditController','getEditorLock','getGridPosition','getHeaderRow','getHeaderRowColumn','getOptions','getRenderedRange','getSelectedRows','getSelectionModel','getSortColumns','getTopPanel','getViewport','gotoCell','init','invalidate','invalidateAllRows','invalidateRow','invalidateRows','navigateDown','navigateLeft','navigateNext','navigatePrev','navigateRight','navigateUp','registerPlugin','removeCellCssStyles','render','resetActiveCell','resizeCanvas','scrollCellIntoView','scrollRowIntoView','scrollRowToTop','setActiveCell','setCellCssStyles','setColumns','setData','setHeaderRowVisibility','setOptions','setSelectedRows','setSelectionModel','setSortColumn','setSortColumns','setTopPanelVisibility','unregisterPlugin','updateCell','updateColumnHeader','updateRow','updateRowCount'],
 		filterValues: {
 			'numericDialog': [
 				{'name': 'Equal To', 'value': 'eq'},
@@ -138,6 +139,7 @@
 				this._bindFilterEvents();
 			}
 			
+			this._initSlickMethods();
 			this._initEventHandlers();
 			
 			grid.onSort.subscribe(function(e, args) {
@@ -287,7 +289,7 @@
 				formatters.push(this.options.formatterFactory.getFormatter(col));
 			}			
 						
-			formatters.push(this._addCellCssFormatter);			
+			formatters.push(this._addCellCssFormatter);
 			
 			if(formatters.length > 0) {
 				var self = this;
@@ -339,6 +341,14 @@
 				// init method so the page load doesn't take forever when the dataset is huge				
 				// parse date and store it as separate column so we don't take the hit of parsing on every sort
 				row[column.field + '-sort'] = Date.parseExact(row[column.field], column.dateFormat).getTime();
+			}
+		},
+		_initSlickMethods: function() {			
+			var self = this;
+			
+			for(var i = 0; i < this.slickMethods.length; i++) {
+				var methodName = this.slickMethods[i];
+				self[methodName] = self.grid[methodName];
 			}
 		},
 		_initEventHandlers: function() {	
@@ -986,7 +996,7 @@
 
 			this.init = function () {
 				var html = '<select tabIndex="0" class="ui-grid-editor">';
-				var options = typeof args.column.editorOptions === 'function' ? args.column.editorOptions.call(this, args.item, args.column) : args.column.editorOptions;				
+				var options = typeof args.column.editorOptions === 'function' ? args.column.editorOptions.call(this, args.item, args.column) : args.column.editorOptions;
 				var $cell = $(args.container);
 		    	var paddingTop = $cell.padding('top');
 		    	var paddingLeft = $cell.padding('left');
