@@ -14,7 +14,7 @@
 </tr>
 <tr>
   <td>[#asyncEditorLoading asyncEditorLoading]</td>
-  <td>[#addCellCssStyles() addCellCssStyles]</td>
+  <td>[#addCellCssStyles(key,_hash) addCellCssStyles]</td>
   <td>[#enable() enable *]</td>
 </tr>
 <tr>
@@ -790,7 +790,7 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 
 ==Methods==
 ====addCellCssClass(rowKey, columnName, cssClass)====
-Add the specified cssClass to the cell at rowKey and columnName. Note that this method only adds the specified class to the list of classes applied to the cell. To set the cell's class attribute to a new value (thus removing any classes previously set on the cell) use [#setCellCssClasses(cssData) setCellCssClasses].
+Add the specified cssClass to the cell at rowKey and columnName. Note that this method only adds the specified class to the list of classes applied to the cell. To set the cell's class attribute to a new value (thus removing any classes previously set on the cell) use {{{[#setCellCssClasses(cssData) setCellCssClasses]}}}.
 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
@@ -809,7 +809,34 @@ Add the specified cssClass to the cell at rowKey and columnName. Note that this 
 
 ---------------------------------------
 
-====addCellCssStyles()====
+====addCellCssStyles(key, hash)====
+A Slick grid method that adds css style to cells by row index and column name. To add CSS style by row key and column use {{{[#addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass]}}}. This is the add-only sibling to {{{setCellCssStyles(key, hash)}}}. It will throw an exception if you try to set the same {{{key}}} twice without calling {{{removeCellCssStyles()}}}. Use {{{setColumnCssStyles()}}} instead if you don't want that.
+
+ * *key*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ A key that can be used to access the hash of styles later, to modify or remove it, for example.
+
+ * *hash*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+ An object that identifies by row index and column name, what styles to apply.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setCellCssStyles', 'birthday_highlight', {
+  0: {
+    birthday: 'highlight',
+    age: 'highlight'
+  },
+  9: {
+    birthday: 'highlight',
+    age: 'highlight'
+  }
+});
+}}}
+
 ---------------------------------------
 
 ====autosizeColumns()====
