@@ -9,7 +9,7 @@
 </tr>
 <tr>
   <td>[#asyncEditorLoadDelay asyncEditorLoadDelay]</td>
-  <td>[#addCellCssClass() addCellCssClass *]</td>
+  <td>[#addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass *]</td>
   <td>[#disable() disable *]</td>
 </tr>
 <tr>
@@ -789,7 +789,24 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 ---------------------------------------
 
 ==Methods==
-====addCellCssClass()====
+====addCellCssClass(rowKey, columnName, cssClass)====
+Add the specified cssClass to the cell at rowKey and columnName. Note that this method only adds the specified class to the list of classes applied to the cell. To set the cell's class attribute to a new value (thus removing any classes previously set on the cell) use [#setCellCssClasses(cssData) setCellCssClasses].
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The key identifying the row the class list should be applied to.
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The name of the column the class list should be applied to.
+
+ * *cssClass*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The list of CSS classes to apply to the specified cell.
+
 ---------------------------------------
 
 ====addCellCssStyles()====
