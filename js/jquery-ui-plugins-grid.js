@@ -74,6 +74,7 @@
 			// are a list of option object assigned to the column, I know we probably have to translate the "value" to the correct "name" to display 
 		},
 		slickMethods: ['addCellCssStyles','autosizeColumns','canCellBeActive','canCellBeSelected','editActiveCell','flashCell','focus','getActiveCell','getActiveCellNode','getActiveCellPosition','getCanvasNode','getCellCssStyles','getCellEditor','getCellFromEvent','getCellFromPoint','getCellNode','getCellNodeBox','getColumnIndex','getColumns','getData','getDataItem','getDataLength','getEditController','getEditorLock','getGridPosition','getHeaderRow','getHeaderRowColumn','getOptions','getRenderedRange','getSelectedRows','getSelectionModel','getSortColumns','getTopPanel','getViewport','gotoCell','init','invalidate','invalidateAllRows','invalidateRow','invalidateRows','navigateDown','navigateLeft','navigateNext','navigatePrev','navigateRight','navigateUp','registerPlugin','removeCellCssStyles','render','resetActiveCell','resizeCanvas','scrollCellIntoView','scrollRowIntoView','scrollRowToTop','setActiveCell','setCellCssStyles','setColumns','setData','setHeaderRowVisibility','setOptions','setSelectedRows','setSelectionModel','setSortColumn','setSortColumns','setTopPanelVisibility','unregisterPlugin','updateCell','updateColumnHeader','updateRow','updateRowCount'],
+		slickEvents: ['onActiveCellChanged','onActiveCellPositionChanged','onAddNewRow','onBeforeCellEditorDestroy','onBeforeDestroy','onBeforeEditCell','onCellChange','onCellCssStylesChanged','onClick','onColumnsReordered','onColumnsResized','onContextMenu','onDblClick','onDrag','onDragEnd','onDragInit','onDragStart','onHeaderClick','onHeaderContextMenu','onKeyDown','onMouseEnter','onMouseLeave','onScroll','onSelectedRowsChanged','onSort','onValidationError','onViewportChanged'],
 		filterValues: {
 			'numericDialog': [
 				{'name': 'Equal To', 'value': 'eq'},
@@ -129,8 +130,9 @@
 			this.dataHash = this._initDataHash();
 			this.dateInfo = this._initDateInfo();			
 			this.element.addClass('ui-grid');
+			this.options.editDisabled = this.options.editable;
 			this._initColumns();
-			opts.showHeaderRow = this.filters ? true : false;
+			opts.showHeaderRow = this.filters ? true : false;			
 			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
 			this.options = grid.getOptions();
 			
@@ -344,41 +346,16 @@
 			}
 		},
 		_initSlickMethods: function() {			
-			var self = this;
-			
 			for(var i = 0; i < this.slickMethods.length; i++) {
 				var methodName = this.slickMethods[i];
-				self[methodName] = self.grid[methodName];
+				this[methodName] = this.grid[methodName];
 			}
 		},
-		_initEventHandlers: function() {	
-			this._bindEventHandler('onActiveCellChanged', this.options.onActiveCellChanged);
-			this._bindEventHandler('onActiveCellPositionChanged', this.options.onActiveCellPositionChanged);
-			this._bindEventHandler('onAddNewRow', this.options.onAddNewRow);
-			this._bindEventHandler('onBeforeCellEditorDestroy', this.options.onBeforeCellEditorDestroy);
-			this._bindEventHandler('onBeforeDestroy', this.options.onBeforeDestroy);
-			this._bindEventHandler('onBeforeEditCell', this.options.onBeforeEditCell);
-			this._bindEventHandler('onCellChange', this.options.onCellChange);
-			this._bindEventHandler('onCellCssStylesChanged', this.options.onCellCssStylesChanged);
-			this._bindEventHandler('onClick', this.options.onClick);
-			this._bindEventHandler('onColumnsReordered', this.options.onColumnsReordered);
-			this._bindEventHandler('onColumnsResized', this.options.onColumnsResized);
-			this._bindEventHandler('onContextMenu', this.options.onContextMenu);
-			this._bindEventHandler('onDblClick', this.options.onDblClick);
-			this._bindEventHandler('onDrag', this.options.onDrag);
-			this._bindEventHandler('onDragEnd', this.options.onDragEnd);
-			this._bindEventHandler('onDragInit', this.options.onDragInit);
-			this._bindEventHandler('onDragStart', this.options.onDragStart);
-			this._bindEventHandler('onHeaderClick', this.options.onHeaderClick);
-			this._bindEventHandler('onHeaderContextMenu', this.options.onHeaderContextMenu);
-			this._bindEventHandler('onKeyDown', this.options.onKeyDown);
-			this._bindEventHandler('onMouseEnter', this.options.onMouseEnter);
-			this._bindEventHandler('onMouseLeave', this.options.onMouseLeave);
-			this._bindEventHandler('onScroll', this.options.onScroll);
-			this._bindEventHandler('onSelectedRowsChanged', this.options.onSelectedRowsChanged);
-			this._bindEventHandler('onSort', this.options.onSort);
-			this._bindEventHandler('onValidationError', this.options.onValidationError);
-			this._bindEventHandler('onViewportChanged', this.options.onViewportChanged);
+		_initEventHandlers: function() {
+			for(var i = 0; i < this.slickMethods.length; i++) {
+				var eventName = this.slickEvents[i];
+				this._bindEventHandler(eventName, this.options[eventName]);
+			}
 			
 			if(this.hasCheckboxes) {
 				this._bindCheckboxHandler();
@@ -912,7 +889,7 @@
 		_textEdit: function(args) {			
 			var $input = null;
 			var defaultValue = null;
-			
+
 		    this.init = function () {
 				var $cell = $(args.container);
 		    	var $paddingTop = $cell.padding('top');
@@ -1403,8 +1380,7 @@
 		/**
 		 * @method disable
 		 */
-		disable: function() {
-			
+		disable: function() {			
 			$.Widget.prototype.disable.call(this);			
 			this.options.editDisabled = this.options.editable;
 			this.options.columnReorderDisabled = this.options.enableColumnReorder;
