@@ -6,7 +6,7 @@ exposes options, methods and events to make accomplishing common tasks such as s
 using familiar jQuery UI syntax.
 
 =Example=
-The following is a fairly extensive example that illustrates how to use various features of the grid. For a complete list of options, methods and events provided see the *[#GridAPI Grid API documentation]*.
+The following is a fairly extensive example that illustrates how to use various features of the grid. For a complete list of options, methods and events provided see the *[GridAPI Grid API documentation]*.
 <img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/grid.png">
 
 {{{
@@ -158,4 +158,4 @@ The following is a fairly extensive example that illustrates how to use various 
 </html>
 }}}
 
-For a complete list of options, methods and events provided see the *[#GridAPI Grid API documentation]*
+For a complete list of options, methods and events provided see the *[GridAPI Grid API documentation]*
