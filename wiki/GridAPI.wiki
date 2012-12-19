@@ -810,7 +810,7 @@ Add the specified cssClass to the cell at rowKey and columnName. Note that this 
 ---------------------------------------
 
 ====addCellCssStyles(key, hash)====
-A Slick grid method that adds css style to cells by row index and column name. To add CSS style by row key and column use {{{[#addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass]}}}. This is the add-only sibling to {{{setCellCssStyles(key, hash)}}}. It will throw an exception if you try to set the same {{{key}}} twice without calling {{{removeCellCssStyles()}}}. Use {{{setColumnCssStyles()}}} instead if you don't want that.
+A Slick grid method that adds css style to cells by row index and column name. To add CSS style by row key and column use {{{[addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass]}}}. This is the add-only sibling to {{{setCellCssStyles(key, hash)}}}. It will throw an exception if you try to set the same {{{key}}} twice without calling {{{removeCellCssStyles()}}}. Use {{{setColumnCssStyles()}}} instead if you don't want that.
 
  * *key*
  Type: [http://api.jquery.com/Types/#String String]
