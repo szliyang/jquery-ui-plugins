@@ -10,177 +10,177 @@
 <tr>
   <td>[#asyncEditorLoadDelay asyncEditorLoadDelay]</td>
   <td>[#addCellCssClass() addCellCssClass *]</td>
-  <td>[#disable disable *]</td>
+  <td>[#disable() disable *]</td>
 </tr>
 <tr>
   <td>[#asyncEditorLoading asyncEditorLoading]</td>
   <td>[#addCellCssStyles() addCellCssStyles]</td>
-  <td>[#enable enable *]</td>
+  <td>[#enable() enable *]</td>
 </tr>
 <tr>
   <td>[#asyncPostRenderDelay asyncPostRenderDelay]</td>
   <td>[#autosizeColumns() autosizeColumns]</td>
-  <td>[#onActiveCellChanged onActiveCellChanged]</td>
+  <td>[#onActiveCellChanged() onActiveCellChanged]</td>
 </tr>
 <tr>
   <td>[#autoEdit autoEdit]</td>
   <td>[#cancelCurrentEdit() cancelCurrentEdit *]</td>
-  <td>[#onActiveCellPositionChanged onActiveCellPositionChanged]</td>
+  <td>[#onActiveCellPositionChanged() onActiveCellPositionChanged]</td>
 </tr>
 <tr>
   <td>[#autoHeight autoHeight]</td>
   <td>[#canCellBeActive() canCellBeActive]</td>
-  <td>[#onAddNewRow onAddNewRow]</td>
+  <td>[#onAddNewRow() onAddNewRow]</td>
 </tr>
 <tr>
   <td>[#calendarImage calendarImage]</td>
   <td>[#canCellBeSelected() canCellBeSelected]</td>
-  <td>[#onBeforeCellEditorDestroy onBeforeCellEditorDestroy]</td>
+  <td>[#onBeforeCellEditorDestroy() onBeforeCellEditorDestroy]</td>
 </tr>
 <tr>
   <td>[#cellFlashingCssClass cellFlashingCssClass]</td>
   <td>[#clearCellCssClass() clearCellCssClass *]</td>
-  <td>[#onBeforeDestroy onBeforeDestroy]</td>
+  <td>[#onBeforeDestroy() onBeforeDestroy]</td>
 </tr>
 <tr>
   <td>[#columns columns]</td>
   <td>[#clearChangedItems() clearChangedItems *]</td>
-  <td>[#onBeforeEditCell onBeforeEditCell]</td>
+  <td>[#onBeforeEditCell(event,_data) onBeforeEditCell]</td>
 </tr>
 <tr>
   <td>[#data data]</td>
   <td>[#destroy() destroy]</td>
-  <td>[#onBeforeHeaderCellDestroy onBeforeHeaderCellDestroy]</td>
+  <td>[#onBeforeHeaderCellDestroy() onBeforeHeaderCellDestroy]</td>
 </tr>
 <tr>
   <td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
   <td>[#disable() disable *]</td>
-  <td>[#onBeforeHeaderRowCellDestroy onBeforeHeaderRowCellDestroy]</td>
+  <td>[#onBeforeHeaderRowCellDestroy() onBeforeHeaderRowCellDestroy]</td>
 </tr>
 <tr>
   <td>[#defaultColumnWidth defaultColumnWidth]</td>
   <td>[#editActiveCell() editActiveCell]</td>
-  <td>[#onCellChange onCellChange]</td>
+  <td>[#onCellChange() onCellChange]</td>
 </tr>
 <tr>
   <td>[#defaultFormatter defaultFormatter]</td>
   <td>[#enable() enable *]</td>
-  <td>[#onCellCssStylesChanged onCellCssStylesChanged]</td>
+  <td>[#onCellCssStylesChanged() onCellCssStylesChanged]</td>
 </tr>
 <tr>
   <td>[#editable editable]</td>
   <td>[#flashCell() flashCell]</td>
-  <td>[#onClick onClick]</td>
+  <td>[#onClick() onClick]</td>
 </tr>
 <tr>
   <td>[#editorFactory editorFactory]</td>
   <td>[#focus() focus]</td>
-  <td>[#onColumnsReordered onColumnsReordered]</td>
+  <td>[#onColumnsReordered() onColumnsReordered]</td>
 </tr>
 <tr>
   <td>[#editorLock editorLock]</td>
   <td>[#getActiveCell() getActiveCell]</td>
-  <td>[#onColumnsResized onColumnsResized]</td>
+  <td>[#onColumnsResized() onColumnsResized]</td>
 </tr>
 <tr>
   <td>[#enableAddRow enableAddRow]</td>
   <td>[#getActiveCellNode() getActiveCellNode]</td>
-  <td>[#onContextMenu onContextMenu]</td>
+  <td>[#onContextMenu() onContextMenu]</td>
 </tr>
 <tr>
   <td>[#enableAsyncPostRender enableAsyncPostRender]</td>
   <td>[#getActiveCellPosition() getActiveCellPosition]</td>
-  <td>[#onDblClick onDblClick]</td>
+  <td>[#onDblClick() onDblClick]</td>
 </tr>
 <tr>
   <td>[#enableCellNavigation enableCellNavigation]</td>
   <td>[#getCanvasNode() getCanvasNode]</td>
-  <td>[#onDrag onDrag]</td>
+  <td>[#onDrag() onDrag]</td>
 </tr>
 <tr>
   <td>[#enableColumnReorder enableColumnReorder]</td>
   <td>[#getCellCssClass() getCellCssClass *]</td>
-  <td>[#onDragEnd onDragEnd]</td>
+  <td>[#onDragEnd() onDragEnd]</td>
 </tr>
 <tr>
   <td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
   <td>[#getCellCssStyles() getCellCssStyles]</td>
-  <td>[#onDragInit onDragInit]</td>
+  <td>[#onDragInit() onDragInit]</td>
 </tr>
 <tr>
   <td>[#explicitInitialization explicitInitialization]</td>
   <td>[#getCellEditor() getCellEditor]</td>
-  <td>[#onDragStart onDragStart]</td>
+  <td>[#onDragStart() onDragStart]</td>
 </tr>
 <tr>
   <td>[#forceFitColumns forceFitColumns]</td>
   <td>[#getCellFromEvent() getCellFromEvent]</td>
-  <td>[#onHeaderCellRendered onHeaderCellRendered]</td>
+  <td>[#onHeaderCellRendered() onHeaderCellRendered]</td>
 </tr>
 <tr>
   <td>[#forceSyncScrolling forceSyncScrolling]</td>
   <td>[#getCellFromPoint() getCellFromPoint]</td>
-  <td>[#onHeaderClick onHeaderClick]</td>
+  <td>[#onHeaderClick() onHeaderClick]</td>
 </tr>
 <tr>
   <td>[#formatterFactory formatterFactory]</td>
   <td>[#getCellNode() getCellNode]</td>
-  <td>[#onHeaderContextMenu onHeaderContextMenu]</td>
+  <td>[#onHeaderContextMenu() onHeaderContextMenu]</td>
 </tr>
 <tr>
   <td>[#fullWidthRows fullWidthRows]</td>
   <td>[#getCellNodeBox() getCellNodeBox]</td>
-  <td>[#onHeaderMouseEnter onHeaderMouseEnter]</td>
+  <td>[#onHeaderMouseEnter() onHeaderMouseEnter]</td>
 </tr>
 <tr>
   <td>[#headerRowHeight headerRowHeight]</td>
   <td>[#getChangedItems() getChangedItems *]</td>
-  <td>[#onHeaderMouseLeave onHeaderMouseLeave]</td>
+  <td>[#onHeaderMouseLeave() onHeaderMouseLeave]</td>
 </tr>
 <tr>
   <td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
   <td>[#getChanges() getChanges *]</td>
-  <td>[#onHeaderRowCellRendered onHeaderRowCellRendered]</td>
+  <td>[#onHeaderRowCellRendered() onHeaderRowCellRendered]</td>
 </tr>
 <tr>
   <td>[#multiColumnSort multiColumnSort]</td>
   <td>[#getColumnIndex() getColumnIndex]</td>
-  <td>[#onKeyDown onKeyDown]</td>
+  <td>[#onKeyDown() onKeyDown]</td>
 </tr>
 <tr>
   <td>[#multiSelect multiSelect]</td>
   <td>[#getColumns() getColumns]</td>
-  <td>[#onMouseEnter onMouseEnter]</td>
+  <td>[#onMouseEnter() onMouseEnter]</td>
 </tr>
 <tr>
   <td>[#rowHeight rowHeight]</td>
   <td>[#getData() getData]</td>
-  <td>[#onMouseLeave onMouseLeave]</td>
+  <td>[#onMouseLeave() onMouseLeave]</td>
 </tr>
 <tr>
   <td>[#rowKey rowKey]</td>
   <td>[#getDataItem() getDataItem]</td>
-  <td>[#onScroll onScroll]</td>
+  <td>[#onScroll() onScroll]</td>
 </tr>
 <tr>
   <td>[#selectedCellCssClass selectedCellCssClass]</td>
   <td>[#getDataLength() getDataLength]</td>
-  <td>[#onSelectedRowsChanged onSelectedRowsChanged]</td>
+  <td>[#onSelectedRowsChanged() onSelectedRowsChanged]</td>
 </tr>
 <tr>
   <td>[#showHeaderRow showHeaderRow]</td>
   <td>[#getEditController() getEditController]</td>
-  <td>[#onSort onSort]</td>
+  <td>[#onSort() onSort]</td>
 </tr>
 <tr>
   <td>[#showTopPanel showTopPanel]</td>
   <td>[#getEditorLock() getEditorLock]</td>
-  <td>[#onValidationError onValidationError]</td>
+  <td>[#onValidationError() onValidationError]</td>
 </tr>
 <tr>
   <td>[#topPanelHeight topPanelHeight]</td>
   <td>[#getGridPosition() getGridPosition]</td>
-  <td>[#onViewportChanged onViewportChanged]</td>
+  <td>[#onViewportChanged() onViewportChanged]</td>
 </tr>
 <tr>
   <td></td>
