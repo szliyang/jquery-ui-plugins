@@ -161,458 +161,459 @@ The following is a fairly extensive example that illustrates how to use various 
 =Grid API=
 `*` Denotes options, methods & events that are specific to the jQuery UI Plugin Grid (i.e. not part of Slick Grid). Some simply delegate to underlying Slick Grid functionality but are exposed via the jQuery plugin so they can initialized/called like any other jQuery UI plugin option/method/event.
 
-<table cellspacing="10px">
-        <tr>
-		<td><h3>[#Options Options]</h3></td>
-		<td><h3>[#Methods Methods]</h3></td>
-		<td><h3>[#Events Events]</h3></td>
-	</tr>
+<table cellspacing="10px" style="text-align:left;">
 <tr>
-	<td>[#asyncEditorLoadDelay asyncEditorLoadDelay]</td>
-	<td>[#addCellCssClass addCellCssClass *]</td>
-	<td>[#disable disable *]</td>
+  <td><h3>[#Options Options]</h3></td>
+  <td><h3>[#Methods Methods]</h3></td>
+  <td><h3>[#Events Events]</h3></td>
 </tr>
 <tr>
-	<td>[#asyncEditorLoading asyncEditorLoading]</td>
-	<td>[#addCellCssStyles addCellCssStyles]</td>
-	<td>[#enable enable *]</td>
+  <td>[#asyncEditorLoadDelay asyncEditorLoadDelay]</td>
+  <td>[#addCellCssClass() addCellCssClass *]</td>
+  <td>[#disable disable *]</td>
 </tr>
 <tr>
-	<td>[#asyncPostRenderDelay asyncPostRenderDelay]</td>
-	<td>[#autosizeColumns autosizeColumns]</td>
-	<td>[#onActiveCellChanged onActiveCellChanged]</td>
+  <td>[#asyncEditorLoading asyncEditorLoading]</td>
+  <td>[#addCellCssStyles() addCellCssStyles]</td>
+  <td>[#enable enable *]</td>
 </tr>
 <tr>
-	<td>[#autoEdit autoEdit]</td>
-	<td>[#cancelCurrentEdit cancelCurrentEdit *]</td>
-	<td>[#onActiveCellPositionChanged onActiveCellPositionChanged]</td>
+  <td>[#asyncPostRenderDelay asyncPostRenderDelay]</td>
+  <td>[#autosizeColumns() autosizeColumns]</td>
+  <td>[#onActiveCellChanged onActiveCellChanged]</td>
 </tr>
 <tr>
-	<td>[#autoHeight autoHeight]</td>
-	<td>[#canCellBeActive canCellBeActive]</td>
-	<td>[#onAddNewRow onAddNewRow]</td>
+  <td>[#autoEdit autoEdit]</td>
+  <td>[#cancelCurrentEdit() cancelCurrentEdit *]</td>
+  <td>[#onActiveCellPositionChanged onActiveCellPositionChanged]</td>
 </tr>
 <tr>
-	<td>[#calendarImage calendarImage *]</td>
-	<td>[#canCellBeSelected canCellBeSelected]</td>
-	<td>[#onBeforeCellEditorDestroy onBeforeCellEditorDestroy]</td>
+  <td>[#autoHeight autoHeight]</td>
+  <td>[#canCellBeActive() canCellBeActive]</td>
+  <td>[#onAddNewRow onAddNewRow]</td>
 </tr>
 <tr>
-	<td>[#cellFlashingCssClass cellFlashingCssClass]</td>
-	<td>[#clearCellCssClass clearCellCssClass *]</td>
-	<td>[#onBeforeDestroy onBeforeDestroy]</td>
+  <td>[#calendarImage calendarImage]</td>
+  <td>[#canCellBeSelected() canCellBeSelected]</td>
+  <td>[#onBeforeCellEditorDestroy onBeforeCellEditorDestroy]</td>
 </tr>
 <tr>
-	<td>[#columns columns]</td>
-	<td>[#clearChangedItems clearChangedItems *]</td>
-	<td>[#onBeforeEditCell onBeforeEditCell]</td>
+  <td>[#cellFlashingCssClass cellFlashingCssClass]</td>
+  <td>[#clearCellCssClass() clearCellCssClass *]</td>
+  <td>[#onBeforeDestroy onBeforeDestroy]</td>
 </tr>
 <tr>
-	<td>[#data data]</td>
-	<td>[#destroy destroy]</td>
-	<td>[#onBeforeHeaderCellDestroy onBeforeHeaderCellDestroy]</td>
+  <td>[#columns columns]</td>
+  <td>[#clearChangedItems() clearChangedItems *]</td>
+  <td>[#onBeforeEditCell onBeforeEditCell]</td>
 </tr>
 <tr>
-	<td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
-	<td>[#disable disable *]</td>
-	<td>[#onBeforeHeaderRowCellDestroy onBeforeHeaderRowCellDestroy]</td>
+  <td>[#data data]</td>
+  <td>[#destroy() destroy]</td>
+  <td>[#onBeforeHeaderCellDestroy onBeforeHeaderCellDestroy]</td>
 </tr>
 <tr>
-	<td>[#defaultColumnWidth defaultColumnWidth]</td>
-	<td>[#editActiveCell editActiveCell]</td>
-	<td>[#onCellChange onCellChange]</td>
+  <td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
+  <td>[#disable() disable *]</td>
+  <td>[#onBeforeHeaderRowCellDestroy onBeforeHeaderRowCellDestroy]</td>
 </tr>
 <tr>
-	<td>[#defaultFormatter defaultFormatter]</td>
-	<td>[#enable enable *]</td>
-	<td>[#onCellCssStylesChanged onCellCssStylesChanged]</td>
+  <td>[#defaultColumnWidth defaultColumnWidth]</td>
+  <td>[#editActiveCell() editActiveCell]</td>
+  <td>[#onCellChange onCellChange]</td>
 </tr>
 <tr>
-	<td>[#editable editable]</td>
-	<td>[#flashCell flashCell]</td>
-	<td>[#onClick onClick]</td>
+  <td>[#defaultFormatter defaultFormatter]</td>
+  <td>[#enable() enable *]</td>
+  <td>[#onCellCssStylesChanged onCellCssStylesChanged]</td>
 </tr>
 <tr>
-	<td>[#editorFactory editorFactory]</td>
-	<td>[#focus focus]</td>
-	<td>[#onColumnsReordered onColumnsReordered]</td>
+  <td>[#editable editable]</td>
+  <td>[#flashCell() flashCell]</td>
+  <td>[#onClick onClick]</td>
 </tr>
 <tr>
-	<td>[#editorLock editorLock]</td>
-	<td>[#getActiveCell getActiveCell]</td>
-	<td>[#onColumnsResized onColumnsResized]</td>
+  <td>[#editorFactory editorFactory]</td>
+  <td>[#focus() focus]</td>
+  <td>[#onColumnsReordered onColumnsReordered]</td>
 </tr>
 <tr>
-	<td>[#enableAddRow enableAddRow]</td>
-	<td>[#getActiveCellNode getActiveCellNode]</td>
-	<td>[#onContextMenu onContextMenu]</td>
+  <td>[#editorLock editorLock]</td>
+  <td>[#getActiveCell() getActiveCell]</td>
+  <td>[#onColumnsResized onColumnsResized]</td>
 </tr>
 <tr>
-	<td>[#enableAsyncPostRender enableAsyncPostRender]</td>
-	<td>[#getActiveCellPosition getActiveCellPosition]</td>
-	<td>[#onDblClick onDblClick]</td>
+  <td>[#enableAddRow enableAddRow]</td>
+  <td>[#getActiveCellNode() getActiveCellNode]</td>
+  <td>[#onContextMenu onContextMenu]</td>
 </tr>
 <tr>
-	<td>[#enableCellNavigation enableCellNavigation]</td>
-	<td>[#getCanvasNode getCanvasNode]</td>
-	<td>[#onDrag onDrag]</td>
+  <td>[#enableAsyncPostRender enableAsyncPostRender]</td>
+  <td>[#getActiveCellPosition() getActiveCellPosition]</td>
+  <td>[#onDblClick onDblClick]</td>
 </tr>
 <tr>
-	<td>[#enableColumnReorder enableColumnReorder]</td>
-	<td>[#getCellCssClass getCellCssClass *]</td>
-	<td>[#onDragEnd onDragEnd]</td>
+  <td>[#enableCellNavigation enableCellNavigation]</td>
+  <td>[#getCanvasNode() getCanvasNode]</td>
+  <td>[#onDrag onDrag]</td>
 </tr>
 <tr>
-	<td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
-	<td>[#getCellCssStyles getCellCssStyles]</td>
-	<td>[#onDragInit onDragInit]</td>
+  <td>[#enableColumnReorder enableColumnReorder]</td>
+  <td>[#getCellCssClass() getCellCssClass *]</td>
+  <td>[#onDragEnd onDragEnd]</td>
 </tr>
 <tr>
-	<td>[#explicitInitialization explicitInitialization]</td>
-	<td>[#getCellEditor getCellEditor]</td>
-	<td>[#onDragStart onDragStart]</td>
+  <td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
+  <td>[#getCellCssStyles() getCellCssStyles]</td>
+  <td>[#onDragInit onDragInit]</td>
 </tr>
 <tr>
-	<td>[#forceFitColumns forceFitColumns]</td>
-	<td>[#getCellFromEvent getCellFromEvent]</td>
-	<td>[#onHeaderCellRendered onHeaderCellRendered]</td>
+  <td>[#explicitInitialization explicitInitialization]</td>
+  <td>[#getCellEditor() getCellEditor]</td>
+  <td>[#onDragStart onDragStart]</td>
 </tr>
 <tr>
-	<td>[#forceSyncScrolling forceSyncScrolling]</td>
-	<td>[#getCellFromPoint getCellFromPoint]</td>
-	<td>[#onHeaderClick onHeaderClick]</td>
+  <td>[#forceFitColumns forceFitColumns]</td>
+  <td>[#getCellFromEvent() getCellFromEvent]</td>
+  <td>[#onHeaderCellRendered onHeaderCellRendered]</td>
 </tr>
 <tr>
-	<td>[#formatterFactory formatterFactory]</td>
-	<td>[#getCellNode getCellNode]</td>
-	<td>[#onHeaderContextMenu onHeaderContextMenu]</td>
+  <td>[#forceSyncScrolling forceSyncScrolling]</td>
+  <td>[#getCellFromPoint() getCellFromPoint]</td>
+  <td>[#onHeaderClick onHeaderClick]</td>
 </tr>
 <tr>
-	<td>[#fullWidthRows fullWidthRows]</td>
-	<td>[#getCellNodeBox getCellNodeBox]</td>
-	<td>[#onHeaderMouseEnter onHeaderMouseEnter]</td>
+  <td>[#formatterFactory formatterFactory]</td>
+  <td>[#getCellNode() getCellNode]</td>
+  <td>[#onHeaderContextMenu onHeaderContextMenu]</td>
 </tr>
 <tr>
-	<td>[#headerRowHeight headerRowHeight]</td>
-	<td>[#getChangedItems getChangedItems *]</td>
-	<td>[#onHeaderMouseLeave onHeaderMouseLeave]</td>
+  <td>[#fullWidthRows fullWidthRows]</td>
+  <td>[#getCellNodeBox() getCellNodeBox]</td>
+  <td>[#onHeaderMouseEnter onHeaderMouseEnter]</td>
 </tr>
 <tr>
-	<td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
-	<td>[#getChanges getChanges *]</td>
-	<td>[#onHeaderRowCellRendered onHeaderRowCellRendered]</td>
+  <td>[#headerRowHeight headerRowHeight]</td>
+  <td>[#getChangedItems() getChangedItems *]</td>
+  <td>[#onHeaderMouseLeave onHeaderMouseLeave]</td>
 </tr>
 <tr>
-	<td>[#multiColumnSort multiColumnSort]</td>
-	<td>[#getColumnIndex getColumnIndex]</td>
-	<td>[#onKeyDown onKeyDown]</td>
+  <td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
+  <td>[#getChanges() getChanges *]</td>
+  <td>[#onHeaderRowCellRendered onHeaderRowCellRendered]</td>
 </tr>
 <tr>
-	<td>[#multiSelect multiSelect]</td>
-	<td>[#getColumns getColumns]</td>
-	<td>[#onMouseEnter onMouseEnter]</td>
+  <td>[#multiColumnSort multiColumnSort]</td>
+  <td>[#getColumnIndex() getColumnIndex]</td>
+  <td>[#onKeyDown onKeyDown]</td>
 </tr>
 <tr>
-	<td>[#rowHeight rowHeight]</td>
-	<td>[#getData getData]</td>
-	<td>[#onMouseLeave onMouseLeave]</td>
+  <td>[#multiSelect multiSelect]</td>
+  <td>[#getColumns() getColumns]</td>
+  <td>[#onMouseEnter onMouseEnter]</td>
 </tr>
 <tr>
-	<td>[#rowKey rowKey]</td>
-	<td>[#getDataItem getDataItem]</td>
-	<td>[#onScroll onScroll]</td>
+  <td>[#rowHeight rowHeight]</td>
+  <td>[#getData() getData]</td>
+  <td>[#onMouseLeave onMouseLeave]</td>
 </tr>
 <tr>
-	<td>[#selectedCellCssClass selectedCellCssClass]</td>
-	<td>[#getDataLength getDataLength]</td>
-	<td>[#onSelectedRowsChanged onSelectedRowsChanged]</td>
+  <td>[#rowKey rowKey]</td>
+  <td>[#getDataItem() getDataItem]</td>
+  <td>[#onScroll onScroll]</td>
 </tr>
 <tr>
-	<td>[#showHeaderRow showHeaderRow]</td>
-	<td>[#getEditController getEditController]</td>
-	<td>[#onSort onSort]</td>
+  <td>[#selectedCellCssClass selectedCellCssClass]</td>
+  <td>[#getDataLength() getDataLength]</td>
+  <td>[#onSelectedRowsChanged onSelectedRowsChanged]</td>
 </tr>
 <tr>
-	<td>[#showTopPanel showTopPanel]</td>
-	<td>[#getEditorLock getEditorLock]</td>
-	<td>[#onValidationError onValidationError]</td>
+  <td>[#showHeaderRow showHeaderRow]</td>
+  <td>[#getEditController() getEditController]</td>
+  <td>[#onSort onSort]</td>
 </tr>
 <tr>
-	<td>[#topPanelHeight topPanelHeight]</td>
-	<td>[#getGridPosition getGridPosition]</td>
-	<td>[#onViewportChanged onViewportChanged]</td>
+  <td>[#showTopPanel showTopPanel]</td>
+  <td>[#getEditorLock() getEditorLock]</td>
+  <td>[#onValidationError onValidationError]</td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getHeaderRow getHeaderRow]</td>
-	<td></td>
+  <td>[#topPanelHeight topPanelHeight]</td>
+  <td>[#getGridPosition() getGridPosition]</td>
+  <td>[#onViewportChanged onViewportChanged]</td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getHeaderRowColumn getHeaderRowColumn]</td>
-	<td></td>
+  <td></td>
+  <td>[#getHeaderRow() getHeaderRow]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getItem getItem *]</td>
-	<td></td>
+  <td></td>
+  <td>[#getHeaderRowColumn() getHeaderRowColumn]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getItems getItems *]</td>
-	<td></td>
+  <td></td>
+  <td>[#getItem() getItem *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getOptions getOptions]</td>
-	<td></td>
+  <td></td>
+  <td>[#getItems() getItems *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getRenderedRange getRenderedRange]</td>
-	<td></td>
+  <td></td>
+  <td>[#getOptions() getOptions]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getSelectedRows getSelectedRows]</td>
-	<td></td>
+  <td></td>
+  <td>[#getRenderedRange() getRenderedRange]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getSelectionModel getSelectionModel]</td>
-	<td></td>
+  <td></td>
+  <td>[#getSelectedRows() getSelectedRows]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getSlickGrid getSlickGrid *]</td>
-	<td></td>
+  <td></td>
+  <td>[#getSelectionModel() getSelectionModel]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getSortColumns getSortColumns]</td>
-	<td></td>
+  <td></td>
+  <td>[#getSlickGrid() getSlickGrid *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getTopPanel getTopPanel]</td>
-	<td></td>
+  <td></td>
+  <td>[#getSortColumns() getSortColumns]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#getViewport getViewport]</td>
-	<td></td>
+  <td></td>
+  <td>[#getTopPanel() getTopPanel]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#gotoCell gotoCell]</td>
-	<td></td>
+  <td></td>
+  <td>[#getViewport() getViewport]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#init init]</td>
-	<td></td>
+  <td></td>
+  <td>[#gotoCell() gotoCell]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#invalidate invalidate]</td>
-	<td></td>
+  <td></td>
+  <td>[#init() init]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#invalidateAllRows invalidateAllRows]</td>
-	<td></td>
+  <td></td>
+  <td>[#invalidate() invalidate]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#invalidateRow invalidateRow]</td>
-	<td></td>
+  <td></td>
+  <td>[#invalidateAllRows() invalidateAllRows]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#invalidateRows invalidateRows]</td>
-	<td></td>
+  <td></td>
+  <td>[#invalidateRow() invalidateRow]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#navigateDown navigateDown]</td>
-	<td></td>
+  <td></td>
+  <td>[#invalidateRows() invalidateRows]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#navigateLeft navigateLeft]</td>
-	<td></td>
+  <td></td>
+  <td>[#navigateDown() navigateDown]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#navigateNext navigateNext]</td>
-	<td></td>
+  <td></td>
+  <td>[#navigateLeft() navigateLeft]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#navigatePrev navigatePrev]</td>
-	<td></td>
+  <td></td>
+  <td>[#navigateNext() navigateNext]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#navigateRight navigateRight]</td>
-	<td></td>
+  <td></td>
+  <td>[#navigatePrev() navigatePrev]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#navigateUp navigateUp]</td>
-	<td></td>
+  <td></td>
+  <td>[#navigateRight() navigateRight]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#registerPlugin registerPlugin]</td>
-	<td></td>
+  <td></td>
+  <td>[#navigateUp() navigateUp]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#removeCellCssClass removeCellCssClass *]</td>
-	<td></td>
+  <td></td>
+  <td>[#registerPlugin() registerPlugin]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#removeCellCssStyles removeCellCssStyles]</td>
-	<td></td>
+  <td></td>
+  <td>[#removeCellCssClass() removeCellCssClass *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#removeRowCssClass removeRowCssClass *]</td>
-	<td></td>
+  <td></td>
+  <td>[#removeCellCssStyles() removeCellCssStyles]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#render render]</td>
-	<td></td>
+  <td></td>
+  <td>[#removeRowCssClass() removeRowCssClass *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#resetActiveCell resetActiveCell]</td>
-	<td></td>
+  <td></td>
+  <td>[#render() render]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#resizeCanvas resizeCanvas]</td>
-	<td></td>
+  <td></td>
+  <td>[#resetActiveCell() resetActiveCell]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#saveCurrentEdit saveCurrentEdit *]</td>
-	<td></td>
+  <td></td>
+  <td>[#resizeCanvas() resizeCanvas]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#scrollCellIntoView scrollCellIntoView]</td>
-	<td></td>
+  <td></td>
+  <td>[#saveCurrentEdit() saveCurrentEdit *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#scrollRowIntoView scrollRowIntoView]</td>
-	<td></td>
+  <td></td>
+  <td>[#scrollCellIntoView() scrollCellIntoView]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#scrollRowToTop scrollRowToTop]</td>
-	<td></td>
+  <td></td>
+  <td>[#scrollRowIntoView() scrollRowIntoView]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setActiveCell setActiveCell]</td>
-	<td></td>
+  <td></td>
+  <td>[#scrollRowToTop() scrollRowToTop]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setCellCssClass setCellCssClass *]</td>
-	<td></td>
+  <td></td>
+  <td>[#setActiveCell() setActiveCell]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setCellCssClasses setCellCssClasses *]</td>
-	<td></td>
+  <td></td>
+  <td>[#setCellCssClass(rowKey,_columnName,_cssClass) setCellCssClass *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setCellCssStyles setCellCssStyles]</td>
-	<td></td>
+  <td></td>
+  <td>[#setCellCssClasses(cssData) setCellCssClasses *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setColumns setColumns]</td>
-	<td></td>
+  <td></td>
+  <td>[#setCellCssStyles() setCellCssStyles]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setData setData]</td>
-	<td></td>
+  <td></td>
+  <td>[#setColumns() setColumns]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setHeaderRowVisibility setHeaderRowVisibility]</td>
-	<td></td>
+  <td></td>
+  <td>[#setData() setData]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setOptions setOptions]</td>
-	<td></td>
+  <td></td>
+  <td>[#setHeaderRowVisibility() setHeaderRowVisibility]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setRowCssClass setRowCssClass *]</td>
-	<td></td>
+  <td></td>
+  <td>[#setOptions() setOptions]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setSelectedRows setSelectedRows]</td>
-	<td></td>
+  <td></td>
+  <td>[#setRowCssClass() setRowCssClass *]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setSelectionModel setSelectionModel]</td>
-	<td></td>
+  <td></td>
+  <td>[#setSelectedRows() setSelectedRows]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setSortColumn setSortColumn]</td>
-	<td></td>
+  <td></td>
+  <td>[#setSelectionModel() setSelectionModel]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setSortColumns setSortColumns]</td>
-	<td></td>
+  <td></td>
+  <td>[#setSortColumn() setSortColumn]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#setTopPanelVisibility setTopPanelVisibility]</td>
-	<td></td>
+  <td></td>
+  <td>[#setSortColumns() setSortColumns]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#unregisterPlugin unregisterPlugin]</td>
-	<td></td>
+  <td></td>
+  <td>[#setTopPanelVisibility() setTopPanelVisibility]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#updateCell updateCell]</td>
-	<td></td>
+  <td></td>
+  <td>[#unregisterPlugin() unregisterPlugin]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#updateColumnHeader updateColumnHeader]</td>
-	<td></td>
+  <td></td>
+  <td>[#updateCell() updateCell]</td>
+  <td></td>
 </tr>
 <tr>
-	<td></td>
-	<td>[#updateRow updateRow]</td>
-	<td></td>
+  <td></td>
+  <td>[#updateColumnHeader() updateColumnHeader]</td>
+  <td></td>
 </tr>
-
+<tr>
+  <td></td>
+  <td>[#updateRow() updateRow]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#updateRowCount() updateRowCount]</td>
+  <td></td>
+</tr>
 </table>
-
 ==Options==
----------------------------------------
-
 ====asyncEditorLoadDelay====
 Delay after which cell editor is loaded. Ignored unless asyncEditorLoading is true.
 
@@ -889,8 +890,6 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 ---------------------------------------
 
 ==Methods==
----------------------------------------
-
 ====addCellCssClass()====
 ---------------------------------------
 
@@ -1180,3 +1179,462 @@ Method to set CSS classes on several cells in one call. The cssData parameter is
 ---------------------------------------
 
 ====updateRowCount()====
+---------------------------------------
+
+==Events==
+====disable(event, data)====
+Triggered when the grid is disabled.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====enable(event, data)====
+Triggered when the grid is enabled
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onActiveCellChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onActiveCellPositionChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onAddNewRow(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeCellEditorDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeEditCell(eventdata)====
+Triggered before a cell is edited, return false to prevent editing.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Slick.EventData Slick.EventData]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*cell*</li>
+Type: [http://api.jquery.com/Types/#Integer Integer]
+
+The column index.
+
+<li>*column*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The column object.
+
+<li>*grid*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The slick grid object.
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The row object.
+
+<li>*row*</li>
+Type: [http://api.jquery.com/Types/#Integer Integer]
+
+The row index.
+
+</ul>
+
+</ul>
+
+---------------------------------------
+
+====onBeforeHeaderCellDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeHeaderRowCellDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onCellChange(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onCellCssStylesChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onClick(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onColumnsReordered(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onColumnsResized(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onContextMenu(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDblClick(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDrag(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDragEnd(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDragInit(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDragStart(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderCellRendered(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderClick(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderContextMenu(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderMouseEnter(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderMouseLeave(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderRowCellRendered(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onKeyDown(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onMouseEnter(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onMouseLeave(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onScroll(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onSelectedRowsChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onSort(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onValidationError(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onViewportChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+
