@@ -835,6 +835,36 @@ An object that implements a getFormatter(columnDefinition) function that returns
 
 *Default:* null
 
+*Example:*
+
+Set during initialization:
+{{{
+var myFormatterFactory = {
+  getFormatter: function(column) {
+    switch(column.field) {
+      case 'onSchedule':
+        // custom formatter shows a check mark image when onSchedule is truthy
+        return function (rowNum, cellNum, value, columnDef, row) {
+          return value ? '<img src="images/tick.png"/>' : '';
+        };
+        break;
+      case 'cost':
+        // custom formatter that puts an asertisk on values > 5000
+        return function (rowNum, cellNum, value, columnDef, row) {
+          return Number(value) > 5000 ? '*' + value : value;
+        }
+    }
+  }
+};
+
+$('#myGrid').grid({
+  data: myData,
+  columns: columns,
+  rowKey: 'name'
+  formatterFactory: myFormatterFactory
+});
+}}}
+
 ---------------------------------------
 
 ====fullWidthRows====
@@ -1159,6 +1189,23 @@ Method to set CSS classes on several cells in one call. The cssData parameter is
  Type: [http://api.jquery.com/Types/#Array Array]
 
  An array of objects identifying, by row and column, a list of classes to apply to specific cells.
+
+*Example:*
+
+{{{
+var cssClasses = [
+  {
+    rowKey: 'row1234',
+    cellClasses: {'column1': 'error', 'column3': 'warning anotherClass'}
+  },
+  {
+    rowKey: 'row4567',
+    cellClasses: {'column1': 'warning'}
+  }
+]
+
+$('#myGrid').grid('setCellCssClasses', cssClasses);
+}}}
 
 ---------------------------------------
 
@@ -1665,3 +1712,4 @@ Type: [http://api.jquery.com/Types/#Object Object]
 </ul>
 
 ---------------------------------------
+
