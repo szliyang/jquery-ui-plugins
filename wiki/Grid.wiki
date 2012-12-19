@@ -159,7 +159,7 @@ The following is a fairly extensive example that illustrates how to use various 
 }}}
 
 =Grid API=
-`*` Denotes options, methods & events that are specific to the jQuery UI Plugin Grid (i.e. not part of Slick Grid). Some simply delegate to underlying Slick Grid functionality but are exposed via the jQuery plugin so they can be initialized/called like any other jQuery UI plugin option/method/event.
+`*` Denotes options, methods & events that are specific to the jQuery UI Plugin Grid (i.e. not part of Slick Grid). Some simply delegate to underlying Slick Grid functionality but are exposed via the jQuery plugin so they can initialized/called like any other jQuery UI plugin option/method/event.
 
 <table cellspacing="10px" style="text-align:left;">
 <tr>
@@ -693,6 +693,35 @@ A custom function that can be used to modify the cell value before it's passed t
 *Type:* [http://api.jquery.com/Types/#Function Function]
 
 *Default:* null
+
+*Example:*
+
+Set during initialization:
+{{{
+var columns = [
+  {id: 'name', name: 'Name', field: 'name'},
+  {id: 'field1', name: 'Field1', field: 'values', fieldIdx: 0},
+  {id: 'field2', name: 'Field2', field: 'values', fieldIdx: 1},
+  {id: 'field3', name: 'Field3', field: 'values', fieldIdx: 2}
+];
+
+// Get the item column value using a custom 'fieldIdx' column param
+function getItemColumnValue(item, column) {
+  var values = item[column.field];
+  if (column.fieldIdx !== undefined) {
+	return values && values[column.fieldIdx];
+  } else {
+	return values;
+  }
+}
+
+$('#myGrid').grid({
+  data: myData,
+  columns: columns,
+  rowKey: 'name',
+  dataItemColumnValueExtractor: getItemColumnValue
+});
+}}}
 
 ---------------------------------------
 
