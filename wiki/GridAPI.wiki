@@ -1,0 +1,1567 @@
+=Grid API=
+`*` Denotes options, methods & events that are specific to the jQuery UI Plugin Grid (i.e. not part of Slick Grid). Some simply delegate to underlying Slick Grid functionality but are exposed via the jQuery plugin so they can initialized/called like any other jQuery UI plugin option/method/event.
+
+<table cellspacing="10px" style="text-align:left;">
+<tr>
+  <td><h3>[#Options Options]</h3></td>
+  <td><h3>[#Methods Methods]</h3></td>
+  <td><h3>[#Events Events]</h3></td>
+</tr>
+<tr>
+  <td>[#asyncEditorLoadDelay asyncEditorLoadDelay]</td>
+  <td>[#addCellCssClass() addCellCssClass *]</td>
+  <td>[#disable disable *]</td>
+</tr>
+<tr>
+  <td>[#asyncEditorLoading asyncEditorLoading]</td>
+  <td>[#addCellCssStyles() addCellCssStyles]</td>
+  <td>[#enable enable *]</td>
+</tr>
+<tr>
+  <td>[#asyncPostRenderDelay asyncPostRenderDelay]</td>
+  <td>[#autosizeColumns() autosizeColumns]</td>
+  <td>[#onActiveCellChanged onActiveCellChanged]</td>
+</tr>
+<tr>
+  <td>[#autoEdit autoEdit]</td>
+  <td>[#cancelCurrentEdit() cancelCurrentEdit *]</td>
+  <td>[#onActiveCellPositionChanged onActiveCellPositionChanged]</td>
+</tr>
+<tr>
+  <td>[#autoHeight autoHeight]</td>
+  <td>[#canCellBeActive() canCellBeActive]</td>
+  <td>[#onAddNewRow onAddNewRow]</td>
+</tr>
+<tr>
+  <td>[#calendarImage calendarImage]</td>
+  <td>[#canCellBeSelected() canCellBeSelected]</td>
+  <td>[#onBeforeCellEditorDestroy onBeforeCellEditorDestroy]</td>
+</tr>
+<tr>
+  <td>[#cellFlashingCssClass cellFlashingCssClass]</td>
+  <td>[#clearCellCssClass() clearCellCssClass *]</td>
+  <td>[#onBeforeDestroy onBeforeDestroy]</td>
+</tr>
+<tr>
+  <td>[#columns columns]</td>
+  <td>[#clearChangedItems() clearChangedItems *]</td>
+  <td>[#onBeforeEditCell onBeforeEditCell]</td>
+</tr>
+<tr>
+  <td>[#data data]</td>
+  <td>[#destroy() destroy]</td>
+  <td>[#onBeforeHeaderCellDestroy onBeforeHeaderCellDestroy]</td>
+</tr>
+<tr>
+  <td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
+  <td>[#disable() disable *]</td>
+  <td>[#onBeforeHeaderRowCellDestroy onBeforeHeaderRowCellDestroy]</td>
+</tr>
+<tr>
+  <td>[#defaultColumnWidth defaultColumnWidth]</td>
+  <td>[#editActiveCell() editActiveCell]</td>
+  <td>[#onCellChange onCellChange]</td>
+</tr>
+<tr>
+  <td>[#defaultFormatter defaultFormatter]</td>
+  <td>[#enable() enable *]</td>
+  <td>[#onCellCssStylesChanged onCellCssStylesChanged]</td>
+</tr>
+<tr>
+  <td>[#editable editable]</td>
+  <td>[#flashCell() flashCell]</td>
+  <td>[#onClick onClick]</td>
+</tr>
+<tr>
+  <td>[#editorFactory editorFactory]</td>
+  <td>[#focus() focus]</td>
+  <td>[#onColumnsReordered onColumnsReordered]</td>
+</tr>
+<tr>
+  <td>[#editorLock editorLock]</td>
+  <td>[#getActiveCell() getActiveCell]</td>
+  <td>[#onColumnsResized onColumnsResized]</td>
+</tr>
+<tr>
+  <td>[#enableAddRow enableAddRow]</td>
+  <td>[#getActiveCellNode() getActiveCellNode]</td>
+  <td>[#onContextMenu onContextMenu]</td>
+</tr>
+<tr>
+  <td>[#enableAsyncPostRender enableAsyncPostRender]</td>
+  <td>[#getActiveCellPosition() getActiveCellPosition]</td>
+  <td>[#onDblClick onDblClick]</td>
+</tr>
+<tr>
+  <td>[#enableCellNavigation enableCellNavigation]</td>
+  <td>[#getCanvasNode() getCanvasNode]</td>
+  <td>[#onDrag onDrag]</td>
+</tr>
+<tr>
+  <td>[#enableColumnReorder enableColumnReorder]</td>
+  <td>[#getCellCssClass() getCellCssClass *]</td>
+  <td>[#onDragEnd onDragEnd]</td>
+</tr>
+<tr>
+  <td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
+  <td>[#getCellCssStyles() getCellCssStyles]</td>
+  <td>[#onDragInit onDragInit]</td>
+</tr>
+<tr>
+  <td>[#explicitInitialization explicitInitialization]</td>
+  <td>[#getCellEditor() getCellEditor]</td>
+  <td>[#onDragStart onDragStart]</td>
+</tr>
+<tr>
+  <td>[#forceFitColumns forceFitColumns]</td>
+  <td>[#getCellFromEvent() getCellFromEvent]</td>
+  <td>[#onHeaderCellRendered onHeaderCellRendered]</td>
+</tr>
+<tr>
+  <td>[#forceSyncScrolling forceSyncScrolling]</td>
+  <td>[#getCellFromPoint() getCellFromPoint]</td>
+  <td>[#onHeaderClick onHeaderClick]</td>
+</tr>
+<tr>
+  <td>[#formatterFactory formatterFactory]</td>
+  <td>[#getCellNode() getCellNode]</td>
+  <td>[#onHeaderContextMenu onHeaderContextMenu]</td>
+</tr>
+<tr>
+  <td>[#fullWidthRows fullWidthRows]</td>
+  <td>[#getCellNodeBox() getCellNodeBox]</td>
+  <td>[#onHeaderMouseEnter onHeaderMouseEnter]</td>
+</tr>
+<tr>
+  <td>[#headerRowHeight headerRowHeight]</td>
+  <td>[#getChangedItems() getChangedItems *]</td>
+  <td>[#onHeaderMouseLeave onHeaderMouseLeave]</td>
+</tr>
+<tr>
+  <td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
+  <td>[#getChanges() getChanges *]</td>
+  <td>[#onHeaderRowCellRendered onHeaderRowCellRendered]</td>
+</tr>
+<tr>
+  <td>[#multiColumnSort multiColumnSort]</td>
+  <td>[#getColumnIndex() getColumnIndex]</td>
+  <td>[#onKeyDown onKeyDown]</td>
+</tr>
+<tr>
+  <td>[#multiSelect multiSelect]</td>
+  <td>[#getColumns() getColumns]</td>
+  <td>[#onMouseEnter onMouseEnter]</td>
+</tr>
+<tr>
+  <td>[#rowHeight rowHeight]</td>
+  <td>[#getData() getData]</td>
+  <td>[#onMouseLeave onMouseLeave]</td>
+</tr>
+<tr>
+  <td>[#rowKey rowKey]</td>
+  <td>[#getDataItem() getDataItem]</td>
+  <td>[#onScroll onScroll]</td>
+</tr>
+<tr>
+  <td>[#selectedCellCssClass selectedCellCssClass]</td>
+  <td>[#getDataLength() getDataLength]</td>
+  <td>[#onSelectedRowsChanged onSelectedRowsChanged]</td>
+</tr>
+<tr>
+  <td>[#showHeaderRow showHeaderRow]</td>
+  <td>[#getEditController() getEditController]</td>
+  <td>[#onSort onSort]</td>
+</tr>
+<tr>
+  <td>[#showTopPanel showTopPanel]</td>
+  <td>[#getEditorLock() getEditorLock]</td>
+  <td>[#onValidationError onValidationError]</td>
+</tr>
+<tr>
+  <td>[#topPanelHeight topPanelHeight]</td>
+  <td>[#getGridPosition() getGridPosition]</td>
+  <td>[#onViewportChanged onViewportChanged]</td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getHeaderRow() getHeaderRow]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getHeaderRowColumn() getHeaderRowColumn]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getItem() getItem *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getItems() getItems *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getOptions() getOptions]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getRenderedRange() getRenderedRange]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getSelectedRows() getSelectedRows]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getSelectionModel() getSelectionModel]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getSlickGrid() getSlickGrid *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getSortColumns() getSortColumns]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getTopPanel() getTopPanel]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getViewport() getViewport]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#gotoCell() gotoCell]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#init() init]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#invalidate() invalidate]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#invalidateAllRows() invalidateAllRows]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#invalidateRow() invalidateRow]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#invalidateRows() invalidateRows]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#navigateDown() navigateDown]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#navigateLeft() navigateLeft]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#navigateNext() navigateNext]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#navigatePrev() navigatePrev]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#navigateRight() navigateRight]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#navigateUp() navigateUp]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#registerPlugin() registerPlugin]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#removeCellCssClass() removeCellCssClass *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#removeCellCssStyles() removeCellCssStyles]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#removeRowCssClass() removeRowCssClass *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#render() render]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#resetActiveCell() resetActiveCell]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#resizeCanvas() resizeCanvas]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#saveCurrentEdit() saveCurrentEdit *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#scrollCellIntoView() scrollCellIntoView]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#scrollRowIntoView() scrollRowIntoView]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#scrollRowToTop() scrollRowToTop]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setActiveCell() setActiveCell]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setCellCssClass(rowKey,_columnName,_cssClass) setCellCssClass *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setCellCssClasses(cssData) setCellCssClasses *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setCellCssStyles() setCellCssStyles]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setColumns() setColumns]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setData() setData]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setHeaderRowVisibility() setHeaderRowVisibility]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setOptions() setOptions]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setRowCssClass() setRowCssClass *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setSelectedRows() setSelectedRows]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setSelectionModel() setSelectionModel]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setSortColumn() setSortColumn]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setSortColumns() setSortColumns]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setTopPanelVisibility() setTopPanelVisibility]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#unregisterPlugin() unregisterPlugin]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#updateCell() updateCell]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#updateColumnHeader() updateColumnHeader]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#updateRow() updateRow]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#updateRowCount() updateRowCount]</td>
+  <td></td>
+</tr>
+</table>
+==Options==
+====asyncEditorLoadDelay====
+Delay after which cell editor is loaded. Ignored unless asyncEditorLoading is true.
+
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 100
+
+---------------------------------------
+
+====asyncEditorLoading====
+Makes cell editors load asynchronously after a small delay. This greatly increases keyboard navigation speed.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====asyncPostRenderDelay====
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 50
+
+---------------------------------------
+
+====autoEdit====
+Cell will not automatically go into edit mode when selected.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* true
+
+---------------------------------------
+
+====autoHeight====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====calendarImage====
+The location of the calendar icon to be used for editable date fields and date filters.
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* http://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/calendar.png
+
+---------------------------------------
+
+====cellFlashingCssClass====
+A CSS class to apply to flashing cells via flashCell().
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* flashing
+
+---------------------------------------
+
+====columns====
+*Type:* [http://api.jquery.com/Types/#Array Array]
+
+*Default:* 
+
+---------------------------------------
+
+====data====
+*Type:* [http://api.jquery.com/Types/#Array Array]
+
+*Default:* 
+
+---------------------------------------
+
+====dataItemColumnValueExtractor====
+A custom function that can be used to modify the cell value before it's passed to the formatter. In the example below the "values" field on the row object contains an array and the custom dataItemColumnValueExtractor returns one of the values in the array based on an index field on the column so each value in the "values" field is displayed in a different column.
+
+*Type:* [http://api.jquery.com/Types/#Function Function]
+
+*Default:* null
+
+*Example:*
+
+Set during initialization:
+{{{
+var columns = [
+  {id: 'name', name: 'Name', field: 'name'},
+  {id: 'field1', name: 'Field1', field: 'values', fieldIdx: 0},
+  {id: 'field2', name: 'Field2', field: 'values', fieldIdx: 1},
+  {id: 'field3', name: 'Field3', field: 'values', fieldIdx: 2}
+];
+
+// Get the item column value using a custom 'fieldIdx' column param
+function getItemColumnValue(item, column) {
+  var values = item[column.field];
+  if (column.fieldIdx !== undefined) {
+	return values && values[column.fieldIdx];
+  } else {
+	return values;
+  }
+}
+
+$('#myGrid').grid({
+  data: myData,
+  columns: columns,
+  rowKey: 'name',
+  dataItemColumnValueExtractor: getItemColumnValue
+});
+}}}
+
+---------------------------------------
+
+====defaultColumnWidth====
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 80
+
+---------------------------------------
+
+====defaultFormatter====
+*Type:* [http://api.jquery.com/Types/#Function Function]
+
+*Default:* A function that displays the field's value as text.
+
+---------------------------------------
+
+====editable====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====editorFactory====
+An object that implements a getEditor(columnDefinition) function that returns the editor for a given column. See [https://github.com/mleibman/SlickGrid/wiki/Writing-custom-cell-editors Custom_Editors].
+
+*Type:* [http://api.jquery.com/Types/#Object Object]
+
+*Default:* null
+
+---------------------------------------
+
+====editorLock====
+A Slick.EditorLock instance to use for controlling concurrent data edits.
+
+*Type:* [http://api.jquery.com/Types/#Object Object]
+
+*Default:* Slick.GlobalEditorLock
+
+---------------------------------------
+
+====enableAddRow====
+If true, a blank row will be displayed at the bottom - typing values in that row will add a new one. Must subscribe to onAddNewRow to save values.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====enableAsyncPostRender====
+If true, async post rendering will occur and asyncPostRender delegates on columns will be called.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====enableCellNavigation====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* true
+
+---------------------------------------
+
+====enableColumnReorder====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* true
+
+---------------------------------------
+
+====enableTextSelectionOnCells====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====explicitInitialization====
+Normally SlickGrid is initialized when it's created. Use this option to defer initialization and call the init() method manually. This is useful in cases where the grid is created before the DOM element it's attached is inserted into the DOM. See [http://mleibman.github.com/SlickGrid/examples/example-explicit-initialization.html Explicit Initialization Example] for more details.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====forceFitColumns====
+Force column sizes to fit into the container (preventing horizontal scrolling). Effectively sets column width to be 1/Number of Columns which on small containers may not be desirable.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====forceSyncScrolling====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====formatterFactory====
+An object that implements a getFormatter(columnDefinition) function that returns the formatter for a given column.  
+
+*Type:* [http://api.jquery.com/Types/#Object Object]
+
+*Default:* null
+
+*Example:*
+
+Set during initialization:
+{{{
+var myFormatterFactory = {
+  getFormatter: function(column) {
+    switch(column.field) {
+      case 'onSchedule':
+        // custom formatter shows a check mark image when onSchedule is truthy
+        return function (rowNum, cellNum, value, columnDef, row) {
+          return value ? '<img src="images/tick.png"/>' : '';
+        };
+        break;
+      case 'cost':
+        // custom formatter that puts an asertisk on values > 5000
+        return function (rowNum, cellNum, value, columnDef, row) {
+          return Number(value) > 5000 ? '*' + value : value;
+        }
+    }
+  }
+};
+
+$('#myGrid').grid({
+  data: myData,
+  columns: columns,
+  rowKey: 'name'
+  formatterFactory: myFormatterFactory
+});
+}}}
+
+---------------------------------------
+
+====fullWidthRows====
+Will expand the table row divs to the full width of the container, table cell divs will remain aligned to the left.
+
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====headerRowHeight====
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 25
+
+---------------------------------------
+
+====leaveSpaceForNewRows====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====multiColumnSort====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====multiSelect====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* true
+
+---------------------------------------
+
+====rowHeight====
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 25
+
+---------------------------------------
+
+====rowKey====
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* id
+
+---------------------------------------
+
+====selectedCellCssClass====
+A CSS class to apply to cells highlighted via setHighlightedCells().
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* selected
+
+---------------------------------------
+
+====showHeaderRow====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====showTopPanel====
+*Type:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Default:* false
+
+---------------------------------------
+
+====topPanelHeight====
+*Type:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Default:* 25
+
+---------------------------------------
+
+==Methods==
+====addCellCssClass()====
+---------------------------------------
+
+====addCellCssStyles()====
+---------------------------------------
+
+====autosizeColumns()====
+---------------------------------------
+
+====cancelCurrentEdit()====
+---------------------------------------
+
+====canCellBeActive()====
+---------------------------------------
+
+====canCellBeSelected()====
+---------------------------------------
+
+====clearCellCssClass()====
+---------------------------------------
+
+====clearChangedItems()====
+---------------------------------------
+
+====destroy()====
+---------------------------------------
+
+====disable()====
+---------------------------------------
+
+====editActiveCell()====
+---------------------------------------
+
+====enable()====
+---------------------------------------
+
+====flashCell()====
+---------------------------------------
+
+====focus()====
+---------------------------------------
+
+====getActiveCell()====
+---------------------------------------
+
+====getActiveCellNode()====
+---------------------------------------
+
+====getActiveCellPosition()====
+---------------------------------------
+
+====getCanvasNode()====
+---------------------------------------
+
+====getCellCssClass()====
+---------------------------------------
+
+====getCellCssStyles()====
+---------------------------------------
+
+====getCellEditor()====
+---------------------------------------
+
+====getCellFromEvent()====
+---------------------------------------
+
+====getCellFromPoint()====
+---------------------------------------
+
+====getCellNode()====
+---------------------------------------
+
+====getCellNodeBox()====
+---------------------------------------
+
+====getChangedItems()====
+---------------------------------------
+
+====getChanges()====
+---------------------------------------
+
+====getColumnIndex()====
+---------------------------------------
+
+====getColumns()====
+---------------------------------------
+
+====getData()====
+---------------------------------------
+
+====getDataItem()====
+---------------------------------------
+
+====getDataLength()====
+---------------------------------------
+
+====getEditController()====
+---------------------------------------
+
+====getEditorLock()====
+---------------------------------------
+
+====getGridPosition()====
+---------------------------------------
+
+====getHeaderRow()====
+---------------------------------------
+
+====getHeaderRowColumn()====
+---------------------------------------
+
+====getItem()====
+---------------------------------------
+
+====getItems()====
+---------------------------------------
+
+====getOptions()====
+---------------------------------------
+
+====getRenderedRange()====
+---------------------------------------
+
+====getSelectedRows()====
+---------------------------------------
+
+====getSelectionModel()====
+---------------------------------------
+
+====getSlickGrid()====
+---------------------------------------
+
+====getSortColumns()====
+---------------------------------------
+
+====getTopPanel()====
+---------------------------------------
+
+====getViewport()====
+---------------------------------------
+
+====gotoCell()====
+---------------------------------------
+
+====init()====
+---------------------------------------
+
+====invalidate()====
+---------------------------------------
+
+====invalidateAllRows()====
+---------------------------------------
+
+====invalidateRow()====
+---------------------------------------
+
+====invalidateRows()====
+---------------------------------------
+
+====navigateDown()====
+---------------------------------------
+
+====navigateLeft()====
+---------------------------------------
+
+====navigateNext()====
+---------------------------------------
+
+====navigatePrev()====
+---------------------------------------
+
+====navigateRight()====
+---------------------------------------
+
+====navigateUp()====
+---------------------------------------
+
+====registerPlugin()====
+---------------------------------------
+
+====removeCellCssClass()====
+---------------------------------------
+
+====removeCellCssStyles()====
+---------------------------------------
+
+====removeRowCssClass()====
+---------------------------------------
+
+====render()====
+---------------------------------------
+
+====resetActiveCell()====
+---------------------------------------
+
+====resizeCanvas()====
+---------------------------------------
+
+====saveCurrentEdit()====
+---------------------------------------
+
+====scrollCellIntoView()====
+---------------------------------------
+
+====scrollRowIntoView()====
+---------------------------------------
+
+====scrollRowToTop()====
+---------------------------------------
+
+====setActiveCell()====
+---------------------------------------
+
+====setCellCssClass(rowKey, columnName, cssClass)====
+Set the css class of the cell at rowKey and columnName to cssClass, thus removing any class set on the cell previously by setCellCssClass, addCellCssClass or setCellCssClasses.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The key identifying the row the class list should be applied to.
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The name of the column the class list should be applied to.
+
+ * *cssClass*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The list of CSS classes to apply to the specified cell.
+
+---------------------------------------
+
+====setCellCssClasses(cssData)====
+Method to set CSS classes on several cells in one call. The cssData parameter is an array of objects containing, by row, a list of CSS classes to apply to columns.
+
+ * *cssData*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+ An array of objects identifying, by row and column, a list of classes to apply to specific cells.
+
+*Example:*
+
+{{{
+var cssClasses = [
+  {
+    rowKey: 'row1234',
+    cellClasses: {'column1': 'error', 'column3': 'warning anotherClass'}
+  },
+  {
+    rowKey: 'row4567',
+    cellClasses: {'column1': 'warning'}
+  }
+]
+
+$('#myGrid').grid('setCellCssClasses', cssClasses);
+}}}
+
+---------------------------------------
+
+====setCellCssStyles()====
+---------------------------------------
+
+====setColumns()====
+---------------------------------------
+
+====setData()====
+---------------------------------------
+
+====setHeaderRowVisibility()====
+---------------------------------------
+
+====setOptions()====
+---------------------------------------
+
+====setRowCssClass()====
+---------------------------------------
+
+====setSelectedRows()====
+---------------------------------------
+
+====setSelectionModel()====
+---------------------------------------
+
+====setSortColumn()====
+---------------------------------------
+
+====setSortColumns()====
+---------------------------------------
+
+====setTopPanelVisibility()====
+---------------------------------------
+
+====unregisterPlugin()====
+---------------------------------------
+
+====updateCell()====
+---------------------------------------
+
+====updateColumnHeader()====
+---------------------------------------
+
+====updateRow()====
+---------------------------------------
+
+====updateRowCount()====
+---------------------------------------
+
+==Events==
+====disable(event, data)====
+Triggered when the grid is disabled.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====enable(event, data)====
+Triggered when the grid is enabled
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onActiveCellChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onActiveCellPositionChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onAddNewRow(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeCellEditorDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeEditCell(event, data)====
+Triggered before a cell is edited, return false to prevent editing.
+
+<ul>
+<li>*event*</li>
+Type: [http://api.jquery.com/Types/#Slick.EventData Slick.EventData]
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*cell*</li>
+Type: [http://api.jquery.com/Types/#Integer Integer]
+
+The column index.
+
+<li>*column*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The column object.
+
+<li>*grid*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The slick grid object.
+
+<li>*item*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+The row object.
+
+<li>*row*</li>
+Type: [http://api.jquery.com/Types/#Integer Integer]
+
+The row index.
+
+</ul>
+
+</ul>
+
+*Example:*
+{{{
+$('#myGrid').grid({
+  data: myData,
+  columns: cols,
+  rowKey: 'id',
+  editable: true,
+  onBeforeEditCell: function(event, data) {
+    // only allow edits when the value of the price column is greater than 50
+    return data.item.price > 50;
+  }
+});
+}}}
+---------------------------------------
+
+====onBeforeHeaderCellDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onBeforeHeaderRowCellDestroy(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onCellChange(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onCellCssStylesChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onClick(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onColumnsReordered(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onColumnsResized(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onContextMenu(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDblClick(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDrag(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDragEnd(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDragInit(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onDragStart(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderCellRendered(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderClick(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderContextMenu(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderMouseEnter(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderMouseLeave(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onHeaderRowCellRendered(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onKeyDown(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onMouseEnter(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onMouseLeave(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onScroll(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onSelectedRowsChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onSort(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onValidationError(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
+
+====onViewportChanged(event, data)====
+<ul>
+<li>*event*</li>
+Type: Slick.!EventData
+
+<li>*data*</li>
+Type: [http://api.jquery.com/Types/#Object Object]
+
+</ul>
+
+---------------------------------------
