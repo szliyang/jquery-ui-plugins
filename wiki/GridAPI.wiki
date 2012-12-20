@@ -528,7 +528,7 @@ A CSS class to apply to flashing cells via flashCell().
 ---------------------------------------
 
 ====dataItemColumnValueExtractor====
-A custom function that can be used to modify the cell value before it's passed to the formatter. In the example below the "values" field on the row object contains an array and the custom dataItemColumnValueExtractor returns one of the values in the array based on an index field on the column so each value in the "values" field is displayed in a different column.
+A custom function that can be used to modify the cell value before it's passed to the formatter. In the example below the {{{values}}} field on the row object contains an array and the custom {{{dataItemColumnValueExtractor}}} returns one of the values in the array based on an index field on the column so each value in the {{{values}}} array is displayed in a different column.
 
 *Type:* [http://api.jquery.com/Types/#Function Function]
 
@@ -669,7 +669,7 @@ Force column sizes to fit into the container (preventing horizontal scrolling). 
 ---------------------------------------
 
 ====formatterFactory====
-An object that implements a getFormatter(columnDefinition) function that returns the formatter for a given column.  
+An object that implements a {{{getFormatter(columnDefinition)}}} function that returns the formatter for a given column.  
 
 *Type:* [http://api.jquery.com/Types/#Object Object]
 
@@ -790,7 +790,7 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 
 ==Methods==
 ====addCellCssClass(rowKey, columnName, cssClass)====
-Add the specified cssClass to the cell at rowKey and columnName. Note that this method only adds the specified class to the list of classes applied to the cell. To set the cell's class attribute to a new value (thus removing any classes previously set on the cell) use {{{[#setCellCssClasses(cssData) setCellCssClasses]}}}.
+Add the specified cssClass to the cell at rowKey and columnName. Note that this method only adds the specified class to the list of classes applied to the cell. To set the cell's class attribute to a new value (thus removing any classes previously set on the cell) use [#setCellCssClasses(cssData) setCellCssClasses].
 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
@@ -810,7 +810,7 @@ Add the specified cssClass to the cell at rowKey and columnName. Note that this 
 ---------------------------------------
 
 ====addCellCssStyles(key, hash)====
-A Slick grid method that adds css style to cells by row index and column name. To add CSS style by row key and column use {{{[addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass]}}}. This is the add-only sibling to {{{setCellCssStyles(key, hash)}}}. It will throw an exception if you try to set the same {{{key}}} twice without calling {{{removeCellCssStyles()}}}. Use {{{setColumnCssStyles()}}} instead if you don't want that.
+A Slick grid method that adds css style to cells by row index and column name. To add CSS style by row key and column use [#addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass]. This is the add-only sibling to {{{setCellCssStyles(key, hash)}}}. It will throw an exception if you try to set the same {{{key}}} twice without calling {{{removeCellCssStyles()}}}. Use {{{setColumnCssStyles()}}} instead if you don't want that.
 
  * *key*
  Type: [http://api.jquery.com/Types/#String String]
