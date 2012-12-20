@@ -114,17 +114,17 @@
 </tr>
 <tr>
   <td>[#forceFitColumns forceFitColumns]</td>
-  <td>[#getCellFromEvent() getCellFromEvent]</td>
+  <td>[#getCellFromEvent(event) getCellFromEvent]</td>
   <td>[#onHeaderCellRendered() onHeaderCellRendered]</td>
 </tr>
 <tr>
   <td>[#forceSyncScrolling forceSyncScrolling]</td>
-  <td>[#getCellFromPoint() getCellFromPoint]</td>
+  <td>[#getCellFromPoint(x,_y) getCellFromPoint]</td>
   <td>[#onHeaderClick() onHeaderClick]</td>
 </tr>
 <tr>
   <td>[#formatterFactory formatterFactory]</td>
-  <td>[#getCellNode() getCellNode]</td>
+  <td>[#getCellNode(rowIndex,_columnIndex) getCellNode]</td>
   <td>[#onHeaderContextMenu() onHeaderContextMenu]</td>
 </tr>
 <tr>
@@ -1085,7 +1085,7 @@ var styleHash = $('#myGrid').grid('getCellCssStyles', 'styleHashKey');
 ---------------------------------------
 
 ====getCellEditor()====
-Get the cell editor of the cell currently being edited, if any. The returned object is an editor that follows the SlickGrid editor interface outlined [https://github.com/mleibman/SlickGrid/wiki/Writing-custom-cell-editors here].
+Get the cell editor of the cell currently being edited, if any. The returned object is an editor that follows the !SlickGrid editor interface outlined [https://github.com/mleibman/SlickGrid/wiki/Writing-custom-cell-editors here].
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1097,22 +1097,106 @@ var cellEditor = $('#myGrid').grid('getCellEditor');
 
 ---------------------------------------
 
-====getCellFromEvent()====
+====getCellFromEvent(event)====
+ * *event*
+ Type: [http://api.jquery.com/Types/#Event Event]
+
+ Get the cell closest to the target of the given {{{event}}}.
+
 ---------------------------------------
 
-====getCellFromPoint()====
+====getCellFromPoint(x, y)====
+Get the cell closest to the given {{{x}}}, {{{y}}} coordinate. This method returns an object with {{{row}}} and {{{cell}}} properties identifying the row and column index of the cell closest to {{{x}}}, {{{y}}}. This method always retuns an object and appears to have some issues, especially if the point provided is outside the grid coordinates. For example, passing in 0, 0 returns {row: 0, cell: -1}. If the x coordinate is beyond the edge of the grid, the cell index predictably returns the index of the last column, however if the y coordinate is beyond the bottom edge of the grid the row index returned will be a number that is higher than the row count.
+
+ * *x*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ * *y*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('getCellFromPoint', 100, 150);
+}}}
+
 ---------------------------------------
 
-====getCellNode()====
+====getCellNode(rowIndex, columnIndex)====
+Get the DOM element of the cell at {{{rowIndex}}} and {{{columnIndex}}}.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+*Returns:* [http://api.jquery.com/Types/#Element Element]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('getCellNode', 20, 5);
+}}}
+
 ---------------------------------------
 
 ====getCellNodeBox()====
+Get the box coordinates of the cell at {{{rowIndex}}} and {{{columnIndex}}}. This method returns an object with the {{{top}}}, {{{left}}}, {{{bottom}}} and {{{right}}} properties of the cell.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('getCellNodeBox', 20, 5);
+}}}
+
 ---------------------------------------
 
 ====getChangedItems()====
+Get row objects with cells that have been edited and changed. This method only returns rows that have cells with a value that is different than their original value, that is, if a cell value has been changed and then reverted back to it's original value, the cell is not considered "changed". To clear all tracked changes and make the current state of the grid the "original" state, use [#clearChangedItems() clearChangedItems].
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var changedItems = $('#myGrid').grid('getChangedItems');
+}}}
+
 ---------------------------------------
 
 ====getChanges()====
+Get a list of changed cell values. This method returns an Array of objects with two properties, the first property is named whatever was specified as the [#rowKey rowKey] for the grid and the second property is an Array of change objects named "changes". the change objects have {{{field}}}, {{{newValue}}} and {{{oldValue}}} properties identifying what changed on each field for the row.
+
+*Returns:* [http://api.jquery.com/Types/#Array Array]
+
+*Example:*
+
+{{{
+var changes = $('#getChanges').grid('getCellNodeBox', 20, 5);
+// below is an example of what the returned changes array might look like
+[
+  {
+    employeeNumber: '1234'
+    changes: [
+      {field: 'name', newValue: 'Tom', oldValue: 'Thomas'},
+      {field: 'title', newValue: 'Sr. Developer', oldValue: 'Jr. Developer'}
+    ]
+  },
+  {
+	employeeNumber: '5678'
+    changes: [
+      {field: 'name', newValue: 'Dave', oldValue: 'Davide'}
+    ]
+  }
+]
+
+}}}
+
 ---------------------------------------
 
 ====getColumnIndex()====
