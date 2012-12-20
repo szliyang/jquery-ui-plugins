@@ -348,7 +348,15 @@
 		_initSlickMethods: function() {			
 			for(var i = 0; i < this.slickMethods.length; i++) {
 				var methodName = this.slickMethods[i];
-				this[methodName] = this.grid[methodName];
+				
+				// underlying slick grid "getData" method actually returns dataView which is a little misleading
+				// so we expose a 'dataView' method to return the dataView and getData will return the data array
+				if(methodName === 'getData') {
+					this[methodName] = function() {return this.options.data;};
+					this['getDataView'] = this.grid[methodName];
+				} else {
+					this[methodName] = this.grid[methodName];
+				}				
 			}
 		},
 		_initEventHandlers: function() {
