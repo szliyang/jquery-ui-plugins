@@ -1067,16 +1067,34 @@ var classList = $('#myGrid').grid('getCellCssClass', 'item1234', 'cost');
 ---------------------------------------
 
 ====getCellCssStyles(key)====
-Get the CSS style hash represented by {{{key}}}. See [#addCellCssStyles(key,_hash) addCellCssStyles] and [#setCellCssStyles(key,_hash) setCellCssStyles] for details.
+Get the CSS style hash represented by {{{key}}}. The object returned is a list of styles applied to cells by row index and column name. See [#addCellCssStyles(key,_hash) addCellCssStyles] and [#setCellCssStyles(key,_hash) setCellCssStyles] for details.
 
  * *key*
  Type: [http://api.jquery.com/Types/#String String]
 
  The key identifying a set of CSS styles applied using [#addCellCssStyles(key,_hash) addCellCssStyles] or [#setCellCssStyles(key,_hash) setCellCssStyles].
 
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var styleHash = $('#myGrid').grid('getCellCssStyles', 'styleHashKey');
+}}}
+
 ---------------------------------------
 
 ====getCellEditor()====
+Get the cell editor of the cell currently being edited, if any. The returned object is an editor that follows the SlickGrid editor interface outlined [https://github.com/mleibman/SlickGrid/wiki/Writing-custom-cell-editors here].
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var cellEditor = $('#myGrid').grid('getCellEditor');
+}}}
+
 ---------------------------------------
 
 ====getCellFromEvent()====
