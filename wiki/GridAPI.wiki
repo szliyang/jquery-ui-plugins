@@ -1183,14 +1183,14 @@ var changes = $('#myGrid').grid('getChanges');
 // below is an example of what the returned changes array might look like
 [
   {
-    employeeNumber: '1234'
+    employeeNumber: '1234',
     changes: [
       {field: 'name', newValue: 'Tom', oldValue: 'Thomas'},
       {field: 'title', newValue: 'Sr. Developer', oldValue: 'Jr. Developer'}
     ]
   },
   {
-    employeeNumber: '5678'
+    employeeNumber: '5678',
     changes: [
       {field: 'name', newValue: 'Dave', oldValue: 'Davide'}
     ]
