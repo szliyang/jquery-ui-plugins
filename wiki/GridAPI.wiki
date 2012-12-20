@@ -1048,7 +1048,7 @@ $('#myGrid').grid('getCanvasNode');
 ---------------------------------------
 
 ====getCellCssClass(rowKey, columnName)====
-Get the list of css classes that have been applied to the cell at {{{rowKey}}} and {{{columnName}}} via [#addCellCssClass(rowKey,_columnName) addCellCssClass], [#setCellCssClass(rowKey,_columnName) setCellCssClass] or [#setCellCssClasses(rowKey,_columnName) setCellCssClasses].
+Get the list of css classes that have been applied to the cell at {{{rowKey}}} and {{{columnName}}} via [#addCellCssClass(rowKey,_columnName,cssClass) addCellCssClass], [#setCellCssClass(rowKey,_columnName,_cssClass) setCellCssClass] or [#setCellCssClasses(rowKey,_columnName,_cssClass) setCellCssClasses].
 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
@@ -1235,12 +1235,8 @@ Set the css class of the cell at rowKey and columnName to cssClass, thus removin
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
- The key identifying the row the class list should be applied to.
-
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
-
- The name of the column the class list should be applied to.
 
  * *cssClass*
  Type: [http://api.jquery.com/Types/#String String]
