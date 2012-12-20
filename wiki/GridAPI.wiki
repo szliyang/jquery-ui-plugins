@@ -1048,7 +1048,7 @@ $('#myGrid').grid('getCanvasNode');
 ---------------------------------------
 
 ====getCellCssClass(rowKey, columnName)====
-Get the list of css classes that have been applied to the cell at {{{rowKey}}} and {{{columnName}}} via [#addCellCssClass(rowKey,_columnName,cssClass) addCellCssClass], [#setCellCssClass(rowKey,_columnName,_cssClass) setCellCssClass] or [#setCellCssClasses(rowKey,_columnName,_cssClass) setCellCssClasses].
+Get the list of css classes that have been applied to the cell at {{{rowKey}}} and {{{columnName}}} via [#addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass], [#setCellCssClass(rowKey,_columnName,_cssClass) setCellCssClass] or [#setCellCssClasses(cssData) setCellCssClasses].
 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
