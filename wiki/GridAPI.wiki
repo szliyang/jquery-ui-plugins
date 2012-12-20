@@ -29,17 +29,17 @@
 </tr>
 <tr>
   <td>[#autoHeight autoHeight]</td>
-  <td>[#canCellBeActive() canCellBeActive]</td>
+  <td>[#canCellBeActive(rowIndex,_columnIndex) canCellBeActive]</td>
   <td>[#onAddNewRow() onAddNewRow]</td>
 </tr>
 <tr>
   <td>[#calendarImage calendarImage]</td>
-  <td>[#canCellBeSelected() canCellBeSelected]</td>
+  <td>[#canCellBeSelected(rowIndex,_columnIndex) canCellBeSelected]</td>
   <td>[#onBeforeCellEditorDestroy() onBeforeCellEditorDestroy]</td>
 </tr>
 <tr>
   <td>[#cellFlashingCssClass cellFlashingCssClass]</td>
-  <td>[#clearCellCssClass() clearCellCssClass *]</td>
+  <td>[#clearCellCssClass(rowKey,_columnName) clearCellCssClass *]</td>
   <td>[#onBeforeDestroy() onBeforeDestroy]</td>
 </tr>
 <tr>
@@ -825,7 +825,7 @@ A Slick grid method that adds css style to cells by row index and column name. T
 *Example:*
 
 {{{
-$grid.grid('addCellCssStyles', 'myKey',
+$('#myGrid').grid('addCellCssStyles', 'myKey',
   {
     2: {
       title: 'error',
@@ -846,30 +846,122 @@ $grid.grid('addCellCssStyles', 'myKey',
 ---------------------------------------
 
 ====cancelCurrentEdit()====
+If there is a cell in edit mode, revert the cell's value and take it out of edit mode
+
+*Example:*
+
+{{{
+$('myGrid').grid('cancelCurrentEdit');
+}}}
+
 ---------------------------------------
 
-====canCellBeActive()====
+====canCellBeActive(rowIndex, columnIndex)====
+Returns a boolean indicating if the cell at {{{row}}} and {{{column}}} can be active.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ Row index of the cell
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ Column index of the cell
+
+*Returns:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('canCellBeSelected', 5, 3);
+}}}
+
 ---------------------------------------
 
-====canCellBeSelected()====
+====canCellBeSelected(rowIndex, columnIndex)====
+Returns a boolean indicating if the cell at {{{row}}} and {{{column}}} can be selected.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ Row index of the cell
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ Column index of the cell
+
+*Returns:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('canCellBeSelected', 5, 3);
+}}}
+
 ---------------------------------------
 
-====clearCellCssClass()====
+====clearCellCssClass(rowKey, columnName)====
+Remove all CSS classes from the cell at {{{rowKey}}} and {{{columnName}}}.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The row key of the row containing the cell.
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The name of the column containing the cell.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('clearCellCssClass', '1234', 'price');
+}}}
+
 ---------------------------------------
 
 ====clearChangedItems()====
+When the grid is editable, changes made to the data are tracked and can be retrieved using the [#getChangedItems getChangedItems] and [#getChanges getChanges] methods. Changed cells also have the ui-changed-cell class added to them so CSS style can be applied to changed cells. This method removes the ui-changed-cell class from changed cells and clears all change tracking data, making the visible data the new "original" state. 
+
+*Example:*
+
+{{{
+$('#myGrid').grid('clearChangedItems');
+}}}
+
 ---------------------------------------
 
 ====destroy()====
+Destroy the grid, removing all functionality added by the grid plug in.
+
 ---------------------------------------
 
 ====disable()====
+Disables the grid
+
+*Example:*
+
+{{{
+$('#myGrid').grid('disable');
+}}}
+
 ---------------------------------------
 
 ====editActiveCell()====
 ---------------------------------------
 
 ====enable()====
+Enables the grid
+
+*Example:*
+
+{{{
+$('#myGrid').grid('enable');
+}}}
+
 ---------------------------------------
 
 ====flashCell()====
