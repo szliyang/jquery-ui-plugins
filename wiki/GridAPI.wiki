@@ -752,6 +752,8 @@ Will expand the table row divs to the full width of the container, table cell di
 ---------------------------------------
 
 ====rowKey====
+The property on each row object that can be used to uniquely identify the row.
+
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* id
@@ -1177,7 +1179,7 @@ Get a list of changed cell values. This method returns an Array of objects with 
 *Example:*
 
 {{{
-var changes = $('#getChanges').grid('getCellNodeBox', 20, 5);
+var changes = $('#myGrid').grid('getChanges');
 // below is an example of what the returned changes array might look like
 [
   {
@@ -1188,7 +1190,7 @@ var changes = $('#getChanges').grid('getCellNodeBox', 20, 5);
     ]
   },
   {
-	employeeNumber: '5678'
+    employeeNumber: '5678'
     changes: [
       {field: 'name', newValue: 'Dave', oldValue: 'Davide'}
     ]
