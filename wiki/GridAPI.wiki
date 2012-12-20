@@ -825,16 +825,19 @@ A Slick grid method that adds css style to cells by row index and column name. T
 *Example:*
 
 {{{
-$('#myGrid').grid('setCellCssStyles', 'birthday_highlight', {
-  0: {
-    birthday: 'highlight',
-    age: 'highlight'
-  },
-  9: {
-    birthday: 'highlight',
-    age: 'highlight'
+$grid.grid('addCellCssStyles', 'myKey',
+  {
+    2: {
+      title: 'error',
+      percentComplete: 'warn'
+    },
+    9: {
+      title: 'blue warn',
+      start: 'error'
+    }
   }
-});
+);
+
 }}}
 
 ---------------------------------------
