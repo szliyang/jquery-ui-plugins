@@ -104,7 +104,7 @@
 </tr>
 <tr>
   <td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
-  <td>[#getCellCssStyles() getCellCssStyles]</td>
+  <td>[#getCellCssStyles(key) getCellCssStyles]</td>
   <td>[#onDragInit() onDragInit]</td>
 </tr>
 <tr>
@@ -795,12 +795,8 @@ Add the specified cssClass to the cell at rowKey and columnName. Note that this 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
- The key identifying the row the class list should be applied to.
-
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
-
- The name of the column the class list should be applied to.
 
  * *cssClass*
  Type: [http://api.jquery.com/Types/#String String]
@@ -862,12 +858,8 @@ Returns a boolean indicating if the cell at {{{row}}} and {{{column}}} can be ac
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
- Row index of the cell
-
  * *columnIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
-
- Column index of the cell
 
 *Returns:* [http://api.jquery.com/Types/#Boolean Boolean]
 
@@ -885,12 +877,8 @@ Returns a boolean indicating if the cell at {{{row}}} and {{{column}}} can be se
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
- Row index of the cell
-
  * *columnIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
-
- Column index of the cell
 
 *Returns:* [http://api.jquery.com/Types/#Boolean Boolean]
 
@@ -908,12 +896,8 @@ Remove all CSS classes from the cell at {{{rowKey}}} and {{{columnName}}}.
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
- The row key of the row containing the cell.
-
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
-
- The name of the column containing the cell.
 
 *Example:*
 
@@ -984,17 +968,13 @@ Apply and remove [#cellFlashingCssClass cellFlashingCssClass] on the cell at {{{
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
- The row index of the cell.
-
  * *columnIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
-
- The column index of the cell.
 
  * *speed*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
- The speed, in milliseconds
+ The speed at which to toggle [#cellFlashingCssClass cellFlashingCssClass] in milliseconds
 
 *Example:*
 
@@ -1068,17 +1048,13 @@ $('#myGrid').grid('getCanvasNode');
 ---------------------------------------
 
 ====getCellCssClass(rowKey, columnName)====
-Get the list of css classes that have been applied to the cell at {{{rowKey}}} and {{{columnName}}} via [#addCellCssClass addCellCssClass], [#setCellCssClass setCellCssClass] or [#setCellCssClasses setCellCssClasses].
+Get the list of css classes that have been applied to the cell at {{{rowKey}}} and {{{columnName}}} via [#addCellCssClass(rowKey,_columnName) addCellCssClass], [#setCellCssClass(rowKey,_columnName) setCellCssClass] or [#setCellCssClasses(rowKey,_columnName) setCellCssClasses].
 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
- The row key of the cell.
-
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
-
- The column name of the cell.
 
 *Returns:* [http://api.jquery.com/Types/#String String]
 
@@ -1090,7 +1066,14 @@ var classList = $('#myGrid').grid('getCellCssClass', 'item1234', 'cost');
 
 ---------------------------------------
 
-====getCellCssStyles()====
+====getCellCssStyles(key)====
+Get the CSS style hash represented by {{{key}}}. See [#addCellCssStyles(key,_hash) addCellCssStyles] and [#setCellCssStyles(key,_hash) setCellCssStyles] for details.
+
+ * *key*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ The key identifying a set of CSS styles applied using [#addCellCssStyles(key,_hash) addCellCssStyles] or [#setCellCssStyles(key,_hash) setCellCssStyles].
+
 ---------------------------------------
 
 ====getCellEditor()====
