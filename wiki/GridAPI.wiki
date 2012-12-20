@@ -846,7 +846,7 @@ $('#myGrid').grid('addCellCssStyles', 'myKey',
 ---------------------------------------
 
 ====cancelCurrentEdit()====
-If there is a cell in edit mode, revert the cell's value and take it out of edit mode
+If there is a cell in edit mode, revert the cell's value and take it out of edit mode.
 
 *Example:*
 
@@ -937,6 +937,12 @@ $('#myGrid').grid('clearChangedItems');
 ====destroy()====
 Destroy the grid, removing all functionality added by the grid plug in.
 
+*Example:*
+
+{{{
+$('#myGrid').grid('destroy');
+}}}
+
 ---------------------------------------
 
 ====disable()====
@@ -951,6 +957,14 @@ $('#myGrid').grid('disable');
 ---------------------------------------
 
 ====editActiveCell()====
+Put the currently active cell (the one that has focus) into edit mode. This method is really only useful when the [#autoEdit autoEdit] property is set to false, when [#autoEdit autoEdit] is true, cells automatically go into edit mode when they are clicked on.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('editActiveCell');
+}}}
+
 ---------------------------------------
 
 ====enable()====
