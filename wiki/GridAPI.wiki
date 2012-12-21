@@ -324,7 +324,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#removeRowCssClass() removeRowCssClass *]</td>
+  <td>[#removeRowCssClass(rowKey,_cssClass) removeRowCssClass *]</td>
   <td></td>
 </tr>
 <tr>
@@ -349,22 +349,22 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#scrollCellIntoView() scrollCellIntoView]</td>
+  <td>[#scrollCellIntoView(rowIndex,_columnIndex) scrollCellIntoView]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#scrollRowIntoView() scrollRowIntoView]</td>
+  <td>[#scrollRowIntoView(rowIndex,_doPaging) scrollRowIntoView]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#scrollRowToTop() scrollRowToTop]</td>
+  <td>[#scrollRowToTop(rowIndex) scrollRowToTop]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#setActiveCell() setActiveCell]</td>
+  <td>[#setActiveCell(rowIndex,_columnIndex) setActiveCell]</td>
   <td></td>
 </tr>
 <tr>
@@ -1734,31 +1734,109 @@ $('#myGrid').grid('removeCellCssStyles', 'myStyleKey');
 
 ---------------------------------------
 
-====removeRowCssClass()====
+====removeRowCssClass(rowKey, cssClass)====
+Remove {{{cssClass}}} from the row identified by {{{rowKey}}}.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ * *cssClass*
+ Type: [http://api.jquery.com/Types/#String String]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('removeRowCssClass', 'row1234', 'error');
+}}}
+
 ---------------------------------------
 
 ====render()====
+Render the grid.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('render');
+}}}
+
 ---------------------------------------
 
 ====resetActiveCell()====
+Reset the active cell, removing focus from it.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('resetActiveCell');
+}}}
+
 ---------------------------------------
 
 ====resizeCanvas()====
+Re-calculate the size of the grid and re-render it. This is useful, for example, when the DOM element the grid is attached to has been re-sized to be taller and you want the grid to fill the the entire element.
+
+*Example:*
+
+{{{
+// make the grid element taller and call resize to make it fill the entire space
+var $grid = $('#myGrid');
+$grid.height('700px');
+$grid.grid('resizeCanvas');
+}}}
+
 ---------------------------------------
 
 ====saveCurrentEdit()====
+If there is a cell in edit mode, save the current cell value and take the cell out of edit mode.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('saveCurrentEdit');
+}}}
+
 ---------------------------------------
 
-====scrollCellIntoView()====
+====scrollCellIntoView(rowIndex, columnIndex)====
+Scroll the cell at {{{rowIndex}}} and {{{columnIndex}}} into view. This method is a little misleading in that despite the fact it takes a {{{rowIndex}}} parameter, it only scrolls horizontally to show the cell if it's not in view. To scroll to a row that's not in view, use [#scrollRowIntoView(rowIndex,_doPaging) scrollRowIntoView].
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
 ---------------------------------------
 
-====scrollRowIntoView()====
+====scrollRowIntoView(rowIndex, doPaging)====
+Scroll the row at {{{rowIndex}}} into view. If {{{doPaging}}} is true, the grid will scroll until the row specified is the top visible row, otherwise it will scroll until the row the bottom visible row.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ * *doPaging*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
 ---------------------------------------
 
-====scrollRowToTop()====
+====scrollRowToTop(rowIndex)====
+Scroll the row at {{{rowIndex}}} to be the top visible row.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
 ---------------------------------------
 
-====setActiveCell()====
+====setActiveCell(rowIndex, columnIndex)====
+Set the active cell to the cell at {{{rowInidex}}} and {{{columnIndex}}}.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
 ---------------------------------------
 
 ====setCellCssClass(rowKey, columnName, cssClass)====
