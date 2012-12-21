@@ -5,6 +5,23 @@ A jQuery UI grid widget that wraps the extremely scalable [https://github.com/ml
 exposes options, methods and events to make accomplishing common tasks such as sorting, filtering and in-line editing simple 
 using familiar jQuery UI syntax.
 
+=Dependencies=
+Various features of this plugin rely on other libraries in order to work. For convenience, the download includes a jquery-ui-plugins.js file that bundles all of the plugins and their dependencies together. However, using this file may result in namespace collisions if your project is already using a different version of one of the included dependencies. In that case, you'll have to resolve the issue of which dependencies/versions to include, keeping in mind that using a version other than the one included with the download may cause issues. The following is a list of libraries used by the grid, including the version used in testing.
+
+ * [http://code.jquery.com/jquery-1.7.1.js jquery-1.7.1.js]
+ * [http://code.jquery.com/ui/1.8.16/jquery-ui.js jquery-ui.js-1.8.16]
+ * jquery.event.drag-2.0.js - Included in download, used in column re-ordering.
+ * jquery.event.drop-2.0.js - Included in download used in column re-ordering.
+ * [http://code.google.com/p/datejs/downloads/list date.js] - Included in download, used for sorting, filtering and editing on date columns.
+ * slick.core.js - Version 2.1 core !SlickGrid classes, included in download.
+ * slick.grid.js - Version 2.1 !SlickGrid classes, included in download.
+ * slick.dataview.js - Version 2.1 !SlickGrid data view classes, included in download. 
+ * slick.rowselectionmodel.js - Version 2.1 !SlickGrid row selection model implementation, used in row selection.
+ * slick.cellselectionmodel.js - Version 2.1 !SlickGrid cell selection model implementation, used in cell selection.
+ * slick.cellrangeselector.js - Version 2.1 !SlickGrid cell selection model implementation, used in cell selection.
+ * slick.cellrangedecorator.js - Version 2.1 !SlickGrid cell selection model implementation, used in cell selection.
+ * jquery-ui-plugins-textinput.js - Included in download, used in filtering and editing numeric fields.
+
 =Example=
 The following is a fairly extensive example that illustrates how to use various features of the grid. For a complete list of options, methods and events provided see the *[GridAPI Grid API documentation]*.
 <img src="https://jquery-ui-plugins.googlecode.com/svn/trunk/examples/images/grid.png">
