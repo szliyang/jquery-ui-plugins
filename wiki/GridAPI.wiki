@@ -1916,7 +1916,7 @@ $('#myGrid').grid('setCellCssStyles', 'myKey',
 ---------------------------------------
 
 ====setColumns(columns)====
-Set the grid columns to the [#GridColumnConfiguration column definitions] in {{{columns}}}.
+Set the grid columns to the [GridColumnConfiguration column definitions] in {{{columns}}}.
 
  * *columns*
  Type: [http://api.jquery.com/Types/#Array Array]
