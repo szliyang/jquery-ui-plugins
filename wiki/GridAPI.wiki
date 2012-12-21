@@ -1444,7 +1444,7 @@ var renderedRange = $('#myGrid').grid('getRenderedRange');
 ---------------------------------------
 
 ====getSelectedRows()====
-Get the list of currently selected row. This method returns an Array containing the row indices of the currently selected rows. For more information on row selection see the [#selectionModel selectionModel], attribute and the [https://github.com/mleibman/SlickGrid/wiki/Handling-selection SlickGrid documentation on selection].
+Get the list of currently selected rows. This method returns an Array containing the row indices of the currently selected rows. For more information on row selection see the [#selectionModel selectionModel] attribute and the [https://github.com/mleibman/SlickGrid/wiki/Handling-selection SlickGrid documentation on selection].
 
 *Returns:* [http://api.jquery.com/Types/#Array Array]
 
@@ -1457,10 +1457,28 @@ var selectedRows = $('#myGrid').grid('getSelectedRows');
 ---------------------------------------
 
 ====getSelectionModel()====
+Get the selection model object used by the grid to manage row/cell selection. The return value is a selection model object following the interface defined [https://github.com/mleibman/SlickGrid/wiki/Handling-selection here].
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var selectionModel = $('#myGrid').grid('getSelectionModel');
+}}}
+
 ---------------------------------------
 
 ====getSlickGrid()====
 Get the underlying !SlickGrid object backing the grid.
+
+*Returns:* [http://api.jquery.com/Types/#Slick.Grid Slick.Grid]
+
+*Example:*
+
+{{{
+var slickGrid = $('#myGrid').grid('getSlickGrid');
+}}}
 
 ---------------------------------------
 
