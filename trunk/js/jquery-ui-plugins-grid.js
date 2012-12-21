@@ -133,7 +133,7 @@
 			this.options.editDisabled = this.options.editable;
 			this._initColumns();
 			opts.showHeaderRow = this.filters ? true : false;			
-			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
+			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);			
 			this.options = grid.getOptions();
 			
 			if(this.filters) {
@@ -143,7 +143,7 @@
 			
 			this._initSlickMethods();
 			this._initEventHandlers();
-			
+			this._initSelectionModel();
 			grid.onSort.subscribe(function(e, args) {
 	            sortCol = args.sortCol;
 	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);	            
@@ -368,6 +368,24 @@
 			if(this.hasCheckboxes) {
 				this._bindCheckboxHandler();
 			}			
+		},
+		_initSelectionModel: function() {
+			var selectionModel = this.options.selectionModel;
+			
+			if(selectionModel) {
+				if(typeof selectionModel === 'string') {
+					switch(selectionModel) {
+						case 'row':
+							selectionModel = new Slick.RowSelectionModel({selectActiveRow: this.options.selectActiveRow});
+							break;
+						case 'cell':
+							selectionModel = new Slick.CellSelectionModel({selectActiveCell: this.options.selectActiveCell});
+							break;
+					}
+				}
+				
+				this.grid.setSelectionModel(selectionModel);
+			}
 		},
 		_bindCheckboxHandler: function() {
 			var self = this;
