@@ -1721,7 +1721,7 @@ $('#myGrid').grid('removeCellCssClass', 'error');
 ---------------------------------------
 
 ====removeCellCssStyles(key)====
-Remove the set of CSS styles identified by the {{{key}}} parameter. The {{{key}}} parameter indicates a set of styles applied using a row index and column name hash set using [#addCellCssStyles(key,_hash) or [#setCellCssStyles(key,_hash)], see those methods details on how the style hash works.
+Remove the set of CSS styles identified by the {{{key}}} parameter. The {{{key}}} parameter identifies a hash of CSS styles by row index and column name that were applied using  [#addCellCssStyles(key,_hash) addCellCssStyles] or [#setCellCssStyles(key,_hash) setCellCssStyles], see those methods details on how the style hash works.
 
  * *key*
  Type: [http://api.jquery.com/Types/#String String]
