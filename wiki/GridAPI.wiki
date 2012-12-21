@@ -1576,6 +1576,12 @@ Invalidate the row at {{{rowIndex}}} causing it to be re-rendered.
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
+*Example:*
+
+{{{
+$('#myGrid').grid('invalidateRow', 5);
+}}}
+
 ---------------------------------------
 
 ====invalidateRows(rowIndicies)====
@@ -1586,24 +1592,96 @@ Invalidate all rows identified by the {{{rowIndicies}}} array, causing them to b
 
  An integer array of row indicies identifying which rows to invalidate.
 
+*Example:*
+
+{{{
+$('#myGrid').grid('invalidateRows', [5, 7, 9]);
+}}}
+
 ---------------------------------------
 
 ====navigateDown()====
+Move focus to the cell below the currently active cell. If the active cell is in the bottom row, focus is not moved.
+
+*Example:*
+
+{{{
+// move focus down one cell and put the active cell into edit mode
+var $grid = $('#myGrid');
+$grid.grid('navigateDown'));
+$grid.grid('editActiveCell');
+}}}
+
 ---------------------------------------
 
 ====navigateLeft()====
+Move focus to the cell to the left of the currently active cell. If the active cell is in the leftmost column, focus is not moved.
+
+*Example:*
+
+{{{
+// move focus to the left one cell and put the active cell into edit mode
+var $grid = $('#myGrid');
+$grid.grid('navigateLeft'));
+$grid.grid('editActiveCell');
+}}}
+
 ---------------------------------------
 
 ====navigateNext()====
+Move focus from the currently active cell to the "next" cell. The "next" cell is the cell to the right of the active cell or if the active cell is in the rightmost column, the "next" cell is the first cell in the next down. If the active cell is the rightmost cell in the bottom row, focus is not moved.
+
+*Example:*
+
+{{{
+// move focus to the next cell and put the active cell into edit mode
+var $grid = $('#myGrid');
+$grid.grid('navigateNext'));
+$grid.grid('editActiveCell');
+}}}
+
 ---------------------------------------
 
 ====navigatePrev()====
+Move focus from the currently active cell to the "previous" cell. The "previous" cell is the cell to the left of the active cell or if the active cell is in the leftmost column, the "previous" cell is the last cell in the previous row. If the active cell is the leftmost cell in the first row, focus is not moved.
+
+*Example:*
+
+{{{
+// move focus to the previous cell and put the active cell into edit mode
+var $grid = $('#myGrid');
+$grid.grid('navigatePrev'));
+$grid.grid('editActiveCell');
+}}}
+
 ---------------------------------------
 
 ====navigateRight()====
+Move focus to the cell to the right of the currently active cell. If the active cell is in the rightmost column, focus is not moved.
+
+*Example:*
+
+{{{
+// move focus to the right one cell and put the active cell into edit mode
+var $grid = $('#myGrid');
+$grid.grid('navigateRight'));
+$grid.grid('editActiveCell');
+}}}
+
 ---------------------------------------
 
 ====navigateUp()====
+Move focus to the cell above the currently active cell. If the active cell is in the top row, focus is not moved.
+
+*Example:*
+
+{{{
+// move focus up one cell and put the active cell into edit mode
+var $grid = $('#myGrid');
+$grid.grid('navigateUp'));
+$grid.grid('editActiveCell');
+}}}
+
 ---------------------------------------
 
 ====registerPlugin()====
