@@ -1272,7 +1272,7 @@ Get the number of rows in the grid.
 *Example:*
 
 {{{
-$('#myGrid').grid('getDataLength');
+var rowCount = $('#myGrid').grid('getDataLength');
 }}}
 
 ---------------------------------------
@@ -1291,6 +1291,16 @@ var dataView = $('#myGrid').grid('getDataView');
 ---------------------------------------
 
 ====getEditController()====
+Get the underlying !SlickGrid's edit controller, which is an object that implements {{{cancelCurrentEdit}}} and {{{commitCurrentEdit}}} methods that are used to manage cell editing state. Interactions with the edit controller should not be done directly, they should go through an {{{!EditorLock}}} which ensures there can only be one active edit controller at a time. For cancelling and saving edits, use [#cancelCurrentEdit() cancelCurrentEdit] and [#saveCurrentEdit() saveCurrentEdit].
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var editController = $('#myGrid').grid('getEditController');
+}}}
+
 ---------------------------------------
 
 ====getEditorLock()====
