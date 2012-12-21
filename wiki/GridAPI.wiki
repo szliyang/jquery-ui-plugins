@@ -1483,12 +1483,42 @@ var slickGrid = $('#myGrid').grid('getSlickGrid');
 ---------------------------------------
 
 ====getSortColumns()====
+Get the list of columns that the grid is currently sorted by. This method returns an array of objects containing {{{columnId}}} and {{{sortAsc}}} properties.
+
+*Returns:* [http://api.jquery.com/Types/#Array Array]
+
+*Example:*
+
+{{{
+var sortColumns = $('#myGrid').grid('getSortColumns');
+}}}
+
 ---------------------------------------
 
 ====getTopPanel()====
+Get the top panel DOM element created by !SlickGrid. This is a large div that is below the grid (in terms of z-index) and is used to apply jQuery UI styles to the grid.
+
+*Returns:* [http://api.jquery.com/Types/#Element Element]
+
+*Example:*
+
+{{{
+var topPanelElement = $('#myGrid').grid('getTopPanel');
+}}}
+
 ---------------------------------------
 
 ====getViewport()====
+Get the current dimensions of the viewport. This method returns an object with {{{top}}}, {{{bottom}}}, {{{leftPx}}} and {{{rightPx}}} properties.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var viewport = $('#myGrid').grid('getViewport');
+}}}
+
 ---------------------------------------
 
 ====gotoCell()====
