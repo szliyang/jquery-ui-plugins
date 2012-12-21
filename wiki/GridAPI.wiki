@@ -309,7 +309,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#registerPlugin() registerPlugin]</td>
+  <td>[#registerPlugin(plugin) registerPlugin]</td>
   <td></td>
 </tr>
 <tr>
@@ -1684,7 +1684,20 @@ $grid.grid('editActiveCell');
 
 ---------------------------------------
 
-====registerPlugin()====
+====registerPlugin(plugin)====
+Used to register a plugin with !SlickGrid. A !SlickGrid plugin is simply an object that must implement {{{init}}} and a {{{destroy}}} methods. Calling {{{registerPlugin}}} adds the plugin in to the the !SlickGrid's list of plugins and calls it's {{{init}}} method. The destroy method is called by !SlickGrid when the grid's destroy method is called. For some good examples see the [https://github.com/mleibman/SlickGrid/tree/master/plugins !SlickGrid plugins source code].
+
+ * *plugin*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+ A plugin object that implements {{{init}}} and destroy methods.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('registerPlugin', myPlugin);
+}}}
+
 ---------------------------------------
 
 ====removeCellCssClass()====
