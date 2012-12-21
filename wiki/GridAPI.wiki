@@ -601,7 +601,7 @@ An object that implements a getEditor(columnDefinition) function that returns th
 ---------------------------------------
 
 ====editorLock====
-A !Slick.EditorLock instance to use for controlling concurrent data edits.
+A Slick.!EditorLock instance to use for controlling concurrent data edits.
 
 *Type:* [http://api.jquery.com/Types/#Object Object]
 
