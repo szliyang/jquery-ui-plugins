@@ -4,6 +4,7 @@
     * [Combobox#Example Example]
   * [Grid]
     * [GridAPI API]
+    * [GridColumnConfiguration Column Configuration]
     * [Grid#Example Example]
   * [Groupbox]
     * [Groupbox#Groupbox_API API]
