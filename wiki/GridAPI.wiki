@@ -605,7 +605,7 @@ A !Slick.EditorLock instance to use for controlling concurrent data edits.
 
 *Type:* [http://api.jquery.com/Types/#Object Object]
 
-*Default:* !Slick.GlobalEditorLock
+*Default:* Slick.!GlobalEditorLock
 
 ---------------------------------------
 
