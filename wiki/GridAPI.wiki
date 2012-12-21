@@ -168,22 +168,22 @@
   <td>[#onSelectedRowsChanged() onSelectedRowsChanged]</td>
 </tr>
 <tr>
-  <td>[#showHeaderRow showHeaderRow]</td>
+  <td>[#selectionModel selectionModel]</td>
   <td>[#getDataView() getDataView *]</td>
   <td>[#onSort() onSort]</td>
 </tr>
 <tr>
-  <td>[#showTopPanel showTopPanel]</td>
+  <td>[#showHeaderRow showHeaderRow]</td>
   <td>[#getEditController() getEditController]</td>
   <td>[#onValidationError() onValidationError]</td>
 </tr>
 <tr>
-  <td>[#topPanelHeight topPanelHeight]</td>
+  <td>[#showTopPanel showTopPanel]</td>
   <td>[#getEditorLock() getEditorLock]</td>
   <td>[#onViewportChanged() onViewportChanged]</td>
 </tr>
 <tr>
-  <td></td>
+  <td>[#topPanelHeight topPanelHeight]</td>
   <td>[#getGridPosition() getGridPosition]</td>
   <td></td>
 </tr>
@@ -601,11 +601,11 @@ An object that implements a getEditor(columnDefinition) function that returns th
 ---------------------------------------
 
 ====editorLock====
-A Slick.EditorLock instance to use for controlling concurrent data edits.
+A !Slick.EditorLock instance to use for controlling concurrent data edits.
 
 *Type:* [http://api.jquery.com/Types/#Object Object]
 
-*Default:* Slick.GlobalEditorLock
+*Default:* !Slick.GlobalEditorLock
 
 ---------------------------------------
 
@@ -771,6 +771,15 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* selected
+
+---------------------------------------
+
+====selectionModel====
+A string or object identifying the type of selection used by the grid. To use a string value of either "row" or "cell" to specify the built-in RowSelectionModel or CellSelectionModel. To use a customselection model pass an object that implements the SelectionModel interface as defined [https://github.com/mleibman/SlickGrid/wiki/Handling-selection here].
+
+*Type:* [http://api.jquery.com/Types/#String String]
+
+*Default:* null
 
 ---------------------------------------
 
@@ -1029,7 +1038,7 @@ $('#myGrid').grid('getActiveCellNode');
 ---------------------------------------
 
 ====getActiveCellPosition()====
-Get the position coordinates of the active cell, i.e. the one that currently has focus. This method returns an object with the bottom, height, left, right, top, visible and width properties of the active cell's DOM element. Please note that in the version of SlickGrid currently used by this plug in, this method will throw an exception if it is called when there is no active cell.
+Get the position coordinates of the active cell, i.e. the one that currently has focus. This method returns an object with the bottom, height, left, right, top, visible and width properties of the active cell's DOM element. Please note that in the version of !SlickGrid currently used by this plug in, this method will throw an exception if it is called when there is no active cell.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1404,6 +1413,16 @@ var options = $('#myGrid').grid('getOptions');
 ---------------------------------------
 
 ====getRenderedRange()====
+This method is used internally by !SlickGrid during rendering to get the portion of the grid that should be visible in the viewport. It returns a range object with {{{top}}}, {{{bottom}}}, {{{leftPx}}} and {{{rightPx}}} properties defining the range that needs to be visible so the grid can determine what rows and cells need to be rendered and what ones can be removed.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var renderedRange = $('#myGrid').grid('getRenderedRange');
+}}}
+
 ---------------------------------------
 
 ====getSelectedRows()====
