@@ -350,7 +350,7 @@
 				var methodName = this.slickMethods[i];
 				
 				// underlying slick grid "getData" method actually returns dataView which is a little misleading
-				// so we expose a 'dataView' method to return the dataView and getData will return the data array
+				// so we expose a 'getDataView' method to return the dataView and getData will return the data array
 				if(methodName === 'getData') {
 					this[methodName] = function() {return this.options.data;};
 					this['getDataView'] = this.grid[methodName];
