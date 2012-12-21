@@ -519,6 +519,8 @@ A CSS class to apply to flashing cells via flashCell().
 ---------------------------------------
 
 ====columns====
+An array of [GridColumnConfiguration column definition objects] used to configure the grid columns.
+
 *Type:* [http://api.jquery.com/Types/#Array Array]
 
 *Default:* 
@@ -1921,7 +1923,7 @@ Set the grid columns to the [GridColumnConfiguration column definitions] in {{{c
  * *columns*
  Type: [http://api.jquery.com/Types/#Array Array]
 
- An array of [#GridColumnConfiguration column definitions objects].
+ An array of [GridColumnConfiguration column definitions objects].
 
 *Example:*
 
