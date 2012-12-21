@@ -384,7 +384,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setColumns() setColumns]</td>
+  <td>[#setColumns(columns) setColumns]</td>
   <td></td>
 </tr>
 <tr>
@@ -1915,7 +1915,20 @@ $('#myGrid').grid('setCellCssStyles', 'myKey',
 
 ---------------------------------------
 
-====setColumns()====
+====setColumns(columns)====
+Set the grid columns to the [#GridColumnConfiguration column definitions] in {{{columns}}}.
+
+ * *columns*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+ An array of [#GridColumnConfiguration column definitions objects].
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setColumns', newCols);
+}}}
+
 ---------------------------------------
 
 ====setData()====
