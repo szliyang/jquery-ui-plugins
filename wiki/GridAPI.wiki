@@ -144,7 +144,7 @@
 </tr>
 <tr>
   <td>[#multiColumnSort multiColumnSort]</td>
-  <td>[#getColumnIndex() getColumnIndex]</td>
+  <td>[#getColumnIndex(columnName) getColumnIndex]</td>
   <td>[#onKeyDown() onKeyDown]</td>
 </tr>
 <tr>
@@ -154,12 +154,12 @@
 </tr>
 <tr>
   <td>[#rowHeight rowHeight]</td>
-  <td>[#getData() getData]</td>
+  <td>[#getData() getData *]</td>
   <td>[#onMouseLeave() onMouseLeave]</td>
 </tr>
 <tr>
   <td>[#rowKey rowKey]</td>
-  <td>[#getDataItem() getDataItem]</td>
+  <td>[#getDataItem(rowIndex) getDataItem]</td>
   <td>[#onScroll() onScroll]</td>
 </tr>
 <tr>
@@ -169,18 +169,23 @@
 </tr>
 <tr>
   <td>[#showHeaderRow showHeaderRow]</td>
-  <td>[#getEditController() getEditController]</td>
+  <td>[#getDataView() getDataView *]</td>
   <td>[#onSort() onSort]</td>
 </tr>
 <tr>
   <td>[#showTopPanel showTopPanel]</td>
-  <td>[#getEditorLock() getEditorLock]</td>
+  <td>[#getEditController() getEditController]</td>
   <td>[#onValidationError() onValidationError]</td>
 </tr>
 <tr>
   <td>[#topPanelHeight topPanelHeight]</td>
-  <td>[#getGridPosition() getGridPosition]</td>
+  <td>[#getEditorLock() getEditorLock]</td>
   <td>[#onViewportChanged() onViewportChanged]</td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#getGridPosition() getGridPosition]</td>
+  <td></td>
 </tr>
 <tr>
   <td></td>
@@ -1192,7 +1197,7 @@ var changes = $('#myGrid').grid('getChanges');
   {
     employeeNumber: '5678',
     changes: [
-      {field: 'name', newValue: 'Dave', oldValue: 'Davide'}
+      {field: 'name', newValue: 'Dave', oldValue: 'David'}
     ]
   }
 ]
@@ -1201,19 +1206,88 @@ var changes = $('#myGrid').grid('getChanges');
 
 ---------------------------------------
 
-====getColumnIndex()====
+====getColumnIndex(columnName)====
+Get the column index of {{{columnName}}}.
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+*Returns:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Example:*
+
+{{{
+var firstNameIndex = $('#myGrid').grid('getColumnIndex', 'firstName');
+}}}
+
 ---------------------------------------
 
 ====getColumns()====
+Get the columns Array
+
+*Returns:* [http://api.jquery.com/Types/#Array Array]
+
+*Example:*
+
+{{{
+var columns = $('#myGrid').grid('getColumns');
+}}}
+
 ---------------------------------------
 
 ====getData()====
+Get the array of data displayed in the grid in it's current state.
+
+*Returns:* [http://api.jquery.com/Types/#Array Array]
+
+*Example:*
+
+{{{
+var data = $('#myGrid').grid('getData');
+}}}
+
 ---------------------------------------
 
-====getDataItem()====
+====getDataItem(rowIndex)====
+Get the row item at {{{rowIndex}}}.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var fifthRow = $('#myGrid').grid('getDataItem', 5);
+}}}
+
 ---------------------------------------
 
 ====getDataLength()====
+Get the number of rows in the grid.
+
+*Returns:* [http://api.jquery.com/Types/#Integer Integer]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('getDataLength');
+}}}
+
+---------------------------------------
+
+====getDataView()====
+Get the !DataView object used by !SlickGrid to render the grid.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var dataView = $('#myGrid').grid('getDataView');
+}}}
+
 ---------------------------------------
 
 ====getEditController()====
@@ -1250,6 +1324,8 @@ var changes = $('#myGrid').grid('getChanges');
 ---------------------------------------
 
 ====getSlickGrid()====
+Get the underlying !SlickGrid object backing the grid.
+
 ---------------------------------------
 
 ====getSortColumns()====
