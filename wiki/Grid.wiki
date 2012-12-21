@@ -6,7 +6,7 @@ exposes options, methods and events to make accomplishing common tasks such as s
 using familiar jQuery UI syntax.
 
 =Dependencies=
-Various features of this plugin rely on other libraries in order to work. For convenience, the download includes a jquery-ui-plugins.js file that bundles all of the plugins and their dependencies together. However, using this file may result in namespace collisions if your project is already using a different version of one of the included dependencies. In that case, you'll have to resolve the issue of which dependencies/versions to include, keeping in mind that using a version other than the one included with the download may cause issues. The following is a list of libraries used by the grid, including the version used in testing.
+Various features of this plugin rely on other libraries in order to work. For convenience, the download includes a jquery-ui-plugins.min.js file that bundles all of the plugins and their dependencies together. However, using this file may result in namespace collisions if your project is already using a different version of one of the included dependencies. In that case, you'll have to resolve the issue of which dependencies/versions to include, keeping in mind that using a version other than the one included with the download may cause issues. The following is a list of libraries used by the grid, including the version used in testing.
 
  * [http://code.jquery.com/jquery-1.7.1.js jquery-1.7.1.js]
  * [http://code.jquery.com/ui/1.8.16/jquery-ui.js jquery-ui.js-1.8.16]
