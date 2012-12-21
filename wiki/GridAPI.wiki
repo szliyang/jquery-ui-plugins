@@ -249,7 +249,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#gotoCell() gotoCell]</td>
+  <td>[#gotoCell(rowIndex,_columnIndex,_forceEdit) gotoCell]</td>
   <td></td>
 </tr>
 <tr>
@@ -269,12 +269,12 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#invalidateRow() invalidateRow]</td>
+  <td>[#invalidateRow(rowIndex) invalidateRow]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#invalidateRows() invalidateRows]</td>
+  <td>[#invalidateRows(rowIndicies) invalidateRows]</td>
   <td></td>
 </tr>
 <tr>
@@ -1521,22 +1521,71 @@ var viewport = $('#myGrid').grid('getViewport');
 
 ---------------------------------------
 
-====gotoCell()====
+====gotoCell(rowIndex, columnIndex, forceEdit)====
+Makes the cell at {{{rowIndex}}} and {{{columnIndex}}} the active cell and scrolls the cell into view if it's not currently visible. If the cell is editable, the {{{forceEdit}}} parameter can be used to put the cell into edit mode.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+ * *forceEdit*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
+ Boolean value indicating whether or not to put the cell into edit mode.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('gotoCell', 50, 5, true);
+}}}
+
 ---------------------------------------
 
 ====init()====
+This method is called by !SlickGrid to initialize the grid, calling it after the grid has been initialized has no effect and it is documented here only because it is part of !SlickGrid's public API.
+
 ---------------------------------------
 
 ====invalidate()====
+Invalidates the grid and causes it to be re-rendered.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('invalidate');
+}}}
+
 ---------------------------------------
 
 ====invalidateAllRows()====
+Invalidate all rows in the grid, causing them to be re-rendered.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('invalidateAllRows');
+}}}
+
 ---------------------------------------
 
-====invalidateRow()====
+====invalidateRow(rowIndex)====
+Invalidate the row at {{{rowIndex}}} causing it to be re-rendered.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
 ---------------------------------------
 
-====invalidateRows()====
+====invalidateRows(rowIndicies)====
+Invalidate all rows identified by the {{{rowIndicies}}} array, causing them to be re-rendered.
+
+ * *rowIndicies*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+ An integer array of row indicies identifying which rows to invalidate.
+
 ---------------------------------------
 
 ====navigateDown()====
