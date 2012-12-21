@@ -500,7 +500,7 @@ Cell will not automatically go into edit mode when it receives focus.
 
 ---------------------------------------
 
-====calendarImage *====
+====calendarImage====
 The location of the calendar icon to be used for editable date fields and date filters.
 
 *Type:* [http://api.jquery.com/Types/#String String]
@@ -765,7 +765,7 @@ The property on each row object that can be used to uniquely identify the row.
 
 ---------------------------------------
 
-====selectActiveCell *====
+====selectActiveCell====
 When using "cell" [#selectionModel selectionModel], this is a boolean value indicating whether the active cell should be selected, i.e. have [#selectCellCssClass selectCellCssClass] applied to it.
 
 *Type:* [http://api.jquery.com/Types/#undefined undefined]
@@ -774,8 +774,8 @@ When using "cell" [#selectionModel selectionModel], this is a boolean value indi
 
 ---------------------------------------
 
-====selectActiveRow *====
-When using "row" [#selectionModel selectionModel], this is a boolean value indicating whether the active row should be selected, i.e. have [#selectCellCssClass selectCellCssClass] applied to it.
+====selectActiveRow====
+When using "row" [#selectionModel selectionModel], this is a boolean value indicating whether the active row should be selected, i.e. have [#selectedCellCssClass selectedCellCssClass] applied to it.
 
 *Type:* [http://api.jquery.com/Types/#undefined undefined]
 
@@ -784,7 +784,7 @@ When using "row" [#selectionModel selectionModel], this is a boolean value indic
 ---------------------------------------
 
 ====selectedCellCssClass====
-A CSS class to apply to cells highlighted via setHighlightedCells().
+A CSS class to apply to cells highlighted via [#setHighlightedCells() setHighlightedCells].
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
@@ -792,7 +792,7 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 
 ---------------------------------------
 
-====selectionModel *====
+====selectionModel====
 A string or object identifying the type of selection used by the grid. To use the built-in !RowSelectionModel or !CellSelectionModel implementation, enter a string value of "row" or "cell". To use a customselection model pass an object that implements the SelectionModel interface as defined [https://github.com/mleibman/SlickGrid/wiki/Handling-selection here].
 
 *Type:* [http://api.jquery.com/Types/#String String]
