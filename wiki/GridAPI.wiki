@@ -1685,7 +1685,7 @@ $grid.grid('editActiveCell');
 ---------------------------------------
 
 ====registerPlugin(plugin)====
-Used to register a plugin with !SlickGrid. A !SlickGrid plugin is simply an object that must implement {{{init}}} and a {{{destroy}}} methods. Calling {{{registerPlugin}}} adds the plugin in to the the !SlickGrid's list of plugins and calls it's {{{init}}} method. The destroy method is called by !SlickGrid when the grid's destroy method is called. For some good examples see the [https://github.com/mleibman/SlickGrid/tree/master/plugins !SlickGrid plugins source code].
+Used to register a plugin with !SlickGrid. A !SlickGrid plugin is simply an object that must implement {{{init}}} and a {{{destroy}}} methods. Calling {{{registerPlugin}}} adds the plugin to the !SlickGrid's list of plugins and calls it's {{{init}}} method. The destroy method is called by !SlickGrid when the grid's destroy method is called. For some good examples see the [https://github.com/mleibman/SlickGrid/tree/master/plugins SlickGrid plugins source code].
 
  * *plugin*
  Type: [http://api.jquery.com/Types/#Object Object]
