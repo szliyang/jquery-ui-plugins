@@ -2,7 +2,7 @@
   * [Combobox]
     * [Combobox#Combobox_API API]
     * [Combobox#Example Example]
-   * [Grid]
+  * [Grid]
     * [GridAPI API]
     * [Grid#Example Example]
   * [Groupbox]
