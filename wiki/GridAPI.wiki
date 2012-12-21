@@ -314,12 +314,12 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#removeCellCssClass() removeCellCssClass *]</td>
+  <td>[#removeCellCssClass(rowKey,_columnName,_classToRemove) removeCellCssClass *]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#removeCellCssStyles() removeCellCssStyles]</td>
+  <td>[#removeCellCssStyles(key) removeCellCssStyles]</td>
   <td></td>
 </tr>
 <tr>
@@ -379,7 +379,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setCellCssStyles() setCellCssStyles]</td>
+  <td>[#setCellCssStyles(key,_hash) setCellCssStyles]</td>
   <td></td>
 </tr>
 <tr>
@@ -1700,10 +1700,38 @@ $('#myGrid').grid('registerPlugin', myPlugin);
 
 ---------------------------------------
 
-====removeCellCssClass()====
+====removeCellCssClass(rowKey, columnName, classToRemove)====
+Remove the specified {{{cssClass}}} from the cell at {{{rowKey}}} and {{{columnName}}}.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ * *classToRemove*
+ Type: [http://api.jquery.com/Types/#String String]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('removeCellCssClass', 'error');
+}}}
+
 ---------------------------------------
 
-====removeCellCssStyles()====
+====removeCellCssStyles(key)====
+Remove the set of CSS styles identified by the {{{key}}} parameter. The {{{key}}} parameter indicates a set of styles applied using a row index and column name hash set using [#addCellCssStyles(key,_hash) or [#setCellCssStyles(key,_hash)], see those methods details on how the style hash works.
+
+ * *key*
+ Type: [http://api.jquery.com/Types/#String String]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('removeCellCssStyles', 'myStyleKey');
+}}}
+
 ---------------------------------------
 
 ====removeRowCssClass()====
@@ -1776,7 +1804,37 @@ $('#myGrid').grid('setCellCssClasses', cssClasses);
 
 ---------------------------------------
 
-====setCellCssStyles()====
+====setCellCssStyles(key, hash)====
+A Slick grid method that sets the css style on cells by row index and column name. To set CSS style by row key and column use [#addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass], [#setCellCssClass(rowKey,_columnName,_cssClass) setCellCssClass],  or [#setCellCssClasses(cssData) setCellCssClasses].
+
+ * *key*
+ Type: [http://api.jquery.com/Types/#String String]
+
+ A key that can be used to access the hash of styles later, to modify or remove it, for example.
+
+ * *hash*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+ An object that identifies by row index and column name, what styles to apply.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setCellCssStyles', 'myKey',
+  {
+    2: {
+      title: 'error',
+      percentComplete: 'warn'
+    },
+    9: {
+      title: 'blue warn',
+      start: 'error'
+    }
+  }
+);
+
+}}}
+
 ---------------------------------------
 
 ====setColumns()====
