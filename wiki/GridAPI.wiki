@@ -163,37 +163,37 @@
   <td>[#onScroll() onScroll]</td>
 </tr>
 <tr>
-  <td>[#selectedCellCssClass selectedCellCssClass]</td>
+  <td>[#selectActiveCell selectActiveCell]</td>
   <td>[#getDataLength() getDataLength]</td>
   <td>[#onSelectedRowsChanged() onSelectedRowsChanged]</td>
 </tr>
 <tr>
-  <td>[#selectionModel selectionModel]</td>
+  <td>[#selectActiveRow selectActiveRow]</td>
   <td>[#getDataView() getDataView *]</td>
   <td>[#onSort() onSort]</td>
 </tr>
 <tr>
-  <td>[#showHeaderRow showHeaderRow]</td>
+  <td>[#selectedCellCssClass selectedCellCssClass]</td>
   <td>[#getEditController() getEditController]</td>
   <td>[#onValidationError() onValidationError]</td>
 </tr>
 <tr>
-  <td>[#showTopPanel showTopPanel]</td>
+  <td>[#selectionModel selectionModel]</td>
   <td>[#getEditorLock() getEditorLock]</td>
   <td>[#onViewportChanged() onViewportChanged]</td>
 </tr>
 <tr>
-  <td>[#topPanelHeight topPanelHeight]</td>
+  <td>[#showHeaderRow showHeaderRow]</td>
   <td>[#getGridPosition() getGridPosition]</td>
   <td></td>
 </tr>
 <tr>
-  <td></td>
+  <td>[#showTopPanel showTopPanel]</td>
   <td>[#getHeaderRow() getHeaderRow]</td>
   <td></td>
 </tr>
 <tr>
-  <td></td>
+  <td>[#topPanelHeight topPanelHeight]</td>
   <td>[#getHeaderRowColumn(columnName) getHeaderRowColumn]</td>
   <td></td>
 </tr>
@@ -765,6 +765,24 @@ The property on each row object that can be used to uniquely identify the row.
 
 ---------------------------------------
 
+====selectActiveCell====
+When using "cell" [#selectionModel selectionModel], this is a boolean value indicating whether the active cell should be selected, i.e. have [#selectCellCssClass selectCellCssClass] applied to it.
+
+*Type:* [http://api.jquery.com/Types/#undefined undefined]
+
+*Default:* true
+
+---------------------------------------
+
+====selectActiveRow====
+When using "row" [#selectionModel selectionModel], this is a boolean value indicating whether the active row should be selected, i.e. have [#selectCellCssClass selectCellCssClass] applied to it.
+
+*Type:* [http://api.jquery.com/Types/#undefined undefined]
+
+*Default:* true
+
+---------------------------------------
+
 ====selectedCellCssClass====
 A CSS class to apply to cells highlighted via setHighlightedCells().
 
@@ -775,7 +793,7 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 ---------------------------------------
 
 ====selectionModel====
-A string or object identifying the type of selection used by the grid. To use a string value of either "row" or "cell" to specify the built-in RowSelectionModel or CellSelectionModel. To use a customselection model pass an object that implements the SelectionModel interface as defined [https://github.com/mleibman/SlickGrid/wiki/Handling-selection here].
+A string or object identifying the type of selection used by the grid. To use the built-in !RowSelectionModel or !CellSelectionModel implementation, enter a string value of "row" or "cell". To use a customselection model pass an object that implements the SelectionModel interface as defined [https://github.com/mleibman/SlickGrid/wiki/Handling-selection here].
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
