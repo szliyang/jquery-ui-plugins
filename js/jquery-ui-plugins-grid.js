@@ -10,12 +10,17 @@
  *  jquery 1.7 // currently broken with 1.8.2 and 1.9  
  *	jquery.ui.core.1.8.16.js
  *	jquery.ui.widget.1.8.16.js
- *	jquery.event.drag-2.0.js
- *	jquery.event.drop-2.0.js		
+ *	jquery.event.drag-2.0.js // required for column re-order
+ *	jquery.event.drop-2.0.js // required for column re-order		
  *	slick.core.2.0.2.js
  *	slick.grid.2.0.2.js
- *	slick.dataview.2.0.2.js
+ *	slick.dataview.2.0.2.js // required for filtering, sorting & editing date columns
+ *  slick.rowselectionmodel.js // required for row selection
+ *  slick.cellselectionmodel.js // required for cell selection
+ *  slick.cellrangeselector.js // required for cell selection
+ *  slick.cellrangedecorator.js // required for cell selection
  *	date.js // required for date sorting
+ *  jquery.ui-plugins-textinput.js // required for numeric editing and filtering
  *
  */
 // this plugin is currently broken with jquery 1.8.2 and 1.9
