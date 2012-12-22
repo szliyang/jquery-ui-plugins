@@ -17,31 +17,6 @@
  *	slick.dataview.2.0.2.js
  *	date.js // required for date sorting
  *
- * Notes for column model:
- * ID == unique id for the column
- * FIELD == property on the data object used to get the value to display for the data
- * NAME == the column Header text
- * ID will often be the same as FIELD but it allows you to make 2 different columns display the same data differently (using a different formatter or whatever)
- * if you don't provide a value for FIELD the column won't display any data but if you omit ID it works, the id in this case is presumably the field?
- *	filter: null, // can be 'startsWith', 'endsWith', 'contains', 'doesNotContain', an array of values for a drop down list or an object with an impl property that is a function
-		// to do custom filtering, the function receives filterValue and itemValue parameters and "this" refers to the filter object, it returns true if the value should be shown, false otherwise
-		// if filter is an array or a custom filter object has an options array, a drop down list will be rendered
-		// options for drop downs can either be a simple string array, in which case the value displayed for an option is the same as the option's value OR it can be an array of objects 
-		// containing name & value attributes - the name is what will be displayed in the dropdown list, the value is the value that will be used for filtering when the option is selected
-		filterDefault: null, // default value selected for filter		
-		editor: null,
-		// columns can have an editor which can be a string for pre-defined types or a function that gets an object param with the following attributes:
-			/*
-			 * cancelChanges: function cancelEditAndSetFocus() {
-				column: Object
-				commitChanges: function commitEditAndSetFocus() {
-				container: HTMLDivElement
-				grid: SlickGrid
-				gridPosition: Object
-				item: Object
-				position: Object
-				defaultValue: undefined
-
  */
 // this plugin is currently broken with jquery 1.8.2 and 1.9
 /**
