@@ -399,7 +399,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setOptions() setOptions]</td>
+  <td>[#setOptions(options) setOptions]</td>
   <td></td>
 </tr>
 <tr>
@@ -1855,6 +1855,12 @@ Set the css class of the cell at rowKey and columnName to cssClass, thus removin
 
  The list of CSS classes to apply to the specified cell.
 
+*Example:*
+
+{{{
+$('#myGrid').grid('setCellCssClass', 'row1234', 'firstName', 'highlight');
+}}}
+
 ---------------------------------------
 
 ====setCellCssClasses(cssData)====
@@ -1939,7 +1945,22 @@ $('#myGrid').grid('setColumns', newCols);
 ====setHeaderRowVisibility()====
 ---------------------------------------
 
-====setOptions()====
+====setOptions(options)====
+This method merges the values on the {{{options}}} object with the grid's current options. Values specified on the {{{options}}} object replace the grid's previously specified options. Any grid options not specified in the {{{options}}} parameter remain unchanged.
+
+ * *options*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+ An object used to set option values as specified in the [#options options definition].
+
+*Example:*
+
+{{{
+var newOptions = {editable: false, calendarImage: 'images/tick.png'};
+$grid.grid('setOptions', newOptions);
+
+}}}
+
 ---------------------------------------
 
 ====setRowCssClass()====
