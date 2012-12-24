@@ -1951,7 +1951,7 @@ This method merges the values on the {{{options}}} object with the grid's curren
  * *options*
  Type: [http://api.jquery.com/Types/#Object Object]
 
- An object used to set option values as specified in the [#options options definition].
+ An object used to set option values as specified in the [#Options options definition].
 
 *Example:*
 
