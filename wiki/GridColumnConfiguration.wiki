@@ -558,7 +558,7 @@ $('#myGrid').grid({
     }
   ]
 });
-}}},
+}}}
 --------------------------------------- 
 ====sort====
 String, Boolean or Function identifying the type of sorting used by the column. Using a boolean value toggles
