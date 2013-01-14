@@ -338,7 +338,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====focusable====
 Boolean value indicating whether cells in this column can obtain focus. When the enableCellNavigation property 
 is set to true, cells in columns for which focusable is set to false will be skipped overwhen tabbing through columns.
@@ -360,7 +360,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====formatter====
 A string or function identifying what formatter should be used to render cell content for the column. A string can
 be used to specify one of the built-in types of "checkbox", "currency" or "properCase". A custom formatter can be specified 
@@ -385,7 +385,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====headerCssClass====
 CSS class applied to the column header.
 
@@ -406,7 +406,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====id====
 A unique identifier for the column within the grid. Note that id is often the 
 same as field, but having a different value for id can be useful for displaying 
@@ -434,7 +434,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====minWidth====
 Minimum width of the column.
 
@@ -455,7 +455,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====maxWidth====
 Maximum width of the column.
 
@@ -476,7 +476,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====name====
 Text displayed in the column header label.
 
@@ -496,7 +496,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====rerenderOnResize====
 Boolean value indicating whether the column should be re-rendered when it's resized.
 
@@ -517,7 +517,7 @@ $('#myGrid').grid({
   ]
 });
 }}} 
---------------------------------------- 
+---------------------------------------
 ====resizable====
 Boolean value indicating whether the column can be resized.
 
@@ -538,7 +538,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====selectable====
 Boolean value indicating whether the column can be selected.
 
@@ -559,7 +559,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====sort====
 String, Boolean or Function identifying the type of sorting used by the column. Using a boolean value toggles
 the default text sorting on/off. By default all columns use a text sort so you must specify sort: false to
@@ -592,7 +592,7 @@ $('#myGrid').grid({
   ]
 });
 }}} 
---------------------------------------- 
+---------------------------------------
 ====toolTip====
 A string to be displayed as a tool tip when the cursor hovers over the column header.
 
@@ -613,7 +613,7 @@ $('#myGrid').grid({
   ]
 });
 }}}
---------------------------------------- 
+---------------------------------------
 ====width====
 Width of the column.
 
