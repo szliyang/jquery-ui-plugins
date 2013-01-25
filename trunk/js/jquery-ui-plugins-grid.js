@@ -112,8 +112,8 @@
 			this.element.addClass('ui-grid');
 			this.options.editDisabled = this.options.editable;
 			this._initColumns();
-			opts.showHeaderRow = this.filters ? true : false;			
-			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);			
+			opts.showHeaderRow = this.filters ? true : false;
+			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
 			this.options = grid.getOptions();
 			
 			if(this.filters) {
@@ -206,7 +206,7 @@
 					this.filters = {};
 				}
 				
-				var isList = $.isArray(col.filter);
+				var isList = (typeof col.filter === 'object' && col.filter.type === 'list') || $.isArray(col.filter);
 				var defaultVal = isList && !col.filterDefault ? '$NO_FILTER$' : col.filterDefault; 
 				// if the filter is an object, it's a custom filter and we expect an impl attribute that's a function that will do the filtering
 				// if the custom filter has an options attribute, we render a list and it's value is used in the custom filter otherwise we do a text field
@@ -214,8 +214,11 @@
 					this.filters[col.id] = $.extend(col.filter, {'type': 'custom', 'value': defaultVal});						
 				} else {
 					var type = isList ? 'list' : col.filter;
-					var options = isList ? col.filter : null;
-					this.filters[col.id] = {'type': type, 'value': defaultVal, 'options': options};
+					var options = null;
+					if(isList) {
+						options = col.filter.options ? col.filter.options : col.filter;
+					}
+					this.filters[col.id] = {'type': type, 'value': defaultVal, 'options': options, 'dataItemAttribute': col.filter.dataItemAttribute};
 				}
 			}
 		},
@@ -652,7 +655,8 @@
 	                    	continue;
 	                    }
 	                    
-	                    var itemVal = item[column.field] + '';
+	                    var itemVal = item[column.field];
+	                    itemVal = typeof itemVal === 'object' && filter.dataItemAttribute ? itemVal[filter.dataItemAttribute] + '' : itemVal + '';
 	                    
 	                    if(itemVal || itemVal === '') {
 	                    	switch(filter.type) {
@@ -897,7 +901,7 @@
 			var defaultValue = null;
 
 		    this.init = function () {
-				var $cell = $(args.container);
+		    	var $cell = $(args.container);
 		    	var $paddingTop = $cell.padding('top');
 		    	$input = $('<input type="text" class="ui-grid-editor"/>')
 					.appendTo(args.container)
@@ -1058,7 +1062,6 @@
 			return isChanged;
 		},
 		_currencyFormatter: function(rowNum, cellNum, value, columnDef, row) {			
-
 			if($.currency) {
 				value = $.currency(value, columnDef.formatOptions);
 			}			
