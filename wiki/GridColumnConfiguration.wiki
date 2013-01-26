@@ -116,6 +116,7 @@ var cols = [{
 }}}
 
 ==Column Attributes==
+ * [#asyncPostRender asyncPostRender]
  * [#cssClass cssClass]
  * [#dataType dataType]
  * [#dateFormat dateFormat]
@@ -140,6 +141,35 @@ var cols = [{
  * [#width width]
 ---------------------------------------
 ==Column Attributes API==
+====asyncPostRender====
+A callback function that is fired after the cell DOM element has been rendered. This function receives the cell DOM element, rowNumber, data item and column object as parameters. The enableAsyncPostRender grid option must be set to true for the asyncPostRender function to be called.
+
+*Type:* [http://api.jquery.com/Types/#Function Function]
+
+*Default:* null
+
+*Example*
+{{{
+$('#myGrid').grid({
+  data: myData,
+  // this must be true for asyncPostRender function to be called
+  enableAsyncPostRender: true,
+  asyncPostRenderDelay: 0,
+  columns: [
+    {
+      id: 'onBudget',
+      name: 'On Budget',
+      field: 'onBudet',
+      asyncPostRender: function(cellElement, rowNumber, item, column) {				
+        if(!item.onBudget) {
+          $(cellElement).addClass('warn');
+        }
+      }
+    }
+  ]
+});
+}}}
+---------------------------------------
 ====cssClass====
 CSS class applied to the column.
 
