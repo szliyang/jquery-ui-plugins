@@ -142,7 +142,7 @@ var cols = [{
 ---------------------------------------
 ==Column Attributes API==
 ====asyncPostRender====
-A callback function that is fired after the cell DOM element has been rendered. This function receives the cell DOM element, rowNumber, data item and column object as parameters. The enableAsyncPostRender grid option must be set to true for the asyncPostRender function to be called.
+A callback function that is fired after the cell DOM element has been rendered. This function receives the cell DOM element, rowNumber, data item and column object as parameters. The [GridAPI#enableAsyncPostRender enableAsyncPostRender] grid option must be set to true for the asyncPostRender function to be called.
 
 *Type:* [http://api.jquery.com/Types/#Function Function]
 
