@@ -621,7 +621,7 @@ If true, a blank row will be displayed at the bottom - typing values in that row
 ---------------------------------------
 
 ====enableAsyncPostRender====
-If true, async post rendering will occur and asyncPostRender delegates on columns will be called.
+If true, async post rendering will occur and [GridColumnConfiguration#asyncPostRender asyncPostRender] callback functions on columns will be called.
 
 *Type:* [http://api.jquery.com/Types/#Boolean Boolean]
 
