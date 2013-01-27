@@ -837,16 +837,14 @@ When set to true, a third header row is displayed in addition to the column head
 
 Set during initialization:
 {{{
-$('#myGrid').grid({
+var grid = $('#myGrid').grid({
   data: myData,
   columns: columns,
   rowKey: 'name',
   showTopPanel: true
 });
 
-$('#myCustomHeaderElement')
-.appendTo(grid.getTopPanel())
-.show();
+$('#myCustomHeaderElement').appendTo(grid.getTopPanel()).show();
 
 }}}
 
