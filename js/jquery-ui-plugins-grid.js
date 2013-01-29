@@ -993,8 +993,8 @@
 					var isObject = typeof option === 'object';
 					var name = isObject ? option.name : option;
 					var value = isObject ? option.value : option;
-					
-					html += '<option value="' + value + '">' + name + '</option>';
+					var disabled = isObject && option.disabled ? ' disabled="disabled"' : '';
+					html += '<option value="' + value + '"' + disabled + '>' + name + '</option>';									
 				}
 				
 				html += '</select>';
