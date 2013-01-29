@@ -1014,8 +1014,8 @@
 				$select.focus();
 			};
 
-			this.loadValue = function (item) {
-				$select.val((defaultValue = item[args.column.field] + ''));
+			this.loadValue = function (item) {				
+				$select.val((defaultValue = item[args.column.field] || ''));
 				$select.select();
 			};
 
