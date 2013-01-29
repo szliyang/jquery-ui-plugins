@@ -1327,6 +1327,19 @@
 			
 			return items;
 		},
+		isItemChanged: function(rowKey) {
+			var isChanged = false;
+			var item = this.getItem(rowKey);
+			
+			if(item && item.changedCells) {
+				for(var field in item.changedCells) {
+					isChanged = true;
+					break;
+				}
+			}
+			
+			return isChanged;
+		},
 		getChanges: function() {
 			var changes = [];
 			
