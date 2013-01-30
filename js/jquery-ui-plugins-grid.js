@@ -337,6 +337,12 @@
 				if(methodName === 'getData') {
 					this[methodName] = function() {return this.options.data;};
 					this['getDataView'] = this.grid[methodName];
+				} else if(methodName === 'setData') {
+					this[methodName] = function(data) {
+						this.options.data = data;
+						this.dataHash = this._initDataHash();
+						this.grid.setData(data);						
+					};
 				} else {
 					this[methodName] = this.grid[methodName];
 				}				
