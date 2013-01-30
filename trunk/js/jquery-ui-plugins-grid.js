@@ -1406,6 +1406,18 @@
 			
 			return changedItems;
 		},
+		clearItemChanges: function(rowKey) {
+			for(var i = 0; i < this.options.data.length; i++) {
+				var item = this.options.data[i];
+				
+				if(item[this.options.rowKey] == rowKey) {
+					delete item.changedCells;
+					break;
+				}
+			}
+			
+			this.grid.invalidate();
+		},
 		clearChangedItems: function() {
 			for(var i = 0; i < this.options.data.length; i++) {
 				var item = this.options.data[i];
