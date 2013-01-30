@@ -1337,6 +1337,14 @@
 			
 			return items;
 		},
+		replaceItem: function(rowKey, newItem) {
+			delete this.dataHash[rowKey];
+			this.dataHash[newItem.id] = newItem;
+			var rowNumber = this.dataView.getRowById(rowKey);
+			this.dataView.insertItem(rowNumber, newItem);
+			this.dataView.deleteItem(rowKey);
+			this.grid.invalidate();
+		},
 		isItemChanged: function(rowKey) {
 			var isChanged = false;
 			var item = this.getItem(rowKey);
