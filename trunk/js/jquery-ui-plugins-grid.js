@@ -1358,6 +1358,18 @@
 			
 			return isChanged;
 		},
+		markItemChanged: function(rowKey, columnName, originalValue) {
+			var item = this.getItem(rowKey);			
+			var changeTracked = item.changedCells && item.changedCells[columnName] !== undefined;
+			
+			if(!changeTracked) {				
+				var change = {};
+				change[columnName] = originalValue;
+				$.extend(true, item, {'changedCells': change});
+			}			
+			
+			this.grid.invalidate();
+		},
 		getChanges: function() {
 			var changes = [];
 			
