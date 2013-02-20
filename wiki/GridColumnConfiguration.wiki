@@ -665,11 +665,3 @@ $('#myGrid').grid({
 });
 }}}
 ---------------------------------------
-
-==Formatting Column Data==
-
-==Editing==
-
-===Built-In Editors===
-
-===Custom Editors===
