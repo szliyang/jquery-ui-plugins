@@ -1,0 +1,5 @@
+= Filtering Grid Data =
+The grid comes with several built-in filter types for filtering various types of data. These filters render a filter field in the column header where the user enters data and rows are dynamically filtered out as the filter value changes.
+
+== Built-in text filters ==
+There are four built-in text filters. These filters render a text field at the top of the column and filter out rows as the user types in the text field by matching column values with what is typed in the filter. The rules regarding what rows are filtered out depend on the type of filter declared on the column definition.  Valid filter types are "contains", "doesNotContain", "startsWith" and "endsWith". To use one of these filters simply assign the desired filter type string to the column's filter option.
