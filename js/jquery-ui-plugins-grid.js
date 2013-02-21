@@ -112,7 +112,7 @@
 			this.element.addClass('ui-grid');
 			this.options.editDisabled = this.options.editable;
 			this._initColumns();
-			opts.showHeaderRow = this.filters ? true : false;
+			opts.showHeaderRow = this.filters ? true : opts.showHeaderRow;
 			var grid = this.grid = new Slick.Grid(this.element, this.dataView, opts.columns, opts);
 			this.options = grid.getOptions();
 			
