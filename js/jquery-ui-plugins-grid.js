@@ -1326,7 +1326,8 @@
 		},
 		setItem: function(itemId, item) {
 			this.dataHash[itemId] = item;
-			this.dataView.updateItem(itemId, item);			
+			this.dataView.updateItem(itemId, item);		
+			this.grid.invalidate();
 		},
 		getItems: function(rowKeys) {
 			var items = [];
