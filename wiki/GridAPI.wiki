@@ -18,172 +18,172 @@
   <td>[#enable() enable *]</td>
 </tr>
 <tr>
-  <td>[#asyncPostRenderDelay asyncPostRenderDelay]</td>
+  <td>[#asyncPostRender asyncPostRender]</td>
   <td>[#autosizeColumns() autosizeColumns]</td>
   <td>[#onActiveCellChanged() onActiveCellChanged]</td>
 </tr>
 <tr>
-  <td>[#autoEdit autoEdit]</td>
+  <td>[#asyncPostRenderDelay asyncPostRenderDelay]</td>
   <td>[#cancelCurrentEdit() cancelCurrentEdit *]</td>
   <td>[#onActiveCellPositionChanged() onActiveCellPositionChanged]</td>
 </tr>
 <tr>
-  <td>[#autoHeight autoHeight]</td>
+  <td>[#autoEdit autoEdit]</td>
   <td>[#canCellBeActive(rowIndex,_columnIndex) canCellBeActive]</td>
   <td>[#onAddNewRow() onAddNewRow]</td>
 </tr>
 <tr>
-  <td>[#calendarImage calendarImage]</td>
+  <td>[#autoHeight autoHeight]</td>
   <td>[#canCellBeSelected(rowIndex,_columnIndex) canCellBeSelected]</td>
   <td>[#onBeforeCellEditorDestroy() onBeforeCellEditorDestroy]</td>
 </tr>
 <tr>
-  <td>[#cellFlashingCssClass cellFlashingCssClass]</td>
+  <td>[#calendarImage calendarImage]</td>
   <td>[#clearCellCssClass(rowKey,_columnName) clearCellCssClass *]</td>
   <td>[#onBeforeDestroy() onBeforeDestroy]</td>
 </tr>
 <tr>
-  <td>[#columns columns]</td>
+  <td>[#cellFlashingCssClass cellFlashingCssClass]</td>
   <td>[#clearChangedItems() clearChangedItems *]</td>
   <td>[#onBeforeEditCell(event,_data) onBeforeEditCell]</td>
 </tr>
 <tr>
-  <td>[#data data]</td>
+  <td>[#columns columns]</td>
   <td>[#destroy() destroy]</td>
   <td>[#onBeforeHeaderCellDestroy() onBeforeHeaderCellDestroy]</td>
 </tr>
 <tr>
-  <td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
+  <td>[#data data]</td>
   <td>[#disable() disable *]</td>
   <td>[#onBeforeHeaderRowCellDestroy() onBeforeHeaderRowCellDestroy]</td>
 </tr>
 <tr>
-  <td>[#defaultColumnWidth defaultColumnWidth]</td>
+  <td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
   <td>[#editActiveCell() editActiveCell]</td>
   <td>[#onCellChange() onCellChange]</td>
 </tr>
 <tr>
-  <td>[#defaultFormatter defaultFormatter]</td>
+  <td>[#defaultColumnWidth defaultColumnWidth]</td>
   <td>[#enable() enable *]</td>
   <td>[#onCellCssStylesChanged() onCellCssStylesChanged]</td>
 </tr>
 <tr>
-  <td>[#editable editable]</td>
+  <td>[#defaultFormatter defaultFormatter]</td>
   <td>[#flashCell(rowIndex,_columnIndex,_speed) flashCell]</td>
   <td>[#onClick() onClick]</td>
 </tr>
 <tr>
-  <td>[#editorFactory editorFactory]</td>
+  <td>[#editable editable]</td>
   <td>[#focus() focus]</td>
   <td>[#onColumnsReordered() onColumnsReordered]</td>
 </tr>
 <tr>
-  <td>[#editorLock editorLock]</td>
+  <td>[#editorFactory editorFactory]</td>
   <td>[#getActiveCell() getActiveCell]</td>
   <td>[#onColumnsResized() onColumnsResized]</td>
 </tr>
 <tr>
-  <td>[#enableAddRow enableAddRow]</td>
+  <td>[#editorLock editorLock]</td>
   <td>[#getActiveCellNode() getActiveCellNode]</td>
   <td>[#onContextMenu() onContextMenu]</td>
 </tr>
 <tr>
-  <td>[#enableAsyncPostRender enableAsyncPostRender]</td>
+  <td>[#enableAddRow enableAddRow]</td>
   <td>[#getActiveCellPosition() getActiveCellPosition]</td>
   <td>[#onDblClick() onDblClick]</td>
 </tr>
 <tr>
-  <td>[#enableCellNavigation enableCellNavigation]</td>
+  <td>[#enableAsyncPostRender enableAsyncPostRender]</td>
   <td>[#getCanvasNode() getCanvasNode]</td>
   <td>[#onDrag() onDrag]</td>
 </tr>
 <tr>
-  <td>[#enableColumnReorder enableColumnReorder]</td>
+  <td>[#enableCellNavigation enableCellNavigation]</td>
   <td>[#getCellCssClass(rowKey,_columnName) getCellCssClass *]</td>
   <td>[#onDragEnd() onDragEnd]</td>
 </tr>
 <tr>
-  <td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
+  <td>[#enableColumnReorder enableColumnReorder]</td>
   <td>[#getCellCssStyles(key) getCellCssStyles]</td>
   <td>[#onDragInit() onDragInit]</td>
 </tr>
 <tr>
-  <td>[#explicitInitialization explicitInitialization]</td>
+  <td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
   <td>[#getCellEditor() getCellEditor]</td>
   <td>[#onDragStart() onDragStart]</td>
 </tr>
 <tr>
-  <td>[#forceFitColumns forceFitColumns]</td>
+  <td>[#explicitInitialization explicitInitialization]</td>
   <td>[#getCellFromEvent(event) getCellFromEvent]</td>
   <td>[#onHeaderCellRendered() onHeaderCellRendered]</td>
 </tr>
 <tr>
-  <td>[#forceSyncScrolling forceSyncScrolling]</td>
+  <td>[#forceFitColumns forceFitColumns]</td>
   <td>[#getCellFromPoint(x,_y) getCellFromPoint]</td>
   <td>[#onHeaderClick() onHeaderClick]</td>
 </tr>
 <tr>
-  <td>[#formatterFactory formatterFactory]</td>
+  <td>[#forceSyncScrolling forceSyncScrolling]</td>
   <td>[#getCellNode(rowIndex,_columnIndex) getCellNode]</td>
   <td>[#onHeaderContextMenu() onHeaderContextMenu]</td>
 </tr>
 <tr>
-  <td>[#fullWidthRows fullWidthRows]</td>
+  <td>[#formatterFactory formatterFactory]</td>
   <td>[#getCellNodeBox() getCellNodeBox]</td>
   <td>[#onHeaderMouseEnter() onHeaderMouseEnter]</td>
 </tr>
 <tr>
-  <td>[#headerRowHeight headerRowHeight]</td>
+  <td>[#fullWidthRows fullWidthRows]</td>
   <td>[#getChangedItems() getChangedItems *]</td>
   <td>[#onHeaderMouseLeave() onHeaderMouseLeave]</td>
 </tr>
 <tr>
-  <td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
+  <td>[#headerRowHeight headerRowHeight]</td>
   <td>[#getChanges() getChanges *]</td>
   <td>[#onHeaderRowCellRendered() onHeaderRowCellRendered]</td>
 </tr>
 <tr>
-  <td>[#multiColumnSort multiColumnSort]</td>
+  <td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
   <td>[#getColumnIndex(columnName) getColumnIndex]</td>
   <td>[#onKeyDown() onKeyDown]</td>
 </tr>
 <tr>
-  <td>[#multiSelect multiSelect]</td>
+  <td>[#multiColumnSort multiColumnSort]</td>
   <td>[#getColumns() getColumns]</td>
   <td>[#onMouseEnter() onMouseEnter]</td>
 </tr>
 <tr>
-  <td>[#rowHeight rowHeight]</td>
+  <td>[#multiSelect multiSelect]</td>
   <td>[#getData() getData *]</td>
   <td>[#onMouseLeave() onMouseLeave]</td>
 </tr>
 <tr>
-  <td>[#rowKey rowKey]</td>
+  <td>[#rowHeight rowHeight]</td>
   <td>[#getDataItem(rowIndex) getDataItem]</td>
   <td>[#onScroll() onScroll]</td>
 </tr>
 <tr>
-  <td>[#selectedCellCssClass selectedCellCssClass]</td>
+  <td>[#rowKey rowKey]</td>
   <td>[#getDataLength() getDataLength]</td>
   <td>[#onSelectedRowsChanged() onSelectedRowsChanged]</td>
 </tr>
 <tr>
-  <td>[#showHeaderRow showHeaderRow]</td>
+  <td>[#selectedCellCssClass selectedCellCssClass]</td>
   <td>[#getDataView() getDataView *]</td>
   <td>[#onSort() onSort]</td>
 </tr>
 <tr>
-  <td>[#showTopPanel showTopPanel]</td>
+  <td>[#showHeaderRow showHeaderRow]</td>
   <td>[#getEditController() getEditController]</td>
   <td>[#onValidationError() onValidationError]</td>
 </tr>
 <tr>
-  <td>[#topPanelHeight topPanelHeight]</td>
+  <td>[#showTopPanel showTopPanel]</td>
   <td>[#getEditorLock() getEditorLock]</td>
   <td>[#onViewportChanged() onViewportChanged]</td>
 </tr>
 <tr>
-  <td></td>
+  <td>[#topPanelHeight topPanelHeight]</td>
   <td>[#getGridPosition() getGridPosition]</td>
   <td></td>
 </tr>
@@ -477,6 +477,41 @@ Makes cell editors load asynchronously after a small delay. This greatly increas
 
 ---------------------------------------
 
+====asyncPostRender====
+A callback function that is fired after the cell DOM node has been rendered. This function receives the cell DOM element, rowNumber, data item and column object as parameters. The enableAsyncPostRender option must be set to true for the asyncPostRender function to be called.
+
+*Type:* [http://api.jquery.com/Types/#Function Function]
+
+*Default:* null
+
+*Example:*
+
+Set during initialization:
+{{{
+// define asyncPostRender function on column definition
+var cols = [{
+  id : 'onBudget',
+  name : 'On Budget',
+  field : 'onBudget',
+  asyncPostRender: function(cellElement, rowNumber, item, column) {
+    if(!item.onBudget) {
+      $(cellElement).addClass('error');
+    }
+  }
+}];
+
+// set enableAsyncPostRender & asyncPostRenderDelay grid options
+$('#myGrid').grid({
+  data: myData,
+  columns: cols,
+  rowKey: 'name',
+  enableAsyncPostRender: true, // this must be set to true or the asyncPostRender function won't fire
+  asyncPostRenderDelay: 0 // setting this to 0 makes the asyncPostRender function fire immediately after the cell is rendered
+});
+}}}
+
+---------------------------------------
+
 ====asyncPostRenderDelay====
 If [#enableAsyncPostRender enableAsyncPostRender] is set to true, this is the delay in milliseconds after which each column's [GridColumnConfiguration#asyncPostRender asyncPostRender] function is called.
 
@@ -536,6 +571,8 @@ A CSS class to apply to flashing cells via flashCell().
 ---------------------------------------
 
 ====columns====
+The grid column definitions. See GridColumnConfiguration for details.
+
 *Type:* [http://api.jquery.com/Types/#Array Array]
 
 *Default:* 
@@ -1342,7 +1379,7 @@ var rowCount = $('#myGrid').grid('getDataLength');
 ---------------------------------------
 
 ====getDataView()====
-Get the !DataView object used by !SlickGrid to render the grid.
+Get the DataView object used by SlickGrid to render the grid.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1388,7 +1425,7 @@ var dataView = $('#myGrid').grid('getDataView');
 ---------------------------------------
 
 ====getSlickGrid()====
-Get the underlying !SlickGrid object backing the grid.
+Get the underlying SlickGrid object backing the grid.
 
 ---------------------------------------
 
