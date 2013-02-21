@@ -665,18 +665,18 @@
 	                    itemVal = typeof itemVal === 'object' && filter.dataItemAttribute ? itemVal[filter.dataItemAttribute] + '' : itemVal + '';
 	                    
 	                    if(itemVal || itemVal === '') {
-	                    	switch(filter.type) {
-		                    	case 'startsWith':
-		                    		result =  itemVal.toLowerCase().startsWith(filter.value);
+	                    	switch(filter.type) {	                    		
+	                    		case 'startsWith':
+		                    		result =  itemVal.toLowerCase().startsWith(filter.value.toLowerCase());
 		                    		break;
 		                    	case 'endsWith':
-		                    		result =  itemVal.toLowerCase().endsWith(filter.value);
+		                    		result =  itemVal.toLowerCase().endsWith(filter.value.toLowerCase());
 		                    		break;
 		                    	case 'contains':
-		                    		result =  itemVal.toLowerCase().indexOf(filter.value) > -1;
+		                    		result =  itemVal.toLowerCase().indexOf(filter.value.toLowerCase()) > -1;
 		                    		break;
 		                    	case 'doesNotContain':
-		                    		result =  itemVal.toLowerCase().indexOf(filter.value) === -1;
+		                    		result =  !filter.value || itemVal.toLowerCase().indexOf(filter.value.toLowerCase()) === -1;
 		                    		break;
 		                    	case 'list':
 		                    		result = itemVal === filter.value;
@@ -1483,6 +1483,8 @@
 		destroy: function() {
 			this.grid.onColumnsReordered.unsubscribe();
 			this.grid.onColumnsResized.unsubscribe();
+			this.grid.destroy();
+			this.element.removeClass('ui-grid ui-widget').unbind().empty();
 			$.Widget.prototype.destroy.call(this);		
 		}
 	});
