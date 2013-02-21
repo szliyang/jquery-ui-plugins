@@ -1166,7 +1166,7 @@ $('#myGrid').grid('getActiveCellNode');
 ---------------------------------------
 
 ====getActiveCellPosition()====
-Get the position coordinates of the active cell, i.e. the one that currently has focus. This method returns an object with the bottom, height, left, right, top, visible and width properties of the active cell's DOM element. Please note that in the version of SlickGrid currently used by this plug in, this method will throw an exception if it is called when there is no active cell.
+Get the position coordinates of the active cell, i.e. the one that currently has focus. This method returns an object with the bottom, height, left, right, top, visible and width properties of the active cell's DOM element. Please note that in the version of !SlickGrid currently used by this plug in, this method will throw an exception if it is called when there is no active cell.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1445,7 +1445,7 @@ var rowCount = $('#myGrid').grid('getDataLength');
 ---------------------------------------
 
 ====getDataView()====
-Get the DataView object used by SlickGrid to render the grid.
+Get the !DataView object used by !SlickGrid to render the grid.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1491,7 +1491,7 @@ var dataView = $('#myGrid').grid('getDataView');
 ---------------------------------------
 
 ====getSlickGrid()====
-Get the underlying SlickGrid object backing the grid.
+Get the underlying !SlickGrid object backing the grid.
 
 ---------------------------------------
 
