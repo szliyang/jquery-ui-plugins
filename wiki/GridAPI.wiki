@@ -389,12 +389,12 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setData() setData]</td>
+  <td>[#setData(data) setData]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#setHeaderRowVisibility() setHeaderRowVisibility]</td>
+  <td>[#setHeaderRowVisibility(visible) setHeaderRowVisibility]</td>
   <td></td>
 </tr>
 <tr>
@@ -404,27 +404,27 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setRowCssClass() setRowCssClass *]</td>
+  <td>[#setRowCssClass(rowKey,_cssClass) setRowCssClass *]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#setSelectedRows() setSelectedRows]</td>
+  <td>[#setSelectedRows(rowIndexes) setSelectedRows]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#setSelectionModel() setSelectionModel]</td>
+  <td>[#setSelectionModel(selectionModel) setSelectionModel]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#setSortColumn() setSortColumn]</td>
+  <td>[#setSortColumn(columnId,_ascending) setSortColumn]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#setSortColumns() setSortColumns]</td>
+  <td>[#setSortColumns(columns) setSortColumns]</td>
   <td></td>
 </tr>
 <tr>
@@ -828,7 +828,7 @@ When set to true and selectionModel is set to "row", allows the user to select m
 ---------------------------------------
 
 ====rowHeight====
-Height of grid rows
+Height in pixels of the grids rows.
 
 *Type:* [http://api.jquery.com/Types/#Integer Integer]
 
@@ -903,11 +903,17 @@ Add the specified cssClass to the cell at rowKey and columnName. Note that this 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
  * *cssClass*
  Type: [http://api.jquery.com/Types/#String String]
+
+
 
  The list of CSS classes to apply to the specified cell.
 
@@ -919,10 +925,14 @@ A Slick grid method that adds css style to cells by row index and column name. T
  * *key*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
  A key that can be used to access the hash of styles later, to modify or remove it, for example.
 
  * *hash*
  Type: [http://api.jquery.com/Types/#Object Object]
+
+
 
  An object that identifies by row index and column name, what styles to apply.
 
@@ -947,6 +957,14 @@ $('#myGrid').grid('addCellCssStyles', 'myKey',
 ---------------------------------------
 
 ====autosizeColumns()====
+Automatically resize the columns to fill the entire width of the grid so there is no horizontal scrolling and no extra horizontal space. Essentially this method sets each column width to grid.width/grid.column.count.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('autosizeColumns');
+}}}
+
 ---------------------------------------
 
 ====cancelCurrentEdit()====
@@ -966,8 +984,12 @@ Returns a boolean indicating if the cell at {{{row}}} and {{{column}}} can be ac
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
+
+
  * *columnIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
 
 *Returns:* [http://api.jquery.com/Types/#Boolean Boolean]
 
@@ -985,8 +1007,12 @@ Returns a boolean indicating if the cell at {{{row}}} and {{{column}}} can be se
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
+
+
  * *columnIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
 
 *Returns:* [http://api.jquery.com/Types/#Boolean Boolean]
 
@@ -1004,8 +1030,12 @@ Remove all CSS classes from the cell at {{{rowKey}}} and {{{columnName}}}.
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
+
+
 
 *Example:*
 
@@ -1076,11 +1106,17 @@ Apply and remove [#cellFlashingCssClass cellFlashingCssClass] on the cell at {{{
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
+
+
  * *columnIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
+
+
  * *speed*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
 
  The speed at which to toggle [#cellFlashingCssClass cellFlashingCssClass] in milliseconds
 
@@ -1161,8 +1197,12 @@ Get the list of css classes that have been applied to the cell at {{{rowKey}}} a
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
+
+
 
 *Returns:* [http://api.jquery.com/Types/#String String]
 
@@ -1179,6 +1219,8 @@ Get the CSS style hash represented by {{{key}}}. The object returned is a list o
 
  * *key*
  Type: [http://api.jquery.com/Types/#String String]
+
+
 
  The key identifying a set of CSS styles applied using [#addCellCssStyles(key,_hash) addCellCssStyles] or [#setCellCssStyles(key,_hash) setCellCssStyles].
 
@@ -1206,10 +1248,22 @@ var cellEditor = $('#myGrid').grid('getCellEditor');
 ---------------------------------------
 
 ====getCellFromEvent(event)====
+Get the cell closest to the target of the given {{{event}}}. The returned cell object has two properties, row and cell which are the row and column index of the cell closest to the event.
+
  * *event*
  Type: [http://api.jquery.com/Types/#Event Event]
 
- Get the cell closest to the target of the given {{{event}}}.
+
+
+ The {{{event}}} for which to get the cell.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var cell = $('#myGrid').grid('getCellFromEvent', event);
+}}}
 
 ---------------------------------------
 
@@ -1219,8 +1273,12 @@ Get the cell closest to the given {{{x}}}, {{{y}}} coordinate. This method retur
  * *x*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
+
+
  * *y*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1238,8 +1296,12 @@ Get the DOM element of the cell at {{{rowIndex}}} and {{{columnIndex}}}.
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
 
+
+
  * *columnIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
 
 *Returns:* [http://api.jquery.com/Types/#Element Element]
 
@@ -1313,6 +1375,8 @@ Get the column index of {{{columnName}}}.
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
 *Returns:* [http://api.jquery.com/Types/#Integer Integer]
 
 *Example:*
@@ -1354,6 +1418,8 @@ Get the row item at {{{rowIndex}}}.
 
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1516,11 +1582,17 @@ Set the css class of the cell at rowKey and columnName to cssClass, thus removin
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
  * *columnName*
  Type: [http://api.jquery.com/Types/#String String]
 
+
+
  * *cssClass*
  Type: [http://api.jquery.com/Types/#String String]
+
+
 
  The list of CSS classes to apply to the specified cell.
 
@@ -1531,6 +1603,8 @@ Method to set CSS classes on several cells in one call. The cssData parameter is
 
  * *cssData*
  Type: [http://api.jquery.com/Types/#Array Array]
+
+
 
  An array of objects identifying, by row and column, a list of classes to apply to specific cells.
 
@@ -1559,28 +1633,130 @@ $('#myGrid').grid('setCellCssClasses', cssClasses);
 ====setColumns()====
 ---------------------------------------
 
-====setData()====
+====setData(data)====
+Set the grid data to the values in the data parameter. When calling this method either render or invalidate must also be called to render the new data.
+
+ * *data*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+
+
+*Example:*
+
+{{{
+$grid.grid('setData', getData());
+$grid.grid('invalidate');
+}}}
+
 ---------------------------------------
 
-====setHeaderRowVisibility()====
+====setHeaderRowVisibility(visible)====
+Show or hide the header row which is actually the second header row that displays the inline filters. This method updates the showHeaderRow option.
+
+ * *visible*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setHeaderRowVisibility', false);
+}}}
+
 ---------------------------------------
 
 ====setOptions()====
 ---------------------------------------
 
-====setRowCssClass()====
+====setRowCssClass(rowKey, cssClass)====
+Set the css class of the row at rowKey to the list of classes specified by cssClass.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *cssClass*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setRowCssClass', 'Project 5', 'error');
+}}}
+
 ---------------------------------------
 
-====setSelectedRows()====
+====setSelectedRows(rowIndexes)====
+Set the selected rows to the rows specified by rowIndexes.
+
+ * *rowIndexes*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setSelectedRows', [2, 5, 7]);
+}}}
+
 ---------------------------------------
 
-====setSelectionModel()====
+====setSelectionModel(selectionModel)====
+Set the selection model for the grid. The selectionModel parameter can be either a string or an object identifying the type of selection used by the grid. To use the built-in !RowSelectionModel or !CellSelectionModel implementation, enter a string value of "row" or "cell". To use a custom selection model pass an object that implements the Slick.SelectionModel interface as defined <a href="https://github.com/mleibman/SlickGrid/wiki/Handling-selection">here</a>.
+
+ * *selectionModel*
+ Type: [http://api.jquery.com/Types/#String String] or [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setSelectionModel', 'row');
+}}}
+
 ---------------------------------------
 
-====setSortColumn()====
+====setSortColumn(columnId, ascending)====
+This method updates the sort icon on the column identified by columnId to the up/down arrow icon based on the value of the ascending parameter. This method does not actually sort the data.
+
+ * *columnId*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *ascending*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setSortColumn', 'projectName', true);
+}}}
+
 ---------------------------------------
 
-====setSortColumns()====
+====setSortColumns(columns)====
+This method updates the sort icon on multiple columns at once by passing in an array of objects with columnId and sortAsc parameters. This method does not actually sort the data.
+
+ * *columns*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+
+
+ An array of objects with columnId and sortAsc attributes
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setSortColumns', [{columnId: 'project', sortAsc: true}, {columnId: 'start', sortAsc: false}]);
+}}}
+
 ---------------------------------------
 
 ====setTopPanelVisibility()====
