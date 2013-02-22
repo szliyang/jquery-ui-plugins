@@ -1499,7 +1499,7 @@ var dataView = $('#myGrid').grid('getDataView');
 ---------------------------------------
 
 ====getEditController()====
-Get the edit controller, which is an object responsible for managing cell edits. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the edit controller directly as those methods check for an edit lock before delegating to the underlying edit controller.
+Get the edit controller, which is an object responsible for managing cell edits. In general it is recommended to call the [#saveCurrentEdit() saveCurrentEdit] and [#cancelCurrentEdit() cancelCurrentEdit] methods instead of calling methods on the edit controller directly as those methods check for an edit lock before delegating to the underlying edit controller.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1522,7 +1522,7 @@ var editController = $('#myGrid').grid('getEditController');
 ---------------------------------------
 
 ====getEditorLock()====
-Get the Slick.!EditorLock object that manages concurrent cell edits. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the editor lock directly as those methods check for an edit lock and then delegate to the underlying edit controller.
+Get the Slick.!EditorLock object that manages concurrent cell edits. In general it is recommended to call the [#saveCurrentEdit() saveCurrentEdit] and [#cancelCurrentEdit() cancelCurrentEdit] methods instead of calling methods on the editor lock directly as those methods check for an edit lock and then delegate to the underlying edit controller.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
