@@ -49,141 +49,146 @@
 </tr>
 <tr>
   <td>[#columns columns]</td>
-  <td>[#destroy() destroy]</td>
+  <td>[#clearItemChanges(rowKey) clearItemChanges *]</td>
   <td>[#onBeforeHeaderCellDestroy() onBeforeHeaderCellDestroy]</td>
 </tr>
 <tr>
   <td>[#data data]</td>
-  <td>[#disable() disable *]</td>
+  <td>[#destroy() destroy]</td>
   <td>[#onBeforeHeaderRowCellDestroy() onBeforeHeaderRowCellDestroy]</td>
 </tr>
 <tr>
   <td>[#dataItemColumnValueExtractor dataItemColumnValueExtractor]</td>
-  <td>[#editActiveCell() editActiveCell]</td>
+  <td>[#disable() disable *]</td>
   <td>[#onCellChange() onCellChange]</td>
 </tr>
 <tr>
   <td>[#defaultColumnWidth defaultColumnWidth]</td>
-  <td>[#enable() enable *]</td>
+  <td>[#editActiveCell() editActiveCell]</td>
   <td>[#onCellCssStylesChanged() onCellCssStylesChanged]</td>
 </tr>
 <tr>
   <td>[#defaultFormatter defaultFormatter]</td>
-  <td>[#flashCell(rowIndex,_columnIndex,_speed) flashCell]</td>
+  <td>[#enable() enable *]</td>
   <td>[#onClick() onClick]</td>
 </tr>
 <tr>
   <td>[#editable editable]</td>
-  <td>[#focus() focus]</td>
+  <td>[#flashCell(rowIndex,_columnIndex,_speed) flashCell]</td>
   <td>[#onColumnsReordered() onColumnsReordered]</td>
 </tr>
 <tr>
   <td>[#editorFactory editorFactory]</td>
-  <td>[#getActiveCell() getActiveCell]</td>
+  <td>[#focus() focus]</td>
   <td>[#onColumnsResized() onColumnsResized]</td>
 </tr>
 <tr>
   <td>[#editorLock editorLock]</td>
-  <td>[#getActiveCellNode() getActiveCellNode]</td>
+  <td>[#getActiveCell() getActiveCell]</td>
   <td>[#onContextMenu() onContextMenu]</td>
 </tr>
 <tr>
   <td>[#enableAddRow enableAddRow]</td>
-  <td>[#getActiveCellPosition() getActiveCellPosition]</td>
+  <td>[#getActiveCellNode() getActiveCellNode]</td>
   <td>[#onDblClick() onDblClick]</td>
 </tr>
 <tr>
   <td>[#enableAsyncPostRender enableAsyncPostRender]</td>
-  <td>[#getCanvasNode() getCanvasNode]</td>
+  <td>[#getActiveCellPosition() getActiveCellPosition]</td>
   <td>[#onDrag() onDrag]</td>
 </tr>
 <tr>
   <td>[#enableCellNavigation enableCellNavigation]</td>
-  <td>[#getCellCssClass(rowKey,_columnName) getCellCssClass *]</td>
+  <td>[#getCanvasNode() getCanvasNode]</td>
   <td>[#onDragEnd() onDragEnd]</td>
 </tr>
 <tr>
   <td>[#enableColumnReorder enableColumnReorder]</td>
-  <td>[#getCellCssStyles(key) getCellCssStyles]</td>
+  <td>[#getCellCssClass(rowKey,_columnName) getCellCssClass *]</td>
   <td>[#onDragInit() onDragInit]</td>
 </tr>
 <tr>
   <td>[#enableTextSelectionOnCells enableTextSelectionOnCells]</td>
-  <td>[#getCellEditor() getCellEditor]</td>
+  <td>[#getCellCssStyles(key) getCellCssStyles]</td>
   <td>[#onDragStart() onDragStart]</td>
 </tr>
 <tr>
   <td>[#explicitInitialization explicitInitialization]</td>
-  <td>[#getCellFromEvent(event) getCellFromEvent]</td>
+  <td>[#getCellEditor() getCellEditor]</td>
   <td>[#onHeaderCellRendered() onHeaderCellRendered]</td>
 </tr>
 <tr>
   <td>[#forceFitColumns forceFitColumns]</td>
-  <td>[#getCellFromPoint(x,_y) getCellFromPoint]</td>
+  <td>[#getCellFromEvent(event) getCellFromEvent]</td>
   <td>[#onHeaderClick() onHeaderClick]</td>
 </tr>
 <tr>
   <td>[#forceSyncScrolling forceSyncScrolling]</td>
-  <td>[#getCellNode(rowIndex,_columnIndex) getCellNode]</td>
+  <td>[#getCellFromPoint(x,_y) getCellFromPoint]</td>
   <td>[#onHeaderContextMenu() onHeaderContextMenu]</td>
 </tr>
 <tr>
   <td>[#formatterFactory formatterFactory]</td>
-  <td>[#getCellNodeBox() getCellNodeBox]</td>
+  <td>[#getCellNode(rowIndex,_columnIndex) getCellNode]</td>
   <td>[#onHeaderMouseEnter() onHeaderMouseEnter]</td>
 </tr>
 <tr>
   <td>[#fullWidthRows fullWidthRows]</td>
-  <td>[#getChangedItems() getChangedItems *]</td>
+  <td>[#getCellNodeBox() getCellNodeBox]</td>
   <td>[#onHeaderMouseLeave() onHeaderMouseLeave]</td>
 </tr>
 <tr>
   <td>[#headerRowHeight headerRowHeight]</td>
-  <td>[#getChanges() getChanges *]</td>
+  <td>[#getChangedItems() getChangedItems *]</td>
   <td>[#onHeaderRowCellRendered() onHeaderRowCellRendered]</td>
 </tr>
 <tr>
   <td>[#leaveSpaceForNewRows leaveSpaceForNewRows]</td>
-  <td>[#getColumnIndex(columnName) getColumnIndex]</td>
+  <td>[#getChanges() getChanges *]</td>
   <td>[#onKeyDown() onKeyDown]</td>
 </tr>
 <tr>
   <td>[#multiColumnSort multiColumnSort]</td>
-  <td>[#getColumns() getColumns]</td>
+  <td>[#getColumnIndex(columnName) getColumnIndex]</td>
   <td>[#onMouseEnter() onMouseEnter]</td>
 </tr>
 <tr>
   <td>[#multiSelect multiSelect]</td>
-  <td>[#getData() getData *]</td>
+  <td>[#getColumns() getColumns]</td>
   <td>[#onMouseLeave() onMouseLeave]</td>
 </tr>
 <tr>
   <td>[#rowHeight rowHeight]</td>
-  <td>[#getDataItem(rowIndex) getDataItem]</td>
+  <td>[#getData() getData *]</td>
   <td>[#onScroll() onScroll]</td>
 </tr>
 <tr>
   <td>[#rowKey rowKey]</td>
-  <td>[#getDataLength() getDataLength]</td>
+  <td>[#getDataItem(rowIndex) getDataItem]</td>
   <td>[#onSelectedRowsChanged() onSelectedRowsChanged]</td>
 </tr>
 <tr>
   <td>[#selectedCellCssClass selectedCellCssClass]</td>
-  <td>[#getDataView() getDataView *]</td>
+  <td>[#getDataLength() getDataLength]</td>
   <td>[#onSort() onSort]</td>
 </tr>
 <tr>
   <td>[#showHeaderRow showHeaderRow]</td>
-  <td>[#getEditController() getEditController]</td>
+  <td>[#getDataView() getDataView *]</td>
   <td>[#onValidationError() onValidationError]</td>
 </tr>
 <tr>
   <td>[#showTopPanel showTopPanel]</td>
-  <td>[#getEditorLock() getEditorLock]</td>
+  <td>[#getEditController() getEditController]</td>
   <td>[#onViewportChanged() onViewportChanged]</td>
 </tr>
 <tr>
   <td>[#topPanelHeight topPanelHeight]</td>
+  <td>[#getEditorLock() getEditorLock]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
   <td>[#getGridPosition() getGridPosition]</td>
   <td></td>
 </tr>
@@ -279,6 +284,16 @@
 </tr>
 <tr>
   <td></td>
+  <td>[#isItemChanged(rowKey) isItemChanged *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#markItemChanged(rowKey,_columnName,_originalValue) markItemChanged *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
   <td>[#navigateDown() navigateDown]</td>
   <td></td>
 </tr>
@@ -330,6 +345,11 @@
 <tr>
   <td></td>
   <td>[#render() render]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#replaceItem(rowKey,_newItem) replaceItem *]</td>
   <td></td>
 </tr>
 <tr>
@@ -395,6 +415,11 @@
 <tr>
   <td></td>
   <td>[#setHeaderRowVisibility(visible) setHeaderRowVisibility]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>[#setItem(rowKey,_updatedItem) setItem *]</td>
   <td></td>
 </tr>
 <tr>
@@ -663,11 +688,11 @@ An object that implements a getEditor(columnDefinition) function that returns th
 ---------------------------------------
 
 ====editorLock====
-A Slick.EditorLock instance to use for controlling concurrent data edits.
+A Slick.!EditorLock instance to use for controlling concurrent data edits.
 
 *Type:* [http://api.jquery.com/Types/#Object Object]
 
-*Default:* Slick.GlobalEditorLock
+*Default:* Slick.!GlobalEditorLock
 
 ---------------------------------------
 
@@ -1046,12 +1071,28 @@ $('#myGrid').grid('clearCellCssClass', '1234', 'price');
 ---------------------------------------
 
 ====clearChangedItems()====
-When the grid is editable, changes made to the data are tracked and can be retrieved using the [#getChangedItems getChangedItems] and [#getChanges getChanges] methods. Changed cells also have the ui-changed-cell class added to them so CSS style can be applied to changed cells. This method removes the ui-changed-cell class from changed cells and clears all change tracking data, making the visible data the new "original" state. 
+When the grid is editable, changes made to the data are tracked and can be retrieved using the [#getChangedItems getChangedItems] and [#getChanges getChanges] methods. Changed cells also have the ui-changed-cell class added to them so CSS style can be applied to changed cells. This method removes the ui-changed-cell class from changed cells and clears all change tracking data, making the visible data the new "original" state.
 
 *Example:*
 
 {{{
 $('#myGrid').grid('clearChangedItems');
+}}}
+
+---------------------------------------
+
+====clearItemChanges(rowKey)====
+When the grid is editable, changes made to the data are tracked and can be retrieved using the [#getChangedItems getChangedItems] and [#getChanges getChanges] methods. Changed cells also have the ui-changed-cell class added to them so CSS style can be applied to changed cells. This method removes the ui-changed-cell class and clears all change tracking data from the row at {{{rowKey}}}, making the visible data the new "original" state.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('clearItemChanges', 'row1234');
 }}}
 
 ---------------------------------------
@@ -1340,7 +1381,7 @@ var changedItems = $('#myGrid').grid('getChangedItems');
 ---------------------------------------
 
 ====getChanges()====
-Get a list of changed cell values. This method returns an Array of objects with two properties, the first property is named whatever was specified as the [#rowKey rowKey] for the grid and the second property is an Array of change objects named "changes". the change objects have {{{field}}}, {{{newValue}}} and {{{oldValue}}} properties identifying what changed on each field for the row.
+Get a list of changed cell values. This method returns an Array of objects with two properties, the first property is named whatever was specified as the [#rowKey rowKey] for the grid and the second property is an Array of change objects named "changes". The change objects have {{{field}}}, {{{newValue}}} and {{{oldValue}}} properties identifying what changed on each field for the row.
 
 *Returns:* [http://api.jquery.com/Types/#Array Array]
 
@@ -1458,9 +1499,29 @@ var dataView = $('#myGrid').grid('getDataView');
 ---------------------------------------
 
 ====getEditController()====
+Get the edit controller, which is an object responsible for managing cell edits. The returned controller object has two function properties, {{{commitCurrentEdit}}} and {{{cancelCurrentEdit}}}. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the edit controller directly as those methods check for an edit lock before delegating to the underlying edit controller.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var editController = $('#myGrid').grid('getEditController');
+}}}
+
 ---------------------------------------
 
 ====getEditorLock()====
+Get the Slick.!EditorLock object that manages concurrent cell edits. The returned !EditorLock object has five function attributes, {{{isActive}}}, {{{activate}}}, {{{deactivate}}}, {{{commitCurrentEdit}}} and {{{cancelCurrentEdit}}}. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the editor lock directly as those methods check for an edit lock and then delegate to the underlying edit controller.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var editorLock = $('#myGrid').grid('getEditorLock');
+}}}
+
 ---------------------------------------
 
 ====getGridPosition()====
@@ -1522,6 +1583,52 @@ Get the underlying !SlickGrid object backing the grid.
 ====invalidateRows()====
 ---------------------------------------
 
+====isItemChanged(rowKey)====
+Check if the row at {{{rowKey}}} has been changed.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Returns:* [http://api.jquery.com/Types/#Boolean Boolean]
+
+*Example:*
+
+{{{
+var isChanged = $('#myGrid').grid('isItemChanged', 'myrowkey');
+}}}
+
+---------------------------------------
+
+====markItemChanged(rowKey, columnName, originalValue)====
+Mark the cell at {{{rowKey}}} and {{{columnName}}} as "changed", which means the cell will have the ui-changed-cell class added to it and it will be returned by the [#getChangedItems getChangedItems] and [#getChanges getChanges] methods.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *originalValue*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ The value to be stored as the "original" value of the cell, i.e. the value before the change occurred. This value is tracked and can be retrieved later by calling the [#getChanges getChanges] method which will return an array of objects containing a rowKey and an array of changes made to each row by field.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('markItemChanged', 'myrowkey', 'firstName', 'Johnny');
+}}}
+
+---------------------------------------
+
 ====navigateDown()====
 ---------------------------------------
 
@@ -1553,6 +1660,27 @@ Get the underlying !SlickGrid object backing the grid.
 ---------------------------------------
 
 ====render()====
+---------------------------------------
+
+====replaceItem(rowKey, newItem)====
+Replace the item at {{{rowKey}}} with {{{newItem}}}. The difference between this method and [#setItem setItem] is that this method allows the new item to have a different rowKey than the item being replaced. If you don't need to update the item's rowKey, using [#setItem setItem] is more efficient.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *newItem*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('replaceItem', 'ItemId1234', myNewItemObject);
+}}}
+
 ---------------------------------------
 
 ====resetActiveCell()====
@@ -1644,6 +1772,7 @@ Set the grid data to the values in the data parameter. When calling this method 
 *Example:*
 
 {{{
+var $grid = $('#myGrid');
 $grid.grid('setData', getData());
 $grid.grid('invalidate');
 }}}
@@ -1662,6 +1791,27 @@ Show or hide the header row which is actually the second header row that display
 
 {{{
 $('#myGrid').grid('setHeaderRowVisibility', false);
+}}}
+
+---------------------------------------
+
+====setItem(rowKey, updatedItem)====
+Update the item (i.e. row) with the id of {{{rowKey}}} to {{{item}}}. The difference between this method and [#replaceItem replaceItem] is that you cannot change the item's rowKey when calling setItem. If you don't need to change the item's rowKey using setItem is more efficient that replaceItem.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *updatedItem*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setItem', 'ItemId1234', myNewItemObject);
 }}}
 
 ---------------------------------------
