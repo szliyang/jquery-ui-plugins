@@ -7,42 +7,54 @@ There are four built-in text filters. These filters render a text field at the t
 ===Examples:===
 ==== Contains ====
 {{{
-var cols = [{
-  id : 'project',
-  name : 'Project Name',
-  field : 'project',	
-  filter: 'contains'
-}]
+var cols = [
+  {
+    id : 'project',
+    name : 'Project Name',
+    field : 'project',	
+    filter: 'contains'
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ====Starts With====
 {{{
-var cols = [{
-  id : 'project',
-  name : 'Project Name',
-  field : 'project',	
-  filter: 'startsWith'
-}]
+var cols = [
+  {
+    id : 'project',
+    name : 'Project Name',
+    field : 'project',	
+    filter: 'startsWith'
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ====Ends With====
 {{{
-var cols = [{
-  id : 'project',
-  name : 'Project Name',
-  field : 'project',	
-  filter: 'endsWith'
-}]
+var cols = [
+  {
+    id : 'project',
+    name : 'Project Name',
+    field : 'project',	
+    filter: 'endsWith'
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ====Does not contain====
 {{{
-var cols = [{
-  id : 'project',
-  name : 'Project Name',
-  field : 'project',	
-  filter: 'doesNotContain'
-}]
+var cols = [
+  {
+    id : 'project',
+    name : 'Project Name',
+    field : 'project',	
+    filter: 'doesNotContain'
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ----------------------------------------
@@ -53,12 +65,15 @@ The simplest way to create a drop-down list filter is to assign an array of stri
 ===Example:===
 {{{
 // Basic drop-down filter created from an array, matches item property exactly with value displayed in filter list
-var cols = [{
-  id : 'onBudget',
-  name : 'On Budget',
-  field : 'onBudget',		
-  filter: ['true', 'false']
-}]
+var cols = [
+  {
+    id : 'onBudget',
+    name : 'On Budget',
+    field : 'onBudget',		
+    filter: ['true', 'false']
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ===Object array drop-down list filter===
@@ -66,16 +81,48 @@ Assigning an object array to a column's filter option allows you to create a dro
 
 ===Example:===
 {{{
-cols = [{
-  id: 'onSchedule',
-  name: 'On Schedule',
-  field: 'onSchedule',
-  formatter: {'type': 'checkbox', 'checkedValue': 'sure', 'notCheckedValue': 'noway'},
-  filter: [
-    {'name': 'Yes', 'value': 'sure'},
-    {'name': 'No', 'value': 'noway'}
-  ]	
-}]
+cols = [
+  {
+    id: 'onSchedule',
+    name: 'On Schedule',
+    field: 'onSchedule',
+    formatter: {'type': 'checkbox', 'checkedValue': 'sure', 'notCheckedValue': 'noway'},
+    filter: [
+      {'name': 'Yes', 'value': 'sure'},
+      {'name': 'No', 'value': 'noway'}
+    ]	
+  },
+  // ... continue with other column defintions
+]
+}}}
+
+===Drop-down list filter for columns backed by object attributes===
+If a column's data is an object attribute of the row (as opposed to a simple attribute value like a string), you can define a list filter using an object that identifies what attribute on the column's value object should be used for filtering. The filter definition requires {{{type}}}, {{{options}}} and {{{dataItemAttribute}}} properties. For example, if a grid has a "status" column that's represented by an object with the attributes "displayName" and "code", we can define a drop-down list filter that will filter rows using the code attribute of the status.
+
+===Example:===
+{{{
+// in the following example each row's status attribute is an object 
+// containing code and displayName attributes, we create a drop down
+// list filter that will filter on the code attribute.
+cols = [
+  {
+    id : 'status',
+    name : 'Status',
+    field : 'status',			
+    formatter: function (rowNum, cellNum, value, columnDef, row) {
+      return value.displayName;
+    },
+    filter: {
+      'type': 'list', 
+      'options': [
+        {'name': 'Active', 'value': 'ACTIVE'},
+        {'name': 'Inactive', 'value': 'INACTIVE'}
+      ],
+      'dataItemAttribute': 'code'
+    }
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ----------------------------------------
@@ -85,12 +132,15 @@ Setting a column's filter option to the string "numeric" assigns a numeric filte
 
 ===Example:===
 {{{
-cols = [{
-  id : 'percentComplete',
-  name : '% Complete',
-  field : 'percentComplete',
-  filter: 'numeric'
-}]
+cols = [
+  {
+    id : 'percentComplete',
+    name : '% Complete',
+    field : 'percentComplete',
+    filter: 'numeric'
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ----------------------------------------
@@ -100,14 +150,17 @@ Setting a column's filter option to the string "date" assigns a date filter to t
 
 ===Example:===
 {{{
-{
-  id : 'start',
-  name : 'Start',
-  field : 'start',
-  sort: 'date',
-  dateFormat: 'MM/dd/yyyy',
-  filter: 'date'
-}
+cols = [
+  {
+    id : 'start',
+    name : 'Start',
+    field : 'start',
+    sort: 'date',
+    dateFormat: 'MM/dd/yyyy',
+    filter: 'date'
+  },
+  // ... continue with other column defintions
+]
 }}}
 
 ----------------------------------------
@@ -117,14 +170,17 @@ To create a custom filter on a column, assign an object to the column's filter o
 
 ===Example:===
 {{{
-cols = [{
-  id : 'duration',
-  name : 'Duration',
-  field : 'duration',
-  filter: {				
-    impl: function(filterValue, itemValue) {
-      return Number(itemValue.replace('Approximately', '').replace('days', '').trim()) > Number(filterValue);
-    }	
-  }
-}]
+cols = [
+  {
+    id : 'duration',
+    name : 'Duration',
+    field : 'duration',
+    filter: {				
+      impl: function(filterValue, itemValue) {
+        return Number(itemValue.replace('Approximately', '').replace('days', '').trim()) > Number(filterValue);
+      }	
+    }
+  },
+  // ... continue with other column defintions
+]
 }}}
