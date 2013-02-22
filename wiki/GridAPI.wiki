@@ -204,12 +204,12 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#getItem() getItem *]</td>
+  <td>[#getItem(rowKey) getItem *]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#getItems() getItems *]</td>
+  <td>[#getItems(rowKeys) getItems *]</td>
   <td></td>
 </tr>
 <tr>
@@ -1592,18 +1592,80 @@ var position = $('#myGrid').grid('getGridPosition');
 ---------------------------------------
 
 ====getHeaderRow()====
+Get the secondary header row DOM element. This is the header row where filters are rendered, below the column name headers.
+
+*Returns:* [http://api.jquery.com/Types/#Element Element]
+
+*Example:*
+
+{{{
+var headerRow = $('#myGrid').grid('getHeaderRow');
+}}}
+
 ---------------------------------------
 
 ====getHeaderRowColumn()====
+Get the secondary header row column DOM element for the columns specified by {{{columnId}}}. The secondary header row is the header row where filters are rendered, below the column name headers.
+
+*Returns:* [http://api.jquery.com/Types/#Element Element]
+
+*Example:*
+
+{{{
+var headerRowColumn = $('#myGrid').grid('getHeaderRowColumn', 'lastName');
+}}}
+
 ---------------------------------------
 
-====getItem()====
+====getItem(rowKey)====
+Get the item (row object) for the row specified by {{{rowKey}}}.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var item = $('#myGrid').grid('getItem', 'row1234');
+}}}
+
 ---------------------------------------
 
-====getItems()====
+====getItems(rowKeys)====
+Get the items (row objects) for the rows specified by {{{rowKeys}}}.
+
+ * *rowKeys*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+
+
+ An array of rowKey strings
+
+*Returns:* [http://api.jquery.com/Types/#Array Array]
+
+*Example:*
+
+{{{
+var items = $('#myGrid').grid('getItems', ['row1234', 'row5678']);
+}}}
+
 ---------------------------------------
 
 ====getOptions()====
+Get the grid options.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var options = $('#myGrid').grid('getOptions');
+}}}
+
 ---------------------------------------
 
 ====getRenderedRange()====
