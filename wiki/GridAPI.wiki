@@ -1499,9 +1499,19 @@ var dataView = $('#myGrid').grid('getDataView');
 ---------------------------------------
 
 ====getEditController()====
-Get the edit controller, which is an object responsible for managing cell edits. The returned controller object has two function properties, {{{commitCurrentEdit}}} and {{{cancelCurrentEdit}}}. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the edit controller directly as those methods check for an edit lock before delegating to the underlying edit controller.
+Get the edit controller, which is an object responsible for managing cell edits. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the edit controller directly as those methods check for an edit lock before delegating to the underlying edit controller.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*cancelCurrentEdit*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+<li>*commitCurrentEdit*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+</ul>
 
 *Example:*
 
@@ -1512,9 +1522,28 @@ var editController = $('#myGrid').grid('getEditController');
 ---------------------------------------
 
 ====getEditorLock()====
-Get the Slick.!EditorLock object that manages concurrent cell edits. The returned !EditorLock object has five function attributes, {{{isActive}}}, {{{activate}}}, {{{deactivate}}}, {{{commitCurrentEdit}}} and {{{cancelCurrentEdit}}}. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the editor lock directly as those methods check for an edit lock and then delegate to the underlying edit controller.
+Get the Slick.!EditorLock object that manages concurrent cell edits. In general it is recommended to call the [#saveCurrentEdit saveCurrentEdit] and [#cancelCurrentEdit cancelCurrentEdit] methods instead of calling methods on the editor lock directly as those methods check for an edit lock and then delegate to the underlying edit controller.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*activate*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+<li>*cancelCurrentEdit*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+<li>*commitCurrentEdit*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+<li>*deactivate*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+<li>*isActive*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+</ul>
 
 *Example:*
 
@@ -1525,6 +1554,41 @@ var editorLock = $('#myGrid').grid('getEditorLock');
 ---------------------------------------
 
 ====getGridPosition()====
+Get an object containing position information about the grid.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*bottom*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*height*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*left*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*right*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*top*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*visible*</li>
+Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
+<li>*width*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+</ul>
+
+*Example:*
+
+{{{
+var position = $('#myGrid').grid('getGridPosition');
+}}}
+
 ---------------------------------------
 
 ====getHeaderRow()====
