@@ -1750,9 +1750,39 @@ var slickGrid = $grid.grid('getSlickGrid')
 ---------------------------------------
 
 ====getSortColumns()====
+Get the list of columns that the grid is currently sorted by. The array returned contains column objects containing {{{columnId}}} and {{{sortAsc}}} attributes.
+
+*Returns:* [http://api.jquery.com/Types/#Array Array]
+
+<ul>
+
+<li>*columnId*</li>
+Type: [http://api.jquery.com/Types/#String String]
+
+<li>*sortAsc*</li>
+Type: [http://api.jquery.com/Types/#boolean boolean]
+
+</ul>
+
+*Example:*
+
+{{{
+var sortColumns = $grid.grid('getSortColumns');
+}}}
+
 ---------------------------------------
 
 ====getTopPanel()====
+Get the top panel DOM element, which is a third header row that is displayed below the column headers and inline filter row. The top panel row is only diplayed if [#showTopPanel showTopPanel] is set to true.
+
+*Returns:* [http://api.jquery.com/Types/#Element Element]
+
+*Example:*
+
+{{{
+var topPanel = $grid.grid('getTopPanel');
+}}}
+
 ---------------------------------------
 
 ====getViewport()====
