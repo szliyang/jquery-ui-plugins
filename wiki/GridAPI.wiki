@@ -254,7 +254,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#gotoCell() gotoCell]</td>
+  <td>[#gotoCell(rowIndex,_cellIndex,_forceEdit) gotoCell]</td>
   <td></td>
 </tr>
 <tr>
@@ -1669,7 +1669,7 @@ var options = $('#myGrid').grid('getOptions');
 ---------------------------------------
 
 ====getRenderedRange()====
-Get a range object defining the currently rendered portion of the grid.
+Get a range object defining the currently rendered portion of the grid which includes the viewable portion of the grid (viewport) as well as a small buffer of content that is rendered just outside the bounds of the viewport.
 
 *Returns:* [http://api.jquery.com/Types/#Object Object]
 
@@ -1678,14 +1678,22 @@ Get a range object defining the currently rendered portion of the grid.
 <li>*bottom*</li>
 Type: [http://api.jquery.com/Types/#Number Number]
 
+The index of last row that is currently rendered.
+
 <li>*leftPx*</li>
 Type: [http://api.jquery.com/Types/#Number Number]
+
+The location of the leftmost pixel that is currently rendered.
 
 <li>*rightPx*</li>
 Type: [http://api.jquery.com/Types/#Number Number]
 
+The location of the rightmost pixel that is currently rendered.
+
 <li>*top*</li>
 Type: [http://api.jquery.com/Types/#Number Number]
+
+The index of top row that is currently rendered.
 
 </ul>
 
@@ -1760,7 +1768,7 @@ Get the list of columns that the grid is currently sorted by. The array returned
 Type: [http://api.jquery.com/Types/#String String]
 
 <li>*sortAsc*</li>
-Type: [http://api.jquery.com/Types/#boolean boolean]
+Type: [http://api.jquery.com/Types/#Boolean Boolean]
 
 </ul>
 
@@ -1786,9 +1794,66 @@ var topPanel = $grid.grid('getTopPanel');
 ---------------------------------------
 
 ====getViewport()====
+Get a range object defining the portion of the grid that is currently in view.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*bottom*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+The index of last row that is currently in view.
+
+<li>*leftPx*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+The location of the leftmost pixel that is currently in view.
+
+<li>*rightPx*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+The location of the rightmost pixel that is currently in view.
+
+<li>*top*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+The index of top row that is currently in view.
+
+</ul>
+
+*Example:*
+
+{{{
+var viewport = $('#myGrid').grid('viewport');
+}}}
+
 ---------------------------------------
 
-====gotoCell()====
+====gotoCell(rowIndex, cellIndex, forceEdit)====
+Select the cell at {{{rowIndex}}} and {{{cellIndex}}}. If {{{forceEdit}}} is true, the cell will be put into edit mode.  Note that if the [#autoEdit autoEdit] option is set to true (which is the default), the cell will go into edit mode even if false is passed for {{{forceEdit}}}.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *cellIndex*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *forceEdit*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
+
+
+*Example:*
+
+{{{
+var selectedCell = $grid.grid('gotoCell', 2, 3, true);
+}}}
+
 ---------------------------------------
 
 ====init()====
