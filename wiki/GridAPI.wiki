@@ -274,12 +274,12 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#invalidateRow() invalidateRow]</td>
+  <td>[#invalidateRow(rowIndex) invalidateRow]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#invalidateRows() invalidateRows]</td>
+  <td>[#invalidateRows(rowIndicies) invalidateRows]</td>
   <td></td>
 </tr>
 <tr>
@@ -434,7 +434,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setSelectedRows(rowIndexes) setSelectedRows]</td>
+  <td>[#setSelectedRows(rowIndicies) setSelectedRows]</td>
   <td></td>
 </tr>
 <tr>
@@ -1706,7 +1706,7 @@ var renderedRange = $('#myGrid').grid('getRenderedRange');
 ---------------------------------------
 
 ====getSelectedRows()====
-Gets an array containing the row indexes of the currently selected rows
+Gets an array containing the row indicies of the currently selected rows
 
 *Returns:* [http://api.jquery.com/Types/#Array Array]
 
@@ -1851,24 +1851,86 @@ Select the cell at {{{rowIndex}}} and {{{cellIndex}}}. If {{{forceEdit}}} is tru
 *Example:*
 
 {{{
-var selectedCell = $grid.grid('gotoCell', 2, 3, true);
+var selectedCell = $('#myGrid').grid('gotoCell', 2, 3, true);
 }}}
 
 ---------------------------------------
 
 ====init()====
+Initialize the grid, this method is called internally by !SlickGrid when the grid is created and subsequent calls are ignored. It is documented here only for completeness because it is exposed as part of !SlickGrid's public API.
+
 ---------------------------------------
 
 ====invalidate()====
+Invalidate all cached row data and re-render the entire grid. Call this method to render changes that have been made to grid data.
+
+*Example:*
+
+{{{
+var $grid = $('#myGrid')
+;var data = $grid.grid('getData');
+data[2].project = 'New Project Name';
+$grid.grid('invalidate');
+}}}
+
 ---------------------------------------
 
 ====invalidateAllRows()====
+Invalidate all cached row data. Unlike [#invalidate invalidate], this method does not re-render the grid so a separate call must be made to [#render render] for changes in grid data to be reflected in the view.
+
+*Example:*
+
+{{{
+var $grid = $('#myGrid');
+var data = $grid.grid('getData');
+data[2].project = 'New Project Name';
+$grid.grid('invalidateAllRows');
+$grid.grid('render'); // need this for the data update to be reflected in the view
+}}}
+
 ---------------------------------------
 
-====invalidateRow()====
+====invalidateRow(rowIndex)====
+Invalidate cached row data for the row at {{{rowIndex}}}. Unlike [#invalidate invalidate], this method does not re-render the grid so a separate call must be made to [#render render] for changes in grid data to be reflected in the view.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Example:*
+
+{{{
+var $grid = $('#myGrid');
+var data = $grid.grid('getData');
+data[2].project = 'New Project Name';
+$grid.grid('invalidateRow', 2);
+$grid.grid('render'); // need this for the data update to be reflected in the view
+}}}
+
 ---------------------------------------
 
-====invalidateRows()====
+====invalidateRows(rowIndicies)====
+Invalidate cached row data for the rows specified by the {{{rowIndicies}}} parameter. Unlike [#invalidate invalidate], this method does not re-render the grid so a separate call must be made to [#render render] for changes in grid data to be reflected in the view.
+
+ * *rowIndicies*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+
+
+ An array of row indicies specifying which rows to invalidate (remove from cache).
+
+*Example:*
+
+{{{
+var $grid = $('#myGrid');
+var data = $grid.grid('getData');
+data[2].project = 'New Project Name';
+data[4].project = 'Another New Project Name';
+$grid.grid('invalidateRows', [2, 4]);
+$grid.grid('render'); // need this for the data update to be reflected in the view
+}}}
+
 ---------------------------------------
 
 ====isItemChanged(rowKey)====
@@ -2128,10 +2190,10 @@ $('#myGrid').grid('setRowCssClass', 'Project 5', 'error');
 
 ---------------------------------------
 
-====setSelectedRows(rowIndexes)====
-Set the selected rows to the rows specified by rowIndexes.
+====setSelectedRows(rowIndicies)====
+Set the selected rows to the rows specified by rowIndicies.
 
- * *rowIndexes*
+ * *rowIndicies*
  Type: [http://api.jquery.com/Types/#Array Array]
 
 
