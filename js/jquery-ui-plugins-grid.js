@@ -1324,9 +1324,9 @@
 		getItem: function(rowKey) {
 			return this.dataHash[rowKey];						
 		},
-		setItem: function(itemId, item) {
-			this.dataHash[itemId] = item;
-			this.dataView.updateItem(itemId, item);		
+		setItem: function(rowKey, item) {
+			this.dataHash[rowKey] = item;
+			this.dataView.updateItem(rowKey, item);		
 			this.grid.invalidate();
 		},
 		getItems: function(rowKeys) {
@@ -1386,7 +1386,7 @@
 							'oldValue': item.changedCells[field], 
 							'newValue': item[field]}
 						);
-					}	
+					}
 										
 					if(itemChanges.length > 0) {
 						var itemChange = {'changes': itemChanges};
