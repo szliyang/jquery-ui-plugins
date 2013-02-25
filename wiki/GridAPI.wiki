@@ -1669,16 +1669,83 @@ var options = $('#myGrid').grid('getOptions');
 ---------------------------------------
 
 ====getRenderedRange()====
+Get a range object defining the currently rendered portion of the grid.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*bottom*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*leftPx*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*rightPx*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+<li>*top*</li>
+Type: [http://api.jquery.com/Types/#Number Number]
+
+</ul>
+
+*Example:*
+
+{{{
+var renderedRange = $('#myGrid').grid('getRenderedRange');
+}}}
+
 ---------------------------------------
 
 ====getSelectedRows()====
+Gets an array containing the row indexes of the currently selected rows
+
+*Returns:* [http://api.jquery.com/Types/#Array Array]
+
+*Example:*
+
+{{{
+var selectedRows = $('#myGrid').grid('getSelectedRows');
+}}}
+
 ---------------------------------------
 
 ====getSelectionModel()====
+Get the selection model used by the grid. The returned object is a Slick.!SelectionModel following the interface defined <a href="https://github.com/mleibman/SlickGrid/wiki/Handling-selection">here</a>.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+<ul>
+
+<li>*destroy*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+<li>*init*</li>
+Type: [http://api.jquery.com/Types/#Function Function]
+
+<li>*onSelectedRangesChanged*</li>
+Type: [http://api.jquery.com/Types/#Event Event]
+
+</ul>
+
+*Example:*
+
+{{{
+var selectionModel = $grid.grid('getSelectionModel');
+}}}
+
 ---------------------------------------
 
 ====getSlickGrid()====
-Get the underlying !SlickGrid object backing the grid.
+Get the underlying <a href="https://github.com/mleibman/SlickGrid">!SlickGrid</a> object backing the grid.
+
+*Returns:* [http://api.jquery.com/Types/#Object Object]
+
+*Example:*
+
+{{{
+var slickGrid = $grid.grid('getSlickGrid')
+}}}
 
 ---------------------------------------
 
