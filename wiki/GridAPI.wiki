@@ -454,7 +454,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setTopPanelVisibility() setTopPanelVisibility]</td>
+  <td>[#setTopPanelVisibility(visible) setTopPanelVisibility]</td>
   <td></td>
 </tr>
 <tr>
@@ -2181,6 +2181,14 @@ $('#myGrid').grid('resizeCanvas');
 ---------------------------------------
 
 ====saveCurrentEdit()====
+If there is a cell in edit mode, save the current state of the cell and take the cell out of edit mode.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('saveCurrentEdit');
+}}}
+
 ---------------------------------------
 
 ====scrollCellIntoView()====
@@ -2424,7 +2432,7 @@ This method updates the sort icon on multiple columns at once by passing in an a
 
 
 
- An array of objects with columnId and sortAsc attributes
+ An array of objects with columnId and sortAsc attributes.
 
 *Example:*
 
@@ -2434,7 +2442,22 @@ $('#myGrid').grid('setSortColumns', [{columnId: 'project', sortAsc: true}, {colu
 
 ---------------------------------------
 
-====setTopPanelVisibility()====
+====setTopPanelVisibility(visible)====
+Show or hide the top panel, which is a third header row that is rendered below the column header and inline filter rows.
+
+ * *visible*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
+
+
+ Set to true to show the top panel, false to hide it.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setTopPanelVisibility', false);
+}}}
+
 ---------------------------------------
 
 ====unregisterPlugin()====
