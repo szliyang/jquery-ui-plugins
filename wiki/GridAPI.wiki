@@ -324,17 +324,17 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#registerPlugin() registerPlugin]</td>
+  <td>[#registerPlugin(plugin) registerPlugin]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#removeCellCssClass() removeCellCssClass *]</td>
+  <td>[#removeCellCssClass(rowKey,_columnName,_classToRemove) removeCellCssClass *]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#removeCellCssStyles() removeCellCssStyles]</td>
+  <td>[#removeCellCssStyles(key) removeCellCssStyles]</td>
   <td></td>
 </tr>
 <tr>
@@ -399,7 +399,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setCellCssStyles() setCellCssStyles]</td>
+  <td>[#setCellCssStyles(key,_hash) setCellCssStyles]</td>
   <td></td>
 </tr>
 <tr>
@@ -1980,30 +1980,129 @@ $('#myGrid').grid('markItemChanged', 'myrowkey', 'firstName', 'Johnny');
 ---------------------------------------
 
 ====navigateDown()====
+Move focus to the cell below the currently active cell. If the currently active cell is in the bottom row, focus doesn't change. If there is no active cell this method has no effect.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('navigateDown');
+}}}
+
 ---------------------------------------
 
 ====navigateLeft()====
+Move focus to the cell to the left of the currently active cell. If the currently active cell is in the leftmost column, focus doesn't change. If there is no active cell this method has no effect.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('navigateLeft');
+}}}
+
 ---------------------------------------
 
 ====navigateNext()====
+Move focus from the currently active cell to the "next" cell. This method traverses the grid from left to right, top to bottom, so "next" means focus is moved to the cell to the right of the currently active cell or if the currently active cell is in the rightmost column, focus is moved to the leftmost cell in the row below the currently active cell. If focus is on the rightmost cell of the bottom row or there is no active cell this method has no effect.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('navigateNext');
+}}}
+
 ---------------------------------------
 
 ====navigatePrev()====
+Move focus from the currently active cell to the "previous" cell. This method traverses the grid from right to left, bottom to top, so "previous" means focus is moved to the cell to the left of the currently active cell or if the currently active cell is in the leftmost column, focus is moved to the rightmost cell in the row above the currently active cell. If focus is on the leftmost cell of the top row or there is no active cell this method has no effect.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('navigatePrev');
+}}}
+
 ---------------------------------------
 
 ====navigateRight()====
+Move focus to the cell to the right of the currently active cell. If the currently active cell is in the righttmost column, focus doesn't change. If there is no active cell this method has no effect.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('navigateRight');
+}}}
+
 ---------------------------------------
 
 ====navigateUp()====
+Move focus to the cell above of the currently active cell. If the currently active cell is in the top row, focus doesn't change. If there is no active cell this method has no effect.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('navigateUp');
+}}}
+
 ---------------------------------------
 
-====registerPlugin()====
+====registerPlugin(plugin)====
+Register a plugin with the underlying !SlickGrid. In this context, a plugin is an object that must implement {{{init}}} and {{{destroy}}} methods. Calling this method executes the plugin's {{{init}}} method passing it the !SlickGrid object as a parameter. See !SlickGrid's <a href="https://github.com/mleibman/SlickGrid/blob/master/plugins/slick.autotooltips.js">auto tooltip plugin</a> for a simple example.
+
+ * *plugin*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('registerPlugin', new Slick.AutoTooltips());
+}}}
+
 ---------------------------------------
 
-====removeCellCssClass()====
+====removeCellCssClass(rowKey, columnName, classToRemove)====
+Remove the CSS class specified by {{{classToRemove}}} from the cell at {{{rowKey}}}, {{{columnName}}}.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *classToRemove*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('removeCellCssClass', 'row1234', 'First Name', 'highlight');
+}}}
+
 ---------------------------------------
 
-====removeCellCssStyles()====
+====removeCellCssStyles(key)====
+Remove CSS styles from specific grid cells that were set using [#setCellCssStyles(key,_hash) setCellCssStyles(key, hash)]. See the <a href="https://github.com/mleibman/SlickGrid/wiki/API-Reference">!SlickGrid Cell API</a> and [#setCellCssStyles(key,_hash) setCellCssStyles(key, hash)] for details.
+
+ * *key*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ The name of the set of styles to remove, as specified when the styles were applied using [#setCellCssStyles(key,_hash) setCellCssStyles(key, hash)].
+
+*Example:*
+
+{{{
+$('#myGrid').grid('removeCellCssStyles', 'highlight');
+}}}
+
 ---------------------------------------
 
 ====removeRowCssClass()====
@@ -2089,23 +2188,51 @@ Method to set CSS classes on several cells in one call. The cssData parameter is
 *Example:*
 
 {{{
-var cssClasses = [
-  {
-    rowKey: 'row1234',
-    cellClasses: {'column1': 'error', 'column3': 'warning anotherClass'}
-  },
-  {
-    rowKey: 'row4567',
-    cellClasses: {'column1': 'warning'}
+var styleHash = {
+0: { // row at index 0
+  project: 'error warn', // apply the error and warn classes to the 'project' column
+  cost: 'error' // apply the 'error' class to the 'cost' column
+},
+4: {
+  duration: 'warn',
+  cost: 'error'
   }
-]
+};
 
-$('#myGrid').grid('setCellCssClasses', cssClasses);
+$('#myGrid').grid('setCellCssStyles', 'highlight', styleHash);
 }}}
 
 ---------------------------------------
 
-====setCellCssStyles()====
+====setCellCssStyles(key, hash)====
+Sets CSS classes on specific grid cells by row index and column name. If you're looking for a way to apply CSS by row key and column name see [#setCellCssClass setCellCssClass], [#setCellCssClasses setCellCssClasses] and [#addCellCssClass addCellCssClass]. The {{{key}}} parameter is a name given to the set of styles so it can be referenced later to modify or remove it. The {{{hash}}} parameter is an object containing CSS classes to apply to cells by row index and column name. See the example below or <a href="https://github.com/mleibman/SlickGrid/wiki/API-Reference">the !SlickGrid API</a> for more details.
+
+ * *key*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *hash*
+ Type: [http://api.jquery.com/Types/#Object Object]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid').grid('setCellCssStyles', 'highlight', {
+0: { // row at index 0
+  project: 'error warn', // apply the error and warn classes to the 'project' column
+  cost: 'error' // apply the 'error' class to the 'cost' column
+},
+4: {
+  duration: 'warn',
+  cost: 'error'
+  }
+});
+
+}}}
+
 ---------------------------------------
 
 ====setColumns()====
