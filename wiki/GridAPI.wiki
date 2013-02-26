@@ -2205,7 +2205,7 @@ $('#myGrid').grid('setCellCssClasses', cssClasses);
 ---------------------------------------
 
 ====setCellCssStyles(key, hash)====
-Sets CSS classes on specific grid cells by row index and column name. If you're looking for a way to apply CSS by row key and column name see [#setCellCssClass setCellCssClass], [#setCellCssClasses setCellCssClasses] and [#addCellCssClass addCellCssClass]. The {{{key}}} parameter is a name given to the set of styles so it can be referenced later to modify or remove it. The {{{hash}}} parameter is an object containing CSS classes to apply to cells by row index and column name. See the example below or <a href="https://github.com/mleibman/SlickGrid/wiki/API-Reference">the !SlickGrid API</a> for more details.
+Sets CSS classes on specific grid cells by row index and column name. If you're looking for a way to apply CSS by row key and column name see [#setCellCssClass(rowKey,_columnName,_cssClass) setCellCssClass], [#setCellCssClasses(cssData) setCellCssClasses] and [#addCellCssClass(rowKey,_columnName,_cssClass) addCellCssClass]. The {{{key}}} parameter is a name given to the set of styles so it can be referenced later to modify or remove it. The {{{hash}}} parameter is an object containing CSS classes to apply to cells by row index and column name. See the example below or <a href="https://github.com/mleibman/SlickGrid/wiki/API-Reference">the !SlickGrid API</a> for more details.
 
  * *key*
  Type: [http://api.jquery.com/Types/#String String]
