@@ -2212,10 +2212,14 @@ Sets CSS classes on specific grid cells by row index and column name. If you're 
 
 
 
+ A name given to the set of styles that can be referenced later to update the styles applied by calling setCellCssStyles again, or removed by calling [#removeCellCssStyles(key) removeCellCssStyles].
+
  * *hash*
  Type: [http://api.jquery.com/Types/#Object Object]
 
 
+
+ An object with row index attribute keys that point to objects containing column name keys and CSS class values identifying which classes to apply to each column in the row.
 
 *Example:*
 
