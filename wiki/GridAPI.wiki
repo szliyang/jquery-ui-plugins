@@ -339,7 +339,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#removeRowCssClass() removeRowCssClass *]</td>
+  <td>[#removeRowCssClass(rowKey,_classToRemove) removeRowCssClass *]</td>
   <td></td>
 </tr>
 <tr>
@@ -2105,7 +2105,25 @@ $('#myGrid').grid('removeCellCssStyles', 'highlight');
 
 ---------------------------------------
 
-====removeRowCssClass()====
+====removeRowCssClass(rowKey, classToRemove)====
+Remove the CSS class or classes represented by {{{classToRemove}}} from the row at {{{rowKey}}}.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *classToRemove*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Example:*
+
+{{{
+$('#myGrid')..grid('removeRowCssClass', 'row1234', 'error warn');
+}}}
+
 ---------------------------------------
 
 ====render()====
