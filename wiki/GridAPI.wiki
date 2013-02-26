@@ -2121,12 +2121,20 @@ Remove the CSS class or classes represented by {{{classToRemove}}} from the row 
 *Example:*
 
 {{{
-$('#myGrid')..grid('removeRowCssClass', 'row1234', 'error warn');
+$('#myGrid').grid('removeRowCssClass', 'row1234', 'error warn');
 }}}
 
 ---------------------------------------
 
 ====render()====
+Render the grid. It is important to note that !SlickGrid caches row data and this method doesn't invalidate the row cache, so if data that is currently in view has been updated since it was rendered, calling this method will not update the view. To re-render rows that are in view and assure they reflect the most current state of the data, call [#invalidate() invalidate].
+
+*Example:*
+
+{{{
+$('#myGrid').grid('render');
+}}}
+
 ---------------------------------------
 
 ====replaceItem(rowKey, newItem)====
