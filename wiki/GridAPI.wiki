@@ -1867,8 +1867,8 @@ Invalidate all cached row data and re-render the entire grid. Call this method t
 *Example:*
 
 {{{
-var $grid = $('#myGrid')
-;var data = $grid.grid('getData');
+var $grid = $('#myGrid');
+var data = $grid.grid('getData');
 data[2].project = 'New Project Name';
 $grid.grid('invalidate');
 }}}
@@ -2159,9 +2159,25 @@ $('#myGrid').grid('replaceItem', 'ItemId1234', myNewItemObject);
 ---------------------------------------
 
 ====resetActiveCell()====
+Remove focus from the currently active cell. If no cell is currently selected this method has no effect.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('resetActiveCell');
+}}}
+
 ---------------------------------------
 
 ====resizeCanvas()====
+Resize the grid viewport based on the grid DOM element's current dimensions and re-render the grid. This can be useful if the DOM element the grid is attached to has changed dimensions because it will adjust scrolling correctly as well as update column widths if the [#forceFitColumns forceFitColumns] option is set to true.
+
+*Example:*
+
+{{{
+$('#myGrid').grid('resizeCanvas');
+}}}
+
 ---------------------------------------
 
 ====saveCurrentEdit()====
