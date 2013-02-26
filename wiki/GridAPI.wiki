@@ -2188,18 +2188,18 @@ Method to set CSS classes on several cells in one call. The cssData parameter is
 *Example:*
 
 {{{
-var styleHash = {
-0: { // row at index 0
-  project: 'error warn', // apply the error and warn classes to the 'project' column
-  cost: 'error' // apply the 'error' class to the 'cost' column
-},
-4: {
-  duration: 'warn',
-  cost: 'error'
+var cssClasses = [
+  {
+    rowKey: 'row1234',
+    cellClasses: {'column1': 'error', 'column3': 'warning anotherClass'}
+  },
+  {
+    rowKey: 'row4567',
+    cellClasses: {'column1': 'warning'}
   }
-};
+];
 
-$('#myGrid').grid('setCellCssStyles', 'highlight', styleHash);
+$('#myGrid').grid('setCellCssClasses', cssClasses);
 }}}
 
 ---------------------------------------
@@ -2220,7 +2220,7 @@ Sets CSS classes on specific grid cells by row index and column name. If you're 
 *Example:*
 
 {{{
-$('#myGrid').grid('setCellCssStyles', 'highlight', {
+var styleHash = {
 0: { // row at index 0
   project: 'error warn', // apply the error and warn classes to the 'project' column
   cost: 'error' // apply the 'error' class to the 'cost' column
@@ -2229,7 +2229,9 @@ $('#myGrid').grid('setCellCssStyles', 'highlight', {
   duration: 'warn',
   cost: 'error'
   }
-});
+};
+
+$('#myGrid').grid('setCellCssStyles', 'highlight', styleHash);
 
 }}}
 
