@@ -173,22 +173,22 @@
   <td>[#onSort() onSort]</td>
 </tr>
 <tr>
-  <td>[#showHeaderRow showHeaderRow]</td>
+  <td>[#selectionModel selectionModel]</td>
   <td>[#getDataView() getDataView *]</td>
   <td>[#onValidationError() onValidationError]</td>
 </tr>
 <tr>
-  <td>[#showTopPanel showTopPanel]</td>
+  <td>[#showHeaderRow showHeaderRow]</td>
   <td>[#getEditController() getEditController]</td>
   <td>[#onViewportChanged() onViewportChanged]</td>
 </tr>
 <tr>
-  <td>[#topPanelHeight topPanelHeight]</td>
+  <td>[#showTopPanel showTopPanel]</td>
   <td>[#getEditorLock() getEditorLock]</td>
   <td></td>
 </tr>
 <tr>
-  <td></td>
+  <td>[#topPanelHeight topPanelHeight]</td>
   <td>[#getGridPosition() getGridPosition]</td>
   <td></td>
 </tr>
@@ -876,6 +876,15 @@ A CSS class to apply to cells highlighted via setHighlightedCells().
 *Type:* [http://api.jquery.com/Types/#String String]
 
 *Default:* selected
+
+---------------------------------------
+
+====selectionModel====
+A string or object identifying the type of selection to be used in the grid. A string value of "row" or "cell" can be used to specify the built-in RowSelectionModel or CellSelectionModel. To use a custom selection model create an object that implements init, destroy and handleGridClick functions. For more information on handling selection see the [https://github.com/mleibman/SlickGrid/wiki/Handling-selection !SlickGrid documenation on handling selection]
+
+*Type:* [http://api.jquery.com/Types/#String String] or [http://api.jquery.com/Types/#Object Object]
+
+*Default:* null
 
 ---------------------------------------
 
