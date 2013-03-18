@@ -369,7 +369,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#scrollCellIntoView() scrollCellIntoView]</td>
+  <td>[#scrollCellIntoView(rowIndex,_columnIndex) scrollCellIntoView]</td>
   <td></td>
 </tr>
 <tr>
@@ -2200,7 +2200,19 @@ $('#myGrid').grid('saveCurrentEdit');
 
 ---------------------------------------
 
-====scrollCellIntoView()====
+====scrollCellIntoView(rowIndex, columnIndex)====
+Scroll the cell at {{{rowIndex}}}, {{{columnIndex}}} into view. Note that if column at {{{columnIndex}}} is already in view this method does nothing. Also, according to the [https://github.com/mleibman/SlickGrid/wiki/Slick.Grid#wiki-scrollCellIntoView SlickGrid documentation] this method should scroll both horizontally and vertically but it appears there is a bug in !SlickGrid because currently this method only scrolls the column into view and does not scroll vertically to bring the row into view.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
+
 ---------------------------------------
 
 ====scrollRowIntoView()====
