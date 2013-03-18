@@ -374,7 +374,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#scrollRowIntoView() scrollRowIntoView]</td>
+  <td>[#scrollRowIntoView(rowIndex,_codoPaging) scrollRowIntoView]</td>
   <td></td>
 </tr>
 <tr>
@@ -2201,7 +2201,7 @@ $('#myGrid').grid('saveCurrentEdit');
 ---------------------------------------
 
 ====scrollCellIntoView(rowIndex, columnIndex)====
-Scroll the cell at {{{rowIndex}}}, {{{columnIndex}}} into view. Note that if column at {{{columnIndex}}} is already in view this method does nothing. Also, according to the [https://github.com/mleibman/SlickGrid/wiki/Slick.Grid#wiki-scrollCellIntoView SlickGrid documentation] this method should scroll both horizontally and vertically but it appears there is a bug in !SlickGrid because currently this method only scrolls the column into view and does not scroll vertically to bring the row into view.
+Scroll the cell at {{{rowIndex}}}, {{{columnIndex}}} into view. Note that if column at {{{columnIndex}}} is already in view this method does nothing. Also, according to the [https://github.com/mleibman/SlickGrid/wiki/Slick.Grid#wiki-scrollCellIntoView SlickGrid documentation] this method should scroll both horizontally and vertically but it appears there is a bug in !SlickGrid because currently this method only scrolls the column into view and does not scroll vertically to bring the row into view. A workaround for that bug is to use the [scrollRowIntoView(rowIndex,_doPaging) scrollRowIntoView] method to bring the desired row into view.
 
  * *rowIndex*
  Type: [http://api.jquery.com/Types/#Integer Integer]
@@ -2215,7 +2215,21 @@ Scroll the cell at {{{rowIndex}}}, {{{columnIndex}}} into view. Note that if col
 
 ---------------------------------------
 
-====scrollRowIntoView()====
+====scrollRowIntoView(rowIndex, codoPaging)====
+Scroll the row at {{{rowIndex}}} into view.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
+
+ * *codoPaging*
+ Type: [http://api.jquery.com/Types/#Boolean Boolean]
+
+
+
+ If false the grid will scroll so the indicated row is at the top of the view. If true, the grid will scroll so the indicated row is at the bottom of the view.
+
 ---------------------------------------
 
 ====scrollRowToTop()====
