@@ -379,12 +379,12 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#scrollRowToTop() scrollRowToTop]</td>
+  <td>[#scrollRowToTop(rowIndex) scrollRowToTop]</td>
   <td></td>
 </tr>
 <tr>
   <td></td>
-  <td>[#setActiveCell() setActiveCell]</td>
+  <td>[#setActiveCell(rowIndex,_columnIndex) setActiveCell]</td>
   <td></td>
 </tr>
 <tr>
@@ -2232,10 +2232,29 @@ Scroll the row at {{{rowIndex}}} into view.
 
 ---------------------------------------
 
-====scrollRowToTop()====
+====scrollRowToTop(rowIndex)====
+Scroll the row at {{{rowIndex}}} into view, placing the row at the top of the view.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
+
 ---------------------------------------
 
-====setActiveCell()====
+====setActiveCell(rowIndex, columnIndex)====
+Set the active cell to the cell at {{{rowIndex}}}, {{{columnIndex}}}.
+
+ * *rowIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
+
+ * *columnIndex*
+ Type: [http://api.jquery.com/Types/#Integer Integer]
+
+
+
 ---------------------------------------
 
 ====setCellCssClass(rowKey, columnName, cssClass)====
