@@ -1,2 +1,88 @@
 = Editing Grid Data =
 The grid comes with built-in text, numeric, integer, drop-down list and date editors. If one of the pre-defined types doesn't suit your needs, you can easily implement a custom editor. Editors are configured by specifying a column's [GridColumnConfiguration#editor editor] attribute as part of the column configuration. By default the grid's [GridAPI#autoEdit autoEdit] option is set to {{{true}}}, which means cells will be made editable when they receive focus, i.e. if they are clicked on or tabbed to. Setting the [GridAPI#autoEdit autoEdit] option to {{{false}}} means cells will only become editable when the are double clicked.
+
+===Examples:===
+==== Basic Text Editor ====
+{{{
+var cols = [
+  {
+    id : 'project',
+    name : 'Project Name',
+    field : 'project',	
+    editor: 'text'
+  },
+  // ... continue with other column defintions
+]
+}}}
+
+==== Numeric Only Text Editor ====
+{{{
+var cols = [
+  {
+    id : 'recordCount',
+    name : 'Record Count',
+    field : 'recordCount',	
+    editor: 'numeric'
+  },
+  // ... continue with other column defintions
+]
+}}}
+
+==== Integer Only Text Editor ====
+{{{
+var cols = [
+  {
+    id : 'recordCount',
+    name : 'Record Count',
+    field : 'recordCount',	
+    editor: 'integer'
+  },
+  // ... continue with other column defintions
+]
+}}}
+
+==== Date Editor ====
+{{{
+var cols = [
+  {
+    id : 'start',
+    name : 'Start',
+    field : 'start',
+    editor: 'date'		
+  },
+  // ... continue with other column defintions
+]
+}}}
+
+==== Simple Array Drop-Down List Editor ====
+A simple array can be used to create a drop-down list editor when the values displayed in the drop down list options are the same as the value of the drop-down list options, i.e. the HTML options will look like this {{{<option value="myValue">myValue</option>}}}.
+{{{
+var cols = [
+  {
+    id : 'onBudget',
+    name : 'On Budget',
+    field : 'onBudget',		
+    editor: ['true', 'false']
+  },
+  // ... continue with other column defintions
+]
+}}}
+
+==== Object Array Drop-Down List Editor ====
+A object array can be used to create a drop-down list editor where the values displayed in the drop down list options are not the same as the value of the drop-down list options, i.e. the HTML options will look like this {{{<option value="ACTUAL_VALUE">Display Value</option>}}}.
+{{{
+var cols = [
+  {
+    id : 'methodology',
+    name : 'Methodology',
+    field : 'methodology',		
+    editor: [
+      {'name': 'None', 'value': ''}, 
+      {'name': 'Extreme Programming', 'value': 'extreme programming'}, 
+      {'name': 'Scrum', 'value': 'scrum'},
+      {'name': 'Waterfall', 'value': 'waterfall'}
+    ]
+  },
+  // ... continue with other column defintions
+]
+}}}
