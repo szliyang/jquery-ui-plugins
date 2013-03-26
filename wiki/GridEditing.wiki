@@ -1,0 +1,2 @@
+= Editing Grid Data =
+The grid comes with built-in text, drop-down list and date editors. Text editors can be configured to only allow integer or numeric input by specifying the [GridColumnConfiguration#dataType dataType] attribute on the column configuration. You can also easily implement a custom editor if one of the pre-defined types doesn't suit your needs. 
