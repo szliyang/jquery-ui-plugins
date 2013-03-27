@@ -92,7 +92,7 @@ var cols = [
 }}}
 
 ==== Custom Editor ====
-To create a custom editor, define a function that follows the !SlickGrid [https://github.com/mleibman/SlickGrid/wiki/Writing-custom-cell-editors editor interface] as assign the function to the column's editor property. As an example, the following is a custom editor that renders a slider control using the [http://api.jqueryui.com/slider/ jQuery UI slider widget].
+To create a custom editor, define a function that follows the !SlickGrid [https://github.com/mleibman/SlickGrid/wiki/Writing-custom-cell-editors editor interface] and assign the function to the column's editor property. As an example, the following is a custom editor that renders a slider control using the [http://api.jqueryui.com/slider/ jQuery UI slider widget].
 
 {{{
 function PercentSliderEditor(args) {
