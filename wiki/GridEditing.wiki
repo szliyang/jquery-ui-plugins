@@ -3,6 +3,7 @@ The grid comes with built-in text, numeric, integer, drop-down list and date edi
 
 ===Examples:===
 ==== Basic Text Editor ====
+The basic text editor will render a input field on a cell when it's clicked.
 {{{
 var cols = [
   {
@@ -16,6 +17,7 @@ var cols = [
 }}}
 
 ==== Numeric Only Text Editor ====
+The numeric editor will render an input field that only allows numbers (including floating point numbers) when a cell is clicked.
 {{{
 var cols = [
   {
@@ -29,6 +31,7 @@ var cols = [
 }}}
 
 ==== Integer Only Text Editor ====
+The integer editor will render an input field that only allows integers when a cell is clicked.
 {{{
 var cols = [
   {
