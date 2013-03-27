@@ -578,7 +578,7 @@ If true and the DOM element the grid is attached to doesn't specify a height, th
 ---------------------------------------
 
 ====calendarImage====
-The location of the calendar icon to be used for [#Date_Editor editable date fields] and date filters.
+The location of the calendar icon to be used for [GridEditing#Date_Editor editable date fields] and date filters.
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
