@@ -163,3 +163,17 @@ function PercentSliderEditor(args) {
   this.init();
 }
 }}}
+
+Then simply assign the function to the column's editor property:
+
+{{{
+var cols = [
+  {
+    id : 'percentComplete',
+    name : '% Complete',
+    field : 'percentComplete',		
+    editor: PercentSliderEditor
+  },
+  // ... continue with other column defintions
+]
+}}}
