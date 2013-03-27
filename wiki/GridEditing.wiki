@@ -90,3 +90,76 @@ var cols = [
   // ... continue with other column defintions
 ]
 }}}
+
+==== Custom Editor ====
+To create a custom editor, define a function that follows the !SlickGrid [https://github.com/mleibman/SlickGrid/wiki/Writing-custom-cell-editors editor interface] as assign the function to the column's editor property. As an example, the following is a custom editor that renders a slider control using the [http://api.jqueryui.com/slider/ jQuery UI slider widget].
+
+{{{
+function PercentSliderEditor(args) {
+  var $input = null;
+  var defaultValue = null;
+			
+  this.init = function () {
+    var $cell = $(args.container);
+    var paddingTop = $cell.padding('top');
+    $input = $('<div class="ui-grid-editor"/>').slider({
+      min: 0, 
+      max: 100,
+      slide: function(event, ui) {
+        $input.attr('title', ui.value);
+      }
+    })
+    .appendTo(args.container)
+    .bind('keydown.nav', function (e) {
+      if (e.keyCode === $.ui.keyCode.LEFT || e.keyCode === $.ui.keyCode.RIGHT) {
+        e.stopImmediatePropagation();
+      }
+    })
+    .css('margin-top', '4px');
+  };
+			
+  this.destroy = function () {				
+    $input.remove();
+  };
+		
+  this.focus = function () {
+    $input.focus();
+  };
+			
+  this.isValueChanged = function () {
+    return $.uiplugins.grid.prototype._trackChange.call(this, $input, defaultValue, args);				
+  };
+			
+  this.loadValue = function (item) {
+    defaultValue = item[args.column.field] || '';
+    $input.slider('value', defaultValue);
+    $input[0].defaultValue = defaultValue;
+    $input.attr('title', defaultValue);
+    $input.select();
+  };		    
+		
+  this.serializeValue = function () {
+    return $input.slider('value');
+  };
+		
+  this.applyValue = function (item, state) {
+    item[args.column.field] = state;
+  };						
+
+  this.validate = function () {
+    if(args.column.validator) {
+      var validationResults = args.column.validator($input.val());
+      if (!validationResults.valid) {
+        return validationResults;
+      }
+    }
+		
+    return {
+      valid: true,
+      msg: null
+    };
+  };
+			
+  this.init();
+}
+}}}
