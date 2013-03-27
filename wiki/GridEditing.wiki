@@ -73,7 +73,7 @@ var cols = [
 }}}
 
 ==== Object Array Drop-Down List Editor ====
-A object array can be used to create a drop-down list editor where the values displayed in the drop down list options are not the same as the value of the drop-down list options, i.e. the HTML options will look like this {{{<option value="ACTUAL_VALUE">Display Value</option>}}}.
+A object array can be used to create a drop-down list editor where the values displayed in the drop down list options are not the same as the value of the drop-down list options, i.e. the HTML options will look like this {{{<option value="ACTUAL_VALUE">Display Value</option>}}}. The objects in the array must have {{{name}}} and {{{value}}} properties where {{{name}}} is the value that will be displayed by the option and {{{value}}} is the actual value assigned to the option.
 {{{
 var cols = [
   {
