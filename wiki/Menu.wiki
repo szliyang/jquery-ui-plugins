@@ -6,6 +6,7 @@
     * [GridAPI API]
     * [GridColumnConfiguration Column Configuration]
     * [GridFiltering Filtering]
+    * [GridEditing Editing]
     * [Grid#Example Example]
   * [Groupbox]
     * [Groupbox#Groupbox_API API]
