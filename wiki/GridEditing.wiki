@@ -42,6 +42,7 @@ var cols = [
 }}}
 
 ==== Date Editor ====
+For date columns, the date editor will render a calendar icon next to the cell when it's clicked on and show a small calendar dialog from which the user can select a date. The calendar icon that is display can be changed by setting the [GridAPI#calendarImage calendarImage] grid option.
 {{{
 var cols = [
   {
