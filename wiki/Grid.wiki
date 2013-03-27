@@ -3,7 +3,7 @@
 
 =Summary=
 A jQuery UI grid widget that wraps the extremely scalable [https://github.com/mleibman/SlickGrid/wiki SlickGrid] and 
-exposes options, methods and events to make accomplishing common tasks such as sorting, filtering and in-line editing simple 
+exposes options, methods and events to make accomplishing common tasks such as sorting, [GridFiltering filtering] and [GridEditing in-line editing] simple 
 using familiar jQuery UI syntax.
 
 =Dependencies=
