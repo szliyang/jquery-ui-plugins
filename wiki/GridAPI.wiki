@@ -578,7 +578,7 @@ If true and the DOM element the grid is attached to doesn't specify a height, th
 ---------------------------------------
 
 ====calendarImage====
-The location of the calendar icon to be used for [GridEditing#Date_Editor editable date fields] and date filters.
+The location of the calendar icon to be used for [GridEditing#Date_Editor editable date fields] and [GridFiltering#Date_filter date filters].
 
 *Type:* [http://api.jquery.com/Types/#String String]
 
@@ -670,7 +670,7 @@ The function used to render cells that are in a column that doesn't have a forma
 ---------------------------------------
 
 ====editable====
-Boolean value indicating whether the grid cells can be edited.
+Boolean value indicating whether the grid cells can be edited. See [GridEditing grid editing] for more details on making the grid editable.
 
 *Type:* [http://api.jquery.com/Types/#Boolean Boolean]
 
