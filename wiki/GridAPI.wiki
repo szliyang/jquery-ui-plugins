@@ -1683,7 +1683,7 @@ var options = $('#myGrid').grid('getOptions');
 ---------------------------------------
 
 ====getOriginalValue(rowKey, columnName)====
-Get the original value of the cell at {{{rowKey}}}, {{{columnName}}}. This is the value that was in the cell when the grid was initialized unless [#clearChangedItems clearChangedItems] or [#clearItemChanges clearItemChanges] has been called to clear change tracking data, in which case the value returned will be the value of the cell the last time [#clearChangedItems clearChangedItems] or [#clearItemChanges clearItemChanges] was called.
+Get the original value of the cell at {{{rowKey}}}, {{{columnName}}}. This is the value that was in the cell when the grid was initialized unless [#clearChangedItems() clearChangedItems] or [#clearItemChanges(rowKey) clearItemChanges] has been called to clear change tracking data, in which case the value returned will be the value of the cell the last time [#clearChangedItems() clearChangedItems] or [#clearItemChanges(rowKey) clearItemChanges] was called.
 
  * *rowKey*
  Type: [http://api.jquery.com/Types/#String String]
