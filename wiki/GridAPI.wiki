@@ -219,6 +219,11 @@
 </tr>
 <tr>
   <td></td>
+  <td>[#getOriginalValue(rowKey,_columnName) getOriginalValue *]</td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
   <td>[#getRenderedRange() getRenderedRange]</td>
   <td></td>
 </tr>
@@ -1673,6 +1678,29 @@ Get the grid options.
 
 {{{
 var options = $('#myGrid').grid('getOptions');
+}}}
+
+---------------------------------------
+
+====getOriginalValue(rowKey, columnName)====
+Get the original value of the cell at {{{rowKey}}}, {{{columnName}}}. This is the value that was in the cell when the grid was initialized unless [#clearChangedItems clearChangedItems] or [#clearItemChanges clearItemChanges] has been called to clear change tracking data, in which case the value returned will be the value of the cell the last time [#clearChangedItems clearChangedItems] or [#clearItemChanges clearItemChanges] was called.
+
+ * *rowKey*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+ * *columnName*
+ Type: [http://api.jquery.com/Types/#String String]
+
+
+
+*Returns:* [http://api.jquery.com/Types/#Object or String Object or String]
+
+*Example:*
+
+{{{
+var originalValue = $('#myGrid').grid('getOriginalValue', '1234', 'projectName');
 }}}
 
 ---------------------------------------
