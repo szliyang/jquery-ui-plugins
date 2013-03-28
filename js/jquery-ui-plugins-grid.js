@@ -196,7 +196,7 @@
 					// parse the date, convert to standard format, store standard format on row as new column, sort on that column
 					this._initDateSort(col);						
 					this.sortFunctions[col.id] = this._dateSort;
-				} else if(col.dataType === 'numeric' || col.sort === 'numeric') {
+				} else if(col.dataType === 'numeric' || col.dataType === 'integer' || col.sort === 'numeric' || col.sort === 'integer') {
 					this.sortFunctions[col.id] = this._numericSort;
 				} else {
 					this.sortFunctions[col.id] = this._sort;
