@@ -7,6 +7,7 @@
     * [GridColumnConfiguration Column Configuration]
     * [GridFiltering Filtering]
     * [GridEditing Editing]
+    * [GridSorting Sorting]
     * [Grid#Example Example]
   * [Groupbox]
     * [Groupbox#Groupbox_API API]
