@@ -14,7 +14,7 @@ var cols = [
     field : 'project',	
     filter: 'contains'
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -27,7 +27,7 @@ var cols = [
     field : 'project',	
     filter: 'startsWith'
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -40,7 +40,7 @@ var cols = [
     field : 'project',	
     filter: 'endsWith'
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -53,7 +53,7 @@ var cols = [
     field : 'project',	
     filter: 'doesNotContain'
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -72,7 +72,7 @@ var cols = [
     field : 'onBudget',		
     filter: ['true', 'false']
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -92,7 +92,7 @@ cols = [
       {'name': 'No', 'value': 'noway'}
     ]	
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -121,7 +121,7 @@ cols = [
       'dataItemAttribute': 'code'
     }
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -139,7 +139,7 @@ cols = [
     field : 'percentComplete',
     filter: 'numeric'
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -159,7 +159,7 @@ cols = [
     dateFormat: 'MM/dd/yyyy',
     filter: 'date'
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
 
@@ -181,6 +181,6 @@ cols = [
       }	
     }
   },
-  // ... continue with other column defintions
+  // ... continue with other column definitions
 ]
 }}}
