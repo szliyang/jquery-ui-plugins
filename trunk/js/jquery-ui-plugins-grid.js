@@ -1362,6 +1362,30 @@
 			
 			return isChanged;
 		},
+		getOriginalValue: function(rowKey, columnName) {
+			var item = this.getItem(rowKey);
+			var originalValue = item[columnName];
+			
+			if(item && item.changedCells) {
+				var changes = this.getChanges();
+			
+				for(var i = 0; i < changes.length; i++) {
+					var change = changes[i];
+					if(change[this.options.rowKey] === rowKey) {
+						for(var j = 0; j < change.changes.length; j++) {
+							var cellChange = change.changes[j];
+							
+							if(cellChange.field == columnName) {
+								originalValue = cellChange.oldValue;
+								break;
+							}
+						}
+					}				
+				}
+			}
+			
+			return originalValue;
+		},
 		markItemChanged: function(rowKey, columnName, originalValue) {
 			var item = this.getItem(rowKey);			
 			var changeTracked = item.changedCells && item.changedCells[columnName] !== undefined;
