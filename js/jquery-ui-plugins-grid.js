@@ -129,7 +129,9 @@
 	            self.dataView.sort(self.sortFunctions[sortCol.id], args.sortAsc);	            
 	            // fast sort seems to be much better in IE & FF but actually slower in Chrome so probably do a browser check here
 	            //self.dataView.fastSort(sortCol.id, args.sortAsc);
-	            self.dataView.syncGridSelection(grid, true);
+	            if(self.options.selectionModel) {
+	            	self.dataView.syncGridSelection(grid, true);
+	            }
 	            grid.invalidate();
 	        });			
 						
