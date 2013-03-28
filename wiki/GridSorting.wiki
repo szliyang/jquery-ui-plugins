@@ -62,7 +62,7 @@ var cols = [
 ]
 }}}
 
-==== Customer Sorting ====
+==== Custom Sorting ====
 Custom sorting can be configured by providing a sort function as the value for a column's [GridColumnConfiguration#sort sort] option. Sort functions receive two row objects to compare as parameters and must return either a positive number, zero or a negative number indicating if the first parameters was greater than, equal to or less than the second parameter respectively. The following example demonstrates a very simple (and non-realistic) example of a custom sort function that sorts an alpha-numeric column in numeric order.  The "Task" column is assumed to contain values with the word "task" followed by a number. The sort 
 function strips the string "task" from each row's task value and returns the result of a numeric comparison of the remaining value, thus sorting the "Task" column in numeric order.
 
