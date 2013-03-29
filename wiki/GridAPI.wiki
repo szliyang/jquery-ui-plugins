@@ -409,7 +409,7 @@
 </tr>
 <tr>
   <td></td>
-  <td>[#setColumns() setColumns]</td>
+  <td>[#setColumns(columns) setColumns]</td>
   <td></td>
 </tr>
 <tr>
@@ -2373,7 +2373,22 @@ $('#myGrid').grid('setCellCssStyles', 'highlight', styleHash);
 
 ---------------------------------------
 
-====setColumns()====
+====setColumns(columns)====
+Set the columns array on the grid to the columns specified by {{{columns}}}.
+
+ * *columns*
+ Type: [http://api.jquery.com/Types/#Array Array]
+
+
+
+*Example:*
+
+{{{
+$var columns = $('#myGrid').grid('getColumns');
+columns[0].name = 'Changed Title';
+$grid.grid('setColumns', columns);
+}}}
+
 ---------------------------------------
 
 ====setData(data)====
@@ -2387,9 +2402,7 @@ Set the grid data to the values in the data parameter. When calling this method 
 *Example:*
 
 {{{
-var $grid = $('#myGrid');
-$grid.grid('setData', getData());
-$grid.grid('invalidate');
+$('#myGrid').grid('setData', getData());
 }}}
 
 ---------------------------------------
