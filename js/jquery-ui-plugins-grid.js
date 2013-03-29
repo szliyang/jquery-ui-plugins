@@ -162,6 +162,10 @@
 		},
 		_initColumns: function() {
 			this.columns = {};			
+			this.originalColumnDefs = [];
+			for(var i = 0; i < this.options.columns.length; i++) {
+				this.originalColumnDefs[i] = $.extend(true, {}, this.options.columns[i]);
+			}
 			var columns = this.options.columns;
 			
 			for(var i = 0; i < columns.length; i++) {
@@ -350,6 +354,11 @@
 							this.grid.invalidate();
 						};
 						break;
+					case 'getColumns':
+						this[methodName] = function() {
+							return this.originalColumnDefs;
+						};				
+						break;						
 					case 'setColumns':
 						this[methodName] = function(data) {
 							this.options.columns = data;
