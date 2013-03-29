@@ -2384,7 +2384,7 @@ Set the columns array on the grid to the columns specified by {{{columns}}}.
 *Example:*
 
 {{{
-$var columns = $('#myGrid').grid('getColumns');
+var columns = $('#myGrid').grid('getColumns');
 columns[0].name = 'Changed Title';
 $grid.grid('setColumns', columns);
 }}}
