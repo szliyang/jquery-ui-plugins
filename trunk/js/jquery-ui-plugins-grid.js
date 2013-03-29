@@ -337,17 +337,30 @@
 				
 				// underlying slick grid "getData" method actually returns dataView which is a little misleading
 				// so we expose a 'getDataView' method to return the dataView and getData will return the data array
-				if(methodName === 'getData') {
-					this[methodName] = function() {return this.options.data;};
-					this['getDataView'] = this.grid[methodName];
-				} else if(methodName === 'setData') {
-					this[methodName] = function(data) {
-						this.options.data = data;
-						this.dataHash = this._initDataHash();
-						this.grid.setData(data);						
-					};
-				} else {
-					this[methodName] = this.grid[methodName];
+				switch(methodName) {
+					case 'getData':
+						this[methodName] = function() {return this.options.data;};
+						this['getDataView'] = this.grid[methodName];
+						break;
+					case 'setData':
+						this[methodName] = function(data) {
+							this.options.data = data;
+							this.dataHash = this._initDataHash();
+							this.grid.setData(data);
+							this.grid.invalidate();
+						};
+						break;
+					case 'setColumns':
+						this[methodName] = function(data) {
+							this.options.columns = data;
+							this._initColumns();
+							this.grid.setColumns(this.options.columns);
+							this.grid.render();
+							this._renderFilters();
+						};				
+						break;
+					default:
+						this[methodName] = this.grid[methodName];
 				}				
 			}
 		},
